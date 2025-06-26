@@ -63,13 +63,13 @@ docs/_build/
 target/
 
 # Misc
-glasseye/data
+doodl/data
 *.DS_Store
 /css
 /js
 *.idea*
 .idea/
-glasseye/.idea/
+doodl/.idea/
 *workspace.xml
 
 node_modules
