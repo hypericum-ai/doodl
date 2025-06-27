@@ -1,10 +1,5 @@
 beautifulsoup4==4.13.4
-certifi==2025.4.26
 colorcet==3.1.0
 pypandoc==1.15
-soupsieve==2.7
 seaborn==0.13.2
 playwright==1.52.0
-cairosvg==2.8.2
-svglib==1.5.1
-reportlab==4.4.1

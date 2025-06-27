@@ -34,9 +34,9 @@ base_stylesheets = [
 ]
 
 prod_stylesheets = [
-    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@development/doodl/css/tufte.css",
-    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@development/doodl/css/menu.css",
-    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@development/doodl/css/doodlCharts.css",
+    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/tufte.css",
+    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css",
+    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/doodlCharts.css",
 ]
 
 dev_stylesheets = [
@@ -48,7 +48,7 @@ dev_stylesheets = [
 dev_scripts = ["{dir}/ts/dist/doodlchart.js"]
 
 prod_scripts = [
-    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@development/doodl/ts/dist/doodlchart.js"
+    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.js"
 ]
 
 html_tpl = """<!DOCTYPE html>
