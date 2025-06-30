@@ -9,13 +9,13 @@ export default defineConfig({
             'script',
             {
                 'type': 'text/javascript',
-                'src': 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@development/doodl/ts/dist/doodlchart.js'
+                'src': 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.js'
             }
         ],
         [
             'link',
             {
-                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@development/doodl/css/docs.css',
+                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/docs.css',
                 rel: 'stylesheet'
             }
         ],
