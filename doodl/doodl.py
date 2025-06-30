@@ -21,6 +21,7 @@ from getopt import getopt
 from playwright.sync_api import sync_playwright
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
+from IPython.display import display, HTML
 
 
 fonts = [
@@ -72,11 +73,7 @@ html_tpl = """<!DOCTYPE html>
 </html>
 """
 
-pdf_engines = [
-    "xelatex",
-    "lualatex",
-    "pdflatex"
-]
+pdf_engines = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
 standard_charts = {
@@ -195,14 +192,18 @@ def parse_html(input_file, output_dir, filters=[], extras=[]):
 
         try:
             convert(
-                input_file, "html", outputfile=pfp.name, extra_args=extras, filters=filters
+                input_file,
+                "html",
+                outputfile=pfp.name,
+                extra_args=extras,
+                filters=filters,
             )
         except Exception as e:
             logger.fatal(f"Error converting {input_file} to HTML: {e}")
 
         with open(pfp.name, "r") as rfp:
             pdoc = rfp.read()
-            soup = BeautifulSoup(pdoc, 'html.parser')
+            soup = BeautifulSoup(pdoc, "html.parser")
 
     return soup
 
@@ -374,7 +375,9 @@ def make_supporting(chart_defs, server_mode=False):
 
     if mode == "dev":
         scripts = [f"ts/dist/{os.path.basename(path)}" for path in dev_scripts]
-        stylesheets =  base_stylesheets + [f"css/{os.path.basename(path)}" for path in dev_stylesheets]
+        stylesheets = base_stylesheets + [
+            f"css/{os.path.basename(path)}" for path in dev_stylesheets
+        ]
     else:
         scripts = scripts + prod_scripts
         stylesheets = stylesheets + prod_stylesheets
@@ -418,6 +421,7 @@ def write_html(
         ofp.write(doc)
 
     return doc
+
 
 # Functions for other formats
 
@@ -533,6 +537,7 @@ def replace_doodl_tags_with_images(doc, directory: str):
 
     return doc
 
+
 def replace_raw_json_tags(doc, tag, tag_count, directory):
     result_json = doc.copy()
     result_json["blocks"] = []
@@ -580,16 +585,16 @@ def replace_raw_json_tags(doc, tag, tag_count, directory):
                                 break
         if not replace_this_block:
             result_json["blocks"].append(block)
-            
+
     return result_json
 
 
 def convert_to_format(doc, output_format, output_file_path):
-    with NamedTemporaryFile(mode='w+', suffix='.json', delete=False) as f:
+    with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
         f.close()
         json_file_path = f.name
-    
+
     extras = []
 
     if output_format.upper() == "PDF":
@@ -598,12 +603,14 @@ def convert_to_format(doc, output_format, output_file_path):
             extras.append(f"--pdf-engine={pdf_engine}")
 
     try:
-        logger.info(f"Convert args: source_file={json_file_path}, to={output_format}, outputfile={output_file_path}, extra_args={extras}")
+        logger.info(
+            f"Convert args: source_file={json_file_path}, to={output_format}, outputfile={output_file_path}, extra_args={extras}"
+        )
         convert(
             source_file=json_file_path,
             to=output_format,
             outputfile=output_file_path,
-            extra_args=extras
+            extra_args=extras,
         )
     except Exception as e:
         logger.error(f"Error converting {output_file_path} to {output_format}: {e}")
@@ -614,10 +621,13 @@ def convert_to_format(doc, output_format, output_file_path):
 
 def get_pdf_engine():
     for engine in pdf_engines:
-        if hasattr(shutil, 'which') and shutil.which(engine) is not None:
+        if hasattr(shutil, "which") and shutil.which(engine) is not None:
             return engine
-    logger.error("No valid PDF engine found. Please install xelatex, lualatex, or pdflatex. You can install TeX Live or MiKTeX to get these engines.")
+    logger.error(
+        "No valid PDF engine found. Please install xelatex, lualatex, or pdflatex. You can install TeX Live or MiKTeX to get these engines."
+    )
     return None
+
 
 def temp_file(suffix):
     """Create a temporary file with the given suffix."""
@@ -646,7 +656,7 @@ def main():
     output_file = None
     server_mode = False
     zip_mode = False
-    output_format = "html" # Default output format
+    output_format = "html"  # Default output format
     output_file_path = ""
     port = default_port
     verbosity = logging.WARNING
@@ -736,7 +746,7 @@ In dev mode, the script must be run in the same folder as the script.
     input_file_dir = os.path.dirname(input_file)
     if not os.path.isdir(input_file_dir) or os.path.exists(input_file_dir):
         input_file_dir = os.getcwd()
-    
+
     if output_file is None:
         base, ext = os.path.splitext(input_file)
 
@@ -776,7 +786,11 @@ In dev mode, the script must be run in the same folder as the script.
         )
         sys.exit(1)
 
-    html_file = output_file if not server_mode and output_format == "html" else temp_file('html')
+    html_file = (
+        output_file
+        if not server_mode and output_format == "html"
+        else temp_file("html")
+    )
     # No matter what, we need to generate the HTML file first.
 
     soup = parse_html(input_file, output_dir, filters, extras)
@@ -802,17 +816,13 @@ In dev mode, the script must be run in the same folder as the script.
                 shutil.copy2(html_file, dir_name)
                 old_html_file_name = os.path.basename(html_file)
                 if old_html_file_name != "index.html":
-                    os.rename( os.path.join(dir_name, old_html_file_name), os.path.join(dir_name, "index.html"))
+                    os.rename(
+                        os.path.join(dir_name, old_html_file_name),
+                        os.path.join(dir_name, "index.html"),
+                    )
                 html_file = os.path.join(dir_name, "index.html")
 
-    write_html(
-        scripts,
-        stylesheets,
-        soup,
-        code_string,
-        title,
-        html_file
-    )
+    write_html(scripts, stylesheets, soup, code_string, title, html_file)
 
     if zip_mode:
         zip_directory(server_dir_name, zipped_filename)
@@ -821,7 +831,7 @@ In dev mode, the script must be run in the same folder as the script.
     # All other cases require an HTTP server to serve the finished HTML file
 
     httpd, url = run_http_server(server_dir_name, port)
-    
+
     if server_mode:
         browse_html(httpd, url)
         return
@@ -836,7 +846,7 @@ In dev mode, the script must be run in the same folder as the script.
     )
 
     svg_dir = os.path.join(server_dir_name, "svg")
-    convert_images(httpd, url,svg_dir )
+    convert_images(httpd, url, svg_dir)
     json_doc = replace_doodl_tags_with_images(json_doc, svg_dir)
     convert_to_format(
         json_doc,
@@ -852,7 +862,7 @@ def run_http_server(directory, port=default_port):
     def _run():
         os.chdir(directory)
         httpd.serve_forever()
-        
+
     handler = http.server.SimpleHTTPRequestHandler
     url = f"http://localhost:{port}"
 
@@ -864,7 +874,9 @@ def run_http_server(directory, port=default_port):
 
     return httpd, url
 
+
 # Output-related functions
+
 
 def browse_html(httpd, url):
     logger.info(f"Serving on {url}")
@@ -876,6 +888,7 @@ def browse_html(httpd, url):
         logger.info("Shutting down server")
 
     httpd.shutdown()
+
 
 def zip_directory(folder_path, output_zip):
     with zipfile.ZipFile(output_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
@@ -912,6 +925,57 @@ def copy_data(output_dir, server_dir_path):
                     os.makedirs(dest_dict, exist_ok=True)
                 shutil.copy2(sas, dest_dict)
                 logger.info(f"Copied : {sas} to {dest_dict}")
+
+
+chart_count = 0
+
+
+def chart(func_name, fields=None):
+    def wrapper(
+        data=[], size={}, file={}, colors="pastel", n_colors=10, desat=1, **kwargs
+    ):
+        global chart_count
+
+        chart_id = f"{func_name}_{chart_count}"
+        chart_count += 1
+
+        colors = resolve_color_palette(colors, n_colors, desat)
+
+        args = [
+            json.dumps(f"#{chart_id}"),
+            json.dumps(data),
+            json.dumps(size),
+            json.dumps(file),
+            json.dumps(colors),
+        ]
+
+        if fields:
+            for field in fields:
+                if field in kwargs:
+                    args.append(json.dumps(kwargs[field]))
+                else:
+                    args.append(json.dumps(fields[field]))
+
+        script = f'''
+<p><span class="chart-container" id="{chart_id}"></span></p>
+<script src="{prod_scripts[0]}"></script>
+<link rel="stylesheet" href="{prod_stylesheets[2]}" />
+<link rel="stylesheet" href="{prod_stylesheets[3]}" />
+<script type="text/javascript">
+            Doodl.{func_name}({
+            """,
+                """.join(args)
+        }
+            );
+</script>
+'''
+        display(HTML(script))
+
+    return wrapper
+
+
+for k, v in standard_charts.items():
+    globals()[k] = chart(k, v)
 
 
 if __name__ == "__main__":
