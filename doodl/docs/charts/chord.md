@@ -32,7 +32,7 @@ each of four hair colors who dyed their hair to each of the colors.
 
 which produces this:
 
-<span id="chord_0"></span>
+<span  class="chart-container" id="chord_0"></span>
 
 <script>
  setTimeout(() => {

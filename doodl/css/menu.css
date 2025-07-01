@@ -1,6 +1,15 @@
 
 
 /*Chart menu styles*/
+
+
+p span.chart-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 5rem;
+}
+
 .dropdown {
     position: relative;
     display: inline-block;

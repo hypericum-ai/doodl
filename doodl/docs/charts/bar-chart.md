@@ -18,7 +18,7 @@ Bar charts are drawn using the `barchart` tag, like this:
 
 which is rendered like this:
 
-<span id='barchart_0'></span>
+<span class="chart-container" id='barchart_0'></span>
 
 The data is provided as a JSON string containing a list of
 dictionaries, each of which has a `label` and `value` entry.

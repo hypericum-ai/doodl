@@ -16,13 +16,6 @@ html {
   margin: 0;
 }
 
-p span.chart-container{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 5rem;
-}
-
 svg {
   clear: both;
   margin-top: 20px;

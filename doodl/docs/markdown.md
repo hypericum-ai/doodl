@@ -30,7 +30,7 @@ containing a d3 donut chart.<span class="marginnote">
 An example of margin note containing a donut plot. Because a tooltip
 is available we can create a less cluttered chart with labels for the
 smaller segments demoted to the tooltip.
-<span id="piechart_0"></span>
+<span  class="chart-container" id="piechart_0"></span>
 </span>
 
 Including d3 charts in a doodl document is very easy. The only

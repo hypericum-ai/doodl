@@ -19,6 +19,13 @@ export default defineConfig({
                 rel: 'stylesheet'
             }
         ],
+        [
+            'link',
+            {
+                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css',
+                rel: 'stylesheet'
+            }
+        ]
     ],
     themeConfig: {
         nav: [

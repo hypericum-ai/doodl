@@ -959,8 +959,8 @@ def chart(func_name, fields=None):
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
 <script src="{prod_scripts[0]}"></script>
+<link rel="stylesheet" href="{prod_stylesheets[1]}" />
 <link rel="stylesheet" href="{prod_stylesheets[2]}" />
-<link rel="stylesheet" href="{prod_stylesheets[3]}" />
 <script type="text/javascript">
             Doodl.{func_name}({
             """,
@@ -969,6 +969,7 @@ def chart(func_name, fields=None):
             );
 </script>
 '''
+
         display(HTML(script))
 
     return wrapper

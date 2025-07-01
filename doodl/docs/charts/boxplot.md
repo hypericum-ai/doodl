@@ -29,7 +29,7 @@ The following:
 ```
 would produce the following chart:
 
-<span id="boxplot_0"></span>
+<span  class="chart-container" id="boxplot_0"></span>
 
 The data for box plots is a (JSON) list of dictionaries, of the form:
 
