@@ -12,6 +12,6 @@ export default {
   plugins: [
     resolve(),
     typescript(),
-    // terser({ format: { comments: false } })
+    terser({ format: { comments: false } })
   ]
 };

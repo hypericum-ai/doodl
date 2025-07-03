@@ -51,7 +51,7 @@ using:
 </piechart>
 ```
 
-The standard arguments are described in the [charts section](/charts).
+The standard arguments are described in the [charts section](/charts/).
 Chart-specific arguments (as well as the data required by each chart
 type) are described in the writeups for each chart.
 
