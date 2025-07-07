@@ -10,19 +10,22 @@ export default defineConfig({
             {
                 'type': 'text/javascript',
                 'src': 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.js'
+                // 'src': '/assets/doodl/js/doodlchart.js' //for production
             }
         ],
         [
             'link',
             {
-                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/docs.css',
+                // href: '/assets/doodl/css/docs.css',//for production
+                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/docs.css', 
                 rel: 'stylesheet'
             }
         ],
         [
             'link',
             {
-                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css',
+                // href: '/assets/doodl/css/menu.css',//for production
+                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css', 
                 rel: 'stylesheet'
             }
         ]

@@ -3,3 +3,4 @@ colorcet==3.1.0
 pypandoc==1.15
 seaborn==0.13.2
 playwright==1.52.0
+ipython==9.4.0

@@ -14,5 +14,5 @@ setup(name='doodl',
       },
       include_package_data=True,
       install_requires=[
-          'pypandoc', 'beautifulsoup4', 'seaborn','colorcet','playwright', 'requests'
+          'pypandoc', 'beautifulsoup4', 'seaborn','colorcet','playwright', 'requests','ipython'
       ])

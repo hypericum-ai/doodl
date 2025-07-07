@@ -9,7 +9,7 @@ authors = [
   {name = "doodl.ai", email = "info@doodl.ai"}
 ]
 dependencies = [
-    'pypandoc', 'beautifulsoup4', 'seaborn','colorcet','playwright', 'requests'
+    'pypandoc', 'beautifulsoup4', 'seaborn','colorcet','playwright', 'requests','ipython'
 ]
 
 [build-system]
