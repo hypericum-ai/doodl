@@ -16,17 +16,17 @@ export default defineConfig({
         [
             'link',
             {
+                rel: 'stylesheet',
+                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/docs.css'
                 // href: '/assets/doodl/css/docs.css',//for production
-                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/docs.css', 
-                rel: 'stylesheet'
             }
         ],
         [
             'link',
             {
+                rel: 'stylesheet',
+                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css'
                 // href: '/assets/doodl/css/menu.css',//for production
-                href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css', 
-                rel: 'stylesheet'
             }
         ]
     ],
