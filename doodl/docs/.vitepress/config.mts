@@ -1,4 +1,6 @@
-import { defineConfig } from 'vitepress'
+import { DefaultTheme, defineConfig } from 'vitepress'
+// const pkg = require('vitepress/package.json')
+import pkg from 'vitepress/package.json' with { type: 'json' }
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -31,11 +33,7 @@ export default defineConfig({
         ]
     ],
     themeConfig: {
-        nav: [
-            { text: 'Home', link: '/' },
-            { text: 'Documentation', link: '/markdown' },
-            { text: 'Charts', link: '/charts/' }
-        ],
+        nav: nav(),
 
         sidebar: [
             {
@@ -46,6 +44,7 @@ export default defineConfig({
                 text: 'Using doodl',
                 collapsed: false,
                 items: [
+                    { text: 'Get Started', link: '/get-started' },
                     { text: 'Writing Markdown', link: '/markdown' },
                     { text: 'Invoking doodl', link: '/invoking' },
                     { text: 'Color palettes', link: '/color' }
@@ -84,11 +83,44 @@ export default defineConfig({
             { text: 'Pandoc-Plot', link: '/pandoc-plot' }
         ],
         socialLinks: [
-            { icon: 'github', link: 'https://github.com/hubbl-ai/doodl' }
-        ],
+            { icon: 'github', link: 'https://github.com/hypericum-ai/doodl' }
+        ], 
+        search: {
+            provider: "local"
+        },
         footer: {
         message: 'Released under the MIT License.',
         copyright: 'Copyright © 2025-present Hypericum-ai'
         }
     }
 })
+
+function nav(): DefaultTheme.NavItem[] {
+  return [
+    {
+      text: 'Home',
+      link: '/'
+    },
+    {
+      text: 'Documentation',
+      link: '/markdown'
+    },
+    {
+      text: 'Charts',
+      link: '/charts/'
+    },
+    {
+      text: pkg.version,
+      items: [
+        {
+          text: 'Changelog',
+          link: 'https://github.com/hypericum-ai/doodl/activity'
+        },
+        {
+          text: 'Contributing',
+          link: 'https://github.com/hypericum-ai/doodl/blob/main/README.md'
+        }
+      ]
+    }
+  ]
+}

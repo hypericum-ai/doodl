@@ -7,10 +7,10 @@ hero:
   tagline: High quality documents, with live visualizations.
   actions:
     - theme: brand
-      text: Charts
-      link: /charts/
-    - theme: alt
       text: Get Started
+      link: /get-started
+    - theme: alt
+      text: Charts
       link: /charts/
     - theme: alt
       text: Documentation
