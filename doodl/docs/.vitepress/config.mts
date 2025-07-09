@@ -85,6 +85,10 @@ export default defineConfig({
         ],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/hubbl-ai/doodl' }
-        ]
+        ],
+        footer: {
+        message: 'Released under the MIT License.',
+        copyright: 'Copyright © 2025-present Hypericum-ai'
+        }
     }
 })
