@@ -1,6 +1,6 @@
 import { DefaultTheme, defineConfig } from 'vitepress'
 // const pkg = require('vitepress/package.json')
-import pkg from 'vitepress/package.json' with { type: 'json' }
+import pkg from '../package.json' with { type: 'json' }
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -30,7 +30,12 @@ export default defineConfig({
                 href: 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/css/menu.css'
                 // href: '/assets/doodl/css/menu.css',//for production
             }
-        ]
+        ],
+        ['link', { rel: 'icon', href: '/images/favicon.ico' }],
+         [
+            'link',
+            { rel: 'icon', type: 'image/svg+xml', href: '/images/doodl.svg' }
+        ],
     ],
     themeConfig: {
         nav: nav(),
