@@ -1,0 +1,9 @@
+{
+    "optional": {
+        "vertical": 0
+    },
+    "tag": "bollinger",
+    "function": "bollinger",
+    "module_name": "BollingerModule",
+    "module_source": "https://cdn.jsdelivr.net/gh/hubbl-ai/bollinger-chart@main/dist/bollinger.js"
+}

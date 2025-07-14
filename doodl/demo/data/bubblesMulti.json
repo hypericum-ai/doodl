@@ -1,0 +1,103 @@
+[
+      {
+        "name": "Group A",
+        "children": [
+          { "name": "Alpha", "value": 50 },
+          { "name": "Beta", "value": 30 },
+          { "name": "Gamma", "value": 20 },
+          { "name": "Delta", "value": 25 },
+          { "name": "Epsilon", "value": 35 },
+          {
+            "name": "Subgroup A1",
+            "children": [
+              { "name": "A1-Node1", "value": 15 },
+              { "name": "A1-Node2", "value": 10 },
+              { "name": "A1-Node3", "value": 12 },
+              { "name": "A1-Node4", "value": 8 },
+              { "name": "A1-Node5", "value": 14 }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Group B",
+        "children": [
+          { "name": "Zeta", "value": 22 },
+          { "name": "Eta", "value": 18 },
+          { "name": "Theta", "value": 16 },
+          {
+            "name": "Subgroup B1",
+            "children": [
+              { "name": "B1-Node1", "value": 11 },
+              { "name": "B1-Node2", "value": 9 },
+              { "name": "B1-Node3", "value": 7 },
+              { "name": "B1-Node4", "value": 6 },
+              { "name": "B1-Node5", "value": 13 }
+            ]
+          },
+          {
+            "name": "Subgroup B2",
+            "children": [
+              { "name": "B2-Node1", "value": 17 },
+              { "name": "B2-Node2", "value": 12 },
+              { "name": "B2-Node3", "value": 10 },
+              { "name": "B2-Node4", "value": 5 },
+              { "name": "B2-Node5", "value": 8 }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Group C",
+        "children": [
+          { "name": "Iota", "value": 14 },
+          { "name": "Kappa", "value": 9 },
+          {
+            "name": "Subgroup C1",
+            "children": [
+              { "name": "C1-Node1", "value": 6 },
+              { "name": "C1-Node2", "value": 4 },
+              { "name": "C1-Node3", "value": 10 },
+              { "name": "C1-Node4", "value": 5 },
+              { "name": "C1-Node5", "value": 7 }
+            ]
+          },
+          {
+            "name": "Subgroup C2",
+            "children": [
+              { "name": "C2-Node1", "value": 8 },
+              { "name": "C2-Node2", "value": 9 },
+              { "name": "C2-Node3", "value": 6 },
+              { "name": "C2-Node4", "value": 5 },
+              { "name": "C2-Node5", "value": 4 }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Group D",
+        "children": [
+          {
+            "name": "Subgroup D1",
+            "children": [
+              { "name": "D1-Node1", "value": 11 },
+              { "name": "D1-Node2", "value": 13 },
+              { "name": "D1-Node3", "value": 7 },
+              { "name": "D1-Node4", "value": 6 },
+              { "name": "D1-Node5", "value": 9 }
+            ]
+          },
+          {
+            "name": "Subgroup D2",
+            "children": [
+              { "name": "D2-Node1", "value": 12 },
+              { "name": "D2-Node2", "value": 10 },
+              { "name": "D2-Node3", "value": 11 },
+              { "name": "D2-Node4", "value": 14 },
+              { "name": "D2-Node5", "value": 13 }
+            ]
+          }
+        ]
+      }
+    ]
+  

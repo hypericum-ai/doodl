@@ -1,0 +1,577 @@
+{ 
+  "links" : [ 
+      { 
+        "source" : "Price increase",
+        "target" : "Dominant market position",
+        "value" : 14
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Brand value",
+        "value" : 16
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Trade secrets",
+        "value" : 17
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Local critical scale",
+        "value" : 13
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Network density",
+        "value" : 14
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Legal monopoly",
+        "value" : 14
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Experimental company",
+        "value" : 12
+      },
+      { 
+        "source" : "Price increase",
+        "target" : "Customer centricity",
+        "value" : 6
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Dominant market position",
+        "value" : 14
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Brand value",
+        "value" : 16
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Trade secrets",
+        "value" : 17
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Network density",
+        "value" : 14
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Legal monopoly",
+        "value" : 14
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Experimental company",
+        "value" : 18
+      },
+      { 
+        "source" : "Organic sales growth",
+        "target" : "Customer centricity",
+        "value" : 13
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Dominant market position",
+        "value" : 5
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Brand value",
+        "value" : 16
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Trade secrets",
+        "value" : 4
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Network density",
+        "value" : 5
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Legal monopoly",
+        "value" : 5
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "Subscription sales growth",
+        "target" : "Customer centricity",
+        "value" : 6
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Dominant market position",
+        "value" : 10
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Brand value",
+        "value" : 16
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Trade secrets",
+        "value" : 17
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Local critical scale",
+        "value" : 19
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Network density",
+        "value" : 10
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Legal monopoly",
+        "value" : 10
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "Retention",
+        "target" : "Customer centricity",
+        "value" : 13
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Dominant market position",
+        "value" : 10
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Trade secrets",
+        "value" : 4
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Network density",
+        "value" : 10
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Legal monopoly",
+        "value" : 10
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Experimental company",
+        "value" : 18
+      },
+      { 
+        "source" : "Revenue-to-marketing spend",
+        "target" : "Customer centricity",
+        "value" : 6
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Dominant market position",
+        "value" : 19
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Trade secrets",
+        "value" : 9
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Network density",
+        "value" : 19
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Legal monopoly",
+        "value" : 19
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Experimental company",
+        "value" : 12
+      },
+      { 
+        "source" : "Customer lifetime value-to-cost of customer acquisition",
+        "target" : "Customer centricity",
+        "value" : 6
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Dominant market position",
+        "value" : 5
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Trade secrets",
+        "value" : 4
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Network density",
+        "value" : 5
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Legal monopoly",
+        "value" : 5
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "EBIT margin",
+        "target" : "Customer centricity",
+        "value" : 6
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Dominant market position",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Trade secrets",
+        "value" : 4
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Network density",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Legal monopoly",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Customer centricity",
+        "value" : 6
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Dominant market position",
+        "value" : 10
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Trade secrets",
+        "value" : 13
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Local critical scale",
+        "value" : 19
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Network density",
+        "value" : 10
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Legal monopoly",
+        "value" : 10
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "Revenue growth",
+        "target" : "Customer centricity",
+        "value" : 13
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Dominant market position",
+        "value" : 5
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Trade secrets",
+        "value" : 4
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Network density",
+        "value" : 5
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Legal monopoly",
+        "value" : 5
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "# products launched this year",
+        "target" : "Customer centricity",
+        "value" : 19
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Dominant market position",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Brand value",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Trade secrets",
+        "value" : 4
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Local critical scale",
+        "value" : 6
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Network density",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Legal monopoly",
+        "value" : 5
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Scarce government license",
+        "value" : 9
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Current patents",
+        "value" : 9
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Experimental company",
+        "value" : 6
+      },
+      { 
+        "source" : "Overhead % sales",
+        "target" : "Customer centricity",
+        "value" : 6
+      }
+    ],
+  "nodes" : [ 
+      { "name" : "Price increase" },
+      { "name" : "Organic sales growth" },
+      { "name" : "Subscription sales growth" },
+      { "name" : "Retention" },
+      { "name" : "Revenue-to-marketing spend" },
+      { "name" : "Customer lifetime value-to-cost of customer acquisition" },
+      { "name" : "EBIT margin" },
+      { "name" : "Overhead % sales" },
+      { "name" : "Revenue growth" },
+      { "name" : "# products launched this year" },
+      { "name" : "Overhead % sales" },
+      { "name" : "Dominant market position" },
+      { "name" : "Brand value" },
+      { "name" : "Trade secrets" },
+      { "name" : "Local critical scale" },
+      { "name" : "Network density" },
+      { "name" : "Legal monopoly" },
+      { "name" : "Scarce government license" },
+      { "name" : "Current patents" },
+      { "name" : "Experimental company" },
+      { "name" : "Customer centricity" }
+    ]
+}

@@ -46,7 +46,7 @@ dev_stylesheets = [
     "{dir}/css/doodlCharts.css",
 ]
 
-dev_scripts = ["{dir}/ts/dist/doodlchart.js"]
+dev_scripts = ["{dir}/ts/dist/doodlchart.min.js"]
 
 prod_scripts = [
     "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.min.js"

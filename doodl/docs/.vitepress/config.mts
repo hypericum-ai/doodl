@@ -30,7 +30,7 @@ export default defineConfig({
                 // href: '/assets/doodl/css/menu.css',//for production
             }
         ],
-        ['link', { rel: 'icon', href: '/images/favicon.ico' }],
+        ['link', { rel: 'icon', href: 'favicon.ico' }],
          [
             'link',
             { rel: 'icon', type: 'image/svg+xml', href: '/images/doodl.svg' }

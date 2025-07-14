@@ -28,6 +28,11 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+bin/
+pip-wheel-metadata/
+share/python-wheels/
+pyvenv.cfg
+/doodl/shared/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
