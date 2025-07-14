@@ -1,5 +1,4 @@
 import { DefaultTheme, defineConfig } from 'vitepress'
-// const pkg = require('vitepress/package.json')
 import pkg from '../package.json' with { type: 'json' }
 
 // https://vitepress.dev/reference/site-config
