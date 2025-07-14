@@ -66,8 +66,8 @@ type) are described in the writeups for each chart.
       {'label': 'Cherries', 'value': 15},
       {'label': 'Grapes', 'value': 25}
     ], {
-      'width': 250,
-      'height': 250
+      'width': 200,
+      'height': 200
     },{},[
       '#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF',
       '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'

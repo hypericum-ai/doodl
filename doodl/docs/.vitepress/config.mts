@@ -103,10 +103,6 @@ export default defineConfig({
 function nav(): DefaultTheme.NavItem[] {
   return [
     {
-      text: 'Home',
-      link: '/'
-    },
-    {
       text: 'Documentation',
       link: '/markdown'
     },
@@ -114,6 +110,10 @@ function nav(): DefaultTheme.NavItem[] {
       text: 'Charts',
       link: '/charts/'
     },
+    // {
+    //   text: 'Pricing',
+    //   link: '/pricing'
+    // },
     {
       text: pkg.version,
       items: [
