@@ -10,7 +10,7 @@ export default defineConfig({
             'script',
             {
                 'type': 'text/javascript',
-                'src': 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.js'
+                'src': 'https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.min.js'
                 // 'src': '/assets/doodl/js/doodlchart.js' //for production
             }
         ],

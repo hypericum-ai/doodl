@@ -49,7 +49,7 @@ dev_stylesheets = [
 dev_scripts = ["{dir}/ts/dist/doodlchart.js"]
 
 prod_scripts = [
-    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.js"
+    "https://cdn.jsdelivr.net/gh/hubbl-ai/doodl@main/doodl/ts/dist/doodlchart.min.js"
 ]
 
 html_tpl = """<!DOCTYPE html>

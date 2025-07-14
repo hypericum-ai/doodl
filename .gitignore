@@ -74,3 +74,4 @@ doodl/.idea/
 
 node_modules
 doodl/docs/.vitepress/dist/*
+.ipynb_checkpoints/*
