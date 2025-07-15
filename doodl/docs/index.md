@@ -16,7 +16,7 @@ hero:
       text: Documentation
       link: /markdown
   image:
-    src: /images/doodl-docs-graphic.png
+    src: /doodl-docs-graphic.png
     alt: Doodl
 
 features:
