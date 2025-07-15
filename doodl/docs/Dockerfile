@@ -31,6 +31,7 @@ RUN mkdir -p /usr/share/nginx/html/assets/doodl/js
 
 COPY --from=build /srv/www/doodl/doodl/css /usr/share/nginx/html/assets/doodl/css
 COPY --from=build /srv/www/doodl/doodl/ts/dist /usr/share/nginx/html/assets/doodl/js
-COPY --from=build /srv/www/doodl/doodl/docs/public /usr/share/nginx/html
+COPY --from=build /srv/www/doodl/doodl/docs/images /usr/share/nginx/html
+
 
 EXPOSE 80
