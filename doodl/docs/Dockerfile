@@ -6,6 +6,7 @@ RUN git clone https://github.com/hypericum-ai/doodl /srv/www/doodl
 
 RUN cd /srv/www/doodl && git checkout $BRANCH
 
+# COPY ../../.. /srv/www/doodl
 
 WORKDIR /srv/www/doodl/doodl/docs
 
@@ -27,11 +28,12 @@ COPY --from=build /srv/www/doodl/doodl/docs/.vitepress/dist /usr/share/nginx/htm
 RUN mkdir -p /usr/share/nginx/html/assets/doodl
 RUN mkdir -p /usr/share/nginx/html/assets/doodl/css
 RUN mkdir -p /usr/share/nginx/html/assets/doodl/js
-
+RUN mkdir -p /usr/share/nginx/html/images
 
 COPY --from=build /srv/www/doodl/doodl/css /usr/share/nginx/html/assets/doodl/css
 COPY --from=build /srv/www/doodl/doodl/ts/dist /usr/share/nginx/html/assets/doodl/js
-COPY --from=build /srv/www/doodl/doodl/docs/images /usr/share/nginx/html
+
+COPY --from=build /srv/www/doodl/doodl/docs/images/*.{png,svg} /usr/share/nginx/html/images
 
 
 EXPOSE 80
