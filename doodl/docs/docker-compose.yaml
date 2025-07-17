@@ -2,6 +2,5 @@ services:
   app:
     build: .
     container_name: doodl-docs
-    platform: linux/amd64
     ports:
       - "3000:80"
