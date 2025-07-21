@@ -21,14 +21,14 @@ hero:
 
 features:
   - icon: 📝
-    title: Lorem ipsum dolor
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id orci vel ante.
+    title: Interactive visualizations in HTML
+    details: Make interactive analytics-based documents straight from Markdown with D3-based charts
   - icon: ℹ️
-    title: Consectetur adipiscing elit
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id orci vel ante.
+    title: Attractive PDFs
+    details: Generate attractive PDFs and other documents with embedded visualizations
   - icon: 🔥
-    title: Orci vel ante
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id orci vel ante.
+    title: Jupyter notebooks
+    details: Include graphics with interaction and drill-down in Jupyter (and other) notebooks
   - icon: 🚀
-    title: Curabitur id orci
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id orci vel ante.
+    title: Custom graphics
+    details: Use sophisticated charts written in Typescript or Javascript seemlessly
