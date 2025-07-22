@@ -1,0 +1,2647 @@
+[
+  {
+    "source": "Injury rate",
+    "target": "Injury rate",
+    "value": 1.0
+  },
+  {
+    "source": "Injury rate",
+    "target": "Organic sales growth",
+    "value": -0.1453
+  },
+  {
+    "source": "Injury rate",
+    "target": "Same-store growth %",
+    "value": -0.2103
+  },
+  {
+    "source": "Injury rate",
+    "target": "Greenfield growth %",
+    "value": -0.0121
+  },
+  {
+    "source": "Injury rate",
+    "target": "Aftermarket sales",
+    "value": -0.1738
+  },
+  {
+    "source": "Injury rate",
+    "target": "Subscription sales growth",
+    "value": -0.1945
+  },
+  {
+    "source": "Injury rate",
+    "target": "# suppliers",
+    "value": 0.1076
+  },
+  {
+    "source": "Injury rate",
+    "target": "# employees in R&D",
+    "value": -0.0823
+  },
+  {
+    "source": "Injury rate",
+    "target": "# products launched this year",
+    "value": -0.4116
+  },
+  {
+    "source": "Injury rate",
+    "target": "# sites closed",
+    "value": 0.8867
+  },
+  {
+    "source": "Injury rate",
+    "target": "Cash conversion rate by Region",
+    "value": 0.3363
+  },
+  {
+    "source": "Injury rate",
+    "target": "Male-female board composition",
+    "value": -0.0725
+  },
+  {
+    "source": "Injury rate",
+    "target": "10 largest shareholders % vote",
+    "value": 0.0955
+  },
+  {
+    "source": "Injury rate",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.0841
+  },
+  {
+    "source": "Injury rate",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.5969
+  },
+  {
+    "source": "Injury rate",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.4842
+  },
+  {
+    "source": "Injury rate",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.1817
+  },
+  {
+    "source": "Injury rate",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.3615
+  },
+  {
+    "source": "Injury rate",
+    "target": "Word count of competition section in annual report",
+    "value": 0.3083
+  },
+  {
+    "source": "Injury rate",
+    "target": "Historic market share by year %",
+    "value": 0.1714
+  },
+  {
+    "source": "Injury rate",
+    "target": "Target market share %",
+    "value": 0.4682
+  },
+  {
+    "source": "Injury rate",
+    "target": "Forecast market revenue growth %",
+    "value": -0.5855
+  },
+  {
+    "source": "Injury rate",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.6814
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Injury rate",
+    "value": -0.1453
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Organic sales growth",
+    "value": 1.0
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Same-store growth %",
+    "value": 0.0406
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Greenfield growth %",
+    "value": -0.1492
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Aftermarket sales",
+    "value": 0.4386
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Subscription sales growth",
+    "value": -0.0419
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# suppliers",
+    "value": 0.0417
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# employees in R&D",
+    "value": -0.3534
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# products launched this year",
+    "value": 0.545
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# sites closed",
+    "value": 0.23
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Cash conversion rate by Region",
+    "value": -0.188
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Male-female board composition",
+    "value": -0.4728
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "10 largest shareholders % vote",
+    "value": 0.2946
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": -0.1377
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.4368
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.0983
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.0117
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.3934
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Word count of competition section in annual report",
+    "value": 0.4423
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Historic market share by year %",
+    "value": 0.0828
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Target market share %",
+    "value": 0.2199
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "Forecast market revenue growth %",
+    "value": -0.4991
+  },
+  {
+    "source": "Organic sales growth",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.4853
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Injury rate",
+    "value": -0.2103
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Organic sales growth",
+    "value": 0.0406
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Same-store growth %",
+    "value": 1.0
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Greenfield growth %",
+    "value": -0.4497
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Aftermarket sales",
+    "value": 0.2236
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Subscription sales growth",
+    "value": 0.2529
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# suppliers",
+    "value": -0.2597
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# employees in R&D",
+    "value": -0.5373
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# products launched this year",
+    "value": -0.4506
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# sites closed",
+    "value": -0.6326
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Cash conversion rate by Region",
+    "value": -0.0698
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Male-female board composition",
+    "value": -0.358
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "10 largest shareholders % vote",
+    "value": 0.2153
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.5019
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.4545
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.2879
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.3263
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.2123
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Word count of competition section in annual report",
+    "value": -0.1731
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Historic market share by year %",
+    "value": 0.0733
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Target market share %",
+    "value": -0.0686
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "Forecast market revenue growth %",
+    "value": -0.2629
+  },
+  {
+    "source": "Same-store growth %",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.2886
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Injury rate",
+    "value": -0.0121
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Organic sales growth",
+    "value": -0.1492
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Same-store growth %",
+    "value": -0.4497
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Greenfield growth %",
+    "value": 1.0
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Aftermarket sales",
+    "value": -0.1211
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Subscription sales growth",
+    "value": 0.277
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# suppliers",
+    "value": 0.1637
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# employees in R&D",
+    "value": 0.0709
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# products launched this year",
+    "value": -0.1903
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# sites closed",
+    "value": 0.8233
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Cash conversion rate by Region",
+    "value": -0.6254
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Male-female board composition",
+    "value": -0.1278
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "10 largest shareholders % vote",
+    "value": 0.2244
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.2203
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.2606
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.465
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.0276
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.6728
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Word count of competition section in annual report",
+    "value": -0.4291
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Historic market share by year %",
+    "value": -0.3218
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Target market share %",
+    "value": 0.286
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "Forecast market revenue growth %",
+    "value": -0.3055
+  },
+  {
+    "source": "Greenfield growth %",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.4302
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Injury rate",
+    "value": -0.1738
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Organic sales growth",
+    "value": 0.4386
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Same-store growth %",
+    "value": 0.2236
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Greenfield growth %",
+    "value": -0.1211
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Aftermarket sales",
+    "value": 1.0
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Subscription sales growth",
+    "value": -0.4568
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# suppliers",
+    "value": 0.4039
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# employees in R&D",
+    "value": 0.1706
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# products launched this year",
+    "value": 0.2469
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# sites closed",
+    "value": 0.2712
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Cash conversion rate by Region",
+    "value": -0.3045
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Male-female board composition",
+    "value": 0.2286
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "10 largest shareholders % vote",
+    "value": -0.0314
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.3991
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.5632
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.0586
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.011
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.3714
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Word count of competition section in annual report",
+    "value": 0.3375
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Historic market share by year %",
+    "value": 0.2506
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Target market share %",
+    "value": -0.14
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "Forecast market revenue growth %",
+    "value": -0.0831
+  },
+  {
+    "source": "Aftermarket sales",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.4733
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Injury rate",
+    "value": -0.1945
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Organic sales growth",
+    "value": -0.0419
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Same-store growth %",
+    "value": 0.2529
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Greenfield growth %",
+    "value": 0.277
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Aftermarket sales",
+    "value": -0.4568
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Subscription sales growth",
+    "value": 1.0
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# suppliers",
+    "value": -0.2629
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# employees in R&D",
+    "value": 0.2234
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# products launched this year",
+    "value": 0.533
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# sites closed",
+    "value": -0.2894
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Cash conversion rate by Region",
+    "value": 0.1489
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Male-female board composition",
+    "value": 0.0125
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "10 largest shareholders % vote",
+    "value": 0.1454
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.5034
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.819
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.2341
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.0885
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.2854
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Word count of competition section in annual report",
+    "value": -0.4078
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Historic market share by year %",
+    "value": 0.3753
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Target market share %",
+    "value": 0.8196
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "Forecast market revenue growth %",
+    "value": -0.1627
+  },
+  {
+    "source": "Subscription sales growth",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.3005
+  },
+  {
+    "source": "# suppliers",
+    "target": "Injury rate",
+    "value": 0.1076
+  },
+  {
+    "source": "# suppliers",
+    "target": "Organic sales growth",
+    "value": 0.0417
+  },
+  {
+    "source": "# suppliers",
+    "target": "Same-store growth %",
+    "value": -0.2597
+  },
+  {
+    "source": "# suppliers",
+    "target": "Greenfield growth %",
+    "value": 0.1637
+  },
+  {
+    "source": "# suppliers",
+    "target": "Aftermarket sales",
+    "value": 0.4039
+  },
+  {
+    "source": "# suppliers",
+    "target": "Subscription sales growth",
+    "value": -0.2629
+  },
+  {
+    "source": "# suppliers",
+    "target": "# suppliers",
+    "value": 1.0
+  },
+  {
+    "source": "# suppliers",
+    "target": "# employees in R&D",
+    "value": -0.4177
+  },
+  {
+    "source": "# suppliers",
+    "target": "# products launched this year",
+    "value": -0.5806
+  },
+  {
+    "source": "# suppliers",
+    "target": "# sites closed",
+    "value": 0.1503
+  },
+  {
+    "source": "# suppliers",
+    "target": "Cash conversion rate by Region",
+    "value": -0.0354
+  },
+  {
+    "source": "# suppliers",
+    "target": "Male-female board composition",
+    "value": 0.4009
+  },
+  {
+    "source": "# suppliers",
+    "target": "10 largest shareholders % vote",
+    "value": 0.0129
+  },
+  {
+    "source": "# suppliers",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": -0.1449
+  },
+  {
+    "source": "# suppliers",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.2274
+  },
+  {
+    "source": "# suppliers",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.2573
+  },
+  {
+    "source": "# suppliers",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.144
+  },
+  {
+    "source": "# suppliers",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.2934
+  },
+  {
+    "source": "# suppliers",
+    "target": "Word count of competition section in annual report",
+    "value": 0.1665
+  },
+  {
+    "source": "# suppliers",
+    "target": "Historic market share by year %",
+    "value": -0.3834
+  },
+  {
+    "source": "# suppliers",
+    "target": "Target market share %",
+    "value": 0.2317
+  },
+  {
+    "source": "# suppliers",
+    "target": "Forecast market revenue growth %",
+    "value": 0.3732
+  },
+  {
+    "source": "# suppliers",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.1411
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Injury rate",
+    "value": -0.0823
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Organic sales growth",
+    "value": -0.3534
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Same-store growth %",
+    "value": -0.5373
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Greenfield growth %",
+    "value": 0.0709
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Aftermarket sales",
+    "value": 0.1706
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Subscription sales growth",
+    "value": 0.2234
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# suppliers",
+    "value": -0.4177
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# employees in R&D",
+    "value": 1.0
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# products launched this year",
+    "value": 0.0161
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# sites closed",
+    "value": 0.1706
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Cash conversion rate by Region",
+    "value": 0.3989
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Male-female board composition",
+    "value": -0.5203
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "10 largest shareholders % vote",
+    "value": -0.185
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.0076
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.411
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.1196
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.6039
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.4689
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Word count of competition section in annual report",
+    "value": -0.1198
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Historic market share by year %",
+    "value": -0.1608
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Target market share %",
+    "value": -0.2182
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "Forecast market revenue growth %",
+    "value": 0.0543
+  },
+  {
+    "source": "# employees in R&D",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.443
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Injury rate",
+    "value": -0.4116
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Organic sales growth",
+    "value": 0.545
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Same-store growth %",
+    "value": -0.4506
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Greenfield growth %",
+    "value": -0.1903
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Aftermarket sales",
+    "value": 0.2469
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Subscription sales growth",
+    "value": 0.533
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# suppliers",
+    "value": -0.5806
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# employees in R&D",
+    "value": 0.0161
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# products launched this year",
+    "value": 1.0
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# sites closed",
+    "value": -0.2158
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Cash conversion rate by Region",
+    "value": -0.3295
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Male-female board composition",
+    "value": 0.472
+  },
+  {
+    "source": "# products launched this year",
+    "target": "10 largest shareholders % vote",
+    "value": 0.1828
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.0735
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.1583
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.3989
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.0566
+  },
+  {
+    "source": "# products launched this year",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.1138
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Word count of competition section in annual report",
+    "value": -0.0556
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Historic market share by year %",
+    "value": 0.147
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Target market share %",
+    "value": -0.3743
+  },
+  {
+    "source": "# products launched this year",
+    "target": "Forecast market revenue growth %",
+    "value": -0.3252
+  },
+  {
+    "source": "# products launched this year",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.0208
+  },
+  {
+    "source": "# sites closed",
+    "target": "Injury rate",
+    "value": 0.8867
+  },
+  {
+    "source": "# sites closed",
+    "target": "Organic sales growth",
+    "value": 0.23
+  },
+  {
+    "source": "# sites closed",
+    "target": "Same-store growth %",
+    "value": -0.6326
+  },
+  {
+    "source": "# sites closed",
+    "target": "Greenfield growth %",
+    "value": 0.8233
+  },
+  {
+    "source": "# sites closed",
+    "target": "Aftermarket sales",
+    "value": 0.2712
+  },
+  {
+    "source": "# sites closed",
+    "target": "Subscription sales growth",
+    "value": -0.2894
+  },
+  {
+    "source": "# sites closed",
+    "target": "# suppliers",
+    "value": 0.1503
+  },
+  {
+    "source": "# sites closed",
+    "target": "# employees in R&D",
+    "value": 0.1706
+  },
+  {
+    "source": "# sites closed",
+    "target": "# products launched this year",
+    "value": -0.2158
+  },
+  {
+    "source": "# sites closed",
+    "target": "# sites closed",
+    "value": 1.0
+  },
+  {
+    "source": "# sites closed",
+    "target": "Cash conversion rate by Region",
+    "value": -0.0639
+  },
+  {
+    "source": "# sites closed",
+    "target": "Male-female board composition",
+    "value": 0.4507
+  },
+  {
+    "source": "# sites closed",
+    "target": "10 largest shareholders % vote",
+    "value": 0.5733
+  },
+  {
+    "source": "# sites closed",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.5358
+  },
+  {
+    "source": "# sites closed",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.2399
+  },
+  {
+    "source": "# sites closed",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.1959
+  },
+  {
+    "source": "# sites closed",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.0877
+  },
+  {
+    "source": "# sites closed",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.0811
+  },
+  {
+    "source": "# sites closed",
+    "target": "Word count of competition section in annual report",
+    "value": -0.6822
+  },
+  {
+    "source": "# sites closed",
+    "target": "Historic market share by year %",
+    "value": 0.0467
+  },
+  {
+    "source": "# sites closed",
+    "target": "Target market share %",
+    "value": -0.3262
+  },
+  {
+    "source": "# sites closed",
+    "target": "Forecast market revenue growth %",
+    "value": -0.3227
+  },
+  {
+    "source": "# sites closed",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.0281
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Injury rate",
+    "value": 0.3363
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Organic sales growth",
+    "value": -0.188
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Same-store growth %",
+    "value": -0.0698
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Greenfield growth %",
+    "value": -0.6254
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Aftermarket sales",
+    "value": -0.3045
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Subscription sales growth",
+    "value": 0.1489
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# suppliers",
+    "value": -0.0354
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# employees in R&D",
+    "value": 0.3989
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# products launched this year",
+    "value": -0.3295
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# sites closed",
+    "value": -0.0639
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Cash conversion rate by Region",
+    "value": 1.0
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Male-female board composition",
+    "value": 0.0501
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "10 largest shareholders % vote",
+    "value": -0.3085
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.4556
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.5728
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.0783
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.4068
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.5477
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Word count of competition section in annual report",
+    "value": 0.1547
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Historic market share by year %",
+    "value": 0.2994
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Target market share %",
+    "value": 0.2326
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "Forecast market revenue growth %",
+    "value": -0.349
+  },
+  {
+    "source": "Cash conversion rate by Region",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.0192
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Injury rate",
+    "value": -0.0725
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Organic sales growth",
+    "value": -0.4728
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Same-store growth %",
+    "value": -0.358
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Greenfield growth %",
+    "value": -0.1278
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Aftermarket sales",
+    "value": 0.2286
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Subscription sales growth",
+    "value": 0.0125
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# suppliers",
+    "value": 0.4009
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# employees in R&D",
+    "value": -0.5203
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# products launched this year",
+    "value": 0.472
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# sites closed",
+    "value": 0.4507
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Cash conversion rate by Region",
+    "value": 0.0501
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Male-female board composition",
+    "value": 1.0
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "10 largest shareholders % vote",
+    "value": 0.0177
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.2393
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.4031
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.3906
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.4599
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.1685
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Word count of competition section in annual report",
+    "value": -0.838
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Historic market share by year %",
+    "value": -0.2352
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Target market share %",
+    "value": 0.4164
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "Forecast market revenue growth %",
+    "value": 0.1489
+  },
+  {
+    "source": "Male-female board composition",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.3041
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Injury rate",
+    "value": 0.0955
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Organic sales growth",
+    "value": 0.2946
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Same-store growth %",
+    "value": 0.2153
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Greenfield growth %",
+    "value": 0.2244
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Aftermarket sales",
+    "value": -0.0314
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Subscription sales growth",
+    "value": 0.1454
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# suppliers",
+    "value": 0.0129
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# employees in R&D",
+    "value": -0.185
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# products launched this year",
+    "value": 0.1828
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# sites closed",
+    "value": 0.5733
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Cash conversion rate by Region",
+    "value": -0.3085
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Male-female board composition",
+    "value": 0.0177
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "10 largest shareholders % vote",
+    "value": 1.0
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.3306
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.2689
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.1757
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.1726
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.8019
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Word count of competition section in annual report",
+    "value": -0.0369
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Historic market share by year %",
+    "value": -0.1853
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Target market share %",
+    "value": 0.3118
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "Forecast market revenue growth %",
+    "value": -0.2656
+  },
+  {
+    "source": "10 largest shareholders % vote",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.2312
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Injury rate",
+    "value": 0.0841
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Organic sales growth",
+    "value": -0.1377
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Same-store growth %",
+    "value": 0.5019
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Greenfield growth %",
+    "value": 0.2203
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Aftermarket sales",
+    "value": 0.3991
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Subscription sales growth",
+    "value": 0.5034
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# suppliers",
+    "value": -0.1449
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# employees in R&D",
+    "value": 0.0076
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# products launched this year",
+    "value": 0.0735
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# sites closed",
+    "value": 0.5358
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Cash conversion rate by Region",
+    "value": 0.4556
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Male-female board composition",
+    "value": 0.2393
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "10 largest shareholders % vote",
+    "value": 0.3306
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 1.0
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.1242
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.0023
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.2326
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.602
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Word count of competition section in annual report",
+    "value": 0.5169
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Historic market share by year %",
+    "value": 0.5224
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Target market share %",
+    "value": -0.3766
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "Forecast market revenue growth %",
+    "value": 0.5701
+  },
+  {
+    "source": "# mentions of \u201cCompetitive advantage\u201d",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.4445
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Injury rate",
+    "value": 0.5969
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Organic sales growth",
+    "value": 0.4368
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Same-store growth %",
+    "value": -0.4545
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Greenfield growth %",
+    "value": 0.2606
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Aftermarket sales",
+    "value": 0.5632
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Subscription sales growth",
+    "value": 0.819
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# suppliers",
+    "value": -0.2274
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# employees in R&D",
+    "value": 0.411
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# products launched this year",
+    "value": 0.1583
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# sites closed",
+    "value": -0.2399
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Cash conversion rate by Region",
+    "value": 0.5728
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Male-female board composition",
+    "value": -0.4031
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "10 largest shareholders % vote",
+    "value": -0.2689
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.1242
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 1.0
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": -0.118
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.0927
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.2078
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Word count of competition section in annual report",
+    "value": 0.1398
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Historic market share by year %",
+    "value": -0.016
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Target market share %",
+    "value": -0.0123
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "Forecast market revenue growth %",
+    "value": -0.2658
+  },
+  {
+    "source": "# mentions of \u201cRestructuring\u201d",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.4945
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Injury rate",
+    "value": -0.4842
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Organic sales growth",
+    "value": -0.0983
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Same-store growth %",
+    "value": 0.2879
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Greenfield growth %",
+    "value": 0.465
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Aftermarket sales",
+    "value": 0.0586
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Subscription sales growth",
+    "value": 0.2341
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# suppliers",
+    "value": -0.2573
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# employees in R&D",
+    "value": -0.1196
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# products launched this year",
+    "value": -0.3989
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# sites closed",
+    "value": 0.1959
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Cash conversion rate by Region",
+    "value": 0.0783
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Male-female board composition",
+    "value": 0.3906
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "10 largest shareholders % vote",
+    "value": -0.1757
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.0023
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.118
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 1.0
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.0376
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.2696
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Word count of competition section in annual report",
+    "value": 0.026
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Historic market share by year %",
+    "value": 0.3029
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Target market share %",
+    "value": 0.5229
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "Forecast market revenue growth %",
+    "value": 0.1198
+  },
+  {
+    "source": "# mentions of \u201cDistressed\u201d",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.2526
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Injury rate",
+    "value": -0.1817
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Organic sales growth",
+    "value": -0.0117
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Same-store growth %",
+    "value": 0.3263
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Greenfield growth %",
+    "value": 0.0276
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Aftermarket sales",
+    "value": 0.011
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Subscription sales growth",
+    "value": -0.0885
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# suppliers",
+    "value": -0.144
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# employees in R&D",
+    "value": 0.6039
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# products launched this year",
+    "value": -0.0566
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# sites closed",
+    "value": 0.0877
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Cash conversion rate by Region",
+    "value": 0.4068
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Male-female board composition",
+    "value": 0.4599
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "10 largest shareholders % vote",
+    "value": -0.1726
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.2326
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.0927
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.0376
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 1.0
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.0371
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Word count of competition section in annual report",
+    "value": -0.2942
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Historic market share by year %",
+    "value": 0.2692
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Target market share %",
+    "value": -0.4899
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "Forecast market revenue growth %",
+    "value": 0.0773
+  },
+  {
+    "source": "# mentions of \u201cLow activity\u201d",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.1021
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Injury rate",
+    "value": -0.3615
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Organic sales growth",
+    "value": -0.3934
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Same-store growth %",
+    "value": 0.2123
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Greenfield growth %",
+    "value": 0.6728
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Aftermarket sales",
+    "value": -0.3714
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Subscription sales growth",
+    "value": -0.2854
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# suppliers",
+    "value": 0.2934
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# employees in R&D",
+    "value": -0.4689
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# products launched this year",
+    "value": -0.1138
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# sites closed",
+    "value": -0.0811
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Cash conversion rate by Region",
+    "value": 0.5477
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Male-female board composition",
+    "value": -0.1685
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "10 largest shareholders % vote",
+    "value": -0.8019
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.602
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.2078
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.2696
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.0371
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 1.0
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Word count of competition section in annual report",
+    "value": 0.0522
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Historic market share by year %",
+    "value": 0.3992
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Target market share %",
+    "value": -0.0551
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "Forecast market revenue growth %",
+    "value": -0.2128
+  },
+  {
+    "source": "# mentions of \u201cShort-term cost actions\u201d",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.0673
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Injury rate",
+    "value": 0.3083
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Organic sales growth",
+    "value": 0.4423
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Same-store growth %",
+    "value": -0.1731
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Greenfield growth %",
+    "value": -0.4291
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Aftermarket sales",
+    "value": 0.3375
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Subscription sales growth",
+    "value": -0.4078
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# suppliers",
+    "value": 0.1665
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# employees in R&D",
+    "value": -0.1198
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# products launched this year",
+    "value": -0.0556
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# sites closed",
+    "value": -0.6822
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Cash conversion rate by Region",
+    "value": 0.1547
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Male-female board composition",
+    "value": -0.838
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "10 largest shareholders % vote",
+    "value": -0.0369
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.5169
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.1398
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.026
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.2942
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.0522
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Word count of competition section in annual report",
+    "value": 1.0
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Historic market share by year %",
+    "value": -0.4571
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Target market share %",
+    "value": 0.2476
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "Forecast market revenue growth %",
+    "value": -0.2052
+  },
+  {
+    "source": "Word count of competition section in annual report",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.23
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Injury rate",
+    "value": 0.1714
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Organic sales growth",
+    "value": 0.0828
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Same-store growth %",
+    "value": 0.0733
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Greenfield growth %",
+    "value": -0.3218
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Aftermarket sales",
+    "value": 0.2506
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Subscription sales growth",
+    "value": 0.3753
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# suppliers",
+    "value": -0.3834
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# employees in R&D",
+    "value": -0.1608
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# products launched this year",
+    "value": 0.147
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# sites closed",
+    "value": 0.0467
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Cash conversion rate by Region",
+    "value": 0.2994
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Male-female board composition",
+    "value": -0.2352
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "10 largest shareholders % vote",
+    "value": -0.1853
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.5224
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.016
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.3029
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.2692
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.3992
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Word count of competition section in annual report",
+    "value": -0.4571
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Historic market share by year %",
+    "value": 1.0
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Target market share %",
+    "value": 0.1179
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "Forecast market revenue growth %",
+    "value": -0.368
+  },
+  {
+    "source": "Historic market share by year %",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.5318
+  },
+  {
+    "source": "Target market share %",
+    "target": "Injury rate",
+    "value": 0.4682
+  },
+  {
+    "source": "Target market share %",
+    "target": "Organic sales growth",
+    "value": 0.2199
+  },
+  {
+    "source": "Target market share %",
+    "target": "Same-store growth %",
+    "value": -0.0686
+  },
+  {
+    "source": "Target market share %",
+    "target": "Greenfield growth %",
+    "value": 0.286
+  },
+  {
+    "source": "Target market share %",
+    "target": "Aftermarket sales",
+    "value": -0.14
+  },
+  {
+    "source": "Target market share %",
+    "target": "Subscription sales growth",
+    "value": 0.8196
+  },
+  {
+    "source": "Target market share %",
+    "target": "# suppliers",
+    "value": 0.2317
+  },
+  {
+    "source": "Target market share %",
+    "target": "# employees in R&D",
+    "value": -0.2182
+  },
+  {
+    "source": "Target market share %",
+    "target": "# products launched this year",
+    "value": -0.3743
+  },
+  {
+    "source": "Target market share %",
+    "target": "# sites closed",
+    "value": -0.3262
+  },
+  {
+    "source": "Target market share %",
+    "target": "Cash conversion rate by Region",
+    "value": 0.2326
+  },
+  {
+    "source": "Target market share %",
+    "target": "Male-female board composition",
+    "value": 0.4164
+  },
+  {
+    "source": "Target market share %",
+    "target": "10 largest shareholders % vote",
+    "value": 0.3118
+  },
+  {
+    "source": "Target market share %",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": -0.3766
+  },
+  {
+    "source": "Target market share %",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.0123
+  },
+  {
+    "source": "Target market share %",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.5229
+  },
+  {
+    "source": "Target market share %",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.4899
+  },
+  {
+    "source": "Target market share %",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.0551
+  },
+  {
+    "source": "Target market share %",
+    "target": "Word count of competition section in annual report",
+    "value": 0.2476
+  },
+  {
+    "source": "Target market share %",
+    "target": "Historic market share by year %",
+    "value": 0.1179
+  },
+  {
+    "source": "Target market share %",
+    "target": "Target market share %",
+    "value": 1.0
+  },
+  {
+    "source": "Target market share %",
+    "target": "Forecast market revenue growth %",
+    "value": -0.1759
+  },
+  {
+    "source": "Target market share %",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": -0.3735
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Injury rate",
+    "value": -0.5855
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Organic sales growth",
+    "value": -0.4991
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Same-store growth %",
+    "value": -0.2629
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Greenfield growth %",
+    "value": -0.3055
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Aftermarket sales",
+    "value": -0.0831
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Subscription sales growth",
+    "value": -0.1627
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# suppliers",
+    "value": 0.3732
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# employees in R&D",
+    "value": 0.0543
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# products launched this year",
+    "value": -0.3252
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# sites closed",
+    "value": -0.3227
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Cash conversion rate by Region",
+    "value": -0.349
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Male-female board composition",
+    "value": 0.1489
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "10 largest shareholders % vote",
+    "value": -0.2656
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": 0.5701
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": -0.2658
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.1198
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": 0.0773
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": -0.2128
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Word count of competition section in annual report",
+    "value": -0.2052
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Historic market share by year %",
+    "value": -0.368
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Target market share %",
+    "value": -0.1759
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "Forecast market revenue growth %",
+    "value": 1.0
+  },
+  {
+    "source": "Forecast market revenue growth %",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 0.0271
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Injury rate",
+    "value": 0.6814
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Organic sales growth",
+    "value": 0.4853
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Same-store growth %",
+    "value": -0.2886
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Greenfield growth %",
+    "value": 0.4302
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Aftermarket sales",
+    "value": -0.4733
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Subscription sales growth",
+    "value": -0.3005
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# suppliers",
+    "value": 0.1411
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# employees in R&D",
+    "value": -0.443
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# products launched this year",
+    "value": 0.0208
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# sites closed",
+    "value": -0.0281
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Cash conversion rate by Region",
+    "value": -0.0192
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Male-female board composition",
+    "value": -0.3041
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "10 largest shareholders % vote",
+    "value": 0.2312
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# mentions of \u201cCompetitive advantage\u201d",
+    "value": -0.4445
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# mentions of \u201cRestructuring\u201d",
+    "value": 0.4945
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# mentions of \u201cDistressed\u201d",
+    "value": 0.2526
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# mentions of \u201cLow activity\u201d",
+    "value": -0.1021
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "# mentions of \u201cShort-term cost actions\u201d",
+    "value": 0.0673
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Word count of competition section in annual report",
+    "value": -0.23
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Historic market share by year %",
+    "value": -0.5318
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Target market share %",
+    "value": -0.3735
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "Forecast market revenue growth %",
+    "value": 0.0271
+  },
+  {
+    "source": "X% of orders placed for delivery within 24 hours",
+    "target": "X% of orders placed for delivery within 24 hours",
+    "value": 1.0
+  }
+]

@@ -1,0 +1,1188 @@
+{
+  "id": 178,
+  "distance": 1.0,
+  "children": [
+    {
+      "id": 177,
+      "distance": 1.0,
+      "children": [
+        {
+          "id": 176,
+          "distance": 1.0,
+          "children": [
+            {
+              "id": 175,
+              "distance": 1.0,
+              "children": [
+                {
+                  "id": 174,
+                  "distance": 1.0,
+                  "children": [
+                    {
+                      "id": 173,
+                      "distance": 1.0,
+                      "children": [
+                        {
+                          "id": 172,
+                          "distance": 1.0,
+                          "children": [
+                            {
+                              "id": 171,
+                              "distance": 1.0,
+                              "children": [
+                                {
+                                  "id": 170,
+                                  "distance": 1.0,
+                                  "children": [
+                                    {
+                                      "id": 169,
+                                      "distance": 1.0,
+                                      "children": [
+                                        {
+                                          "id": 168,
+                                          "distance": 1.0,
+                                          "children": [
+                                            {
+                                              "id": 167,
+                                              "distance": 1.0,
+                                              "children": [
+                                                {
+                                                  "id": 165,
+                                                  "distance": 1.0,
+                                                  "children": [
+                                                    {
+                                                      "id": 164,
+                                                      "distance": 1.0,
+                                                      "children": [
+                                                        {
+                                                          "id": 159,
+                                                          "distance": 1.0,
+                                                          "children": [
+                                                            {
+                                                              "id": 149,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "id": 139,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 123,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "id": 118,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "id": 111,
+                                                                              "distance": -3.6020000000000003,
+                                                                              "children": [
+                                                                                {
+                                                                                  "id": 91,
+                                                                                  "distance": 1.0,
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "name": "SHENZHEN ZHONG DA",
+                                                                                      "size": 886659.99,
+                                                                                      "score": 3.5
+                                                                                    },
+                                                                                    {
+                                                                                      "name": "SHENZHEN YUANDA",
+                                                                                      "size": 112085.0,
+                                                                                      "score": 0.0
+                                                                                    }
+                                                                                  ],
+                                                                                  "size": 998744.99,
+                                                                                  "score": 3.1072095440498777
+                                                                                },
+                                                                                {
+                                                                                  "id": 90,
+                                                                                  "distance": 1.0,
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "name": "NAN TAI",
+                                                                                      "size": 351537.21,
+                                                                                      "score": 0.0
+                                                                                    },
+                                                                                    {
+                                                                                      "name": "LEE FUNG",
+                                                                                      "size": 217502.88,
+                                                                                      "score": 0.0
+                                                                                    }
+                                                                                  ],
+                                                                                  "size": 569040.0900000001,
+                                                                                  "score": 0.0
+                                                                                }
+                                                                              ],
+                                                                              "size": 1567785.08,
+                                                                              "score": 1.979423075642485
+                                                                            },
+                                                                            {
+                                                                              "name": "SINOTIME",
+                                                                              "size": 717188.64,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 2284973.72,
+                                                                          "score": 1.3581381430505028
+                                                                        },
+                                                                        {
+                                                                          "name": "EASTERN DETERGENT",
+                                                                          "size": 24422.5,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 2309396.22,
+                                                                      "score": 1.3437754587647155
+                                                                    },
+                                                                    {
+                                                                      "name": "INTEX WORLD",
+                                                                      "size": 35275.0,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 2344671.22,
+                                                                  "score": 1.3235586885397093
+                                                                },
+                                                                {
+                                                                  "id": 145,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 132,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "ZHONGSHAN PORT COMM",
+                                                                          "size": 1242842.54,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "id": 114,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "name": "VITASOY",
+                                                                              "size": 164760.0,
+                                                                              "score": 0.0
+                                                                            },
+                                                                            {
+                                                                              "id": 104,
+                                                                              "distance": 1.0,
+                                                                              "children": [
+                                                                                {
+                                                                                  "name": "SUNDANCE",
+                                                                                  "size": 19115.0,
+                                                                                  "score": 0.0
+                                                                                },
+                                                                                {
+                                                                                  "name": "GARDEN",
+                                                                                  "size": 1119049.0,
+                                                                                  "score": 0.0
+                                                                                }
+                                                                              ],
+                                                                              "size": 1138164.0,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 1302924.0,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 2545766.54,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "id": 125,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "id": 99,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "name": "WANG FUNG HONG",
+                                                                              "size": 595114.5,
+                                                                              "score": 0.0
+                                                                            },
+                                                                            {
+                                                                              "name": "UNICORN",
+                                                                              "size": 16625.0,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 611739.5,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "name": "ON KEE HONG",
+                                                                          "size": 66843.55,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 678583.05,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 3224349.59,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 5569020.8100000005,
+                                                              "score": 0.5572451730522443
+                                                            },
+                                                            {
+                                                              "id": 154,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "id": 116,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 100,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "TSH",
+                                                                          "size": 4190631.9,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "name": "GOLDEN NICE",
+                                                                          "size": 25315.75,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 4215947.65,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "name": "BBA-S",
+                                                                      "size": 74437.33,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 4290384.98,
+                                                                  "score": 0.0
+                                                                },
+                                                                {
+                                                                  "id": 148,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 110,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "SHING CHEONG HONG",
+                                                                          "size": 149535.0,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "name": "NESTLE DAIRY",
+                                                                          "size": 3442.0,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 152977.0,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "id": 95,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "NIN JIOM",
+                                                                          "size": 2290800.0,
+                                                                          "score": 4.49
+                                                                        },
+                                                                        {
+                                                                          "id": 90,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "name": "NAN TAI",
+                                                                              "size": 351537.21,
+                                                                              "score": 0.0
+                                                                            },
+                                                                            {
+                                                                              "name": "LEE FUNG",
+                                                                              "size": 217502.88,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 569040.0900000001,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 2859840.09,
+                                                                      "score": 3.5965968992343207
+                                                                    }
+                                                                  ],
+                                                                  "size": 3012817.09,
+                                                                  "score": 3.413978244527284
+                                                                }
+                                                              ],
+                                                              "size": 7303202.07,
+                                                              "score": 1.4083811321956206
+                                                            }
+                                                          ],
+                                                          "size": 12872222.88,
+                                                          "score": 1.0401468409782537
+                                                        },
+                                                        {
+                                                          "id": 152,
+                                                          "distance": 1.0,
+                                                          "children": [
+                                                            {
+                                                              "id": 140,
+                                                              "distance": -2.5,
+                                                              "children": [
+                                                                {
+                                                                  "id": 126,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 96,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "YUE XIU",
+                                                                          "size": 112202.5,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "id": 92,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "name": "SHING HING HO",
+                                                                              "size": 42568.5,
+                                                                              "score": 0.0
+                                                                            },
+                                                                            {
+                                                                              "name": "SHENZHEN BAOAN LUCKY",
+                                                                              "size": 94016.13,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 136584.63,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 248787.13,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "name": "KWONG HING",
+                                                                      "size": 48317.5,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 297104.63,
+                                                                  "score": 0.0
+                                                                },
+                                                                {
+                                                                  "id": 127,
+                                                                  "distance": -3.49,
+                                                                  "children": [
+                                                                    {
+                                                                      "name": "SHANGHAI POND'S",
+                                                                      "size": 54786.38,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "name": "DEPARTMENT OF HEALTH",
+                                                                      "size": 29050.0,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 83836.38,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 380941.01,
+                                                              "score": 0.0
+                                                            },
+                                                            {
+                                                              "id": 143,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "name": "TAK LEE SZE",
+                                                                  "size": 384630.23,
+                                                                  "score": 0.0
+                                                                },
+                                                                {
+                                                                  "id": 130,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "name": "MAY ME SEE",
+                                                                      "size": 58300.5,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "name": "CHEONG HING",
+                                                                      "size": 159691.25,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 217991.75,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 602621.98,
+                                                              "score": 0.0
+                                                            }
+                                                          ],
+                                                          "size": 983562.99,
+                                                          "score": 0.0
+                                                        }
+                                                      ],
+                                                      "size": 13855785.870000001,
+                                                      "score": 0.9663112645230276
+                                                    },
+                                                    {
+                                                      "name": "FORTON",
+                                                      "size": 1130659.37,
+                                                      "score": 0.0
+                                                    }
+                                                  ],
+                                                  "size": 14986445.240000002,
+                                                  "score": 0.8934074592461526
+                                                },
+                                                {
+                                                  "id": 166,
+                                                  "distance": 1.0,
+                                                  "children": [
+                                                    {
+                                                      "id": 160,
+                                                      "distance": 1.0,
+                                                      "children": [
+                                                        {
+                                                          "id": 156,
+                                                          "distance": 1.0,
+                                                          "children": [
+                                                            {
+                                                              "id": 115,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "id": 98,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "name": "ZHUHAI YUANHE",
+                                                                      "size": 1699981.6,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "id": 94,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "ZHU GUANG",
+                                                                          "size": 2270664.31,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "name": "YEUNG MAN SING",
+                                                                          "size": 9500.0,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 2280164.31,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 3980145.91,
+                                                                  "score": 0.0
+                                                                },
+                                                                {
+                                                                  "name": "TIN SHING",
+                                                                  "size": 70880.0,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 4051025.91,
+                                                              "score": 0.0
+                                                            },
+                                                            {
+                                                              "name": "SUN CHUNG HING",
+                                                              "size": 1452.0,
+                                                              "score": 0.0
+                                                            }
+                                                          ],
+                                                          "size": 4052477.91,
+                                                          "score": 0.0
+                                                        },
+                                                        {
+                                                          "name": "TOP SYSTEM",
+                                                          "size": 117873.25,
+                                                          "score": 0.0
+                                                        }
+                                                      ],
+                                                      "size": 4170351.16,
+                                                      "score": 0.0
+                                                    },
+                                                    {
+                                                      "id": 158,
+                                                      "distance": 1.0,
+                                                      "children": [
+                                                        {
+                                                          "id": 157,
+                                                          "distance": 1.0,
+                                                          "children": [
+                                                            {
+                                                              "id": 153,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "id": 144,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 97,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "YUE WAH",
+                                                                          "size": 121206.4,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "id": 93,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "name": "WUMU",
+                                                                              "size": 270592.5,
+                                                                              "score": 0.0
+                                                                            },
+                                                                            {
+                                                                              "name": "UNIVERSAL PHARMACEUTICAL",
+                                                                              "size": 2730.0,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 273322.5,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 394528.9,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "id": 133,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "id": 121,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "id": 119,
+                                                                              "distance": 1.0,
+                                                                              "children": [
+                                                                                {
+                                                                                  "id": 113,
+                                                                                  "distance": 1.0,
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "id": 108,
+                                                                                      "distance": 1.0,
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "name": "XINHUI NANYA",
+                                                                                          "size": 6879.7,
+                                                                                          "score": 0.0
+                                                                                        },
+                                                                                        {
+                                                                                          "name": "CHAI TIN SOW",
+                                                                                          "size": 76733.6,
+                                                                                          "score": 4.913
+                                                                                        }
+                                                                                      ],
+                                                                                      "size": 83613.3,
+                                                                                      "score": 4.508758496554974
+                                                                                    },
+                                                                                    {
+                                                                                      "id": 112,
+                                                                                      "distance": -3.9130000000000003,
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "id": 109,
+                                                                                          "distance": 1.0,
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "id": 105,
+                                                                                              "distance": 1.0,
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "name": "WONG YEE HOP",
+                                                                                                  "size": 2375.0,
+                                                                                                  "score": 0.0
+                                                                                                },
+                                                                                                {
+                                                                                                  "name": "OWINNER",
+                                                                                                  "size": 132960.97,
+                                                                                                  "score": 0.0
+                                                                                                }
+                                                                                              ],
+                                                                                              "size": 135335.97,
+                                                                                              "score": 0.0
+                                                                                            },
+                                                                                            {
+                                                                                              "name": "FUNG YIP",
+                                                                                              "size": 142655.73,
+                                                                                              "score": 0.0
+                                                                                            }
+                                                                                          ],
+                                                                                          "size": 277991.7,
+                                                                                          "score": 0.0
+                                                                                        },
+                                                                                        {
+                                                                                          "name": "TUNG CHEONG",
+                                                                                          "size": 167458.13,
+                                                                                          "score": 0.0
+                                                                                        }
+                                                                                      ],
+                                                                                      "size": 445449.83,
+                                                                                      "score": 0.0
+                                                                                    }
+                                                                                  ],
+                                                                                  "size": 529063.13,
+                                                                                  "score": 0.7125655813513221
+                                                                                },
+                                                                                {
+                                                                                  "name": "CITRUS GROWERS",
+                                                                                  "size": 4164.0,
+                                                                                  "score": 0.0
+                                                                                }
+                                                                              ],
+                                                                              "size": 533227.13,
+                                                                              "score": 0.7070011175162826
+                                                                            },
+                                                                            {
+                                                                              "name": "SHIU SHING HONG",
+                                                                              "size": 70577.5,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 603804.63,
+                                                                          "score": 0.6243611891482185
+                                                                        },
+                                                                        {
+                                                                          "name": "HONG KONG RICHFIELD",
+                                                                          "size": 706135.5,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 1309940.13,
+                                                                      "score": 0.2877934404528855
+                                                                    }
+                                                                  ],
+                                                                  "size": 1704469.0299999998,
+                                                                  "score": 0.2211786604301048
+                                                                },
+                                                                {
+                                                                  "id": 147,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "name": "VALIANCY",
+                                                                      "size": 4185.0,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "name": "GOODWELL",
+                                                                      "size": 51782.5,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 55967.5,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 1760436.5299999998,
+                                                              "score": 0.2141469859183166
+                                                            },
+                                                            {
+                                                              "id": 134,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "name": "XIAMEN CONSTRUCT & DEVELOP",
+                                                                  "size": 593277.51,
+                                                                  "score": 0.0
+                                                                },
+                                                                {
+                                                                  "id": 120,
+                                                                  "distance": 1.0,
+                                                                  "children": [
+                                                                    {
+                                                                      "id": 107,
+                                                                      "distance": 1.0,
+                                                                      "children": [
+                                                                        {
+                                                                          "name": "UNITED BISCUITS",
+                                                                          "size": 244323.96,
+                                                                          "score": 0.0
+                                                                        },
+                                                                        {
+                                                                          "id": 103,
+                                                                          "distance": 1.0,
+                                                                          "children": [
+                                                                            {
+                                                                              "name": "T & P COMPANY",
+                                                                              "size": 54637.5,
+                                                                              "score": 0.0
+                                                                            },
+                                                                            {
+                                                                              "name": "AMOY",
+                                                                              "size": 328865.8,
+                                                                              "score": 0.0
+                                                                            }
+                                                                          ],
+                                                                          "size": 383503.3,
+                                                                          "score": 0.0
+                                                                        }
+                                                                      ],
+                                                                      "size": 627827.26,
+                                                                      "score": 0.0
+                                                                    },
+                                                                    {
+                                                                      "name": "A.S.WATSON",
+                                                                      "size": 44900.0,
+                                                                      "score": 0.0
+                                                                    }
+                                                                  ],
+                                                                  "size": 672727.26,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 1266004.77,
+                                                              "score": 0.0
+                                                            }
+                                                          ],
+                                                          "size": 3026441.3,
+                                                          "score": 0.12456616184824074
+                                                        },
+                                                        {
+                                                          "id": 150,
+                                                          "distance": 1.0,
+                                                          "children": [
+                                                            {
+                                                              "name": "YIN JIN",
+                                                              "size": 44640.75,
+                                                              "score": 0.0
+                                                            },
+                                                            {
+                                                              "id": 102,
+                                                              "distance": 1.0,
+                                                              "children": [
+                                                                {
+                                                                  "name": "PROWIN",
+                                                                  "size": 49087.2,
+                                                                  "score": 0.0
+                                                                },
+                                                                {
+                                                                  "name": "KOWLOON DAIRY",
+                                                                  "size": 122854.5,
+                                                                  "score": 0.0
+                                                                }
+                                                              ],
+                                                              "size": 171941.7,
+                                                              "score": 0.0
+                                                            }
+                                                          ],
+                                                          "size": 216582.45,
+                                                          "score": 0.0
+                                                        }
+                                                      ],
+                                                      "size": 3243023.75,
+                                                      "score": 0.11624712177948128
+                                                    }
+                                                  ],
+                                                  "size": 7413374.91,
+                                                  "score": 0.050852976057027724
+                                                }
+                                              ],
+                                              "size": 22399820.150000002,
+                                              "score": 0.6145582442009025
+                                            },
+                                            {
+                                              "id": 124,
+                                              "distance": 1.0,
+                                              "children": [
+                                                {
+                                                  "name": "NESTLE DAIRY FARM",
+                                                  "size": 260404.6,
+                                                  "score": 0.0
+                                                },
+                                                {
+                                                  "name": "KAI WING HONG",
+                                                  "size": 108234.6,
+                                                  "score": 0.0
+                                                }
+                                              ],
+                                              "size": 368639.2,
+                                              "score": 0.0
+                                            }
+                                          ],
+                                          "size": 22768459.35,
+                                          "score": 0.6046080646119781
+                                        },
+                                        {
+                                          "id": 163,
+                                          "distance": 1.0,
+                                          "children": [
+                                            {
+                                              "id": 155,
+                                              "distance": 1.0,
+                                              "children": [
+                                                {
+                                                  "name": "SHUN HING",
+                                                  "size": 2053580.28,
+                                                  "score": 0.0
+                                                },
+                                                {
+                                                  "name": "KWUN TUNG PAK YUEN TONG",
+                                                  "size": 87605.0,
+                                                  "score": 4.602
+                                                }
+                                              ],
+                                              "size": 2141185.2800000003,
+                                              "score": 0.18828740033183863
+                                            },
+                                            {
+                                              "id": 151,
+                                              "distance": 1.0,
+                                              "children": [
+                                                {
+                                                  "id": 136,
+                                                  "distance": 1.0,
+                                                  "children": [
+                                                    {
+                                                      "name": "SHANGHAI TAKASAGO",
+                                                      "size": 253872.29,
+                                                      "score": 0.0
+                                                    },
+                                                    {
+                                                      "id": 131,
+                                                      "distance": 1.0,
+                                                      "children": [
+                                                        {
+                                                          "name": "NAM YEUNG",
+                                                          "size": 314556.92,
+                                                          "score": 0.0
+                                                        },
+                                                        {
+                                                          "name": "GREAT EASTERN",
+                                                          "size": 2168.0,
+                                                          "score": 0.0
+                                                        }
+                                                      ],
+                                                      "size": 316724.92,
+                                                      "score": 0.0
+                                                    }
+                                                  ],
+                                                  "size": 570597.21,
+                                                  "score": 0.0
+                                                },
+                                                {
+                                                  "name": "MISTER SOFTEE",
+                                                  "size": 12450.0,
+                                                  "score": 0.0
+                                                }
+                                              ],
+                                              "size": 583047.21,
+                                              "score": 0.0
+                                            }
+                                          ],
+                                          "size": 2724232.49,
+                                          "score": 0.14798964900385575
+                                        }
+                                      ],
+                                      "size": 25492691.840000004,
+                                      "score": 0.5558123261650818
+                                    },
+                                    {
+                                      "id": 161,
+                                      "distance": 1.0,
+                                      "children": [
+                                        {
+                                          "id": 146,
+                                          "distance": 1.0,
+                                          "children": [
+                                            {
+                                              "name": "WELLSEA",
+                                              "size": 2365.38,
+                                              "score": 0.0
+                                            },
+                                            {
+                                              "id": 137,
+                                              "distance": 1.0,
+                                              "children": [
+                                                {
+                                                  "name": "SHANGHAI A.S. WATSON",
+                                                  "size": 6738.24,
+                                                  "score": 0.0
+                                                },
+                                                {
+                                                  "id": 129,
+                                                  "distance": 1.0,
+                                                  "children": [
+                                                    {
+                                                      "id": 106,
+                                                      "distance": 1.0,
+                                                      "children": [
+                                                        {
+                                                          "name": "PROCEECO",
+                                                          "size": 7125.0,
+                                                          "score": 0.0
+                                                        },
+                                                        {
+                                                          "name": "LEE KUM KEE",
+                                                          "size": 37887.5,
+                                                          "score": 0.0
+                                                        }
+                                                      ],
+                                                      "size": 45012.5,
+                                                      "score": 0.0
+                                                    },
+                                                    {
+                                                      "name": "LEADING",
+                                                      "size": 76400.0,
+                                                      "score": 0.0
+                                                    }
+                                                  ],
+                                                  "size": 121412.5,
+                                                  "score": 0.0
+                                                }
+                                              ],
+                                              "size": 128150.74,
+                                              "score": 0.0
+                                            }
+                                          ],
+                                          "size": 130516.12000000001,
+                                          "score": 0.0
+                                        },
+                                        {
+                                          "id": 122,
+                                          "distance": 1.0,
+                                          "children": [
+                                            {
+                                              "name": "SHANGHAI PU FA",
+                                              "size": 242615.71,
+                                              "score": 0.0
+                                            },
+                                            {
+                                              "name": "FAIRWOOD",
+                                              "size": 22572.5,
+                                              "score": 0.0
+                                            }
+                                          ],
+                                          "size": 265188.20999999996,
+                                          "score": 0.0
+                                        }
+                                      ],
+                                      "size": 395704.32999999996,
+                                      "score": 0.0
+                                    }
+                                  ],
+                                  "size": 25888396.17,
+                                  "score": 0.5473167305829282
+                                },
+                                {
+                                  "id": 138,
+                                  "distance": 1.0,
+                                  "children": [
+                                    {
+                                      "name": "WUI HING",
+                                      "size": 61530.0,
+                                      "score": 0.0
+                                    },
+                                    {
+                                      "name": "CPC/AJI",
+                                      "size": 417095.0,
+                                      "score": 0.0
+                                    }
+                                  ],
+                                  "size": 478625.0,
+                                  "score": 0.0
+                                }
+                              ],
+                              "size": 26367021.17,
+                              "score": 0.5373816124485631
+                            },
+                            {
+                              "name": "VANQUEEN",
+                              "size": 482429.34,
+                              "score": 0.0
+                            }
+                          ],
+                          "size": 26849450.51,
+                          "score": 0.5277259713945631
+                        },
+                        {
+                          "id": 162,
+                          "distance": 1.0,
+                          "children": [
+                            {
+                              "name": "MOUNTAIN CREAM",
+                              "size": 37580.0,
+                              "score": 0.0
+                            },
+                            {
+                              "id": 141,
+                              "distance": 1.0,
+                              "children": [
+                                {
+                                  "id": 117,
+                                  "distance": 1.0,
+                                  "children": [
+                                    {
+                                      "name": "SUNG WA",
+                                      "size": 128433.95,
+                                      "score": 0.0
+                                    },
+                                    {
+                                      "name": "QUALITY PHARMACEUTICAL",
+                                      "size": 6320.0,
+                                      "score": 0.0
+                                    }
+                                  ],
+                                  "size": 134753.95,
+                                  "score": 0.0
+                                },
+                                {
+                                  "id": 135,
+                                  "distance": 1.0,
+                                  "children": [
+                                    {
+                                      "name": "LUEN HOP",
+                                      "size": 956704.61,
+                                      "score": 0.0
+                                    },
+                                    {
+                                      "name": "LUEN H0P",
+                                      "size": 4831.25,
+                                      "score": 0.0
+                                    }
+                                  ],
+                                  "size": 961535.86,
+                                  "score": 0.0
+                                }
+                              ],
+                              "size": 1096289.81,
+                              "score": 0.0
+                            }
+                          ],
+                          "size": 1133869.81,
+                          "score": 0.0
+                        }
+                      ],
+                      "size": 27983320.32,
+                      "score": 0.5063427852653047
+                    },
+                    {
+                      "id": 128,
+                      "distance": 1.0,
+                      "children": [
+                        {
+                          "name": "VASTLAND",
+                          "size": 18833.0,
+                          "score": 0.0
+                        },
+                        {
+                          "name": "TUNG WO",
+                          "size": 25742.5,
+                          "score": 0.0
+                        }
+                      ],
+                      "size": 44575.5,
+                      "score": 0.0
+                    }
+                  ],
+                  "size": 28027895.82,
+                  "score": 0.5055374988831395
+                },
+                {
+                  "name": "HONG KONG YUE YANG",
+                  "size": 19267261.38,
+                  "score": 0.0
+                }
+              ],
+              "size": 47295157.2,
+              "score": 0.2995899197856985
+            },
+            {
+              "id": 142,
+              "distance": 1.0,
+              "children": [
+                {
+                  "name": "CHIEN MIM",
+                  "size": 1871822.87,
+                  "score": 0.0
+                },
+                {
+                  "name": "DELTA",
+                  "size": 420344.4,
+                  "score": 0.0
+                }
+              ],
+              "size": 2292167.27,
+              "score": 0.0
+            }
+          ],
+          "size": 49587324.470000006,
+          "score": 0.2857414168488207
+        },
+        {
+          "id": 91,
+          "distance": 1.0,
+          "children": [
+            {
+              "name": "SHENZHEN ZHONG DA",
+              "size": 886659.99,
+              "score": 3.5
+            },
+            {
+              "name": "SHENZHEN YUANDA",
+              "size": 112085.0,
+              "score": 0.0
+            }
+          ],
+          "size": 998744.99,
+          "score": 3.1072095440498777
+        }
+      ],
+      "size": 50586069.46000001,
+      "score": 0.3414470130053863
+    },
+    {
+      "id": 101,
+      "distance": 1.0,
+      "children": [
+        {
+          "name": "LONG PURSE",
+          "size": 70279.2,
+          "score": 0.0
+        },
+        {
+          "name": "SHENZHEN LUOLAN",
+          "size": 17547.1,
+          "score": 0.0
+        }
+      ],
+      "size": 87826.29999999999,
+      "score": 0.0
+    }
+  ],
+  "size": 50673895.760000005,
+  "score": 0.3408552284711886
+}

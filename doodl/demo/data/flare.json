@@ -1,0 +1,1010 @@
+[
+  {
+    "name": "flare",
+    "value": ""
+  },
+  {
+    "name": "flare.analytics",
+    "value": ""
+  },
+  {
+    "name": "flare.analytics.cluster",
+    "value": ""
+  },
+  {
+    "name": "flare.analytics.cluster.AgglomerativeCluster",
+    "value": "3938"
+  },
+  {
+    "name": "flare.analytics.cluster.CommunityStructure",
+    "value": "3812"
+  },
+  {
+    "name": "flare.analytics.cluster.HierarchicalCluster",
+    "value": "6714"
+  },
+  {
+    "name": "flare.analytics.cluster.MergeEdge",
+    "value": "743"
+  },
+  {
+    "name": "flare.analytics.graph",
+    "value": ""
+  },
+  {
+    "name": "flare.analytics.graph.BetweennessCentrality",
+    "value": "3534"
+  },
+  {
+    "name": "flare.analytics.graph.LinkDistance",
+    "value": "5731"
+  },
+  {
+    "name": "flare.analytics.graph.MaxFlowMinCut",
+    "value": "7840"
+  },
+  {
+    "name": "flare.analytics.graph.ShortestPaths",
+    "value": "5914"
+  },
+  {
+    "name": "flare.analytics.graph.SpanningTree",
+    "value": "3416"
+  },
+  {
+    "name": "flare.analytics.optimization",
+    "value": ""
+  },
+  {
+    "name": "flare.analytics.optimization.AspectRatioBanker",
+    "value": "7074"
+  },
+  {
+    "name": "flare.animate",
+    "value": ""
+  },
+  {
+    "name": "flare.animate.Easing",
+    "value": "17010"
+  },
+  {
+    "name": "flare.animate.FunctionSequence",
+    "value": "5842"
+  },
+  {
+    "name": "flare.animate.interpolate",
+    "value": ""
+  },
+  {
+    "name": "flare.animate.interpolate.ArrayInterpolator",
+    "value": "1983"
+  },
+  {
+    "name": "flare.animate.interpolate.ColorInterpolator",
+    "value": "2047"
+  },
+  {
+    "name": "flare.animate.interpolate.DateInterpolator",
+    "value": "1375"
+  },
+  {
+    "name": "flare.animate.interpolate.Interpolator",
+    "value": "8746"
+  },
+  {
+    "name": "flare.animate.interpolate.MatrixInterpolator",
+    "value": "2202"
+  },
+  {
+    "name": "flare.animate.interpolate.NumberInterpolator",
+    "value": "1382"
+  },
+  {
+    "name": "flare.animate.interpolate.ObjectInterpolator",
+    "value": "1629"
+  },
+  {
+    "name": "flare.animate.interpolate.PointInterpolator",
+    "value": "1675"
+  },
+  {
+    "name": "flare.animate.interpolate.RectangleInterpolator",
+    "value": "2042"
+  },
+  {
+    "name": "flare.animate.ISchedulable",
+    "value": "1041"
+  },
+  {
+    "name": "flare.animate.Parallel",
+    "value": "5176"
+  },
+  {
+    "name": "flare.animate.Pause",
+    "value": "449"
+  },
+  {
+    "name": "flare.animate.Scheduler",
+    "value": "5593"
+  },
+  {
+    "name": "flare.animate.Sequence",
+    "value": "5534"
+  },
+  {
+    "name": "flare.animate.Transition",
+    "value": "9201"
+  },
+  {
+    "name": "flare.animate.Transitioner",
+    "value": "19975"
+  },
+  {
+    "name": "flare.animate.TransitionEvent",
+    "value": "1116"
+  },
+  {
+    "name": "flare.animate.Tween",
+    "value": "6006"
+  },
+  {
+    "name": "flare.data",
+    "value": ""
+  },
+  {
+    "name": "flare.data.converters",
+    "value": ""
+  },
+  {
+    "name": "flare.data.converters.Converters",
+    "value": "721"
+  },
+  {
+    "name": "flare.data.converters.DelimitedTextConverter",
+    "value": "4294"
+  },
+  {
+    "name": "flare.data.converters.GraphMLConverter",
+    "value": "9800"
+  },
+  {
+    "name": "flare.data.converters.IDataConverter",
+    "value": "1314"
+  },
+  {
+    "name": "flare.data.converters.JSONConverter",
+    "value": "2220"
+  },
+  {
+    "name": "flare.data.DataField",
+    "value": "1759"
+  },
+  {
+    "name": "flare.data.DataSchema",
+    "value": "2165"
+  },
+  {
+    "name": "flare.data.DataSet",
+    "value": "586"
+  },
+  {
+    "name": "flare.data.DataSource",
+    "value": "3331"
+  },
+  {
+    "name": "flare.data.DataTable",
+    "value": "772"
+  },
+  {
+    "name": "flare.data.DataUtil",
+    "value": "3322"
+  },
+  {
+    "name": "flare.display",
+    "value": ""
+  },
+  {
+    "name": "flare.display.DirtySprite",
+    "value": "8833"
+  },
+  {
+    "name": "flare.display.LineSprite",
+    "value": "1732"
+  },
+  {
+    "name": "flare.display.RectSprite",
+    "value": "3623"
+  },
+  {
+    "name": "flare.display.TextSprite",
+    "value": "10066"
+  },
+  {
+    "name": "flare.flex",
+    "value": ""
+  },
+  {
+    "name": "flare.flex.FlareVis",
+    "value": "4116"
+  },
+  {
+    "name": "flare.physics",
+    "value": ""
+  },
+  {
+    "name": "flare.physics.DragForce",
+    "value": "1082"
+  },
+  {
+    "name": "flare.physics.GravityForce",
+    "value": "1336"
+  },
+  {
+    "name": "flare.physics.IForce",
+    "value": "319"
+  },
+  {
+    "name": "flare.physics.NBodyForce",
+    "value": "10498"
+  },
+  {
+    "name": "flare.physics.Particle",
+    "value": "2822"
+  },
+  {
+    "name": "flare.physics.Simulation",
+    "value": "9983"
+  },
+  {
+    "name": "flare.physics.Spring",
+    "value": "2213"
+  },
+  {
+    "name": "flare.physics.SpringForce",
+    "value": "1681"
+  },
+  {
+    "name": "flare.query",
+    "value": ""
+  },
+  {
+    "name": "flare.query.AggregateExpression",
+    "value": "1616"
+  },
+  {
+    "name": "flare.query.And",
+    "value": "1027"
+  },
+  {
+    "name": "flare.query.Arithmetic",
+    "value": "3891"
+  },
+  {
+    "name": "flare.query.Average",
+    "value": "891"
+  },
+  {
+    "name": "flare.query.BinaryExpression",
+    "value": "2893"
+  },
+  {
+    "name": "flare.query.Comparison",
+    "value": "5103"
+  },
+  {
+    "name": "flare.query.CompositeExpression",
+    "value": "3677"
+  },
+  {
+    "name": "flare.query.Count",
+    "value": "781"
+  },
+  {
+    "name": "flare.query.DateUtil",
+    "value": "4141"
+  },
+  {
+    "name": "flare.query.Distinct",
+    "value": "933"
+  },
+  {
+    "name": "flare.query.Expression",
+    "value": "5130"
+  },
+  {
+    "name": "flare.query.ExpressionIterator",
+    "value": "3617"
+  },
+  {
+    "name": "flare.query.Fn",
+    "value": "3240"
+  },
+  {
+    "name": "flare.query.If",
+    "value": "2732"
+  },
+  {
+    "name": "flare.query.IsA",
+    "value": "2039"
+  },
+  {
+    "name": "flare.query.Literal",
+    "value": "1214"
+  },
+  {
+    "name": "flare.query.Match",
+    "value": "3748"
+  },
+  {
+    "name": "flare.query.Maximum",
+    "value": "843"
+  },
+  {
+    "name": "flare.query.methods",
+    "value": ""
+  },
+  {
+    "name": "flare.query.methods.add",
+    "value": "593"
+  },
+  {
+    "name": "flare.query.methods.and",
+    "value": "330"
+  },
+  {
+    "name": "flare.query.methods.average",
+    "value": "287"
+  },
+  {
+    "name": "flare.query.methods.count",
+    "value": "277"
+  },
+  {
+    "name": "flare.query.methods.distinct",
+    "value": "292"
+  },
+  {
+    "name": "flare.query.methods.div",
+    "value": "595"
+  },
+  {
+    "name": "flare.query.methods.eq",
+    "value": "594"
+  },
+  {
+    "name": "flare.query.methods.fn",
+    "value": "460"
+  },
+  {
+    "name": "flare.query.methods.gt",
+    "value": "603"
+  },
+  {
+    "name": "flare.query.methods.gte",
+    "value": "625"
+  },
+  {
+    "name": "flare.query.methods.iff",
+    "value": "748"
+  },
+  {
+    "name": "flare.query.methods.isa",
+    "value": "461"
+  },
+  {
+    "name": "flare.query.methods.lt",
+    "value": "597"
+  },
+  {
+    "name": "flare.query.methods.lte",
+    "value": "619"
+  },
+  {
+    "name": "flare.query.methods.max",
+    "value": "283"
+  },
+  {
+    "name": "flare.query.methods.min",
+    "value": "283"
+  },
+  {
+    "name": "flare.query.methods.mod",
+    "value": "591"
+  },
+  {
+    "name": "flare.query.methods.mul",
+    "value": "603"
+  },
+  {
+    "name": "flare.query.methods.neq",
+    "value": "599"
+  },
+  {
+    "name": "flare.query.methods.not",
+    "value": "386"
+  },
+  {
+    "name": "flare.query.methods.or",
+    "value": "323"
+  },
+  {
+    "name": "flare.query.methods.orderby",
+    "value": "307"
+  },
+  {
+    "name": "flare.query.methods.range",
+    "value": "772"
+  },
+  {
+    "name": "flare.query.methods.select",
+    "value": "296"
+  },
+  {
+    "name": "flare.query.methods.stddev",
+    "value": "363"
+  },
+  {
+    "name": "flare.query.methods.sub",
+    "value": "600"
+  },
+  {
+    "name": "flare.query.methods.sum",
+    "value": "280"
+  },
+  {
+    "name": "flare.query.methods.update",
+    "value": "307"
+  },
+  {
+    "name": "flare.query.methods.variance",
+    "value": "335"
+  },
+  {
+    "name": "flare.query.methods.where",
+    "value": "299"
+  },
+  {
+    "name": "flare.query.methods.xor",
+    "value": "354"
+  },
+  {
+    "name": "flare.query.methods._",
+    "value": "264"
+  },
+  {
+    "name": "flare.query.Minimum",
+    "value": "843"
+  },
+  {
+    "name": "flare.query.Not",
+    "value": "1554"
+  },
+  {
+    "name": "flare.query.Or",
+    "value": "970"
+  },
+  {
+    "name": "flare.query.Query",
+    "value": "13896"
+  },
+  {
+    "name": "flare.query.Range",
+    "value": "1594"
+  },
+  {
+    "name": "flare.query.StringUtil",
+    "value": "4130"
+  },
+  {
+    "name": "flare.query.Sum",
+    "value": "791"
+  },
+  {
+    "name": "flare.query.Variable",
+    "value": "1124"
+  },
+  {
+    "name": "flare.query.Variance",
+    "value": "1876"
+  },
+  {
+    "name": "flare.query.Xor",
+    "value": "1101"
+  },
+  {
+    "name": "flare.scale",
+    "value": ""
+  },
+  {
+    "name": "flare.scale.IScaleMap",
+    "value": "2105"
+  },
+  {
+    "name": "flare.scale.LinearScale",
+    "value": "1316"
+  },
+  {
+    "name": "flare.scale.LogScale",
+    "value": "3151"
+  },
+  {
+    "name": "flare.scale.OrdinalScale",
+    "value": "3770"
+  },
+  {
+    "name": "flare.scale.QuantileScale",
+    "value": "2435"
+  },
+  {
+    "name": "flare.scale.QuantitativeScale",
+    "value": "4839"
+  },
+  {
+    "name": "flare.scale.RootScale",
+    "value": "1756"
+  },
+  {
+    "name": "flare.scale.Scale",
+    "value": "4268"
+  },
+  {
+    "name": "flare.scale.ScaleType",
+    "value": "1821"
+  },
+  {
+    "name": "flare.scale.TimeScale",
+    "value": "5833"
+  },
+  {
+    "name": "flare.util",
+    "value": ""
+  },
+  {
+    "name": "flare.util.Arrays",
+    "value": "8258"
+  },
+  {
+    "name": "flare.util.Colors",
+    "value": "10001"
+  },
+  {
+    "name": "flare.util.Dates",
+    "value": "8217"
+  },
+  {
+    "name": "flare.util.Displays",
+    "value": "12555"
+  },
+  {
+    "name": "flare.util.Filter",
+    "value": "2324"
+  },
+  {
+    "name": "flare.util.Geometry",
+    "value": "10993"
+  },
+  {
+    "name": "flare.util.heap",
+    "value": ""
+  },
+  {
+    "name": "flare.util.heap.FibonacciHeap",
+    "value": "9354"
+  },
+  {
+    "name": "flare.util.heap.HeapNode",
+    "value": "1233"
+  },
+  {
+    "name": "flare.util.IEvaluable",
+    "value": "335"
+  },
+  {
+    "name": "flare.util.IPredicate",
+    "value": "383"
+  },
+  {
+    "name": "flare.util.IValueProxy",
+    "value": "874"
+  },
+  {
+    "name": "flare.util.math",
+    "value": ""
+  },
+  {
+    "name": "flare.util.math.DenseMatrix",
+    "value": "3165"
+  },
+  {
+    "name": "flare.util.math.IMatrix",
+    "value": "2815"
+  },
+  {
+    "name": "flare.util.math.SparseMatrix",
+    "value": "3366"
+  },
+  {
+    "name": "flare.util.Maths",
+    "value": "17705"
+  },
+  {
+    "name": "flare.util.Orientation",
+    "value": "1486"
+  },
+  {
+    "name": "flare.util.palette",
+    "value": ""
+  },
+  {
+    "name": "flare.util.palette.ColorPalette",
+    "value": "6367"
+  },
+  {
+    "name": "flare.util.palette.Palette",
+    "value": "1229"
+  },
+  {
+    "name": "flare.util.palette.ShapePalette",
+    "value": "2059"
+  },
+  {
+    "name": "flare.util.palette.SizePalette",
+    "value": "2291"
+  },
+  {
+    "name": "flare.util.Property",
+    "value": "5559"
+  },
+  {
+    "name": "flare.util.Shapes",
+    "value": "19118"
+  },
+  {
+    "name": "flare.util.Sort",
+    "value": "6887"
+  },
+  {
+    "name": "flare.util.Stats",
+    "value": "6557"
+  },
+  {
+    "name": "flare.util.Strings",
+    "value": "22026"
+  },
+  {
+    "name": "flare.vis",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.axis",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.axis.Axes",
+    "value": "1302"
+  },
+  {
+    "name": "flare.vis.axis.Axis",
+    "value": "24593"
+  },
+  {
+    "name": "flare.vis.axis.AxisGridLine",
+    "value": "652"
+  },
+  {
+    "name": "flare.vis.axis.AxisLabel",
+    "value": "636"
+  },
+  {
+    "name": "flare.vis.axis.CartesianAxes",
+    "value": "6703"
+  },
+  {
+    "name": "flare.vis.controls",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.controls.AnchorControl",
+    "value": "2138"
+  },
+  {
+    "name": "flare.vis.controls.ClickControl",
+    "value": "3824"
+  },
+  {
+    "name": "flare.vis.controls.Control",
+    "value": "1353"
+  },
+  {
+    "name": "flare.vis.controls.ControlList",
+    "value": "4665"
+  },
+  {
+    "name": "flare.vis.controls.DragControl",
+    "value": "2649"
+  },
+  {
+    "name": "flare.vis.controls.ExpandControl",
+    "value": "2832"
+  },
+  {
+    "name": "flare.vis.controls.HoverControl",
+    "value": "4896"
+  },
+  {
+    "name": "flare.vis.controls.IControl",
+    "value": "763"
+  },
+  {
+    "name": "flare.vis.controls.PanZoomControl",
+    "value": "5222"
+  },
+  {
+    "name": "flare.vis.controls.SelectionControl",
+    "value": "7862"
+  },
+  {
+    "name": "flare.vis.controls.TooltipControl",
+    "value": "8435"
+  },
+  {
+    "name": "flare.vis.data",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.data.Data",
+    "value": "20544"
+  },
+  {
+    "name": "flare.vis.data.DataList",
+    "value": "19788"
+  },
+  {
+    "name": "flare.vis.data.DataSprite",
+    "value": "10349"
+  },
+  {
+    "name": "flare.vis.data.EdgeSprite",
+    "value": "3301"
+  },
+  {
+    "name": "flare.vis.data.NodeSprite",
+    "value": "19382"
+  },
+  {
+    "name": "flare.vis.data.render",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.data.render.ArrowType",
+    "value": "698"
+  },
+  {
+    "name": "flare.vis.data.render.EdgeRenderer",
+    "value": "5569"
+  },
+  {
+    "name": "flare.vis.data.render.IRenderer",
+    "value": "353"
+  },
+  {
+    "name": "flare.vis.data.render.ShapeRenderer",
+    "value": "2247"
+  },
+  {
+    "name": "flare.vis.data.ScaleBinding",
+    "value": "11275"
+  },
+  {
+    "name": "flare.vis.data.Tree",
+    "value": "7147"
+  },
+  {
+    "name": "flare.vis.data.TreeBuilder",
+    "value": "9930"
+  },
+  {
+    "name": "flare.vis.events",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.events.DataEvent",
+    "value": "2313"
+  },
+  {
+    "name": "flare.vis.events.SelectionEvent",
+    "value": "1880"
+  },
+  {
+    "name": "flare.vis.events.TooltipEvent",
+    "value": "1701"
+  },
+  {
+    "name": "flare.vis.events.VisualizationEvent",
+    "value": "1117"
+  },
+  {
+    "name": "flare.vis.legend",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.legend.Legend",
+    "value": "20859"
+  },
+  {
+    "name": "flare.vis.legend.LegendItem",
+    "value": "4614"
+  },
+  {
+    "name": "flare.vis.legend.LegendRange",
+    "value": "10530"
+  },
+  {
+    "name": "flare.vis.operator",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.operator.distortion",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.operator.distortion.BifocalDistortion",
+    "value": "4461"
+  },
+  {
+    "name": "flare.vis.operator.distortion.Distortion",
+    "value": "6314"
+  },
+  {
+    "name": "flare.vis.operator.distortion.FisheyeDistortion",
+    "value": "3444"
+  },
+  {
+    "name": "flare.vis.operator.encoder",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.operator.encoder.ColorEncoder",
+    "value": "3179"
+  },
+  {
+    "name": "flare.vis.operator.encoder.Encoder",
+    "value": "4060"
+  },
+  {
+    "name": "flare.vis.operator.encoder.PropertyEncoder",
+    "value": "4138"
+  },
+  {
+    "name": "flare.vis.operator.encoder.ShapeEncoder",
+    "value": "1690"
+  },
+  {
+    "name": "flare.vis.operator.encoder.SizeEncoder",
+    "value": "1830"
+  },
+  {
+    "name": "flare.vis.operator.filter",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.operator.filter.FisheyeTreeFilter",
+    "value": "5219"
+  },
+  {
+    "name": "flare.vis.operator.filter.GraphDistanceFilter",
+    "value": "3165"
+  },
+  {
+    "name": "flare.vis.operator.filter.VisibilityFilter",
+    "value": "3509"
+  },
+  {
+    "name": "flare.vis.operator.IOperator",
+    "value": "1286"
+  },
+  {
+    "name": "flare.vis.operator.label",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.operator.label.Labeler",
+    "value": "9956"
+  },
+  {
+    "name": "flare.vis.operator.label.RadialLabeler",
+    "value": "3899"
+  },
+  {
+    "name": "flare.vis.operator.label.StackedAreaLabeler",
+    "value": "3202"
+  },
+  {
+    "name": "flare.vis.operator.layout",
+    "value": ""
+  },
+  {
+    "name": "flare.vis.operator.layout.AxisLayout",
+    "value": "6725"
+  },
+  {
+    "name": "flare.vis.operator.layout.BundledEdgeRouter",
+    "value": "3727"
+  },
+  {
+    "name": "flare.vis.operator.layout.CircleLayout",
+    "value": "9317"
+  },
+  {
+    "name": "flare.vis.operator.layout.CirclePackingLayout",
+    "value": "12003"
+  },
+  {
+    "name": "flare.vis.operator.layout.DendrogramLayout",
+    "value": "4853"
+  },
+  {
+    "name": "flare.vis.operator.layout.ForceDirectedLayout",
+    "value": "8411"
+  },
+  {
+    "name": "flare.vis.operator.layout.IcicleTreeLayout",
+    "value": "4864"
+  },
+  {
+    "name": "flare.vis.operator.layout.IndentedTreeLayout",
+    "value": "3174"
+  },
+  {
+    "name": "flare.vis.operator.layout.Layout",
+    "value": "7881"
+  },
+  {
+    "name": "flare.vis.operator.layout.NodeLinkTreeLayout",
+    "value": "12870"
+  },
+  {
+    "name": "flare.vis.operator.layout.PieLayout",
+    "value": "2728"
+  },
+  {
+    "name": "flare.vis.operator.layout.RadialTreeLayout",
+    "value": "12348"
+  },
+  {
+    "name": "flare.vis.operator.layout.RandomLayout",
+    "value": "870"
+  },
+  {
+    "name": "flare.vis.operator.layout.StackedAreaLayout",
+    "value": "9121"
+  },
+  {
+    "name": "flare.vis.operator.layout.TreeMapLayout",
+    "value": "9191"
+  },
+  {
+    "name": "flare.vis.operator.Operator",
+    "value": "2490"
+  },
+  {
+    "name": "flare.vis.operator.OperatorList",
+    "value": "5248"
+  },
+  {
+    "name": "flare.vis.operator.OperatorSequence",
+    "value": "4190"
+  },
+  {
+    "name": "flare.vis.operator.OperatorSwitch",
+    "value": "2581"
+  },
+  {
+    "name": "flare.vis.operator.SortOperator",
+    "value": "2023"
+  },
+  {
+    "name": "flare.vis.Visualization",
+    "value": "16540"
+  }
+]
