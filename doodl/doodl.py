@@ -663,7 +663,7 @@ def main():
     zipped_filename = ""
     errors = 0
     usage = """Usage: doodl args input_file
-where args arg one of:
+where args are one of:
 -c|--chart  file   # Add a custom chart to doodl
 -D|--dev           # Run this script in development mode
 -f|--filter filter # Add a filter to be passed to pandoc
