@@ -21,8 +21,8 @@ hero:
 
 features:
   - icon: 📝
-    title: Interactive visualizations in HTML
-    details: Make interactive analytics-based documents straight from Markdown with D3-based charts
+    title: Interactive visualizations
+    details: Make interactive analytics-based HTML documents straight from Markdown with D3-based charts
   - icon: ℹ️
     title: Attractive PDFs
     details: Generate attractive PDFs and other documents with embedded visualizations
