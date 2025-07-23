@@ -33,10 +33,9 @@ smaller segments demoted to the tooltip.
 <span  class="chart-container" id="piechart_0"></span>
 </span>
 
-Including d3 charts in a doodl document is very easy. The only
-required argument is `data`, the format of which depends on the 
-type of chart. For example this chart was generated
-using:
+Including d3 charts in a doodl document is very easy. The only this
+required a source of data, the format of which depends on the type of
+chart. For example this chart was generated using:
 
 ```html
 <piechart
@@ -50,6 +49,29 @@ using:
 >
 </piechart>
 ```
+
+An alternative for this and all charts is to option the data from a
+file, like this:
+
+```html
+<piechart
+    path="data/fruit.json"
+    format="json"
+    donut=1
+>
+</piechart>
+```
+
+where `fruit.json` contains:
+
+~~~json
+[
+  {"label": "Apples", "value": 10},
+  {"label": "Bananas", "value": 20},
+  {"label": "Cherries", "value": 15},
+  {"label": "Grapes", "value": 25}
+]
+~~~
 
 The standard arguments are described in the [charts section](/charts/).
 Chart-specific arguments (as well as the data required by each chart

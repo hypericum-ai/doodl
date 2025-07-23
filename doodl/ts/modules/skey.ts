@@ -4,7 +4,7 @@ export  async function skey(
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[]= defaultArgumentObject.colors,
-  link_color = "source-target", //options are 0 or 1
+  link_color = "source", //options are 'target' or 'source-target'
   node_align = "right", //options are left,right,center,justify
 ) {
 
