@@ -21,7 +21,7 @@ Here's an example of a Sankey diagram from HTML/Markdown:
 
 which produces this:
 
-<span id="skey_0"></span>
+<span  class="chart-container" id="skey_0"></span>
 
 Several things are worth noting here:
 
@@ -46,7 +46,7 @@ This chart has two optional arguments:
 Here is the same chart as above, but using `source-target` to color
 the links:
 
-<span id="skey_1"></span>
+<span  class="chart-container" id="skey_1"></span>
 
 <script>
  setTimeout(() => {

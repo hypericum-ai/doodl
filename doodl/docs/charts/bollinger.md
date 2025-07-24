@@ -35,7 +35,7 @@ data='[
 
 which looks like this:
 
-<span id='bollinger_0'></span>
+<span class="chart-container" id='bollinger_0'></span>
 
 <script>
  setTimeout(() => {

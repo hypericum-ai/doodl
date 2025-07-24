@@ -20,7 +20,7 @@ data='[
 
 produces this:
 
-<span id="linechart_0"></span>
+<span class="chart-container" id="linechart_0"></span>
 
 As shown above, the data provided to the line chart is a list of
 dictionaries, each of which has a "x" and a "y" entry, with the X and
@@ -45,7 +45,7 @@ data='[
 
 produces this:
 
-<span id="linechart_1"></span>
+<span class="chart-container" id="linechart_1"></span>
 
 Data can also be provided in a CSV file that has an "x" and a "y"
 column.

@@ -24,7 +24,7 @@ Here's a simple exampe of a Gantt chart:
 
 which produces the following chart:
 
-<span id="gantt_0"></span>
+<span class="chart-container" id="gantt_0"></span>
 
 <script>
  setTimeout(() => {

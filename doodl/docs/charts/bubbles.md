@@ -50,7 +50,7 @@ Following is a relatively complex bubble chart produced with:
 where `data/bubbles.json` contains a file similar to the JSON shown
 above.
 
-<span id="bubbles_0"></span>
+<span class="chart-container" id="bubbles_0"></span>
 
 <script>
  setTimeout(() => {

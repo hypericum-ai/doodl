@@ -33,7 +33,7 @@ data='[
 
 which produces this:
 
-<span id="dotplot_0"></span>
+<span  class="chart-container" id="dotplot_0"></span>
 
 <script>
  setTimeout(() => {

@@ -19,7 +19,7 @@ data='[
 
 which renders like this:
 
-<span id="piechart_0"></span>
+<span class="chart-container" id="piechart_0"></span>
 
 The piechart has two optional parameters which modify the chart:
 
@@ -30,7 +30,7 @@ The piechart has two optional parameters which modify the chart:
 Both parameters default to `false`. Here is an example with both set
 to `true`:
 
-<span id="piechart_1"></span>
+<span class="chart-container" id="piechart_1"></span>
 
 <script>
  setTimeout(() => {
