@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Mon Jul 14 18:30:31 CAT 2025
+// Generated Fri Jul 25 18:16:24 CAT 2025
 
 
 /// base.ts
@@ -927,6 +927,8 @@ export async function gantt(
   file?: DataFile,
   colors: string[]= defaultArgumentObject.colors,
 ) {
+
+  const margin: Margin = defaultMargin;
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -935,12 +937,12 @@ export async function gantt(
     .select(div)
     .append("svg")
     .attr("width", size.width)
-    .attr("height", size.height);
+    .attr("height", size.height)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);;
 
     hamburgerMenu(div, data);
 
-  
-  const margin = defaultMargin;
   const width = size.width - margin.left - margin.right;
   const height = size.height - margin.top - margin.bottom;
 
@@ -956,19 +958,15 @@ export async function gantt(
     .scaleBand()
     .domain(data.map((d: any) => d.task))
     .range([0, height])
-    .padding(0.2);
+    
 
-  const g = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+  svg.append("g").call(d3.axisLeft(y));
 
-  g.append("g").call(d3.axisLeft(y));
-
-  g.append("g")
+  svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x));
 
-  g.selectAll(".task")
+  svg.selectAll(".task")
     .data(data)
     .enter()
     .append("rect")
@@ -1461,7 +1459,7 @@ export  async function skey(
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[]= defaultArgumentObject.colors,
-  link_color = "source-target", //options are 0 or 1
+  link_color = "source", //options are 'target' or 'source-target'
   node_align = "right", //options are left,right,center,justify
 ) {
 
@@ -1593,6 +1591,7 @@ export  async function skey(
 
   return svg.node();
 }
+
 /// tree.ts
 
 export async function tree(

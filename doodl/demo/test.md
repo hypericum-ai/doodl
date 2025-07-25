@@ -1,3 +1,19 @@
+### A gantt chart
+
+
+<gantt
+  data='[
+    { "task": "Planning", "start": "2024-03-01", "end": "2024-03-05" },
+    { "task": "Design", "start": "2024-03-06", "end": "2024-03-12" },
+    { "task": "Development", "start": "2024-03-13", "end": "2024-03-25" },
+    { "task": "Testing", "start": "2024-03-26", "end": "2024-03-30" },
+    { "task": "Deployment", "start": "2024-03-31", "end": "2024-04-02" }
+  ]'
+  size='{"width":1000,"height":500}'
+  colors='deep'
+>
+</gantt>
+
 
 
 ### A chord diagram 
@@ -65,7 +81,7 @@ data='[
 ]'
   size='{"width":500,"height":500}'
   colors='["#FF6700","#008000"]'
-  horizontal=false
+  horizontal=true
 >
 </barchart>
 
@@ -78,13 +94,13 @@ data='[
 
 <barchart
 data='[
-  { "label": "Apples", "value": 10 },
-  { "label": "Bananas", "value": 20 },
-  { "label": "Cherries", "value": 15 },
-  { "label": "Grapes", "value": 25 }
+  { "label": "Apples", "value": 100000000 },
+  { "label": "Bananas", "value": 200000000 },
+  { "label": "Cherries", "value": 150000000 },
+  { "label": "Grapes", "value": 250000000 }
 ]'
   size='{"width":500,"height":500}'
   colors='["#FF6700","#008000"]'
-  horizontal=true
+  horizontal=false
 >
 </barchart>

@@ -2,7 +2,7 @@ GENERATED_FILE_NAMES = \
 	index.ts \
 
 GENERATED_FILES = $(patsubst %, ../%, $(GENERATED_FILE_NAMES))
-TARGET_FILE = ../dist/doodlchart.js
+TARGET_FILE = ../dist/doodlchart.min.js
 
 SOURCE_FILES = \
 	base.ts \

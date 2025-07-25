@@ -5,6 +5,8 @@ export async function gantt(
   file?: DataFile,
   colors: string[]= defaultArgumentObject.colors,
 ) {
+
+  const margin: Margin = defaultMargin;
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -13,12 +15,12 @@ export async function gantt(
     .select(div)
     .append("svg")
     .attr("width", size.width)
-    .attr("height", size.height);
+    .attr("height", size.height)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);;
 
     hamburgerMenu(div, data);
 
-  
-  const margin = defaultMargin;
   const width = size.width - margin.left - margin.right;
   const height = size.height - margin.top - margin.bottom;
 
@@ -34,19 +36,15 @@ export async function gantt(
     .scaleBand()
     .domain(data.map((d: any) => d.task))
     .range([0, height])
-    .padding(0.2);
+    
 
-  const g = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+  svg.append("g").call(d3.axisLeft(y));
 
-  g.append("g").call(d3.axisLeft(y));
-
-  g.append("g")
+  svg.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(x));
 
-  g.selectAll(".task")
+  svg.selectAll(".task")
     .data(data)
     .enter()
     .append("rect")
