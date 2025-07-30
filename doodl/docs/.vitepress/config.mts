@@ -10,7 +10,7 @@ export default defineConfig({
             'script',
             {
                 'type': 'text/javascript',
-                'src': 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/ts/dist/doodlchart.min.js'
+                'src': 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/ts/dist/doodlchart.min.js'
                 // 'src': '/assets/doodl/js/doodlchart.js' //for production
             }
         ],
@@ -18,7 +18,7 @@ export default defineConfig({
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/css/docs.css'
+                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/css/docs.css'
                 // href: '/assets/doodl/css/docs.css',//for production
             }
         ],
@@ -26,7 +26,7 @@ export default defineConfig({
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/css/menu.css'
+                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/css/menu.css'
                 // href: '/assets/doodl/css/menu.css',//for production
             }
         ],
@@ -60,7 +60,7 @@ export default defineConfig({
                 collapsed: false,
                 items: [
                     { text: 'Bar chart', link: '/charts/bar-chart' },
-                    { text: 'Bollinger bands', link: '/charts/bollinger' },
+                    // { text: 'Bollinger bands', link: '/charts/bollinger' },
                     { text: 'Bubble chart', link: '/charts/bubbles' },
                     { text: 'Box plot', link: '/charts/boxplot' },
                     { text: 'Chord diagram', link: '/charts/chord' },
