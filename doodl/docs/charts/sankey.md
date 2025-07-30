@@ -29,7 +29,7 @@ Several things are worth noting here:
   arguments instead of a `data` argument, as described in the
   [chart overview](/charts/).
   
-- As described in the [color palette](colors) section, we have used a
+- As described in the [color palette](/color) section, we have used a
   color palette from [Colorcet](https://github.com/holoviz/colorcet).
 
 This chart has two optional arguments:

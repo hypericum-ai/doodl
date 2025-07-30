@@ -3,6 +3,7 @@ import pkg from '../package.json' with { type: 'json' }
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    outDir: './.vitepress/dist',
     title: "Doodl",
     description: "Doodl",
     head: [
