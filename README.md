@@ -9,9 +9,9 @@ doodl brings together three things:
    [pandoc](https://pandoc.org/) extensions to markdown)
 2. The
    [Tufte wide margin layout](https://github.com/daveliepmann/tufte-css)
-   <sup>1</sup><span class="marginnote">1. The Tufte layout makes
+   The Tufte layout makes
    extensive use of a wide margin to display notes, images and
-   charts. ![Tufte layout](images/Tufte.gif)</span>
+   charts. ![Tufte layout](images/Tufte.gif)
 3. Data visualization using [d3](http://d3js.org)
 
 The original version was groundbreaking when it was written in 2015,
