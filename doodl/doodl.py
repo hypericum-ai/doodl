@@ -528,12 +528,13 @@ def get_svg_dimensions(svg_path: str):
 
 
 def replace_doodl_tags_with_images(doc, directory: str):
-    for filename in os.listdir(directory):
-        if filename.endswith(".svg"):
-            chart_parts = filename.replace(".svg", "").split("_")
-            tag = chart_parts[0]
-            tag_count = chart_parts[1]
-            doc = replace_raw_json_tags(doc, tag, tag_count, directory)
+    if os.path.isdir(directory):
+        for filename in os.listdir(directory):
+            if filename.endswith(".svg"):
+                chart_parts = filename.replace(".svg", "").split("_")
+                tag = chart_parts[0]
+                tag_count = chart_parts[1]
+                doc = replace_raw_json_tags(doc, tag, tag_count, directory)
 
     return doc
 

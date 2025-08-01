@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: doodl-docs-service
+  labels:
+    app: doodl-docs
+spec:
+  selector:
+    app: doodl-docs
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  type: ClusterIP

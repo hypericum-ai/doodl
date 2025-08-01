@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "doodl"
-version = "0.7.2"
+version = "0.7.3"
 description = "A python module for including beautiful charts in Markdown for conversion to HTML"
 readme = "README.md"
 requires-python = ">=3.7"

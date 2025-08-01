@@ -1,6 +1,6 @@
 FROM node:24-bullseye as build
 
-ARG BRANCH="development"
+ARG BRANCH="main"
 
 RUN git clone https://github.com/hypericum-ai/doodl /srv/www/doodl
 
