@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: nexus.hubbl.ai
-  IMAGE_NAME: docker/doodl
+  IMAGE_NAME: doodl
   K8S_NAMESPACE: doodl
 
 jobs:
@@ -35,10 +35,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./doodl/docs
+          file: ./doodl/docs/Dockerfile
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
+          tags: ${{ env.REGISTRY }}/doodl:latest, ${{ env.REGISTRY }}/doodl:${{ steps.sha.outputs.sha }}
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
