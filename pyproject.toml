@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "doodl"
-version = "0.7.3"
+version = "0.7.4"
 description = "A python module for including beautiful charts in Markdown for conversion to HTML"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -13,7 +13,7 @@ authors = [
   {name = "doodl.ai", email = "info@doodl.ai"}
 ]
 dependencies = [
-    'pypandoc', 'beautifulsoup4', 'seaborn','colorcet','playwright', 'requests','ipython'
+    'pypandoc', 'beautifulsoup4', 'seaborn', 'colorcet', 'playwright', 'requests', 'ipython'
 ]
 
 [tool.flit.module]
