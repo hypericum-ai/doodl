@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - deploy
 
 env:
   REGISTRY: nexus.hubbl.ai
@@ -32,13 +31,11 @@ jobs:
         run: echo "sha=$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          platforms: linux/amd64
-          context: ./doodl/docs
-          file: ./doodl/docs/Dockerfile
-          push: true
-          tags: ${{ env.REGISTRY }}/doodl:latest, ${{ env.REGISTRY }}/doodl:${{ steps.sha.outputs.sha }}
+        run: |
+          cd doodl/docs
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} .
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
