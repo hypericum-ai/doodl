@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - main
-      - deploy
 
 env:
   REGISTRY: nexus.hubbl.ai
-  IMAGE_NAME: doodl
+  IMAGE_NAME: docker/doodl
   K8S_NAMESPACE: doodl
 
 jobs:
@@ -35,7 +34,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./doodl/docs
-          file: ./doodl/docs/Dockerfile
           push: true
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
