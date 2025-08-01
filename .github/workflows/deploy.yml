@@ -51,5 +51,5 @@ jobs:
 
       - name: Deploy to k8s
         run: |
-          kubectl set image deployment/doodl-docs app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} -n ${{ env.K8S_NAMESPACE }}
+          kubectl set image deployment/doodl-docs doodl-docs=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} -n ${{ env.K8S_NAMESPACE }}
           kubectl rollout status deployment/doodl-docs -n ${{ env.K8S_NAMESPACE }} 
