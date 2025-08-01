@@ -1,6 +1,6 @@
 # Charts
 
-All Doodl charts are inserted into a document using an HTML-style
+In Markdown, all Doodl charts are inserted into a document using an HTML-style
 tag, as you've already seen:
 
 ```html
@@ -76,7 +76,7 @@ argument, like this:
 
 Doodl uses the [color palettes](https://seaborn.pydata.org/tutorial/color_palettes.html)
 in [seaborn](https://seaborn.pydata.org/index.html).
-The paletted is set using the `colors` argument to a chart.
+The palette is set using the `colors` argument to a chart.
 Any valid (string) argument to the [`color_palette`](https://seaborn.pydata.org/generated/seaborn.color_palette.html)
 function is accepted. The default palette is "pastel".
 Two addition (optional) color-related arguments are accepted
@@ -97,6 +97,10 @@ argument, like this:
     colors='["#FF6700","#004E98"]'
 </linechart>
 ```
+
+See the documentation on
+[color palettes in Doodl](/color)
+for more information.
 
 ## Size
 
