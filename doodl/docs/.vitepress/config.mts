@@ -11,24 +11,21 @@ export default defineConfig({
             'script',
             {
                 'type': 'text/javascript',
-                'src': 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/ts/dist/doodlchart.min.js'
-                // 'src': '/assets/doodl/js/doodlchart.js' //for production
+                'src': 'https://doodl.ai/assets/doodl/js/doodlchart.min.js'
             }
         ],
         [
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/css/docs.css'
-                // href: '/assets/doodl/css/docs.css',//for production
+                href: 'https://doodl.ai/assets/doodl/css/docs.css'
             }
         ],
         [
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/css/menu.css'
-                // href: '/assets/doodl/css/menu.css',//for production
+                href: 'https://doodl.ai/assets/doodl/css/menu.css'
             }
         ],
         ['link', { rel: 'icon', href: 'favicon.ico' }],
