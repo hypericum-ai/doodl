@@ -23,14 +23,78 @@ which produces this:
 
 <span  class="chart-container" id="skey_0"></span>
 
+
 Several things are worth noting here:
 
 - This example uses data from a file with the `path` and `format`
   arguments instead of a `data` argument, as described in the
   [chart overview](/charts/).
   
+  The format of the data is a JSON dictionary, with two elements:
+  `nodes` and `links`. Here is an excerpt from the data file, above:
+
+```json
+{
+  "nodes": [
+    { "name": "Solar", "width": 100 },
+    { "name": "Wind", "width": 120 },
+    { "name": "Hydro", "width": 80 },
+    { "name": "Nuclear", "width": 90 },
+    { "name": "Coal", "width": 200 },
+    { "name": "Natural gas", "width": 210 },
+    ...
+  ],
+  "links": [
+    { "source": "Solar", "target": "Electricity", "value": 100 },
+    { "source": "Wind", "target": "Electricity", "value": 120 },
+    { "source": "Hydro", "target": "Electricity", "value": 80 },
+    { "source": "Nuclear", "target": "Electricity", "value": 90 },
+    { "source": "Coal", "target": "Electricity", "value": 200 },
+    { "source": "Natural gas", "target": "Electricity", "value": 130 },
+    { "source": "Natural gas", "target": "Heat", "value": 80 },
+    ...
+  ]
+}
+```
+  
+- The data may also be included inline as the following excerpt shows:
+
+```html
+<skey
+    data='{
+      "nodes": [
+        { "name": "Solar", "width": 100},
+        { "name": "Wind", "width": 120 },
+        { "name": "Hydro", "width": 80 },
+        { "name": "Nuclear", "width": 90 },
+        { "name": "Coal", "width": 200 },
+        { "name": "Natural gas", "width": 210 },
+        ...
+      ],
+      "links": [
+        { "source": "Solar", "target": "Electricity", "value": 100 },
+        { "source": "Wind", "target": "Electricity", "value": 120 },
+        { "source": "Hydro", "target": "Electricity", "value": 80 },
+        { "source": "Nuclear", "target": "Electricity", "value": 90 },
+        { "source": "Coal", "target": "Electricity", "value": 200 },
+        { "source": "Natural gas", "target": "Electricity", "value": 130 },
+        { "source": "Natural gas", "target": "Heat", "value": 80 },
+        ...
+      ]
+    }'
+  size='{"width":600,"height":225}'
+  colors="cc.glasbey"
+>
+</skey>
+
+```
+
+Note the use of single quotes to mark the HTML attribute `data`,
+and the use of double quotes within the JSON string.
+  
 - As described in the [color palette](/color) section, we have used a
   color palette from [Colorcet](https://github.com/holoviz/colorcet).
+  As an aside, this is a particularly good option for this chart type.
 
 This chart has two optional arguments:
 

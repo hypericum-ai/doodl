@@ -267,7 +267,17 @@ data='[
   { "x": 50, "y": 60 }
 ]'
   size='{"width":500,"height":500}'
-  colors='deep'
+  dotsize=8
+>
+</scatterplot>
+
+<scatterplot
+data='[
+     { "x": 10, "y": 20 },
+  { "x": 30, "y": 40 },
+  { "x": 50, "y": 60 }
+]'
+  size='{"width":500,"height":500}'
 >
 </scatterplot>
 
@@ -320,7 +330,11 @@ data='{
   "children": [
     { "name": "A", "value": 10 },
     { "name": "B", "value": 20 },
-    { "name": "C", "value": 30 },
+    { "name": "C", "children": [
+      { "name": "C1", "value": 10 },
+      { "name": "C2", "value": 5 },
+      { "name": "C3", "value": 15 }
+    ]},
     { "name": "D", "value": 40 }
   ]
 }

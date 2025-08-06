@@ -4,7 +4,7 @@ export async function tree(
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
-  vertical = 0
+  vertical = false
 ) {
   
   if (file?.path) {

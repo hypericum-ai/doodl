@@ -11,24 +11,21 @@ export default defineConfig({
             'script',
             {
                 'type': 'text/javascript',
-                'src': 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/ts/dist/doodlchart.min.js'
-                // 'src': '/assets/doodl/js/doodlchart.js' //for production
+                'src': 'https://doodl.ai/assets/doodl/js/doodlchart.min.js'
             }
         ],
         [
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/css/docs.css'
-                // href: '/assets/doodl/css/docs.css',//for production
+                href: 'https://doodl.ai/assets/doodl/css/docs.css'
             }
         ],
         [
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/doodl/css/menu.css'
-                // href: '/assets/doodl/css/menu.css',//for production
+                href: 'https://doodl.ai/assets/doodl/css/menu.css'
             }
         ],
         ['link', { rel: 'icon', href: 'favicon.ico' }],
@@ -68,13 +65,13 @@ export default defineConfig({
                     { text: 'Dot plot', link: '/charts/dotplot' },
                     { text: 'Force diagram', link: '/charts/force' },
                     { text: 'Gantt chart', link: '/charts/gantt' },
-                    // { text: 'Heat map', link: '/charts/heatmap' },
+                    { text: 'Heat map', link: '/charts/heatmap' },
                     { text: 'Line chart', link: '/charts/line-chart' },
                     { text: 'Pie chart', link: '/charts/pie-chart' },
                     { text: 'Sankey diagram', link: '/charts/sankey' },
-                    // { text: 'Scatter plot', link: '/charts/scatterplot' },
-                    // { text: 'Tree diagram', link: '/charts/tree' },
-                    // { text: 'Tree map', link: '/charts/treemap' },
+                    { text: 'Scatter plot', link: '/charts/scatterplot' },
+                    { text: 'Tree diagram', link: '/charts/tree' },
+                    { text: 'Tree map', link: '/charts/treemap' },
                     // { text: 'Venn diagram', link: '/charts/venn' },
                 ]
             },

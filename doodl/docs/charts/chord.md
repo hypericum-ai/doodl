@@ -6,14 +6,14 @@
 > points typically drawn as arcs connecting the data.
 > [Wikipedia](https://en.wikipedia.org/wiki/Chord_diagram_(information_visualization))
 
-D3’s chord layout represents flow using a square matrix of size n×n,
+[D3’s chord](https://d3js.org/d3-chord) layout represents flow using a square matrix of size n×n,
 where n is the number of nodes in the graph. Each value
 matrix\[i\]\[j\] represents the flow from the ith node to the jth
 node. (Each number matrix\[i\]\[j\] must be nonnegative, though it can
 be zero if there is no flow from node i to node
-j.)[d3-chord](https://d3js.org/d3-chord)
+j.)
 
-Data is provided to the chord diagra in the form of such a matrix,
+Data is provided to the chord diagram in the form of such a matrix,
 like this diagram, which shows the number of people in a survey of
 each of four hair colors who dyed their hair to each of the colors.
 

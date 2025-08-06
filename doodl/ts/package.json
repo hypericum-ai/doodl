@@ -7,7 +7,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "d3": "^7.9.0",
     "d3-contour": "^4.0.2",

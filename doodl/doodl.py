@@ -35,9 +35,9 @@ base_stylesheets = [
 ]
 
 prod_stylesheets = [
-    "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/css/tufte.css",
-    "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/css/menu.css",
-    "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/css/doodlCharts.css",
+    "https://doodl.ai/assets/doodl/css/tufte.css",
+    "https://doodl.ai/assets/doodl/css/menu.css",
+    "https://doodl.ai/assets/doodl/css/doodlCharts.css",
 ]
 
 dev_stylesheets = [
@@ -49,7 +49,7 @@ dev_stylesheets = [
 dev_scripts = ["{dir}/ts/dist/doodlchart.min.js"]
 
 prod_scripts = [
-    "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@main/doodl/ts/dist/doodlchart.min.js"
+    "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
 ]
 
 html_tpl = """<!DOCTYPE html>
@@ -77,17 +77,17 @@ pdf_engines = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
 standard_charts = {
-    "linechart": {"curved": 0},
-    "piechart": {"donut": 0, "continuous_rotation": 0},
+    "linechart": {"curved": False},
+    "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": 0},
-    "tree": {"vertical": 0},
+    "barchart": {"horizontal": False},
+    "tree": {"vertical": False},
     "venn": None,
     "gantt": None,
     "treemap": None,
-    "heatmap": {"show_legend": 0, "interp": "rgb", "gamma": 0},
+    "heatmap": {"show_legend": False, "interp": "rgb", "gamma": 0},
     "dotplot": None,
-    "scatterplot": None,
+    "scatterplot": {"dotsize": 5},
     "boxplot": None,
     "force": None,
     "chord": None,
@@ -113,7 +113,7 @@ mode = "prod"
 module_name = "Doodl"
 src_dir = "."
 logger = logging.getLogger(module_name)
-convert_url = "https://svgtopng-latest.onrender.com/convert"
+convert_url = "https://svgtopng.doodl.ai/convert"
 default_port = 7300
 
 
