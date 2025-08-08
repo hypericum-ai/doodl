@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Fri Jul 25 18:16:24 CAT 2025
+// Generated Wed Aug  6 02:29:35 PM EDT 2025
 
 
 /// base.ts
@@ -1365,7 +1365,8 @@ export async function scatterplot(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+    colors: string[] = defaultArgumentObject.colors,
+    dotsize = 5
 ) {
  
   if (file?.path) {
@@ -1432,7 +1433,7 @@ export async function scatterplot(
     .append("circle")
     .attr("cx", (d: any) => xScale(+d.x))
     .attr("cy", (d: any) => yScale(+d.y))
-    .attr("r", 5)
+    .attr("r", dotsize)
     .style("fill", (d, i) => colors[i % colors.length])
     .on("mouseover", function (event, d:any) {
       d3.select(this).transition().duration(200).style("opacity", 0.7);
@@ -1451,6 +1452,7 @@ export async function scatterplot(
       tooltip.style("display", "none");
     });
 }
+
 /// skey.ts
 
 export  async function skey(

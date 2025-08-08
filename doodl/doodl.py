@@ -77,17 +77,17 @@ pdf_engines = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
 standard_charts = {
-    "linechart": {"curved": 0},
-    "piechart": {"donut": 0, "continuous_rotation": 0},
+    "linechart": {"curved": False},
+    "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": 0},
-    "tree": {"vertical": 0},
+    "barchart": {"horizontal": False},
+    "tree": {"vertical": False},
     "venn": None,
     "gantt": None,
     "treemap": None,
-    "heatmap": {"show_legend": 0, "interp": "rgb", "gamma": 0},
+    "heatmap": {"show_legend": False, "interp": "rgb", "gamma": 0},
     "dotplot": None,
-    "scatterplot": None,
+    "scatterplot": {"dotsize": 5},
     "boxplot": None,
     "force": None,
     "chord": None,

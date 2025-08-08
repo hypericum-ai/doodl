@@ -3,7 +3,8 @@ export async function scatterplot(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+  colors: string[] = defaultArgumentObject.colors,
+  dotsize: number = 5
 ) {
  
   if (file?.path) {
@@ -70,7 +71,7 @@ export async function scatterplot(
     .append("circle")
     .attr("cx", (d: any) => xScale(+d.x))
     .attr("cy", (d: any) => yScale(+d.y))
-    .attr("r", 5)
+    .attr("r", dotsize)
     .style("fill", (d, i) => colors[i % colors.length])
     .on("mouseover", function (event, d:any) {
       d3.select(this).transition().duration(200).style("opacity", 0.7);
