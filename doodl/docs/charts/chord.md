@@ -8,8 +8,8 @@
 
 [D3’s chord](https://d3js.org/d3-chord) layout represents flow using a square matrix of size n×n,
 where n is the number of nodes in the graph. Each value
-matrix\[i\]\[j\] represents the flow from the ith node to the jth
-node. (Each number matrix\[i\]\[j\] must be nonnegative, though it can
+matrix<sub>i,j</sub> represents the flow from the i<sup>th</sup> node to the j<sup>th</sup>
+node. (Each number matrix<sub>i,j</sub> must be nonnegative, though it can
 be zero if there is no flow from node i to node
 j.)
 
@@ -26,7 +26,7 @@ each of four hair colors who dyed their hair to each of the colors.
     [ 1013,   990,  940, 6907]
   ]
   size='{"width": 350, "height": 350}'
-    colors='["black", "#ffdd89", "#957244", "#f26223"]'>
+  colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>
 ```
 
