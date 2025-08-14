@@ -85,7 +85,7 @@ doodl/venv/
 doodl/.venv/
 doodl/.vscode/
 doodl/dist/
-doodl/include/*
-doodl/lib/*
-doodl/share/*
+include/
+lib/
+share/
 dist
