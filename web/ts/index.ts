@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Wed Aug  6 02:29:35 PM EDT 2025
+// Generated Fri Aug 15 17:31:02 CAT 2025
 
 
 /// base.ts
@@ -1365,8 +1365,8 @@ export async function scatterplot(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-    colors: string[] = defaultArgumentObject.colors,
-    dotsize = 5
+  colors: string[] = defaultArgumentObject.colors,
+  dotsize: number = 5
 ) {
  
   if (file?.path) {
@@ -1602,7 +1602,7 @@ export async function tree(
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
-  vertical = 0
+  vertical = false
 ) {
   
   if (file?.path) {

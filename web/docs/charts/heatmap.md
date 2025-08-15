@@ -43,7 +43,7 @@ doodl.heatmap(
 
 both of which are rendered like this:
 
-<span id='heatmap_0'></span>
+<span class="chart-container" id='heatmap_0'></span>
 
 <script>
  setTimeout(() => {

@@ -1,10 +1,28 @@
 FROM node:24-bullseye as build
 
+
+RUN apt-get update && apt-get install -y \
+    make \
+    build-essential \
+ && rm -rf /var/lib/apt/lists/*
+
+
 ARG BRANCH="main"
 
 RUN git clone https://github.com/hypericum-ai/doodl /srv/www/doodl
 
 RUN cd /srv/www/doodl && git checkout $BRANCH
+
+
+WORKDIR /srv/www/doodl/web/ts
+
+RUN npm install 
+
+
+WORKDIR /srv/www/doodl/web/ts/modules
+
+
+RUN make all
 
 WORKDIR /srv/www/doodl/web/docs
 
