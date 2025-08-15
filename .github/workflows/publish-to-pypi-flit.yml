@@ -27,10 +27,15 @@ jobs:
         pip install flit
 
     - name: Build the package
-      run: flit build
+      run: | 
+        cd doodl
+        flit build
 
     - name: Publish package to PyPI
-      run: flit publish
+      run: | 
+        cd doodl
+        flit publish
+        
       env:
         FLIT_USERNAME: __token__
         FLIT_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
