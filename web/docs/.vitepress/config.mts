@@ -73,6 +73,7 @@ export default defineConfig({
                     { text: 'Tree diagram', link: '/charts/tree' },
                     { text: 'Tree map', link: '/charts/treemap' },
                     // { text: 'Venn diagram', link: '/charts/venn' },
+                    { text: 'Voronoi diagrams', link: '/charts/voronoi' },
                 ]
             },
             {
