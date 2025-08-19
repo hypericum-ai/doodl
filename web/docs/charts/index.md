@@ -111,7 +111,8 @@ pixels, you can do so with the `size` argument. The value to
 ```html
 <linechart
   path='data/linechart1.json'
-  size='{"width":600,"height":600}'>
+  width=600
+  height=600
 </linechart>
 
 ```

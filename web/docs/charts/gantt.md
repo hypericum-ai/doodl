@@ -5,7 +5,7 @@ project's schedule as a series of horizontal bars. These bars
 represent the start and end dates of tasks, allowing for easy tracking
 of progress and dependencies.
 
-Here's a simple exampe of a Gantt chart:
+Here's a simple example of a Gantt chart:
 
 ~~~html
 <gantt
@@ -16,7 +16,8 @@ Here's a simple exampe of a Gantt chart:
     { "task": "Testing", "start": "2024-03-26", "end": "2024-03-30" },
     { "task": "Deployment", "start": "2024-03-31", "end": "2024-04-02" }
   ]'
-  size='{"width":1000,"height":500}'
+  width=1000
+  height=500
   colors='deep'
 >
 </gantt>

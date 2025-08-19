@@ -41,7 +41,8 @@ Following is a relatively complex bubble chart produced with:
 <bubblechart
   path="data/bubbles.json"
   format="json"
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='deep'
   ease_in = 1
 > </bubblechart>

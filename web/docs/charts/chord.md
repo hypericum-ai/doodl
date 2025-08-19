@@ -25,7 +25,8 @@ each of four hair colors who dyed their hair to each of the colors.
     [ 8010, 16145, 8090, 8045],
     [ 1013,   990,  940, 6907]
   ]
-  size='{"width": 350, "height": 350}'
+  width=350
+  height=350
   colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>
 ```

@@ -11,7 +11,8 @@ Here's an example of a Sankey diagram from HTML/Markdown:
 
 ```html
 <skey
-  size='{"width":600,"height":225}'
+  width=600
+  height=225
   path="data/energy.json"
   format="json"
   colors="cc.glasbey"
@@ -82,7 +83,8 @@ Several things are worth noting here:
         ...
       ]
     }'
-  size='{"width":600,"height":225}'
+  width=600
+  height=225
   colors="cc.glasbey"
 >
 </skey>

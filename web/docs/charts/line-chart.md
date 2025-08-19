@@ -13,7 +13,8 @@ data='[
   { "x": 5, "y": 30 },
   { "x": 6, "y": 35 }
   ]'
-  size='{"width":600,"height":600}'
+  width=600
+  height=600
 >
 </linechart>
 ~~~
@@ -37,8 +38,8 @@ data='[
   { "x": 5, "y": 30 },
   { "x": 6, "y": 35 }
   ]'
-  size='{"width":600,"height":600}'
-  curved=true
+  width=600
+  height='  curved=true
 >
 </linechart>
 ~~~
