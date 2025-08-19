@@ -25,7 +25,8 @@ data='[
   { "x": 90, "y": 450, "name": "I" },
   { "x": 600, "y": 350, "name": "J" }
 ]'
-  size='{"width":850,"height":500}'
+  width=850
+  height=500
   colors='flare'
 >
 </voronoi>

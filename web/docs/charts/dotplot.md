@@ -24,7 +24,8 @@ data='[
     { "category": "C", "value": 15 },
     { "category": "C", "value": 21 }
 ]'
-  size='{"width":1000,"height":500}'
+  width=1000
+  height=500
   colors='deep'
   ncolors=3
 >

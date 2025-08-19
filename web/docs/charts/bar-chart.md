@@ -10,7 +10,8 @@ Bar charts are drawn using the `barchart` tag, like this:
         { "label": "Cherries", "value": 15 },
         { "label": "Grapes", "value": 25 }
     ]'
-    size='{"width":500,"height":350}'
+    width=500
+    height=350
     colors='["DarkOrange"]'
 >
 </barchart>
@@ -27,7 +28,8 @@ doodl.barchart(
         { "label": "Cherries", "value": 15 },
         { "label": "Grapes", "value": 25 }
     ],
-    size={"width":500,"height":350}
+    width=500
+    height=350
     colors=["DarkOrange"]
 )
 ```

@@ -76,7 +76,8 @@ Using your visualization is as simple as registering it, like this:<sup>1</sup>
 
 ~~~html
 <special
-    size="{'width': 300, 'height': 600}"
+    width=300
+    height=600
     path="data/special_data.json"
     colors="deep">
 </special>

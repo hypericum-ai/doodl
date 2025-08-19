@@ -24,7 +24,8 @@ The following:
       "values": [30, 35, 40]
     }
   ]'
-  size='{"width":500,"height":350}'>
+  width=500
+  height=350
 </boxplot>
 ```
 would produce the following chart:

@@ -27,7 +27,8 @@ data='[
   { "date": "2024-03-07", "close": 99, "upper": 104, "lower": 94, "movingAvg": 98 },
   { "date": "2024-03-08", "close": 103, "upper": 108, "lower": 98, "movingAvg": 101 }
 ]'
-  size='{"width":500,"height":350}'
+  width=500
+  height=350
   colors='deep'
 >
 </bollinger>
