@@ -77,7 +77,6 @@ renders a vertical tree diagram:
         '#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF',
         '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'
     ],
-    false,
     false
   );
     Doodl.tree('#tree_1',
@@ -100,7 +99,6 @@ renders a vertical tree diagram:
         '#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF',
         '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'
     ],
-    false,
     true
   );
   }
