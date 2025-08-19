@@ -1,3 +1,91 @@
+
+### A Pie chart from data file format
+
+
+<piechart
+  file='{"path":"data/pie.json","format":"json"}'
+  width=900
+  height=900
+  colors='deep'
+>
+</piechart>
+
+
+
+### A Pie chart from data path format
+
+
+<piechart
+  file='{"path":"data/pie.json","format":"json"}'
+  width="900"
+  height="900"
+  colors='deep'
+>
+</piechart>
+
+
+
+### A Pie chart from data path with format
+
+
+<piechart
+  path="data/pie.json"
+  format="json"
+  size='{"width":500,"height":500}'
+  colors='deep'
+>
+</piechart>
+
+
+
+
+
+
+### A Donut chart
+
+
+<piechart
+data='[
+  { "label": "Apples", "value": 10 },
+  { "label": "Bananas", "value": 20 },
+  { "label": "Cherries", "value": 15 },
+  { "label": "Grapes", "value": 25 }
+]'
+  size='{"width":500,"height":500}'
+  colors='pastel'
+  donut = true
+  continuous_rotation=true
+>
+</piechart>
+
+
+
+### A vertical tree chart
+
+<tree
+    data='{
+    "name": "root",
+    "children": [
+            { "name": "A", "value": 10 },
+            { "name": "B", "value": 20 },
+            { "name": "C", "children": [
+                { "name": "C1", "value": 10 },
+                { "name": "C2", "value": 5 },
+                { "name": "C3", "value": 15 }
+            ]},
+            { "name": "D", "value": 40 }
+        ]
+    }
+    '
+    size='{"width":1000,"height":500}'
+    colors='deep'
+    vertical=true>
+</tree>
+
+
+
+
+
 ### A gantt chart
 
 
@@ -32,39 +120,6 @@ data='[
 >
 </chord>
 
-### A Pie chart
-
-
-<piechart
-data='[
-  { "label": "Apples", "value": 10 },
-  { "label": "Bananas", "value": 20 },
-  { "label": "Cherries", "value": 15 },
-  { "label": "Grapes", "value": 25 }
-]'
-  size='{"width":500,"height":500}'
-  colors='deep'
->
-</piechart>
-
-
-
-### A Donut chart
-
-
-<piechart
-data='[
-  { "label": "Apples", "value": 10 },
-  { "label": "Bananas", "value": 20 },
-  { "label": "Cherries", "value": 15 },
-  { "label": "Grapes", "value": 25 }
-]'
-  size='{"width":500,"height":500}'
-  colors='pastel'
-  donut = true
-  continuous_rotation=true
->
-</piechart>
 
 
 
