@@ -327,19 +327,33 @@ def add_chart_to_html(
                         palette_fields[field] = json.loads(attrs[field])
                     except Exception as e:
                         logger.error(e)
-            elif field in ["path", "format"]:
-                try:
-                    value = json.loads(attrs[field])
-                except Exception:
-                    raise
-
-                all_fields["file"][field] = value[field]
+            
 
         # Compute the palette
         all_fields["colors"] = resolve_color_palette(**palette_fields)
 
         # Resolve everything but color.
 
+        for field in ["path", "format"]:
+            if field not in attrs:
+                continue
+            try:
+                value = attrs[field]
+            except Exception:
+                raise
+
+            all_fields["file"][field] = value
+            
+        for field in ["width", "height"]:
+            if field not in attrs:
+                continue
+            try:
+                value = attrs[field]
+            except Exception:
+                raise
+
+            all_fields["size"][field] = value
+            
         for field, dv in all_fields.items():
             try:
                 if field == "colors":
