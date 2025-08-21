@@ -2,6 +2,7 @@
 import colorcet as cc
 import http.server
 import json
+import csv
 import logging
 import os
 import pypandoc as py
@@ -22,6 +23,7 @@ from playwright.sync_api import sync_playwright
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
 from IPython.display import display, HTML
+from urllib.parse import urlparse
 
 
 fonts = [
@@ -956,6 +958,10 @@ def chart(func_name, fields=None):
 
         colors = resolve_color_palette(colors, n_colors, desat)
 
+        if file and not data:
+            data = load_file_data(file["path"], file.get("format", ""))
+            file = {}
+
         args = [
             json.dumps(f"#{chart_id}"),
             json.dumps(data),
@@ -990,6 +996,61 @@ def chart(func_name, fields=None):
     return wrapper
 
 
+def load_file_data(path: str, file_format: str = ""):
+
+    if is_url(path):
+        resp = requests.get(path)
+        resp.raise_for_status()
+        fmt = file_format.lower()
+
+        if fmt == "csv":
+            return list(csv.DictReader(resp.text.splitlines()))
+        elif fmt == "tsv":
+            return list(csv.DictReader(resp.text.splitlines(), delimiter="\t"))
+        elif fmt == "hsv":
+            return list(csv.DictReader(resp.text.splitlines(), delimiter="#"))
+        elif fmt == "json":
+            return resp.json()
+        else:
+            raise ValueError(f"Unsupported remote file format: {fmt or 'unknown'}")
+                
+    if not file_format:
+        file_format = path.split(".")[-1].lower()
+
+    if file_format == "csv":
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f))
+
+    elif file_format == "tsv":
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f, delimiter="\t"))
+
+    elif file_format == "hsv":
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f, delimiter="#"))
+
+    elif file_format == "json":
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+
+    elif file_format == "txt":
+        with open(path, encoding="utf-8") as f:
+            return f.read()
+
+    else:
+        raise ValueError(f"Unsupported file format: {file_format}")
+
+
+
+def is_url(s: str) -> bool:
+    try:
+        result = urlparse(s)
+        # valid if it has a scheme (http, ftp, file, etc.) and at least something after it
+        return bool(result.scheme and (result.netloc or result.path))
+    except Exception:
+        return False
+    
+    
 for k, v in standard_charts.items():
     globals()[k] = chart(k, v)
 
