@@ -384,7 +384,7 @@ def add_chart_to_html(
     return code_parts
 
 
-def make_supporting(chart_defs, server_mode=False):
+def make_supporting(chart_defs):
     # Construct the mode-specificities
     scripts = []
     stylesheets = base_stylesheets
@@ -414,6 +414,7 @@ def write_html(
 ):
     # Put it all together into a set of arguments for turning the template
     # into the finished document.
+    # breakpoint()
 
     indent_sep = "\n        "
     tpl_args = {
@@ -810,16 +811,15 @@ In dev mode, the script must be run in the same folder as the script.
         else temp_file("html")
     )
     # No matter what, we need to generate the HTML file first.
-
-    soup = parse_html(input_file, output_dir, filters, extras)
-    soup = transform_html(soup)
-    code_string = process_html_charts(soup, chart_defs)
-    scripts, stylesheets = make_supporting(chart_defs, server_mode)
-
     if not output_dir:
         output_dir = os.getcwd()
 
     server_dir_name = output_dir
+
+    soup = parse_html(input_file, output_dir, filters, extras)
+    soup = transform_html(soup)
+    code_string = process_html_charts(soup, chart_defs)
+    scripts, stylesheets = make_supporting(chart_defs)
     
     # Copy the generated HTML file and dependencies to a temporary directory,
     # and then handle the output based on the mode.
