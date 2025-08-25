@@ -443,6 +443,7 @@ def write_html(
 
 
 def generate_json(input_file, output_dir, filters=[], extras=[]):
+    os.makedirs(output_dir, exist_ok=True)
     raw_json = None
 
     # Call pandoc and parse the JSON with BeautifulSoup
@@ -815,13 +816,11 @@ In dev mode, the script must be run in the same folder as the script.
     code_string = process_html_charts(soup, chart_defs)
     scripts, stylesheets = make_supporting(chart_defs, server_mode)
 
-    # First, handle HTML output
-
-    server_dir_name = ""
-
     if not output_dir:
         output_dir = os.getcwd()
 
+    server_dir_name = output_dir
+    
     # Copy the generated HTML file and dependencies to a temporary directory,
     # and then handle the output based on the mode.
 
