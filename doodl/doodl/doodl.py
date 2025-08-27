@@ -414,7 +414,7 @@ def write_html(
 ):
     # Put it all together into a set of arguments for turning the template
     # into the finished document.
-    # breakpoint()
+    # # breakpoint()
 
     indent_sep = "\n        "
     tpl_args = {
@@ -807,7 +807,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     html_file = (
         output_file
-        if not server_mode and output_format == "html"
+        if not (server_mode or zip_mode) and output_format == "html"
         else temp_file("html")
     )
     # No matter what, we need to generate the HTML file first.
@@ -831,18 +831,20 @@ In dev mode, the script must be run in the same folder as the script.
             if os.path.isfile(html_file):
                 shutil.copy2(html_file, dir_name)
                 old_html_file_name = os.path.basename(html_file)
+                new_base_name = "index.html" if server_mode else os.path.basename(output_file)
                 if old_html_file_name != "index.html":
+                    # breakpoint()
                     os.rename(
                         os.path.join(dir_name, old_html_file_name),
-                        os.path.join(dir_name, "index.html"),
+                        os.path.join(dir_name, new_base_name),
                     )
-                html_file = os.path.join(dir_name, "index.html")
+                html_file = os.path.join(dir_name, new_base_name)
 
-    write_html(scripts, stylesheets, soup, code_string, title, html_file)
+            write_html(scripts, stylesheets, soup, code_string, title, html_file)
 
-    if zip_mode:
-        zip_directory(server_dir_name, zipped_filename)
-        return
+            if zip_mode:
+                zip_directory(server_dir_name, zipped_filename)
+                return
 
     # All other cases require an HTTP server to serve the finished HTML file
 
@@ -907,7 +909,10 @@ def browse_html(httpd, url):
 
 
 def zip_directory(folder_path, output_zip):
+    if not os.path.isdir(folder_path):
+        raise ValueError(f"Source directory does not exist: {folder_path}")
     with zipfile.ZipFile(output_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
+        # breakpoint()
         for root, _, files in os.walk(folder_path):
             for file in files:
                 file_path = os.path.join(root, file)
