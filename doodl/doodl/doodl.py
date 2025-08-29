@@ -414,7 +414,6 @@ def write_html(
 ):
     # Put it all together into a set of arguments for turning the template
     # into the finished document.
-    # # breakpoint()
 
     indent_sep = "\n        "
     tpl_args = {
@@ -444,6 +443,7 @@ def write_html(
 
 
 def generate_json(input_file, output_dir, filters=[], extras=[]):
+    
     os.makedirs(output_dir, exist_ok=True)
     raw_json = None
 
@@ -477,7 +477,7 @@ def convert_images(httpd, page_url, output_path=""):
         logger.error(f"Error opening document to convert SVGs: {e}")
 
     httpd.shutdown()
-
+    
     if soup is None:
         return soup
 
@@ -546,6 +546,7 @@ def get_svg_dimensions(svg_path: str):
 
 
 def replace_doodl_tags_with_images(doc, directory: str):
+    
     if os.path.isdir(directory):
         for filename in os.listdir(directory):
             if filename.endswith(".svg"):
@@ -799,17 +800,20 @@ In dev mode, the script must be run in the same folder as the script.
     if output_format == "":
         output_format = output_ext[1:].lower()
 
-    if (server_mode or zip_mode) and output_format != "html":
-        logger.error(
-            "Cannot run in server or zip mode when generating a file in a format other than HTML."
-        )
-        sys.exit(1)
+    # if (server_mode or zip_mode) and output_format != "html":
+    #     logger.error(
+    #         "Cannot run in server or zip mode when generating a file in a format other than HTML."
+    #     )
+    #     sys.exit(1)
 
-    html_file = (
-        output_file
-        if not (server_mode or zip_mode) and output_format == "html"
-        else temp_file("html")
-    )
+    # html_file = (
+    #     output_file
+    #     if not (server_mode or zip_mode) and output_format == "html"
+    #     else temp_file("html")
+    # )
+
+    html_file = temp_file("html")
+
     # No matter what, we need to generate the HTML file first.
     if not output_dir:
         output_dir = os.getcwd()
@@ -824,27 +828,26 @@ In dev mode, the script must be run in the same folder as the script.
     # Copy the generated HTML file and dependencies to a temporary directory,
     # and then handle the output based on the mode.
 
-    if server_mode or zip_mode or output_format != "html":
-        with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
-            server_dir_name = dir_name
-            copy_data(output_dir, dir_name)
-            if os.path.isfile(html_file):
-                shutil.copy2(html_file, dir_name)
-                old_html_file_name = os.path.basename(html_file)
-                new_base_name = "index.html" if server_mode else os.path.basename(output_file)
-                if old_html_file_name != "index.html":
-                    # breakpoint()
-                    os.rename(
-                        os.path.join(dir_name, old_html_file_name),
-                        os.path.join(dir_name, new_base_name),
-                    )
-                html_file = os.path.join(dir_name, new_base_name)
+    with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
+        server_dir_name = dir_name
+        copy_data(output_dir, dir_name)
+        if os.path.isfile(html_file):
+            shutil.copy2(html_file, dir_name)
+            old_html_file_name = os.path.basename(html_file)
+            if old_html_file_name != "index.html":
+                os.rename(
+                    os.path.join(dir_name, old_html_file_name),
+                    os.path.join(dir_name, "index.html"),
+                )
+            html_file = os.path.join(dir_name, "index.html")
 
-            write_html(scripts, stylesheets, soup, code_string, title, html_file)
+        write_html(scripts, stylesheets, soup, code_string, title, html_file)
 
-            if zip_mode:
-                zip_directory(server_dir_name, zipped_filename)
-                return
+        if zip_mode:
+            zip_base_name = os.path.join(dir_name,os.path.basename(output_file))
+            shutil.copy2(html_file, zip_base_name)
+            zip_directory(server_dir_name, zipped_filename)
+            return
 
     # All other cases require an HTTP server to serve the finished HTML file
 
@@ -912,7 +915,7 @@ def zip_directory(folder_path, output_zip):
     if not os.path.isdir(folder_path):
         raise ValueError(f"Source directory does not exist: {folder_path}")
     with zipfile.ZipFile(output_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
-        # breakpoint()
+        
         for root, _, files in os.walk(folder_path):
             for file in files:
                 file_path = os.path.join(root, file)
