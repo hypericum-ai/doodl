@@ -546,16 +546,19 @@ def get_svg_dimensions(svg_path: str):
 
 
 def replace_doodl_tags_with_images(doc, directory: str):
-    
+    image_tag_blocks = []
     if os.path.isdir(directory):
         for filename in os.listdir(directory):
             if filename.endswith(".svg"):
                 chart_parts = filename.replace(".svg", "").split("_")
                 tag = chart_parts[0]
                 tag_count = chart_parts[1]
-                doc = replace_raw_json_tags(doc, tag, tag_count, directory)
+                blocks = find_tag_blocks(doc, tag)
+                image_tag_blocks.append((tag, tag_count, blocks))
+                # doc = replace_raw_json_tags(doc, tag, tag_count, directory)
 
-    return doc
+    return match_blocks_to_images(doc, image_tag_blocks, directory)
+    
 
 
 def replace_raw_json_tags(doc, tag, tag_count, directory):
@@ -608,7 +611,67 @@ def replace_raw_json_tags(doc, tag, tag_count, directory):
 
     return result_json
 
+def find_tag_blocks(doc, tag):   
+    result = []
+    if doc is not None and "blocks" in doc:
+        for block in doc["blocks"]:
+            if "t" in block and "c" in block:
+                block_t = block["t"]
+                block_c = block["c"]
+                if block_t.upper() == "PARA":
+                    if isinstance(block_c, list):
+                        for cblock in block_c:
+                            if "t" in cblock and "c" in cblock:
+                                cblock_t = cblock["t"]
+                                cblock_c = cblock["c"]
+                                if cblock_t.upper() == "RAWINLINE" and obj_has_tag(
+                                    cblock_c, tag
+                                ):
+                                    result.append(block)
+    return result
 
+
+
+def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
+    new_blocks = []
+    # breakpoint()
+
+    for image_tag, tag_count, block in image_tag_blocks:
+        new_block = get_replacement_block(image_path_directory, (image_tag, tag_count))
+        new_blocks.append(new_block)
+
+    doc["blocks"] = new_blocks
+    return doc
+
+
+
+def get_replacement_block(directory, image_tag):
+    image_path = os.path.join(directory, f'{image_tag[0]}_{image_tag[1]}.png')
+    new_block = {
+        "t": "Figure",
+        "c": [
+            ["", [], []],
+            [None, []],
+            [
+                {
+                    "t": "Plain",
+                    "c": [
+                        {
+                            "t": "Image",
+                            "c": [
+                                ["", [], []],
+                                [],
+                                [image_path, ""],
+                            ],
+                        }
+                    ],
+                }
+            ],
+        ],
+    }
+    return new_block
+
+        
 def convert_to_format(doc, output_format, output_file_path):
     with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
