@@ -552,67 +552,25 @@ def replace_doodl_tags_with_images(doc, directory: str):
             if filename.endswith(".svg"):
                 chart_parts = filename.replace(".svg", "").split("_")
                 tag = chart_parts[0]
-                tag_count = chart_parts[1]
-                blocks = find_tag_blocks(doc, tag)
-                image_tag_blocks.append((tag, tag_count, blocks))
-                # doc = replace_raw_json_tags(doc, tag, tag_count, directory)
+                image_tag_blocks.append({'tag':tag, 'count':None})
 
     return match_blocks_to_images(doc, image_tag_blocks, directory)
-    
+
+def get_block_doodl_tag(cblock, image_tags):  
+    result = None
+    if "t" in cblock and "c" in cblock:
+        cblock_t = cblock["t"]
+        cblock_c = cblock["c"]
+        if cblock_t.upper() == "RAWINLINE":
+            for tag in image_tags:
+                if obj_has_tag(cblock_c, tag):
+                    result = tag
+                    break
+    return result
 
 
-def replace_raw_json_tags(doc, tag, tag_count, directory):
-    result_json = doc.copy()
-    result_json["blocks"] = []
-
-    for block in doc["blocks"]:
-        replace_this_block = False
-        if "t" in block and "c" in block:
-            block_t = block["t"]
-            block_c = block["c"]
-            if block_t.upper() == "PARA":
-                if isinstance(block_c, list):
-                    for cblock in block_c:
-                        if "t" in cblock and "c" in cblock:
-                            cblock_t = cblock["t"]
-                            cblock_c = cblock["c"]
-                            if cblock_t.upper() == "RAWINLINE" and obj_has_tag(
-                                cblock_c, tag
-                            ):
-                                image_name = f"{tag}_{tag_count}.png"
-                                image_path = os.path.join(directory, image_name)
-                                new_block = {
-                                    "t": "Figure",
-                                    "c": [
-                                        ["", [], []],
-                                        [None, []],
-                                        [
-                                            {
-                                                "t": "Plain",
-                                                "c": [
-                                                    {
-                                                        "t": "Image",
-                                                        "c": [
-                                                            ["", [], []],
-                                                            [],
-                                                            [image_path, ""],
-                                                        ],
-                                                    }
-                                                ],
-                                            }
-                                        ],
-                                    ],
-                                }
-                                result_json["blocks"].append(new_block)
-                                replace_this_block = True
-                                break
-        if not replace_this_block:
-            result_json["blocks"].append(block)
-
-    return result_json
-
-def find_tag_blocks(doc, tag):   
-    result = []
+def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
+    new_blocks = []
     if doc is not None and "blocks" in doc:
         for block in doc["blocks"]:
             if "t" in block and "c" in block:
@@ -621,24 +579,19 @@ def find_tag_blocks(doc, tag):
                 if block_t.upper() == "PARA":
                     if isinstance(block_c, list):
                         for cblock in block_c:
-                            if "t" in cblock and "c" in cblock:
-                                cblock_t = cblock["t"]
-                                cblock_c = cblock["c"]
-                                if cblock_t.upper() == "RAWINLINE" and obj_has_tag(
-                                    cblock_c, tag
-                                ):
-                                    result.append(block)
-    return result
-
-
-
-def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
-    new_blocks = []
-    # breakpoint()
-
-    for image_tag, tag_count, block in image_tag_blocks:
-        new_block = get_replacement_block(image_path_directory, (image_tag, tag_count))
-        new_blocks.append(new_block)
+                            block_doodl_tag = get_block_doodl_tag(cblock, [it['tag'] for it in image_tag_blocks])
+                            if block_doodl_tag is not None:
+                                # find the matching dict
+                                for it in image_tag_blocks:
+                                    if it['tag'] == block_doodl_tag:
+                                        it['count'] = it['count'] + 1 if it['count'] is not None else 0
+                                        new_block = get_replacement_block(image_path_directory, it)
+                                        new_blocks.append(new_block)
+                                        break
+                                break
+                            else:
+                                new_blocks.append(block)
+                                break
 
     doc["blocks"] = new_blocks
     return doc
@@ -646,7 +599,7 @@ def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
 
 
 def get_replacement_block(directory, image_tag):
-    image_path = os.path.join(directory, f'{image_tag[0]}_{image_tag[1]}.png')
+    image_path = os.path.join(directory, f'{image_tag["tag"]}_{image_tag["count"]}.png')
     new_block = {
         "t": "Figure",
         "c": [
