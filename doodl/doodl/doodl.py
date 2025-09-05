@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
+import io
 import colorcet as cc
 import http.server
 import json
 import csv
 import logging
 import os
+import panflute as pf
 import pypandoc as py
 import re
 import requests
@@ -26,35 +28,35 @@ from IPython.display import display, HTML
 from urllib.parse import urlparse
 
 
-fonts = [
+FONTS = [
     "http://fonts.googleapis.com/css?family=Raleway",
     "http://fonts.googleapis.com/css?family=Droid%20Sans",
     "http://fonts.googleapis.com/css?family=Lato",
 ]
 
-base_stylesheets = [
+BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
 ]
 
-prod_stylesheets = [
+PROD_STYLESHEETS = [
     "https://doodl.ai/assets/doodl/css/tufte.css",
     "https://doodl.ai/assets/doodl/css/menu.css",
     "https://doodl.ai/assets/doodl/css/doodlCharts.css",
 ]
 
-dev_stylesheets = [
+DEV_STYLESHEETS = [
     "{dir}/css/tufte.css",
     "{dir}/css/menu.css",
     "{dir}/css/doodlCharts.css",
 ]
 
-dev_scripts = ["{dir}/ts/dist/doodlchart.min.js"]
+DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
 
-prod_scripts = [
+PROD_SCRIPTS = [
     "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
 ]
 
-html_tpl = """<!DOCTYPE html>
+HTML_TPL = """<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -75,10 +77,10 @@ html_tpl = """<!DOCTYPE html>
 </html>
 """
 
-pdf_engines = ["xelatex", "lualatex", "pdflatex"]
+PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
-standard_charts = {
+STANDARD_CHARTS = {
     "linechart": {"curved": False},
     "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
@@ -101,6 +103,17 @@ standard_charts = {
     "bubblechart": {"ease_in": 0, "drag_animations": 0},
     "voronoi": None,
 }
+
+# Optional: restrict which RawInline.format values are eligible.
+# None = accept all formats; otherwise a set like {"html", "latex"}
+
+MATCH_FORMATS = {'html'}  # e.g., {"html"}
+
+INLINE_CONTAINERS = (
+    pf.Para, pf.Plain, pf.Header, pf.Span, pf.Emph, pf.Strong,
+    pf.Quoted, pf.SmallCaps, pf.Superscript, pf.Subscript,
+    pf.Cite, pf.Link  # (Images inside links are allowed in Pandoc)
+)
 
 if hasattr(py, "convert"):
     convert = py.convert  # type: ignore
@@ -253,7 +266,7 @@ def process_html_charts(soup, chart_defs):
     code_parts = []
     code_string = ""
 
-    for s, args in standard_charts.items():
+    for s, args in STANDARD_CHARTS.items():
         add_chart_to_html(s, args, soup, code_parts)
 
     # Add any custom chart defs
@@ -387,16 +400,16 @@ def add_chart_to_html(
 def make_supporting(chart_defs):
     # Construct the mode-specificities
     scripts = []
-    stylesheets = base_stylesheets
+    stylesheets = BASE_STYLESHEETS
 
     if mode == "dev":
-        scripts = [f"ts/dist/{os.path.basename(path)}" for path in dev_scripts]
-        stylesheets = base_stylesheets + [
-            f"css/{os.path.basename(path)}" for path in dev_stylesheets
+        scripts = [f"ts/dist/{os.path.basename(path)}" for path in DEV_SCRIPTS]
+        stylesheets = BASE_STYLESHEETS + [
+            f"css/{os.path.basename(path)}" for path in DEV_STYLESHEETS
         ]
     else:
-        scripts = scripts + prod_scripts
-        stylesheets = stylesheets + prod_stylesheets
+        scripts = scripts + PROD_SCRIPTS
+        stylesheets = stylesheets + PROD_STYLESHEETS
 
     for src in set([defn.module_source for defn in chart_defs]):
         scripts.append(src)
@@ -419,7 +432,7 @@ def write_html(
     tpl_args = {
         "title": title,
         "fonts": indent_sep.join(
-            [f"<link href='{font}' rel='stylesheet' type='text/css'>" for font in fonts]
+            [f"<link href='{font}' rel='stylesheet' type='text/css'>" for font in FONTS]
         ),
         "scripts": indent_sep.join(
             [f'<script src="{script}"></script>' for script in scripts]
@@ -431,7 +444,7 @@ def write_html(
         "code": code_string,
     }
 
-    doc = html_tpl.format(**tpl_args)
+    doc = HTML_TPL.format(**tpl_args)
 
     with open(output_file, "w") as ofp:
         ofp.write(doc)
@@ -544,84 +557,103 @@ def get_svg_dimensions(svg_path: str):
 
     return width, height
 
-
-def replace_doodl_tags_with_images(doc, directory: str):
-    image_tag_blocks = []
-    if os.path.isdir(directory):
-        for filename in os.listdir(directory):
-            if filename.endswith(".svg"):
-                chart_parts = filename.replace(".svg", "").split("_")
-                tag = chart_parts[0]
-                image_tag_blocks.append({'tag':tag, 'count':None})
-
-    return match_blocks_to_images(doc, image_tag_blocks, directory)
-
-def get_block_doodl_tag(cblock, image_tags):  
-    result = None
-    if "t" in cblock and "c" in cblock:
-        cblock_t = cblock["t"]
-        cblock_c = cblock["c"]
-        if cblock_t.upper() == "RAWINLINE":
-            for tag in image_tags:
-                if obj_has_tag(cblock_c, tag):
-                    result = tag
-                    break
-    return result
+def _ok_html(elem: pf.RawInline) -> bool:
+    if not isinstance(elem, pf.RawInline):
+        return False
+    if MATCH_FORMATS is None:
+        return True
+    return elem.format in MATCH_FORMATS
 
 
-def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
-    new_blocks = []
-    if doc is not None and "blocks" in doc:
-        for block in doc["blocks"]:
-            if "t" in block and "c" in block:
-                block_t = block["t"]
-                block_c = block["c"]
-                if block_t.upper() == "PARA":
-                    if isinstance(block_c, list):
-                        for cblock in block_c:
-                            block_doodl_tag = get_block_doodl_tag(cblock, [it['tag'] for it in image_tag_blocks])
-                            if block_doodl_tag is not None:
-                                for it in image_tag_blocks:
-                                    if it['tag'] == block_doodl_tag:
-                                        it['count'] = it['count'] + 1 if it['count'] is not None else 0
-                                        new_block = get_replacement_block(image_path_directory, it)
-                                        new_blocks.append(new_block)
-                                        break
-                                break
-            new_blocks.append(block)
+def is_doodl_start_block(elem) -> str | None:
+    if not _ok_html(elem):
+        return None
 
-    doc["blocks"] = new_blocks
-    return doc
+    m = re.match(r"^\s*<(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
+
+    if m:
+        return m.group("tag").lower()
+
+    return None
+
+def is_doodl_end_block(elem, tag) -> bool:
+    if not _ok_html(elem):
+        return False
+    
+    m = re.match(r"^\s*<(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
+
+    if m:
+        return m.group("tag").lower() == tag
+    
+    return False
 
 
+def _make_image(alt_text: str, url: str) -> pf.Image:
+    alt_inlines = [pf.Str(alt_text)] if alt_text else []
+    # Use keyword for clarity; Pandoc expects URL as target
+    return pf.Image(*alt_inlines, url=url)
 
-def get_replacement_block(directory, image_tag):
-    image_path = os.path.join(directory, f'{image_tag["tag"]}_{image_tag["count"]}.png')
-    new_block = {
-        "t": "Figure",
-        "c": [
-            ["", [], []],
-            [None, []],
-            [
-                {
-                    "t": "Plain",
-                    "c": [
-                        {
-                            "t": "Image",
-                            "c": [
-                                ["", [], []],
-                                [],
-                                [image_path, ""],
-                            ],
-                        }
-                    ],
-                }
-            ],
-        ],
-    }
-    return new_block
+def _rewrite_inlines(inlines, doc):
+    """Return a new list of inlines with RawInline[ Space/SoftBreak RawInline ] collapsed to Image."""
+    out = []
+    i = 0
+    n = len(inlines)
 
-        
+    while i < n:
+        cur = inlines[i]
+        tag = _ok_html(cur)
+
+        # Case A: RawInline + (Space|SoftBreak) + RawInline  -> Image(alt=first, url=second)
+        if (
+            i + 2 < n
+            and tag
+            and isinstance(inlines[i+1], (pf.Space, pf.SoftBreak))
+            and is_doodl_end_block(inlines[i+2], tag)
+        ):
+            alt = cur.text
+            tag_count = doc.image_count.get(tag, 0)
+            doc.image_count[tag] = tag_count + 1
+            image_path = os.path.join(doc.image_path_directory, f"{tag}_{tag_count}.png")
+            out.append(_make_image(alt, image_path))
+            i += 2 # Skip the two RawInlines
+
+            if isinstance(inlines[i+1], (pf.Space, pf.SoftBreak)):
+                i += 1  # Skip over Space/SoftBreak                
+
+            continue
+
+        # Default: keep as-is
+        out.append(cur)
+        i += 1
+
+    return out
+
+def action(elem, doc):
+    # Only process inline containers (those that have a list of Inline children)
+    if isinstance(elem, INLINE_CONTAINERS) and hasattr(elem, 'content'):
+        # elem.content is a panflute.ListContainer
+        new_seq = _rewrite_inlines(list(elem.content), doc)
+        if new_seq != list(elem.content):
+            elem.content = pf.ListContainer(*new_seq)
+
+
+def replace_tags_with_images(json_doc, image_path_directory):
+    doc = pf.load(io.StringIO(json.dumps(json_doc, ensure_ascii=False)))
+
+    doc.image_path_directory = image_path_directory
+    doc.image_count = {}
+
+    doc = pf.run_filter(action, doc=doc)
+ 
+    breakpoint()
+
+    with io.StringIO() as f:
+        pf.dump(doc, f)
+        json_doc = json.loads(f.getvalue())
+
+    return json_doc
+
+
 def convert_to_format(doc, output_format, output_file_path):
     with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
@@ -653,7 +685,7 @@ def convert_to_format(doc, output_format, output_file_path):
 
 
 def get_pdf_engine():
-    for engine in pdf_engines:
+    for engine in PDF_ENGINES:
         if hasattr(shutil, "which") and shutil.which(engine) is not None:
             return engine
     logger.error(
@@ -881,7 +913,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     svg_dir = os.path.join(server_dir_name, "svg")
     convert_images(httpd, url, svg_dir)
-    json_doc = replace_doodl_tags_with_images(json_doc, svg_dir)
+    json_doc = replace_tags_with_images(json_doc, svg_dir)
     convert_to_format(
         json_doc,
         output_format=output_format,
@@ -949,7 +981,7 @@ def copy_data(output_dir, server_dir_path):
     )
 
     if mode == "dev":
-        styles_and_scripts = dev_scripts + dev_stylesheets
+        styles_and_scripts = DEV_SCRIPTS + DEV_STYLESHEETS
         styles_and_scripts = [path.format(dir=src_dir) for path in styles_and_scripts]
         for sas in styles_and_scripts:
             if os.path.isfile(sas):
@@ -999,9 +1031,9 @@ def chart(func_name, fields=None):
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
-<script src="{prod_scripts[0]}"></script>
-<link rel="stylesheet" href="{prod_stylesheets[1]}" />
-<link rel="stylesheet" href="{prod_stylesheets[2]}" />
+<script src="{PROD_SCRIPTS[0]}"></script>
+<link rel="stylesheet" href="{PROD_STYLESHEETS[1]}" />
+<link rel="stylesheet" href="{PROD_STYLESHEETS[2]}" />
 <script type="text/javascript">
             Doodl.{func_name}({
             """,
@@ -1071,7 +1103,7 @@ def is_url(s: str) -> bool:
         return False
     
     
-for k, v in standard_charts.items():
+for k, v in STANDARD_CHARTS.items():
     globals()[k] = chart(k, v)
 
 
