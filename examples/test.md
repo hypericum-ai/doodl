@@ -1,3 +1,27 @@
+<skey
+  file='{
+        "path": "std_focus.json",
+        "format": "json"
+    }'
+    link_color='"target"'
+    colors='cc.glasbey'
+    size='{"width":1000,"height":500}'>
+</skey>
+
+
+
+
+<skey
+  size='{"width":600,"height":225}'
+  file='{"path": "data/energy.json", "format": "json"}'
+  n_colors=10
+  colors='pastel'
+  link_color='"source-target"'
+  node_align='"right"'
+>
+</skey>
+
+
 
 ### A Pie chart from data file format
 
@@ -54,7 +78,6 @@ data='[
   size='{"width":500,"height":500}'
   colors='pastel'
   donut = true
-  continuous_rotation=true
 >
 </piechart>
 

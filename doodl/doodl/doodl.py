@@ -581,7 +581,6 @@ def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
                         for cblock in block_c:
                             block_doodl_tag = get_block_doodl_tag(cblock, [it['tag'] for it in image_tag_blocks])
                             if block_doodl_tag is not None:
-                                # find the matching dict
                                 for it in image_tag_blocks:
                                     if it['tag'] == block_doodl_tag:
                                         it['count'] = it['count'] + 1 if it['count'] is not None else 0
@@ -589,9 +588,7 @@ def match_blocks_to_images(doc, image_tag_blocks , image_path_directory):
                                         new_blocks.append(new_block)
                                         break
                                 break
-                            else:
-                                new_blocks.append(block)
-                                break
+            new_blocks.append(block)
 
     doc["blocks"] = new_blocks
     return doc
