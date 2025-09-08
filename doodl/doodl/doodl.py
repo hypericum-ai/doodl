@@ -601,24 +601,34 @@ def _rewrite_inlines(inlines, doc):
 
     while i < n:
         cur = inlines[i]
-        tag = _ok_html(cur)
+        tag = is_doodl_start_block(cur)
 
-        # Case A: RawInline + (Space|SoftBreak) + RawInline  -> Image(alt=first, url=second)
-        if (
-            i + 2 < n
-            and tag
-            and isinstance(inlines[i+1], (pf.Space, pf.SoftBreak))
-            and is_doodl_end_block(inlines[i+2], tag)
+        if tag:
+            logger.info(f"Found {tag} block, block {i}/{n}")
+
+        # RawInline + (Space|SoftBreak)? + RawInline  -> Image(alt=first, url=second)
+        if tag and (
+            (
+                i + 2 < n
+                and isinstance(inlines[i+1], (pf.Space, pf.SoftBreak))
+                and is_doodl_end_block(inlines[i+2], tag)
+            ) or (
+                i + 1 < n 
+                and is_doodl_end_block(inlines[i+1], tag)
+            )
         ):
+
+            logger.info(f"Processing {tag} block")
             alt = cur.text
             tag_count = doc.image_count.get(tag, 0)
             doc.image_count[tag] = tag_count + 1
             image_path = os.path.join(doc.image_path_directory, f"{tag}_{tag_count}.png")
             out.append(_make_image(alt, image_path))
-            i += 2 # Skip the two RawInlines
 
             if isinstance(inlines[i+1], (pf.Space, pf.SoftBreak)):
                 i += 1  # Skip over Space/SoftBreak                
+
+            i += 2 # Skip the two RawInlines
 
             continue
 
@@ -645,8 +655,6 @@ def replace_tags_with_images(json_doc, image_path_directory):
 
     doc = pf.run_filter(action, doc=doc)
  
-    breakpoint()
-
     with io.StringIO() as f:
         pf.dump(doc, f)
         json_doc = json.loads(f.getvalue())
@@ -697,14 +705,6 @@ def get_pdf_engine():
 def temp_file(suffix):
     """Create a temporary file with the given suffix."""
     return NamedTemporaryFile(suffix=f".{suffix}", delete=False).name
-
-
-def obj_has_tag(obj, tag):
-    if isinstance(obj, list):
-        for phrase in obj:
-            if tag.upper() in phrase.upper():
-                return True
-    return False
 
 
 def main():
