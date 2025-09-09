@@ -104,6 +104,8 @@ STANDARD_CHARTS = {
     "voronoi": None,
 }
 
+CHART_TAGS = list(STANDARD_CHARTS.keys())
+
 # Optional: restrict which RawInline.format values are eligible.
 # None = accept all formats; otherwise a set like {"html", "latex"}
 
@@ -191,6 +193,7 @@ def register_chart(filename, defs):
         for defn_dict in defn_list:
             defn = ChartDefinition(**defn_dict)
             defs.append(defn)
+            CHART_TAGS.append(str(defn.tag))
 
     return defs
 
@@ -572,15 +575,18 @@ def is_doodl_start_block(elem) -> str | None:
     m = re.match(r"^\s*<(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
 
     if m:
-        return m.group("tag").lower()
+        tag = m.group("tag").lower()
+
+        if tag in CHART_TAGS:
+            return tag
 
     return None
 
 def is_doodl_end_block(elem, tag) -> bool:
     if not _ok_html(elem):
         return False
-    
-    m = re.match(r"^\s*<(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
+
+    m = re.match(r"^\s*</(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
 
     if m:
         return m.group("tag").lower() == tag
