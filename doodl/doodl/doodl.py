@@ -843,6 +843,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
         server_dir_name = dir_name
+        # breakpoint()
         copy_data(output_dir, dir_name)
         if os.path.isfile(html_file):
             shutil.copy2(html_file, dir_name)
@@ -855,6 +856,11 @@ In dev mode, the script must be run in the same folder as the script.
             html_file = os.path.join(dir_name, "index.html")
 
         write_html(scripts, stylesheets, soup, code_string, title, html_file)
+        
+        plots_folder = os.path.join(os.getcwd(),'plots')
+        if os.path.isdir(plots_folder):
+            copy_data(plots_folder, os.path.join(dir_name,'plots'))
+            
 
         if zip_mode:
             zip_base_name = os.path.join(dir_name,os.path.basename(output_file))
