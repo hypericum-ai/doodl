@@ -719,7 +719,7 @@ In dev mode, the script must be run in the same folder as the script.
         (
             "chart",
             "dir",
-            "filter",
+            "filter=",
             "output",
             "plot",
             "server",
