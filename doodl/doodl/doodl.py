@@ -281,96 +281,12 @@ def process_html_charts(soup, chart_defs):
 def add_chart_to_html(
     chart_id, fields, soup, code_parts, module=module_name, function_name=None
 ):
-    all_fields = {
-        "data": [],
-        "size": {},
-        "file": {},
-        "colors": "pastel",
-    }
-
-    palette_fields = {
-        "colors": "pastel",
-        "n_colors": 10,
-        "desat": 1,
-    }
-
-    if fields:
-        all_fields |= fields
-
     if not function_name:
         function_name = chart_id
 
     for d in enumerate(soup.find_all(chart_id)):
         attrs = d[1].attrs
-        args = [f"'#{chart_id}_{str(d[0])}'"]  # Insert the div ID
-
-        # Figure out the colors
-
-        for field, dv in palette_fields.items():
-            if field in attrs:
-                if field == "colors":
-                    try:
-                        value = json.loads(attrs[field])
-                    except Exception:
-                        value = attrs[field]
-                        if type(value) is not str:
-                            raise
-
-                    if (
-                        type(value) is list
-                        and len(value) == 1
-                        and type(value[0] is str)
-                    ):
-                        value = value[0]
-
-                    palette_fields["colors"] = value
-                else:
-                    try:
-                        palette_fields[field] = json.loads(attrs[field])
-                    except Exception as e:
-                        logger.error(e)
-            
-
-        # Compute the palette
-        all_fields["colors"] = resolve_color_palette(**palette_fields)
-
-        # Resolve everything but color.
-
-        for field in ["path", "format"]:
-            if field not in attrs:
-                continue
-            try:
-                value = attrs[field]
-            except Exception:
-                raise
-
-            all_fields["file"][field] = value
-            
-        for field in ["width", "height"]:
-            if field not in attrs:
-                continue
-            try:
-                value = attrs[field]
-            except Exception:
-                raise
-
-            all_fields["size"][field] = value
-            
-        for field, dv in all_fields.items():
-            try:
-                if field == "colors":
-                    value = str(all_fields["colors"])
-                elif field in palette_fields:
-                    continue
-                elif field in attrs:
-                    value = attrs[field]
-                else:
-                    value = json.dumps(dv)
-
-                args.append(value)
-            except:
-                logger.error(f"Error on chart : {chart_id}")
-                raise
+        args = handle_chart_field_arguments(fields, attrs, f"'#{chart_id}_{str(d[0])}'")    
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
         d[1].name = "span"
@@ -972,36 +888,112 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
+def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID):
+    args = [divID]  # Insert the div ID
+    
+    all_fields = {
+        "data": [],
+        "size": {},
+        "file": {},
+        "colors": "pastel",
+    }
+
+    palette_fields = {
+        "colors": "pastel",
+        "n_colors": 10,
+        "desat": 1,
+    }
+
+    if chart_specific_fields:
+        all_fields |= chart_specific_fields
+        
+
+    # Figure out the colors
+    for field, dv in palette_fields.items():
+        if field in supplied_attrs:
+            if field == "colors":
+                try:
+                    value = supplied_attrs[field]
+                    if isinstance(value, str):
+                        value = json.loads(value)
+                except Exception:
+                    value = supplied_attrs[field]
+
+                if (
+                    type(value) is list
+                    and len(value) == 1
+                    and type(value[0]) is str
+                ):
+                    value = value[0]
+
+                palette_fields["colors"] = value
+            else:
+                try:
+                    palette_fields[field] = json.loads(supplied_attrs[field])
+                except Exception as e:
+                    logger.error(e)
+
+    # Compute the palette
+    all_fields["colors"] = resolve_color_palette(**palette_fields)
+
+    
+
+    # Resolve everything but color.
+
+    for field in ["path", "format"]:
+        if field not in supplied_attrs:
+            continue
+        try:
+            value = supplied_attrs[field]
+        except Exception:
+            raise
+
+        all_fields["file"][field] = value
+        
+    if all_fields["file"] and not all_fields["data"]:
+        all_fields["data"] = load_file_data(all_fields["file"]["path"], all_fields["file"].get("format", ""))
+        all_fields["file"] = {}
+        
+    for field in ["width", "height"]:
+        if field not in supplied_attrs:
+            continue
+        try:
+            value = supplied_attrs[field]
+        except Exception:
+            raise
+
+        all_fields["size"][field] = value
+        
+    for field, dv in all_fields.items():
+        try:
+            if field == "colors":
+                value = str(all_fields["colors"])
+            elif field in palette_fields:
+                continue
+            elif field in supplied_attrs:
+                value = supplied_attrs[field]
+            else:
+                value = json.dumps(dv)
+
+            args.append(value)
+        except:
+            logger.error(f"Error on chart : {divID}")
+            raise
+            
+    return args
+
 
 def chart(func_name, fields=None):
     def wrapper(
-        data=[], size={}, file={}, colors="pastel", n_colors=10, desat=1, **kwargs
+         **kwargs
     ):
         global chart_count
+        print(f"Rendering chart {func_name} with fields {fields} and kwargs {kwargs}")
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
-
-        colors = resolve_color_palette(colors, n_colors, desat)
-
-        if file and not data:
-            data = load_file_data(file["path"], file.get("format", ""))
-            file = {}
-
-        args = [
-            json.dumps(f"#{chart_id}"),
-            json.dumps(data),
-            json.dumps(size),
-            json.dumps(file),
-            json.dumps(colors),
-        ]
-
-        if fields:
-            for field in fields:
-                if field in kwargs:
-                    args.append(json.dumps(kwargs[field]))
-                else:
-                    args.append(json.dumps(fields[field]))
+        
+        args = [json.dumps(a) for a in handle_chart_field_arguments(fields, kwargs, f"#{chart_id}")]
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
@@ -1016,8 +1008,8 @@ def chart(func_name, fields=None):
             );
 </script>
 '''
-
         display(HTML(script))
+        print(script)
 
     return wrapper
 
