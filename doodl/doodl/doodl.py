@@ -923,7 +923,7 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
-def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID):
+def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID, preload_data_files=False):
     args = [divID]  # Insert the div ID
     
     all_fields = {
@@ -984,8 +984,8 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID):
             raise
 
         all_fields["file"][field] = value
-        
-    if all_fields["file"] and not all_fields["data"]:
+
+    if preload_data_files and all_fields["file"] and not all_fields["data"]:
         all_fields["data"] = load_file_data(all_fields["file"]["path"], all_fields["file"].get("format", ""))
         all_fields["file"] = {}
         
@@ -1028,7 +1028,7 @@ def chart(func_name, fields=None):
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
         
-        args = [json.dumps(a) for a in handle_chart_field_arguments(fields, kwargs, f"#{chart_id}")]
+        args = [json.dumps(a) for a in handle_chart_field_arguments(fields, kwargs, f"#{chart_id}", True)]
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
