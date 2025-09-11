@@ -525,9 +525,6 @@ def _rewrite_inlines(inlines, doc):
         cur = inlines[i]
         tag = is_doodl_start_block(cur)
 
-        if tag:
-            logger.info(f"Found {tag} block, block {i}/{n}")
-
         # RawInline + (Space|SoftBreak)? + RawInline  -> Image(alt=first, url=second)
         if tag and (
             (
