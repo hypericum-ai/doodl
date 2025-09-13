@@ -22,6 +22,7 @@ import zipfile
 from bs4 import BeautifulSoup
 from getopt import getopt
 from playwright.sync_api import sync_playwright
+from pprint import pformat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
 from IPython.display import display, HTML
@@ -295,23 +296,25 @@ def process_html_charts(soup, chart_defs):
 
 # Function to add charts
 def add_chart_to_html(
-    chart_id, fields, soup, code_parts, module=module_name, function_name=None
+    chart_type, fields, soup, code_parts, module=module_name, function_name=None
 ):
     if not function_name:
-        function_name = chart_id
+        function_name = chart_type
 
-    for d in enumerate(soup.find_all(chart_id)):
-        attrs = d[1].attrs
-        args = handle_chart_field_arguments(fields, attrs, f"'#{chart_id}_{str(d[0])}'")    
+    for num, elem in enumerate(soup.find_all(chart_type)):
+        attrs = elem.attrs
+        chart_id = f"{chart_type}_{str(num)}"
+
+        args = handle_chart_field_arguments(fields, attrs, '#' + chart_id)
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
-        d[1].name = "span"
-        d[1].contents = ""
-        d[1].attrs = {}
-        d[1]["id"] = chart_id + "_" + str(d[0])
-        d[1]["class"] = "chart-container"
+        elem.name = "span"
+        elem.contents = ""
+        elem.attrs = {}
+        elem["id"] = chart_id
+        elem["class"] = "chart-container"
         tag = soup.new_tag("br")
-        d[1].insert_after(tag)
+        elem.insert_after(tag)
 
     return code_parts
 
@@ -794,7 +797,6 @@ In dev mode, the script must be run in the same folder as the script.
 
     with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
         server_dir_name = dir_name
-        # breakpoint()
         copy_data(output_dir, dir_name)
         if os.path.isfile(html_file):
             shutil.copy2(html_file, dir_name)
@@ -923,8 +925,8 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
-def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID, preload_data_files=False):
-    args = [divID]  # Insert the div ID
+def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id, preload_data_files=False):
+    args = [div_id]  # Insert the div ID
     
     all_fields = {
         "data": [],
@@ -944,6 +946,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID, 
         
 
     # Figure out the colors
+
     for field, dv in palette_fields.items():
         if field in supplied_attrs:
             if field == "colors":
@@ -968,54 +971,33 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , divID, 
                 except Exception as e:
                     logger.error(e)
 
-    # Compute the palette
+    # Construct the palette
+
     all_fields["colors"] = resolve_color_palette(**palette_fields)
 
-    
-
-    # Resolve everything but color.
+    # Resolve data
 
     for field in ["path", "format"]:
-        if field not in supplied_attrs:
-            continue
-        try:
-            value = supplied_attrs[field]
-        except Exception:
-            raise
-
-        all_fields["file"][field] = value
+        if field in supplied_attrs:
+            all_fields["file"][field] = supplied_attrs[field]
 
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
-        all_fields["data"] = load_file_data(all_fields["file"]["path"], all_fields["file"].get("format", ""))
+        all_fields["data"] = load_file_data(
+            all_fields["file"]["path"],
+            all_fields["file"].get("format", ""))
         all_fields["file"] = {}
-        
+
+    # Handle size
+
     for field in ["width", "height"]:
-        if field not in supplied_attrs:
-            continue
-        try:
-            value = supplied_attrs[field]
-        except Exception:
-            raise
+        if field in supplied_attrs:
+            all_fields["size"][field] = supplied_attrs[field]
 
-        all_fields["size"][field] = value
-        
-    for field, dv in all_fields.items():
-        try:
-            if field == "colors":
-                value = str(all_fields["colors"])
-            elif field in palette_fields:
-                continue
-            elif field in supplied_attrs:
-                value = supplied_attrs[field]
-            else:
-                value = json.dumps(dv)
+    # Construct the args
 
-            args.append(value)
-        except:
-            logger.error(f"Error on chart : {divID}")
-            raise
-            
-    return args
+    args += list(all_fields.values())
+
+    return [ json.dumps(a) for a in args ]
 
 
 def chart(func_name, fields=None):
@@ -1023,12 +1005,20 @@ def chart(func_name, fields=None):
          **kwargs
     ):
         global chart_count
-        print(f"Rendering chart {func_name} with fields {fields} and kwargs {kwargs}")
+        print(f"Rendering chart {func_name} with fields {pformat(fields)} and kwargs {pformat(kwargs)}")
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
         
-        args = [json.dumps(a) for a in handle_chart_field_arguments(fields, kwargs, f"#{chart_id}", True)]
+        args = [
+            str(a)
+            for a in handle_chart_field_arguments(
+                fields,
+                kwargs,
+                '#' + chart_id,
+                True
+            )
+        ]
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
@@ -1038,7 +1028,7 @@ def chart(func_name, fields=None):
 <script type="text/javascript">
             Doodl.{func_name}({
             """,
-                """.join(args)
+                """.join([str(a) for a in args])
         }
             );
 </script>

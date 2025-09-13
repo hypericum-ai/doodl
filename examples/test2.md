@@ -1,3 +1,39 @@
+# 🌟 Markdown Demo Document
+
+This is a **demo document** that shows off different styles and elements available in Markdown.  
+You can use it for **docs, notes, or projects**.
+
+---
+
+## 📷 Images
+
+Here’s an inline image:
+
+![Bacon](https://placebacon.net/300/200)
+
+Here’s an image as a clickable link:
+
+[![More bacon!](https://placebacon.com/200x200)](https://placebacon.com/)
+
+
+---
+
+
+## 🔤 Text Styles
+
+- **Bold text**
+- *Italic text*
+- ***Bold & Italic***
+- ~~Strikethrough~~
+
+> 💡 “Blockquote style looks like this!”
+
+
+---
+
+
+### Generating graphics from Python
+
 ```{.matplotlib}
 import pandas as pd
 from scipy.stats import truncnorm
@@ -18,42 +54,7 @@ df['accept'] = (df.margin / 0.15 + df.growth + (1.0 - df.volatility)) > 1
 sns.pairplot(df, hue='accept')
 ```
 
-
-# 🌟 Markdown Demo Document
-
-This is a **demo document** that shows off different styles and elements available in Markdown.  
-You can use it for **docs, notes, or projects**.
-
----
-
-## 📷 Images
-
-Here’s an inline image:
-
-![Cute Cat](https://placekitten.com/300/200)
-
-Here’s an image as a clickable link:
-
-[![Puppy](https://place-puppy.com/200x200)](https://place-puppy.com/)
-
----
-
-## 🔤 Text Styles
-
-- **Bold text**
-- *Italic text*
-- ***Bold & Italic***
-- ~~Strikethrough~~
-
-> 💡 “Blockquote style looks like this!”
-
----
-
-
-
-
 ### A Donut chart
-
 
 <piechart
 data='[
@@ -62,13 +63,12 @@ data='[
   { "label": "Cherries", "value": 15 },
   { "label": "Grapes", "value": 25 }
 ]'
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='pastel'
-  donut = true
+  donut=true
 >
 </piechart>
-
-
 
 ## 📋 Lists
 
@@ -84,18 +84,13 @@ data='[
 2. Second step
 3. Third step
 
----
-
 ## ✅ Task List
 
 - [x] Write Markdown  
 - [ ] Add images  
 - [ ] Celebrate 🎉  
 
----
-
 ### A chord diagram 
-
 
 <chord
 data='[
@@ -105,7 +100,8 @@ data='[
   [2, 7, 6, 0]
 ]
 '
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='deep'
 >
 </chord>
