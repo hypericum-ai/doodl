@@ -977,10 +977,13 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
 
     # Resolve data
 
+    all_fields["file"] = supplied_attrs.get("file", {})
     for field in ["path", "format"]:
         if field in supplied_attrs:
             all_fields["file"][field] = supplied_attrs[field]
 
+    all_fields["data"] = supplied_attrs.get("data", {})
+    
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
         all_fields["data"] = load_file_data(
             all_fields["file"]["path"],
@@ -988,7 +991,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
         all_fields["file"] = {}
 
     # Handle size
-
+    all_fields["size"] = supplied_attrs.get("size", {})
     for field in ["width", "height"]:
         if field in supplied_attrs:
             all_fields["size"][field] = supplied_attrs[field]
@@ -1005,20 +1008,16 @@ def chart(func_name, fields=None):
          **kwargs
     ):
         global chart_count
-        print(f"Rendering chart {func_name} with fields {pformat(fields)} and kwargs {pformat(kwargs)}")
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
         
-        args = [
-            str(a)
-            for a in handle_chart_field_arguments(
+        args = handle_chart_field_arguments(
                 fields,
                 kwargs,
                 '#' + chart_id,
                 True
             )
-        ]
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
@@ -1028,18 +1027,18 @@ def chart(func_name, fields=None):
 <script type="text/javascript">
             Doodl.{func_name}({
             """,
-                """.join([str(a) for a in args])
+                """.join(args)
         }
             );
 </script>
 '''
         display(HTML(script))
-        print(script)
 
     return wrapper
 
 
 def load_file_data(path: str, file_format: str = ""):
+    
 
     if is_url(path):
         resp = requests.get(path)
