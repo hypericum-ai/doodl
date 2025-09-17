@@ -1,8 +1,7 @@
 <template>
   <div class="HomeFeaturesAfter">
     <div class="container">
-      <h2>This is rendered after the features section</h2>
-      <p>The paragraph with text</p>
+    <!-- <p>This is the section to put additional content or features after the main features section.</p> -->
     </div>
   </div>
 </template>
