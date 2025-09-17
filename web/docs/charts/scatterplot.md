@@ -19,7 +19,8 @@ A scatterplot takes the same data as a line graph, like this:
     { "x": 5, "y": 30 },
     { "x": 6, "y": 35 }
   ]'
-  size='{"width":250,"height":250}'
+  width=250
+  height=250
   colors='["darkblue"]'
 >
 </scatterplot>
@@ -39,7 +40,8 @@ data = [
 ]
 doodl.scatterplot(
     data,
-    size={'width': 250, 'height': 250},
+    width'=250
+    'height'=250
     colors=['darkblue']
 )
 ```

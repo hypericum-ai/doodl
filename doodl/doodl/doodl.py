@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
+import io
 import colorcet as cc
 import http.server
 import json
+import csv
 import logging
 import os
+import panflute as pf
 import pypandoc as py
 import re
 import requests
@@ -19,40 +22,42 @@ import zipfile
 from bs4 import BeautifulSoup
 from getopt import getopt
 from playwright.sync_api import sync_playwright
+from pprint import pformat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
 from IPython.display import display, HTML
+from urllib.parse import urlparse
 
 
-fonts = [
+FONTS = [
     "http://fonts.googleapis.com/css?family=Raleway",
     "http://fonts.googleapis.com/css?family=Droid%20Sans",
     "http://fonts.googleapis.com/css?family=Lato",
 ]
 
-base_stylesheets = [
+BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
 ]
 
-prod_stylesheets = [
+PROD_STYLESHEETS = [
     "https://doodl.ai/assets/doodl/css/tufte.css",
     "https://doodl.ai/assets/doodl/css/menu.css",
     "https://doodl.ai/assets/doodl/css/doodlCharts.css",
 ]
 
-dev_stylesheets = [
+DEV_STYLESHEETS = [
     "{dir}/css/tufte.css",
     "{dir}/css/menu.css",
     "{dir}/css/doodlCharts.css",
 ]
 
-dev_scripts = ["{dir}/ts/dist/doodlchart.min.js"]
+DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
 
-prod_scripts = [
+PROD_SCRIPTS = [
     "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
 ]
 
-html_tpl = """<!DOCTYPE html>
+HTML_TPL = """<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -73,10 +78,10 @@ html_tpl = """<!DOCTYPE html>
 </html>
 """
 
-pdf_engines = ["xelatex", "lualatex", "pdflatex"]
+PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
-standard_charts = {
+STANDARD_CHARTS = {
     "linechart": {"curved": False},
     "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
@@ -99,6 +104,19 @@ standard_charts = {
     "bubblechart": {"ease_in": 0, "drag_animations": 0},
     "voronoi": None,
 }
+
+CHART_TAGS = list(STANDARD_CHARTS.keys())
+
+# Optional: restrict which RawInline.format values are eligible.
+# None = accept all formats; otherwise a set like {"html", "latex"}
+
+MATCH_FORMATS = {'html'}  # e.g., {"html"}
+
+INLINE_CONTAINERS = (
+    pf.Para, pf.Plain, pf.Header, pf.Span, pf.Emph, pf.Strong,
+    pf.Quoted, pf.SmallCaps, pf.Superscript, pf.Subscript,
+    pf.Cite, pf.Link  # (Images inside links are allowed in Pandoc)
+)
 
 if hasattr(py, "convert"):
     convert = py.convert  # type: ignore
@@ -176,6 +194,7 @@ def register_chart(filename, defs):
         for defn_dict in defn_list:
             defn = ChartDefinition(**defn_dict)
             defs.append(defn)
+            CHART_TAGS.append(str(defn.tag))
 
     return defs
 
@@ -251,7 +270,7 @@ def process_html_charts(soup, chart_defs):
     code_parts = []
     code_string = ""
 
-    for s, args in standard_charts.items():
+    for s, args in STANDARD_CHARTS.items():
         add_chart_to_html(s, args, soup, code_parts)
 
     # Add any custom chart defs
@@ -277,110 +296,47 @@ def process_html_charts(soup, chart_defs):
 
 # Function to add charts
 def add_chart_to_html(
-    chart_id, fields, soup, code_parts, module=module_name, function_name=None
+    chart_type, fields, soup, code_parts, module=module_name, function_name=None
 ):
-    all_fields = {
-        "data": [],
-        "size": {},
-        "file": {},
-        "colors": "pastel",
-    }
-
-    palette_fields = {
-        "colors": "pastel",
-        "n_colors": 10,
-        "desat": 1,
-    }
-
-    if fields:
-        all_fields |= fields
-
     if not function_name:
-        function_name = chart_id
+        function_name = chart_type
 
-    for d in enumerate(soup.find_all(chart_id)):
-        attrs = d[1].attrs
-        args = [f"'#{chart_id}_{str(d[0])}'"]  # Insert the div ID
+    for num, elem in enumerate(soup.find_all(chart_type)):
+        try:
+            # breakpoint()
+            attrs = {str(key): jsonLoads_If_String(value) for key, value in elem.attrs.items()}
+        except json.JSONDecodeError:
+            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}")
+            continue
 
-        # Figure out the colors
+        chart_id = f"{chart_type}_{str(num)}"
 
-        for field, dv in palette_fields.items():
-            if field in attrs:
-                if field == "colors":
-                    try:
-                        value = json.loads(attrs[field])
-                    except Exception:
-                        value = attrs[field]
-                        if type(value) is not str:
-                            raise
-
-                    if (
-                        type(value) is list
-                        and len(value) == 1
-                        and type(value[0] is str)
-                    ):
-                        value = value[0]
-
-                    palette_fields["colors"] = value
-                else:
-                    try:
-                        palette_fields[field] = json.loads(attrs[field])
-                    except Exception as e:
-                        logger.error(e)
-            elif field in ["path", "format"]:
-                try:
-                    value = json.loads(attrs[field])
-                except Exception:
-                    raise
-
-                all_fields["file"][field] = value[field]
-
-        # Compute the palette
-        all_fields["colors"] = resolve_color_palette(**palette_fields)
-
-        # Resolve everything but color.
-
-        for field, dv in all_fields.items():
-            try:
-                if field == "colors":
-                    value = str(all_fields["colors"])
-                elif field in palette_fields:
-                    continue
-                elif field in attrs:
-                    value = attrs[field]
-                else:
-                    value = json.dumps(dv)
-
-                args.append(value)
-            except:
-                logger.error(f"Error on chart : {chart_id}")
-                raise
+        args = handle_chart_field_arguments(fields, attrs, '#' + chart_id)
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
-        d[1].name = "span"
-        d[1].contents = ""
-        d[1].attrs = {}
-        d[1]["id"] = chart_id + "_" + str(d[0])
-        d[1]["class"] = "chart-container"
+        elem.name = "span"
+        elem.contents = ""
+        elem.attrs = {}
+        elem["id"] = chart_id
+        elem["class"] = "chart-container"
         tag = soup.new_tag("br")
-        d[1].insert_after(tag)
-
+        elem.insert_after(tag)
     return code_parts
 
 
-def make_supporting(chart_defs, server_mode=False):
+def make_supporting(chart_defs):
     # Construct the mode-specificities
     scripts = []
-    stylesheets = base_stylesheets
+    stylesheets = BASE_STYLESHEETS
 
     if mode == "dev":
-        scripts = [f"ts/dist/{os.path.basename(path)}" for path in dev_scripts]
-        stylesheets = base_stylesheets + [
-            f"css/{os.path.basename(path)}" for path in dev_stylesheets
+        scripts = [f"ts/dist/{os.path.basename(path)}" for path in DEV_SCRIPTS]
+        stylesheets = BASE_STYLESHEETS + [
+            f"css/{os.path.basename(path)}" for path in DEV_STYLESHEETS
         ]
     else:
-        scripts = scripts + prod_scripts
-        stylesheets = stylesheets + prod_stylesheets
+        scripts = scripts + PROD_SCRIPTS
+        stylesheets = stylesheets + PROD_STYLESHEETS
 
     for src in set([defn.module_source for defn in chart_defs]):
         scripts.append(src)
@@ -403,7 +359,7 @@ def write_html(
     tpl_args = {
         "title": title,
         "fonts": indent_sep.join(
-            [f"<link href='{font}' rel='stylesheet' type='text/css'>" for font in fonts]
+            [f"<link href='{font}' rel='stylesheet' type='text/css'>" for font in FONTS]
         ),
         "scripts": indent_sep.join(
             [f'<script src="{script}"></script>' for script in scripts]
@@ -415,7 +371,7 @@ def write_html(
         "code": code_string,
     }
 
-    doc = html_tpl.format(**tpl_args)
+    doc = HTML_TPL.format(**tpl_args)
 
     with open(output_file, "w") as ofp:
         ofp.write(doc)
@@ -427,6 +383,8 @@ def write_html(
 
 
 def generate_json(input_file, output_dir, filters=[], extras=[]):
+    
+    os.makedirs(output_dir, exist_ok=True)
     raw_json = None
 
     # Call pandoc and parse the JSON with BeautifulSoup
@@ -459,7 +417,7 @@ def convert_images(httpd, page_url, output_path=""):
         logger.error(f"Error opening document to convert SVGs: {e}")
 
     httpd.shutdown()
-
+    
     if soup is None:
         return soup
 
@@ -526,68 +484,109 @@ def get_svg_dimensions(svg_path: str):
 
     return width, height
 
-
-def replace_doodl_tags_with_images(doc, directory: str):
-    if os.path.isdir(directory):
-        for filename in os.listdir(directory):
-            if filename.endswith(".svg"):
-                chart_parts = filename.replace(".svg", "").split("_")
-                tag = chart_parts[0]
-                tag_count = chart_parts[1]
-                doc = replace_raw_json_tags(doc, tag, tag_count, directory)
-
-    return doc
+def _ok_html(elem: pf.RawInline) -> bool:
+    if not isinstance(elem, pf.RawInline):
+        return False
+    if MATCH_FORMATS is None:
+        return True
+    return elem.format in MATCH_FORMATS
 
 
-def replace_raw_json_tags(doc, tag, tag_count, directory):
-    result_json = doc.copy()
-    result_json["blocks"] = []
+def is_doodl_start_block(elem) -> str | None:
+    if not _ok_html(elem):
+        return None
 
-    for block in doc["blocks"]:
-        replace_this_block = False
-        if "t" in block and "c" in block:
-            block_t = block["t"]
-            block_c = block["c"]
-            if block_t.upper() == "PARA":
-                if isinstance(block_c, list):
-                    for cblock in block_c:
-                        if "t" in cblock and "c" in cblock:
-                            cblock_t = cblock["t"]
-                            cblock_c = cblock["c"]
-                            if cblock_t.upper() == "RAWINLINE" and obj_has_tag(
-                                cblock_c, tag
-                            ):
-                                image_name = f"{tag}_{tag_count}.png"
-                                image_path = os.path.join(directory, image_name)
-                                new_block = {
-                                    "t": "Figure",
-                                    "c": [
-                                        ["", [], []],
-                                        [None, []],
-                                        [
-                                            {
-                                                "t": "Plain",
-                                                "c": [
-                                                    {
-                                                        "t": "Image",
-                                                        "c": [
-                                                            ["", [], []],
-                                                            [],
-                                                            [image_path, ""],
-                                                        ],
-                                                    }
-                                                ],
-                                            }
-                                        ],
-                                    ],
-                                }
-                                result_json["blocks"].append(new_block)
-                                replace_this_block = True
-                                break
-        if not replace_this_block:
-            result_json["blocks"].append(block)
+    m = re.match(r"^\s*<(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
 
-    return result_json
+    if m:
+        tag = m.group("tag").lower()
+
+        if tag in CHART_TAGS:
+            return tag
+
+    return None
+
+def is_doodl_end_block(elem, tag) -> bool:
+    if not _ok_html(elem):
+        return False
+
+    m = re.match(r"^\s*</(?P<tag>[a-z][a-z0-9_]*)", elem.text, re.IGNORECASE)
+
+    if m:
+        return m.group("tag").lower() == tag
+    
+    return False
+
+
+def _make_image(alt_text: str, url: str) -> pf.Image:
+    alt_inlines = [pf.Str(alt_text)] if alt_text else []
+    # Use keyword for clarity; Pandoc expects URL as target
+    return pf.Image(*alt_inlines, url=url)
+
+def _rewrite_inlines(inlines, doc):
+    """Return a new list of inlines with RawInline[ Space/SoftBreak RawInline ] collapsed to Image."""
+    out = []
+    i = 0
+    n = len(inlines)
+
+    while i < n:
+        cur = inlines[i]
+        tag = is_doodl_start_block(cur)
+
+        # RawInline + (Space|SoftBreak)? + RawInline  -> Image(alt=first, url=second)
+        if tag and (
+            (
+                i + 2 < n
+                and isinstance(inlines[i+1], (pf.Space, pf.SoftBreak))
+                and is_doodl_end_block(inlines[i+2], tag)
+            ) or (
+                i + 1 < n 
+                and is_doodl_end_block(inlines[i+1], tag)
+            )
+        ):
+
+            logger.info(f"Processing {tag} block")
+            alt = cur.text
+            tag_count = doc.image_count.get(tag, 0)
+            doc.image_count[tag] = tag_count + 1
+            image_path = os.path.join(doc.image_path_directory, f"{tag}_{tag_count}.png")
+            out.append(_make_image(alt, image_path))
+
+            if isinstance(inlines[i+1], (pf.Space, pf.SoftBreak)):
+                i += 1  # Skip over Space/SoftBreak                
+
+            i += 2 # Skip the two RawInlines
+
+            continue
+
+        # Default: keep as-is
+        out.append(cur)
+        i += 1
+
+    return out
+
+def action(elem, doc):
+    # Only process inline containers (those that have a list of Inline children)
+    if isinstance(elem, INLINE_CONTAINERS) and hasattr(elem, 'content'):
+        # elem.content is a panflute.ListContainer
+        new_seq = _rewrite_inlines(list(elem.content), doc)
+        if new_seq != list(elem.content):
+            elem.content = pf.ListContainer(*new_seq)
+
+
+def replace_tags_with_images(json_doc, image_path_directory):
+    doc = pf.load(io.StringIO(json.dumps(json_doc, ensure_ascii=False)))
+
+    doc.image_path_directory = image_path_directory
+    doc.image_count = {}
+
+    doc = pf.run_filter(action, doc=doc)
+ 
+    with io.StringIO() as f:
+        pf.dump(doc, f)
+        json_doc = json.loads(f.getvalue())
+
+    return json_doc
 
 
 def convert_to_format(doc, output_format, output_file_path):
@@ -621,7 +620,7 @@ def convert_to_format(doc, output_format, output_file_path):
 
 
 def get_pdf_engine():
-    for engine in pdf_engines:
+    for engine in PDF_ENGINES:
         if hasattr(shutil, "which") and shutil.which(engine) is not None:
             return engine
     logger.error(
@@ -633,14 +632,6 @@ def get_pdf_engine():
 def temp_file(suffix):
     """Create a temporary file with the given suffix."""
     return NamedTemporaryFile(suffix=f".{suffix}", delete=False).name
-
-
-def obj_has_tag(obj, tag):
-    if isinstance(obj, list):
-        for phrase in obj:
-            if tag.upper() in phrase.upper():
-                return True
-    return False
 
 
 def main():
@@ -687,7 +678,7 @@ In dev mode, the script must be run in the same folder as the script.
         (
             "chart",
             "dir",
-            "filter",
+            "filter=",
             "output",
             "plot",
             "server",
@@ -781,53 +772,59 @@ In dev mode, the script must be run in the same folder as the script.
     if output_format == "":
         output_format = output_ext[1:].lower()
 
-    if (server_mode or zip_mode) and output_format != "html":
-        logger.error(
-            "Cannot run in server or zip mode when generating a file in a format other than HTML."
-        )
-        sys.exit(1)
+    # if (server_mode or zip_mode) and output_format != "html":
+    #     logger.error(
+    #         "Cannot run in server or zip mode when generating a file in a format other than HTML."
+    #     )
+    #     sys.exit(1)
 
-    html_file = (
-        output_file
-        if not server_mode and output_format == "html"
-        else temp_file("html")
-    )
+    # html_file = (
+    #     output_file
+    #     if not (server_mode or zip_mode) and output_format == "html"
+    #     else temp_file("html")
+    # )
+
+    html_file = temp_file("html")
+
     # No matter what, we need to generate the HTML file first.
+    if not output_dir:
+        output_dir = os.getcwd()
+
+    server_dir_name = output_dir
 
     soup = parse_html(input_file, output_dir, filters, extras)
     soup = transform_html(soup)
     code_string = process_html_charts(soup, chart_defs)
-    scripts, stylesheets = make_supporting(chart_defs, server_mode)
-
-    # First, handle HTML output
-
-    server_dir_name = ""
-
-    if not output_dir:
-        output_dir = os.getcwd()
-
+    scripts, stylesheets = make_supporting(chart_defs)
+    
     # Copy the generated HTML file and dependencies to a temporary directory,
     # and then handle the output based on the mode.
 
-    if server_mode or zip_mode or output_format != "html":
-        with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
-            server_dir_name = dir_name
-            copy_data(output_dir, dir_name)
-            if os.path.isfile(html_file):
-                shutil.copy2(html_file, dir_name)
-                old_html_file_name = os.path.basename(html_file)
-                if old_html_file_name != "index.html":
-                    os.rename(
-                        os.path.join(dir_name, old_html_file_name),
-                        os.path.join(dir_name, "index.html"),
-                    )
-                html_file = os.path.join(dir_name, "index.html")
+    with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
+        server_dir_name = dir_name
+        copy_data(output_dir, dir_name)
+        if os.path.isfile(html_file):
+            shutil.copy2(html_file, dir_name)
+            old_html_file_name = os.path.basename(html_file)
+            if old_html_file_name != "index.html":
+                os.rename(
+                    os.path.join(dir_name, old_html_file_name),
+                    os.path.join(dir_name, "index.html"),
+                )
+            html_file = os.path.join(dir_name, "index.html")
 
-    write_html(scripts, stylesheets, soup, code_string, title, html_file)
+        write_html(scripts, stylesheets, soup, code_string, title, html_file)
+        
+        plots_folder = os.path.join(os.getcwd(),'plots')
+        if os.path.isdir(plots_folder):
+            copy_data(plots_folder, os.path.join(dir_name,'plots'))
+            
 
-    if zip_mode:
-        zip_directory(server_dir_name, zipped_filename)
-        return
+        if zip_mode:
+            zip_base_name = os.path.join(dir_name,os.path.basename(output_file))
+            shutil.copy2(html_file, zip_base_name)
+            zip_directory(server_dir_name, zipped_filename)
+            return
 
     # All other cases require an HTTP server to serve the finished HTML file
 
@@ -848,7 +845,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     svg_dir = os.path.join(server_dir_name, "svg")
     convert_images(httpd, url, svg_dir)
-    json_doc = replace_doodl_tags_with_images(json_doc, svg_dir)
+    json_doc = replace_tags_with_images(json_doc, svg_dir)
     convert_to_format(
         json_doc,
         output_format=output_format,
@@ -892,7 +889,10 @@ def browse_html(httpd, url):
 
 
 def zip_directory(folder_path, output_zip):
+    if not os.path.isdir(folder_path):
+        raise ValueError(f"Source directory does not exist: {folder_path}")
     with zipfile.ZipFile(output_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
+        
         for root, _, files in os.walk(folder_path):
             for file in files:
                 file_path = os.path.join(root, file)
@@ -913,7 +913,7 @@ def copy_data(output_dir, server_dir_path):
     )
 
     if mode == "dev":
-        styles_and_scripts = dev_scripts + dev_stylesheets
+        styles_and_scripts = DEV_SCRIPTS + DEV_STYLESHEETS
         styles_and_scripts = [path.format(dir=src_dir) for path in styles_and_scripts]
         for sas in styles_and_scripts:
             if os.path.isfile(sas):
@@ -930,38 +930,106 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
+def jsonLoads_If_String(value):
+    if isinstance(value, str):
+        try:
+            return json.loads(value)
+        except Exception:
+            return value
+    return value
+
+
+def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id, preload_data_files=False):
+    args = [div_id]  # Insert the div ID
+    
+    all_fields = {
+        "data": [],
+        "size": {},
+        "file": {},
+        "colors": "pastel",
+    }
+
+    palette_fields = {
+        "colors": "pastel",
+        "n_colors": 10,
+        "desat": 1,
+    }
+
+    if chart_specific_fields:
+        all_fields |= chart_specific_fields
+    
+    # Figure out the colors
+
+    for field, dv in palette_fields.items():
+        if field in supplied_attrs:
+            if field == "colors":
+                value = jsonLoads_If_String(supplied_attrs[field])
+                if (
+                    isinstance(value, list)
+                    and len(value) == 1
+                    and isinstance(value[0], str)
+                ):
+                    value = value[0]
+                palette_fields["colors"] = value
+            else:
+                try:
+                    palette_fields[field] = json.loads(supplied_attrs[field])
+                except Exception as e:
+                    logger.error(e)
+
+    # Construct the palette
+
+    all_fields["colors"] = resolve_color_palette(**palette_fields)
+
+    # Resolve data
+
+    all_fields["file"] = supplied_attrs.get("file", {})
+    for field in ["path", "format"]:
+        if field in supplied_attrs:
+            all_fields["file"][field] = supplied_attrs[field]
+
+    all_fields["data"] = supplied_attrs.get("data", {})
+    
+    if preload_data_files and all_fields["file"] and not all_fields["data"]:
+        all_fields["data"] = load_file_data(
+            all_fields["file"]["path"],
+            all_fields["file"].get("format", ""))
+        all_fields["file"] = {}
+
+    # Handle size
+    all_fields["size"] = supplied_attrs.get("size", {})
+    for field in ["width", "height"]:
+        if field in supplied_attrs:
+            all_fields["size"][field] = supplied_attrs[field]
+
+    # Construct the args
+
+    args += list(all_fields.values())
+
+    return [ json.dumps(a) for a in args ]
+
 
 def chart(func_name, fields=None):
     def wrapper(
-        data=[], size={}, file={}, colors="pastel", n_colors=10, desat=1, **kwargs
+         **kwargs
     ):
         global chart_count
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
-
-        colors = resolve_color_palette(colors, n_colors, desat)
-
-        args = [
-            json.dumps(f"#{chart_id}"),
-            json.dumps(data),
-            json.dumps(size),
-            json.dumps(file),
-            json.dumps(colors),
-        ]
-
-        if fields:
-            for field in fields:
-                if field in kwargs:
-                    args.append(json.dumps(kwargs[field]))
-                else:
-                    args.append(json.dumps(fields[field]))
+        
+        args = handle_chart_field_arguments(
+                fields,
+                kwargs,
+                '#' + chart_id,
+                True
+            )
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
-<script src="{prod_scripts[0]}"></script>
-<link rel="stylesheet" href="{prod_stylesheets[1]}" />
-<link rel="stylesheet" href="{prod_stylesheets[2]}" />
+<script src="{PROD_SCRIPTS[0]}"></script>
+<link rel="stylesheet" href="{PROD_STYLESHEETS[1]}" />
+<link rel="stylesheet" href="{PROD_STYLESHEETS[2]}" />
 <script type="text/javascript">
             Doodl.{func_name}({
             """,
@@ -970,13 +1038,68 @@ def chart(func_name, fields=None):
             );
 </script>
 '''
-
         display(HTML(script))
 
     return wrapper
 
 
-for k, v in standard_charts.items():
+def load_file_data(path: str, file_format: str = ""):
+    
+
+    if is_url(path):
+        resp = requests.get(path)
+        resp.raise_for_status()
+        fmt = file_format.lower()
+
+        if fmt == "csv":
+            return list(csv.DictReader(resp.text.splitlines()))
+        elif fmt == "tsv":
+            return list(csv.DictReader(resp.text.splitlines(), delimiter="\t"))
+        elif fmt == "hsv":
+            return list(csv.DictReader(resp.text.splitlines(), delimiter="#"))
+        elif fmt == "json":
+            return resp.json()
+        else:
+            raise ValueError(f"Unsupported remote file format: {fmt or 'unknown'}")
+                
+    if not file_format:
+        file_format = path.split(".")[-1].lower()
+
+    if file_format == "csv":
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f))
+
+    elif file_format == "tsv":
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f, delimiter="\t"))
+
+    elif file_format == "hsv":
+        with open(path, newline="", encoding="utf-8") as f:
+            return list(csv.DictReader(f, delimiter="#"))
+
+    elif file_format == "json":
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+
+    elif file_format == "txt":
+        with open(path, encoding="utf-8") as f:
+            return f.read()
+
+    else:
+        raise ValueError(f"Unsupported file format: {file_format}")
+
+
+
+def is_url(s: str) -> bool:
+    try:
+        result = urlparse(s)
+        # valid if it has a scheme (http, ftp, file, etc.) and at least something after it
+        return bool(result.scheme and (result.netloc or result.path))
+    except Exception:
+        return False
+    
+    
+for k, v in STANDARD_CHARTS.items():
     globals()[k] = chart(k, v)
 
 

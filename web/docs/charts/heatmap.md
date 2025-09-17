@@ -16,7 +16,8 @@ data='[
   { "x": "B", "y": "1", "value": 15 },
   { "x": "B", "y": "2", "value": 20 }
 ]'
-  size='{"width"=500,"height"=500}'
+  width=500
+  height=500
   colors='["purple", "orange"]'
   interp="rgb">
 >
@@ -35,7 +36,8 @@ doodl.heatmap(
         { 'x': 'B', 'y': '1', 'value': 15 },
         { 'x': 'B', 'y': '2', 'value': 20 }
     ],
-    size={'width': 500, 'height': 500},
+    width'=500
+    'height'=500
     colors=['purple', 'orange'],
     interp='rgb'
 )

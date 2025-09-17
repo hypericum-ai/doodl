@@ -12,7 +12,8 @@ data='[
   { "label": "Cherries", "value": 15 },
   { "label": "Grapes", "value": 25 }
 ]'
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='deep'
 >
 ~~~

@@ -7,15 +7,16 @@ Sankey diagram:
 
 ```html
 <skey
-  size='{"width":600,"height":225}'
-  file='{"path":"data/energy.json", "format":"json"}'
+  width=600
+  height=225
+  path="data/energy.json"
 >
 </skey>
 ```
 
 which looks like this:
 
-<span  class="chart-container" id="skey_0"></span>
+<span class="chart-container" id="skey_0"></span>
 
 ### Seaborn
 
