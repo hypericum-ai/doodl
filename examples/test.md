@@ -1,3 +1,62 @@
+### A Vertical Bar chart
+
+
+
+<barchart
+data='[
+  { "label": "Apples", "value": 10 },
+  { "label": "Bananas", "value": 20 },
+  { "label": "Cherries", "value": 15 },
+  { "label": "Grapes", "value": 25 }
+]'
+  size='{"width":500,"height":500}'
+  colors='["#FF6700","#008000"]'
+  horizontal='true'
+  moving_average='true'
+>
+</barchart>
+
+
+
+
+### A Horizontal Bar chart
+
+
+
+<barchart
+data='[
+  { "label": "Apples", "value": 100000000 },
+  { "label": "Bananas", "value": 200000000 },
+  { "label": "Cherries", "value": 150000000 },
+  { "label": "Grapes", "value": 250000000 }
+]'
+  size='{"width":500,"height":500}'
+  colors='["#FF6700","#008000"]'
+  horizontal='false'
+  moving_average='true'
+>
+</barchart>
+
+
+
+
+<areachart
+data='[
+  { "date": "2024-01-01", "catA": 10, "catB": 20, "catC": 30 },
+  { "date": "2024-01-02", "catA": 15, "catB": 25, "catC": 35 },
+  { "date": "2024-01-03", "catA": 20, "catB": 22, "catC": 28 },
+  { "date": "2024-01-04", "catA": 18, "catB": 30, "catC": 25 },
+  { "date": "2024-01-05", "catA": 22, "catB": 28, "catC": 32 },
+  { "date": "2024-01-06", "catA": 19, "catB": 26, "catC": 29 },
+  { "date": "2024-01-07", "catA": 24, "catB": 30, "catC": 35 },
+  { "date": "2024-01-08", "catA": 28, "catB": 33, "catC": 40 }
+]'
+  size='{"width":500,"height":500}'
+  colors='flare'
+>
+</areachart>
+
+
 <skey
   file='{
         "path": "std_focus.json",
@@ -102,7 +161,7 @@ data='[
     '
     size='{"width":1000,"height":500}'
     colors='deep'
-    vertical=true>
+    vertical=True>
 </tree>
 
 
@@ -144,41 +203,3 @@ data='[
 </chord>
 
 
-
-
-### A Vertical Bar chart
-
-
-
-<barchart
-data='[
-  { "label": "Apples", "value": 10 },
-  { "label": "Bananas", "value": 20 },
-  { "label": "Cherries", "value": 15 },
-  { "label": "Grapes", "value": 25 }
-]'
-  size='{"width":500,"height":500}'
-  colors='["#FF6700","#008000"]'
-  horizontal=true
->
-</barchart>
-
-
-
-
-### A Horizontal Bar chart
-
-
-
-<barchart
-data='[
-  { "label": "Apples", "value": 100000000 },
-  { "label": "Bananas", "value": 200000000 },
-  { "label": "Cherries", "value": 150000000 },
-  { "label": "Grapes", "value": 250000000 }
-]'
-  size='{"width":500,"height":500}'
-  colors='["#FF6700","#008000"]'
-  horizontal=false
->
-</barchart>

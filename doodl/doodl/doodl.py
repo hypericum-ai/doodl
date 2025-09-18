@@ -85,7 +85,7 @@ STANDARD_CHARTS = {
     "linechart": {"curved": False},
     "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": False},
+    "barchart": {"horizontal": False, "moving_average": False},
     "tree": {"vertical": False},
     "venn": None,
     "gantt": None,
