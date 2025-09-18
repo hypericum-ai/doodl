@@ -303,7 +303,6 @@ def add_chart_to_html(
 
     for num, elem in enumerate(soup.find_all(chart_type)):
         try:
-            # breakpoint()
             attrs = {str(key): jsonLoads_If_String(value) for key, value in elem.attrs.items()}
         except json.JSONDecodeError:
             logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}")
@@ -971,15 +970,24 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
                 ):
                     value = value[0]
                 palette_fields["colors"] = value
-            else:
+            elif type(dv) is str:
                 try:
                     palette_fields[field] = json.loads(supplied_attrs[field])
-                except Exception as e:
-                    logger.error(e)
+                except json.JSONDecodeError as e:
+                    logger.error(e,f'Error decoding JSON for field "{field}": {dv}' )
+            else:
+                palette_fields[field] = dv
 
     # Construct the palette
 
     all_fields["colors"] = resolve_color_palette(**palette_fields)
+
+
+    if chart_specific_fields and supplied_attrs:
+        for field in chart_specific_fields.keys():
+            if field in supplied_attrs:
+                value = jsonLoads_If_String(supplied_attrs[field])
+                all_fields[field] = value
 
     # Resolve data
 
