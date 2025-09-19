@@ -85,7 +85,8 @@ STANDARD_CHARTS = {
     "linechart": {"curved": False},
     "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": False},
+    "barchart": {"horizontal": False, "moving_average": False},
+    "stacked_barchart": {"horizontal": False, "moving_average": False},
     "tree": {"vertical": False},
     "venn": None,
     "gantt": None,
@@ -302,7 +303,12 @@ def add_chart_to_html(
         function_name = chart_type
 
     for num, elem in enumerate(soup.find_all(chart_type)):
-        attrs = elem.attrs
+        try:
+            attrs = {str(key): jsonLoads_If_String(value) for key, value in elem.attrs.items()}
+        except json.JSONDecodeError:
+            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}")
+            continue
+
         chart_id = f"{chart_type}_{str(num)}"
 
         args = handle_chart_field_arguments(fields, attrs, '#' + chart_id)
@@ -315,7 +321,6 @@ def add_chart_to_html(
         elem["class"] = "chart-container"
         tag = soup.new_tag("br")
         elem.insert_after(tag)
-
     return code_parts
 
 
@@ -925,6 +930,15 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
+def jsonLoads_If_String(value):
+    if isinstance(value, str):
+        try:
+            return json.loads(value)
+        except Exception:
+            return value
+    return value
+
+
 def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id, preload_data_files=False):
     args = [div_id]  # Insert the div ID
     
@@ -943,37 +957,38 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
 
     if chart_specific_fields:
         all_fields |= chart_specific_fields
-        
-
+    
     # Figure out the colors
 
     for field, dv in palette_fields.items():
         if field in supplied_attrs:
             if field == "colors":
-                try:
-                    value = supplied_attrs[field]
-                    if isinstance(value, str):
-                        value = json.loads(value)
-                except Exception:
-                    value = supplied_attrs[field]
-
+                value = jsonLoads_If_String(supplied_attrs[field])
                 if (
-                    type(value) is list
+                    isinstance(value, list)
                     and len(value) == 1
-                    and type(value[0]) is str
+                    and isinstance(value[0], str)
                 ):
                     value = value[0]
-
                 palette_fields["colors"] = value
-            else:
+            elif type(dv) is str:
                 try:
                     palette_fields[field] = json.loads(supplied_attrs[field])
-                except Exception as e:
-                    logger.error(e)
+                except json.JSONDecodeError as e:
+                    logger.error(e,f'Error decoding JSON for field "{field}": {dv}' )
+            else:
+                palette_fields[field] = dv
 
     # Construct the palette
 
     all_fields["colors"] = resolve_color_palette(**palette_fields)
+
+
+    if chart_specific_fields and supplied_attrs:
+        for field in chart_specific_fields.keys():
+            if field in supplied_attrs:
+                value = jsonLoads_If_String(supplied_attrs[field])
+                all_fields[field] = value
 
     # Resolve data
 
