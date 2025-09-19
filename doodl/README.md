@@ -11,7 +11,7 @@ doodl brings together three things:
    [Tufte wide margin layout](https://github.com/daveliepmann/tufte-css)
    The Tufte layout makes
    extensive use of a wide margin to display notes, images and
-   charts. ![Tufte layout](images/Tufte.gif)
+   charts. ![Tufte layout](../web/docs/images/Tufte.gif)
 3. Data visualization using [d3](http://d3js.org)
 
 The original version was groundbreaking when it was written in 2015,
@@ -20,7 +20,8 @@ to others as a courtesy. It was not intended to be a generally usable tool.
 Our version differs from the original in the following ways:
 
 1. We have upgraded the version of Python from the original 2.7 to 3.12.
-2. We have upgraded the version of d3 from version 6 to version 12.
+2. We have upgraded the version of d3 from version 6 to version 7.9.0
+    (the latest stable version).
 3. As a result of upgrading d3, all of the chart implementations have been
    almost completely rewritten.
 4. We have changed the build implementation to use `make`, and have
