@@ -86,6 +86,7 @@ STANDARD_CHARTS = {
     "piechart": {"donut": False, "continuous_rotation": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
     "barchart": {"horizontal": False, "moving_average": False},
+    "stacked_barchart": {"horizontal": False, "moving_average": False},
     "tree": {"vertical": False},
     "venn": None,
     "gantt": None,

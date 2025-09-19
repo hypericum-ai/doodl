@@ -7,6 +7,7 @@ TARGET_FILE = ../dist/doodlchart.min.js
 SOURCE_FILES = \
 	base.ts \
 	barchart.ts \
+	stacked_barchart.ts \
 	bollinger.ts \
 	boxplot.ts \
 	chord.ts \
