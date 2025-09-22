@@ -1,6 +1,6 @@
 # Charts
 
-In Markdown, all Doodl charts are inserted into a document using an HTML-style
+In Markdown, all doodl charts are inserted into a document using an HTML-style
 tag, as you've already seen:
 
 ```html
@@ -15,7 +15,20 @@ tag, as you've already seen:
 </piechart>
 ```
 
-Some things are common to all chart types. Every chart *must* have a
+From a Jupyter notebook, it is similar:
+
+```python
+import doodl
+
+doodl.piechart(data=[
+  {"label": "Apples", "value": 10},
+  {"label": "Bananas", "value": 20},
+  {"label": "Cherries", "value": 15},
+  {"label": "Grapes", "value": 25}
+])
+```
+
+Some things are common to all chart types. Every chart must have a
 source of data, for example. In this section, we discuss all of these
 common features.
 
@@ -105,8 +118,8 @@ for more information.
 ## Size
 
 Finally, if you'd like to specify the size of the chart, in
-pixels, you can do so with the `size` argument. The value to
-`size` must be a JSON dictionary like this:
+pixels, you can do so with the `width` and `height` arguments.
+Both default to 500 pixels.
 
 ```html
 <linechart

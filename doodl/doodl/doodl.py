@@ -22,7 +22,7 @@ import zipfile
 from bs4 import BeautifulSoup
 from getopt import getopt
 from playwright.sync_api import sync_playwright
-from pprint import pformat
+# from pprint import pformat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
 from IPython.display import display, HTML
@@ -39,11 +39,14 @@ BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
 ]
 
-PROD_STYLESHEETS = [
-    "https://doodl.ai/assets/doodl/css/tufte.css",
+PROD_PYTHON_STYLESHEETS = [
     "https://doodl.ai/assets/doodl/css/menu.css",
     "https://doodl.ai/assets/doodl/css/doodlCharts.css",
 ]
+
+PROD_STYLESHEETS = [
+    "https://doodl.ai/assets/doodl/css/tufte.css",
+] + PROD_PYTHON_STYLESHEETS
 
 DEV_STYLESHEETS = [
     "{dir}/css/tufte.css",
@@ -304,9 +307,9 @@ def add_chart_to_html(
 
     for num, elem in enumerate(soup.find_all(chart_type)):
         try:
-            attrs = {str(key): jsonLoads_If_String(value) for key, value in elem.attrs.items()}
-        except json.JSONDecodeError:
-            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}")
+            attrs = {str(key): json_loads_if_string(value) for key, value in elem.attrs.items()}
+        except Exception as e:
+            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}: {e}")
             continue
 
         chart_id = f"{chart_type}_{str(num)}"
@@ -930,12 +933,15 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
-def jsonLoads_If_String(value):
+def json_loads_if_string(value):
     if isinstance(value, str):
         try:
             return json.loads(value)
-        except Exception:
+        except json.JSONDecodeError:
             return value
+        except Exception as e:
+            logger.error(f"Error decoding JSON: {e}")
+
     return value
 
 
@@ -963,7 +969,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
     for field, dv in palette_fields.items():
         if field in supplied_attrs:
             if field == "colors":
-                value = jsonLoads_If_String(supplied_attrs[field])
+                value = json_loads_if_string(supplied_attrs[field])
                 if (
                     isinstance(value, list)
                     and len(value) == 1
@@ -983,12 +989,19 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
 
     all_fields["colors"] = resolve_color_palette(**palette_fields)
 
+    # Grab any chart-specific fields
 
     if chart_specific_fields and supplied_attrs:
         for field in chart_specific_fields.keys():
             if field in supplied_attrs:
-                value = jsonLoads_If_String(supplied_attrs[field])
-                all_fields[field] = value
+                value = supplied_attrs[field]
+
+                if type(value) is type(chart_specific_fields[field]):
+                    # Same type, so just use it
+                    all_fields[field] = value
+                else:
+                    value = json_loads_if_string(value)
+                    all_fields[field] = value
 
     # Resolve data
 
@@ -1027,6 +1040,8 @@ def chart(func_name, fields=None):
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
         
+        stylesheets = ','.join(['<link rel="stylesheet" href="{sheet}" />' for sheet in PROD_PYTHON_STYLESHEETS])
+
         args = handle_chart_field_arguments(
                 fields,
                 kwargs,
@@ -1037,8 +1052,7 @@ def chart(func_name, fields=None):
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
 <script src="{PROD_SCRIPTS[0]}"></script>
-<link rel="stylesheet" href="{PROD_STYLESHEETS[1]}" />
-<link rel="stylesheet" href="{PROD_STYLESHEETS[2]}" />
+{stylesheets}
 <script type="text/javascript">
             Doodl.{func_name}({
             """,

@@ -55,8 +55,8 @@ your implementation in a JSON file, like this:
     "tag": "special",
     "function": "special_chart",
     "module_name": "MyChartModule",
-    "module_source": "https://somesite.org/some_profect/chart.js"
-}
+    "module_source": "https://somesite.org/some_project/chart.js"
+
 ~~~
 
 The only required entries are the tag, module name and module source.
@@ -65,8 +65,7 @@ as the `tag`. Optional arguments are provided as shown above, with the
 name of the argument, and the default value to be provided if none is
 given.
 
-Using your visualization is as simple as registering it, like this:<sup>1</sup>
-<span class="marginnote">1. See [Invoking doodl](/invoking)</span>
+Using your visualization is as simple as registering it, like this:
 
 ~~~bash
 % doodl -c special.json myfile.md
@@ -82,3 +81,5 @@ Using your visualization is as simple as registering it, like this:<sup>1</sup>
     colors="deep">
 </special>
 ~~~
+
+See [Invoking doodl](/invoking) for details.
