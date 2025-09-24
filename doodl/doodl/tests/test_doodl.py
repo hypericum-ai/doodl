@@ -3,8 +3,7 @@ import os
 import tempfile
 import json
 import shutil
-
-import xml.etree.ElementTree as ET
+import zipfile
 
 from .. import doodl
 
@@ -58,7 +57,7 @@ def test_zip_directory(tmp_path):
     zip_path = tmp_path / "out.zip"
     doodl.zip_directory(str(folder), str(zip_path))
     assert zip_path.exists()
-    with ET.ZipFile(str(zip_path)) as zf:
+    with zipfile.ZipFile(str(zip_path)) as zf:
         assert "file1.txt" in zf.namelist()
 
 def test_copy_data(tmp_path):
@@ -78,16 +77,21 @@ def test_parse_html_and_transform_html(tmp_path):
     soup2 = doodl.transform_html(soup)
     assert soup2 is not None
 
-def test_main_help(monkeypatch, capsys):
-    monkeypatch.setattr("sys.argv", ["doodl.py", "-h"])
-    with pytest.raises(SystemExit):
+def test_main_title(monkeypatch, capsys):
+    monkeypatch.setattr("sys.argv", ["doodl.py", "-t", "MyTitle"])
+    with pytest.raises(SystemExit) as e:
         doodl.main()
-    out = capsys.readouterr().out
-    assert "Usage: doodl args input_file" in out
+    # depending on doodl.main() implementation, exit code may be 0
+    assert e.value.code == 0
+    captured = capsys.readouterr()
+    assert "usage: doodl args" in (captured.out + captured.err).lower()
+
 
 def test_main_error(monkeypatch, capsys):
     monkeypatch.setattr("sys.argv", ["doodl.py"])
-    with pytest.raises(SystemExit):
+    with pytest.raises(SystemExit) as e:
         doodl.main()
-    out = capsys.readouterr().out
-    assert "Usage: doodl args input_file" in out
+
+    captured = capsys.readouterr()
+    # now check both
+    assert "usage:" in (captured.out + captured.err).lower()

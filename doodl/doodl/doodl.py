@@ -775,18 +775,6 @@ In dev mode, the script must be run in the same folder as the script.
     if output_format == "":
         output_format = output_ext[1:].lower()
 
-    # if (server_mode or zip_mode) and output_format != "html":
-    #     logger.error(
-    #         "Cannot run in server or zip mode when generating a file in a format other than HTML."
-    #     )
-    #     sys.exit(1)
-
-    # html_file = (
-    #     output_file
-    #     if not (server_mode or zip_mode) and output_format == "html"
-    #     else temp_file("html")
-    # )
-
     html_file = temp_file("html")
 
     # No matter what, we need to generate the HTML file first.
