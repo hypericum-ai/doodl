@@ -81,7 +81,6 @@ def test_main_title(monkeypatch, capsys):
     monkeypatch.setattr("sys.argv", ["doodl.py", "-t", "MyTitle"])
     with pytest.raises(SystemExit) as e:
         doodl.main()
-    # depending on doodl.main() implementation, exit code may be 0
     assert e.value.code == 0
     captured = capsys.readouterr()
     assert "usage: doodl args" in (captured.out + captured.err).lower()
@@ -93,5 +92,4 @@ def test_main_error(monkeypatch, capsys):
         doodl.main()
 
     captured = capsys.readouterr()
-    # now check both
     assert "usage:" in (captured.out + captured.err).lower()
