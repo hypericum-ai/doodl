@@ -1028,7 +1028,7 @@ def chart(func_name, fields=None):
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
         
-        stylesheets = ','.join(['<link rel="stylesheet" href="{sheet}" />' for sheet in PROD_PYTHON_STYLESHEETS])
+        stylesheets = "\n".join([f'<link rel="stylesheet" href="{sheet}" />' for sheet in PROD_PYTHON_STYLESHEETS])
 
         args = handle_chart_field_arguments(
                 fields,
