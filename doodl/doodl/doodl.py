@@ -22,6 +22,7 @@ import zipfile
 from bs4 import BeautifulSoup
 from getopt import getopt
 from playwright.sync_api import sync_playwright
+
 # from pprint import pformat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
@@ -56,9 +57,7 @@ DEV_STYLESHEETS = [
 
 DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
 
-PROD_SCRIPTS = [
-    "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
-]
+PROD_SCRIPTS = ["https://doodl.ai/assets/doodl/js/doodlchart.min.js"]
 
 HTML_TPL = """<!DOCTYPE html>
 <html>
@@ -114,12 +113,21 @@ CHART_TAGS = list(STANDARD_CHARTS.keys())
 # Optional: restrict which RawInline.format values are eligible.
 # None = accept all formats; otherwise a set like {"html", "latex"}
 
-MATCH_FORMATS = {'html'}  # e.g., {"html"}
+MATCH_FORMATS = {"html"}  # e.g., {"html"}
 
 INLINE_CONTAINERS = (
-    pf.Para, pf.Plain, pf.Header, pf.Span, pf.Emph, pf.Strong,
-    pf.Quoted, pf.SmallCaps, pf.Superscript, pf.Subscript,
-    pf.Cite, pf.Link  # (Images inside links are allowed in Pandoc)
+    pf.Para,
+    pf.Plain,
+    pf.Header,
+    pf.Span,
+    pf.Emph,
+    pf.Strong,
+    pf.Quoted,
+    pf.SmallCaps,
+    pf.Superscript,
+    pf.Subscript,
+    pf.Cite,
+    pf.Link,  # (Images inside links are allowed in Pandoc)
 )
 
 if hasattr(py, "convert"):
@@ -139,13 +147,23 @@ convert_url = "https://svgtopng.doodl.ai/convert"
 default_port = 7300
 
 
-# Function to wrap with tags
+# Function to wrap with tags. Used in transform_html().
 def wrap(to_wrap, wrap_in):
     contents = to_wrap.replace_with(wrap_in)
     wrap_in.append(contents)
 
 
 def resolve_color_palette(colors, n_colors, desat):
+    '''Turns a color specification into a list of hex colors.
+    
+    The colors parameter may be a list of colors, a seaborn palette
+    name, or a colorcet palette name. As a convenience, if the colors
+    parameter is a single string it is assumed to be a palette name.
+
+    The desat and n_colors parameters are as interpreted by the seaborn
+    "color_palette" function, which does the actual heavy lifting.
+    '''
+    
     cc_palette = ""
 
     if type(colors) is str and colors.startswith("cc."):
@@ -169,6 +187,9 @@ def resolve_color_palette(colors, n_colors, desat):
 
 
 class ChartDefinition:
+    '''
+    The ChartDefinition class encapsulates the definition of a custom chart.
+    '''
     def __init__(self, *args, **kwargs):
         self.tag = None
         self.module_name = None
@@ -187,8 +208,10 @@ class ChartDefinition:
             self.function = self.tag
 
 
-# Register a custom chart
 def register_chart(filename, defs):
+    '''
+    Register a custom chart definition from a JSON file.
+    The file may contain a single chart definition, or a list of them.'''
     with open(filename) as ifp:
         # Parse the file, and add it to a list of function
         # definitions.
@@ -207,7 +230,10 @@ def register_chart(filename, defs):
 
 
 def parse_html(input_file, output_dir, filters=[], extras=[]):
-    # Call pandoc and parse the HTML with BeautifulSoup
+    '''
+    Call pandoc and parse the HTML with BeautifulSoup
+    '''
+
     with NamedTemporaryFile(
         suffix="html", delete_on_close=False, dir=output_dir
     ) as pfp:
@@ -232,7 +258,9 @@ def parse_html(input_file, output_dir, filters=[], extras=[]):
 
 
 def transform_html(soup):
-    # Process the generated HTML to match the Tufte format
+    '''
+    Process the generated HTML to match the Tufte format.
+    '''
 
     for a in soup.find_all("marginnote"):
         p = soup.new_tag("p")
@@ -269,8 +297,11 @@ def transform_html(soup):
 
 
 def process_html_charts(soup, chart_defs):
-    # Process the charts.
-
+    '''
+    Replaces chart tags with a span, and adds a JavaScript call to
+    generate the chart.
+    '''
+    
     code_parts = []
     code_string = ""
 
@@ -298,23 +329,31 @@ def process_html_charts(soup, chart_defs):
     return code_string
 
 
-# Function to add charts
 def add_chart_to_html(
     chart_type, fields, soup, code_parts, module=module_name, function_name=None
 ):
+    '''
+    Adds all invocations of a particular chart type to the HTML document.
+    '''
+
     if not function_name:
         function_name = chart_type
 
     for num, elem in enumerate(soup.find_all(chart_type)):
         try:
-            attrs = {str(key): json_loads_if_string(value) for key, value in elem.attrs.items()}
+            attrs = {
+                str(key): json_loads_if_string(value)
+                for key, value in elem.attrs.items()
+            }
         except Exception as e:
-            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}: {e}")
+            logger.error(
+                f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}: {e}"
+            )
             continue
 
         chart_id = f"{chart_type}_{str(num)}"
 
-        args = handle_chart_field_arguments(fields, attrs, '#' + chart_id)
+        args = handle_chart_field_arguments(fields, attrs, "#" + chart_id)
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
         elem.name = "span"
@@ -328,7 +367,10 @@ def add_chart_to_html(
 
 
 def make_supporting(chart_defs):
-    # Construct the mode-specificities
+    '''
+    Return lists of scripts and stylesheets to include in the HTML document.
+    '''
+
     scripts = []
     stylesheets = BASE_STYLESHEETS
 
@@ -355,9 +397,11 @@ def write_html(
     title,
     output_file,
 ):
-    # Put it all together into a set of arguments for turning the template
-    # into the finished document.
-
+    '''
+    Put it all together into a set of arguments for turning the template
+    into the finished document.
+    '''
+   
     indent_sep = "\n        "
     tpl_args = {
         "title": title,
@@ -386,6 +430,9 @@ def write_html(
 
 
 def generate_json(input_file, output_dir, filters=[], extras=[]):
+    '''
+    Generate a JSON representation of the document using pandoc.
+    '''
     
     os.makedirs(output_dir, exist_ok=True)
     raw_json = None
@@ -407,6 +454,13 @@ def generate_json(input_file, output_dir, filters=[], extras=[]):
 
 
 def convert_images(httpd, page_url, output_path=""):
+    '''
+    Driver function for converting SVGs to PNGs.
+
+    It will convert the SVG images that we've created in the HTML
+    document to PNG format for output document types other than HTML.
+    '''
+
     soup = None
 
     try:
@@ -420,7 +474,7 @@ def convert_images(httpd, page_url, output_path=""):
         logger.error(f"Error opening document to convert SVGs: {e}")
 
     httpd.shutdown()
-    
+
     if soup is None:
         return soup
 
@@ -440,6 +494,7 @@ def convert_images(httpd, page_url, output_path=""):
 
 
 def convert_svg_to_png(svg_name: str, output_path: str):
+    ''' Convert a single SVG file to PNG format using svg2png. '''
     url = convert_url
     svg_path = os.path.join(output_path, f"{svg_name}.svg")
     png_path = os.path.join(output_path, f"{svg_name}.png")
@@ -470,6 +525,7 @@ def parse_length(value: str | None) -> float | None:
 
 
 def get_svg_dimensions(svg_path: str):
+    """Get the width and height of an SVG file."""
     tree = ET.parse(svg_path)
     root = tree.getroot()
 
@@ -487,7 +543,10 @@ def get_svg_dimensions(svg_path: str):
 
     return width, height
 
+
 def _ok_html(elem: pf.RawInline) -> bool:
+    ''' Common functionality for checking for image start and end tags.'''
+
     if not isinstance(elem, pf.RawInline):
         return False
     if MATCH_FORMATS is None:
@@ -496,6 +555,11 @@ def _ok_html(elem: pf.RawInline) -> bool:
 
 
 def is_doodl_start_block(elem) -> str | None:
+    '''
+    Check if the element is a start tag for a Doodl chart.
+    Return the tag name if it is, else None.
+    '''
+
     if not _ok_html(elem):
         return None
 
@@ -509,7 +573,10 @@ def is_doodl_start_block(elem) -> str | None:
 
     return None
 
+
 def is_doodl_end_block(elem, tag) -> bool:
+    ''' Check if the element is an end tag for a Doodl chart. '''
+
     if not _ok_html(elem):
         return False
 
@@ -517,17 +584,24 @@ def is_doodl_end_block(elem, tag) -> bool:
 
     if m:
         return m.group("tag").lower() == tag
-    
+
     return False
 
 
 def _make_image(alt_text: str, url: str) -> pf.Image:
+    ''' Create a Pandoc Image element.'''
+
     alt_inlines = [pf.Str(alt_text)] if alt_text else []
     # Use keyword for clarity; Pandoc expects URL as target
     return pf.Image(*alt_inlines, url=url)
 
+
 def _rewrite_inlines(inlines, doc):
-    """Return a new list of inlines with RawInline[ Space/SoftBreak RawInline ] collapsed to Image."""
+    """
+    Return a new list of inlines with RawInline[ Space/SoftBreak
+    RawInline ] collapsed to Image.  Called by panflute's run_filter
+    function.
+    """
     out = []
     i = 0
     n = len(inlines)
@@ -540,25 +614,24 @@ def _rewrite_inlines(inlines, doc):
         if tag and (
             (
                 i + 2 < n
-                and isinstance(inlines[i+1], (pf.Space, pf.SoftBreak))
-                and is_doodl_end_block(inlines[i+2], tag)
-            ) or (
-                i + 1 < n 
-                and is_doodl_end_block(inlines[i+1], tag)
+                and isinstance(inlines[i + 1], (pf.Space, pf.SoftBreak))
+                and is_doodl_end_block(inlines[i + 2], tag)
             )
+            or (i + 1 < n and is_doodl_end_block(inlines[i + 1], tag))
         ):
-
             logger.info(f"Processing {tag} block")
             alt = cur.text
             tag_count = doc.image_count.get(tag, 0)
             doc.image_count[tag] = tag_count + 1
-            image_path = os.path.join(doc.image_path_directory, f"{tag}_{tag_count}.png")
+            image_path = os.path.join(
+                doc.image_path_directory, f"{tag}_{tag_count}.png"
+            )
             out.append(_make_image(alt, image_path))
 
-            if isinstance(inlines[i+1], (pf.Space, pf.SoftBreak)):
-                i += 1  # Skip over Space/SoftBreak                
+            if isinstance(inlines[i + 1], (pf.Space, pf.SoftBreak)):
+                i += 1  # Skip over Space/SoftBreak
 
-            i += 2 # Skip the two RawInlines
+            i += 2  # Skip the two RawInlines
 
             continue
 
@@ -568,9 +641,14 @@ def _rewrite_inlines(inlines, doc):
 
     return out
 
+
 def action(elem, doc):
-    # Only process inline containers (those that have a list of Inline children)
-    if isinstance(elem, INLINE_CONTAINERS) and hasattr(elem, 'content'):
+    '''
+    Selects inline elements which can conceivably by the parent
+    element for a doodl chart.
+    '''
+
+    if isinstance(elem, INLINE_CONTAINERS) and hasattr(elem, "content"):
         # elem.content is a panflute.ListContainer
         new_seq = _rewrite_inlines(list(elem.content), doc)
         if new_seq != list(elem.content):
@@ -578,13 +656,17 @@ def action(elem, doc):
 
 
 def replace_tags_with_images(json_doc, image_path_directory):
+    '''
+    Use Panflute to convert doodl charts to images.
+    '''
+
     doc = pf.load(io.StringIO(json.dumps(json_doc, ensure_ascii=False)))
 
     doc.image_path_directory = image_path_directory
     doc.image_count = {}
 
     doc = pf.run_filter(action, doc=doc)
- 
+
     with io.StringIO() as f:
         pf.dump(doc, f)
         json_doc = json.loads(f.getvalue())
@@ -593,6 +675,11 @@ def replace_tags_with_images(json_doc, image_path_directory):
 
 
 def convert_to_format(doc, output_format, output_file_path):
+    '''
+    Use Pandoc to convert the document from Pandoc internal
+    format to the desired output format.
+    '''
+
     with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
         f.close()
@@ -623,6 +710,7 @@ def convert_to_format(doc, output_format, output_file_path):
 
 
 def get_pdf_engine():
+    ''' Retrieve the name of the installed PDF (LaTex) engnie '''
     for engine in PDF_ENGINES:
         if hasattr(shutil, "which") and shutil.which(engine) is not None:
             return engine
@@ -662,26 +750,27 @@ where args are one of:
 -c|--chart  file   # Add a custom chart to doodl
 -D|--dev           # Run this script in development mode
 -f|--filter filter # Add a filter to be passed to pandoc
+-F|--format fmt    # generate a file in this format 
 -h|--help          # Print this message
 -o|--output file   # File to which to store HTML document
 -p|--plot          # Short cut for adding the pandoc-plot filter
+-P|--port          # the port to use in the url. defaults to 7300
 -s|--server        # Run doodl in server mode
 -t|--title         # Title for generated HTML document
 -v|--verbose       # Increase debugging output. May be repeated
 -z|--zip  file     # zip the output directory to file
---port             # the port to use in the url. defaults to 7300
---format           # generate a file in this format 
 
 In dev mode, the script must be run in the same folder as the script.
 """
 
     opts, args = getopt(
         sys.argv[1:],
-        "c:D:f:o:pst:vz:",
+        "c:D:fh:o:pst:vz:P:F:",
         (
             "chart",
             "dir",
             "filter=",
+            "help",
             "output",
             "plot",
             "server",
@@ -787,7 +876,7 @@ In dev mode, the script must be run in the same folder as the script.
     soup = transform_html(soup)
     code_string = process_html_charts(soup, chart_defs)
     scripts, stylesheets = make_supporting(chart_defs)
-    
+
     # Copy the generated HTML file and dependencies to a temporary directory,
     # and then handle the output based on the mode.
 
@@ -805,14 +894,13 @@ In dev mode, the script must be run in the same folder as the script.
             html_file = os.path.join(dir_name, "index.html")
 
         write_html(scripts, stylesheets, soup, code_string, title, html_file)
-        
-        plots_folder = os.path.join(os.getcwd(),'plots')
+
+        plots_folder = os.path.join(os.getcwd(), "plots")
         if os.path.isdir(plots_folder):
-            copy_data(plots_folder, os.path.join(dir_name,'plots'))
-            
+            copy_data(plots_folder, os.path.join(dir_name, "plots"))
 
         if zip_mode:
-            zip_base_name = os.path.join(dir_name,os.path.basename(output_file))
+            zip_base_name = os.path.join(dir_name, os.path.basename(output_file))
             shutil.copy2(html_file, zip_base_name)
             zip_directory(server_dir_name, zipped_filename)
             return
@@ -883,7 +971,6 @@ def zip_directory(folder_path, output_zip):
     if not os.path.isdir(folder_path):
         raise ValueError(f"Source directory does not exist: {folder_path}")
     with zipfile.ZipFile(output_zip, "w", zipfile.ZIP_DEFLATED) as zipf:
-        
         for root, _, files in os.walk(folder_path):
             for file in files:
                 file_path = os.path.join(root, file)
@@ -921,6 +1008,7 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
+
 def json_loads_if_string(value):
     if isinstance(value, str):
         try:
@@ -933,9 +1021,11 @@ def json_loads_if_string(value):
     return value
 
 
-def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id, preload_data_files=False):
+def handle_chart_field_arguments(
+    chart_specific_fields, supplied_attrs, div_id, preload_data_files=False
+):
     args = [div_id]  # Insert the div ID
-    
+
     all_fields = {
         "data": [],
         "size": {},
@@ -951,7 +1041,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
 
     if chart_specific_fields:
         all_fields |= chart_specific_fields
-    
+
     # Figure out the colors
 
     for field, dv in palette_fields.items():
@@ -969,7 +1059,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
                 try:
                     palette_fields[field] = json.loads(supplied_attrs[field])
                 except json.JSONDecodeError as e:
-                    logger.error(e,f'Error decoding JSON for field "{field}": {dv}' )
+                    logger.error(e, f'Error decoding JSON for field "{field}": {dv}')
             else:
                 palette_fields[field] = dv
 
@@ -999,11 +1089,11 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
             all_fields["file"][field] = supplied_attrs[field]
 
     all_fields["data"] = supplied_attrs.get("data", {})
-    
+
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
         all_fields["data"] = load_file_data(
-            all_fields["file"]["path"],
-            all_fields["file"].get("format", ""))
+            all_fields["file"]["path"], all_fields["file"].get("format", "")
+        )
         all_fields["file"] = {}
 
     # Handle size
@@ -1016,26 +1106,24 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
 
     args += list(all_fields.values())
 
-    return [ json.dumps(a) for a in args ]
+    return [json.dumps(a) for a in args]
 
 
 def chart(func_name, fields=None):
-    def wrapper(
-         **kwargs
-    ):
+    def wrapper(**kwargs):
         global chart_count
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
-        
-        stylesheets = "\n".join([f'<link rel="stylesheet" href="{sheet}" />' for sheet in PROD_PYTHON_STYLESHEETS])
 
-        args = handle_chart_field_arguments(
-                fields,
-                kwargs,
-                '#' + chart_id,
-                True
-            )
+        stylesheets = "\n".join(
+            [
+                f'<link rel="stylesheet" href="{sheet}" />'
+                for sheet in PROD_PYTHON_STYLESHEETS
+            ]
+        )
+
+        args = handle_chart_field_arguments(fields, kwargs, "#" + chart_id, True)
 
         script = f'''
 <p><span class="chart-container" id="{chart_id}"></span></p>
@@ -1055,8 +1143,6 @@ def chart(func_name, fields=None):
 
 
 def load_file_data(path: str, file_format: str = ""):
-    
-
     if is_url(path):
         resp = requests.get(path)
         resp.raise_for_status()
@@ -1072,7 +1158,7 @@ def load_file_data(path: str, file_format: str = ""):
             return resp.json()
         else:
             raise ValueError(f"Unsupported remote file format: {fmt or 'unknown'}")
-                
+
     if not file_format:
         file_format = path.split(".")[-1].lower()
 
@@ -1100,7 +1186,6 @@ def load_file_data(path: str, file_format: str = ""):
         raise ValueError(f"Unsupported file format: {file_format}")
 
 
-
 def is_url(s: str) -> bool:
     try:
         result = urlparse(s)
@@ -1108,8 +1193,8 @@ def is_url(s: str) -> bool:
         return bool(result.scheme and (result.netloc or result.path))
     except Exception:
         return False
-    
-    
+
+
 for k, v in STANDARD_CHARTS.items():
     globals()[k] = chart(k, v)
 
