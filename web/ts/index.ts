@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Fri Sep 19 01:11:40 CAT 2025
+// Generated Tue Sep 30 15:49:58 CAT 2025
 
 
 /// base.ts
@@ -289,7 +289,8 @@ export async function barchart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0, // 0 = Vertical, 1 = Horizontal,
-  moving_average = 0
+  moving_average = 0,
+  x_label_angle = 0,
 ) {
   const { width, height } = size;
   const margin: Margin = defaultMargin;
@@ -321,9 +322,17 @@ export async function barchart(
   const yVertical = d3.scaleLinear().domain([0, d3.max(processed_data, (d) => d.value)!]).range([chartHeight, 0]);
 
   // Draw X axis
-  svg.append("g")
+  const xAxis = svg.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(horizontal ? d3.axisBottom(xHorizontal) : d3.axisBottom(xVertical));
+
+  if (x_label_angle !== 0) {
+  xAxis.selectAll("text")
+    .attr("transform", `rotate(${x_label_angle})`)
+    .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+    .attr("dx", x_label_angle === 90 ? "0.8em" : "0")   // push horizontally if vertical
+    .attr("dy", x_label_angle === 90 ? "0" : "1.5em");  // only apply dy if not 90
+}
 
   // Draw Y axis
   svg.append("g").call(horizontal ? d3.axisLeft(yHorizontal) : d3.axisLeft(yVertical));
@@ -1461,7 +1470,8 @@ export async function piechart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
   donut?: 0,
-  continuous_rotation?: 0
+  continuous_rotation?: 0,
+  show_percentages?: 0
 ) {
   const { width, height } = size;
   const radius = Math.min(width, height) / 2;
@@ -1541,7 +1551,14 @@ export async function piechart(
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
     .style("fill", "#FFFFFF")
-    .text((d: any) => d.data.label);
+    .text((d: any) => {
+      if (show_percentages) {
+        const total = d3.sum(processed_data, (d: any) => d.value);
+        const percentage = ((d.data.value / total) * 100).toFixed(1);
+        return `${d.data.label} (${percentage}%)`;
+      }
+      return d.data.label;
+    });
 
   if (continuous_rotation) {
     // Start continuous rotation after 2 second delay
