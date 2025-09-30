@@ -1,7 +1,9 @@
 // .vitepress/theme/index.ts
 import DefaultTheme from 'vitepress/theme'
-import { h } from 'vue'
+import { h, App } from 'vue'
 import HomeFeaturesAfter from './HomeFeaturesAfter.vue'
+import Parameter from './components/Parameter.vue'
+import Parameters from './components/Parameters.vue'
 
 export default {
   extends: DefaultTheme,
@@ -10,5 +12,10 @@ export default {
       // here we target the "home-features-after" slot
       'home-features-after': () => h(HomeFeaturesAfter)
     })
-  }
+  },
+  enhanceApp({ app }: { app: App }) {
+    // Register components globally
+    app.component('Parameters', Parameters)
+    app.component('Parameter', Parameter)
+  } 
 }

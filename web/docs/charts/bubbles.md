@@ -4,6 +4,10 @@ The bubble chart is a means of representing hierarchically related
 data, that is, it represents groups of items that themselves may have
 other items grouped under them.
 
+<Parameters>
+  <Parameter name="data" type="JSON/Python dict">
+<div>
+
 The data for a bubble chart is unique, with a single dictionary
 representing the outermost circle, and a list of child nodes, like
 this:
@@ -31,9 +35,17 @@ this:
 }
 ~~~
 
+</div>
+  </Parameter>
+  <Parameter name="ease_in" type="Boolean">
+
 In addition the chart takes an `ease_in` parameter, with default of
 `false` that produces an animation when the chart loads in the
 browser, and a `drag_animations` parameter.
+
+  </Parameter>
+</Parameters>
+
 
 Following is a relatively complex bubble chart produced with:
 
@@ -49,7 +61,27 @@ Following is a relatively complex bubble chart produced with:
 ~~~
 
 where `data/bubbles.json` contains a file similar to the JSON shown
-above.
+above. Here are the first few lines:
+
+~~~json
+{
+      "name": "root",
+      "children": [
+        {
+          "name": "Group A",
+          "children": [
+            { "name": "Alpha", "value": 50 },
+            { "name": "Beta", "value": 30 },
+            { "name": "Gamma", "value": 20 },
+            { "name": "Delta", "value": 25 },
+            { "name": "Epsilon", "value": 35 },
+            {
+              "name": "Subgroup A1",
+              "children": [
+                { "name": "A1-Node1", "value": 15 },
+                { "name": "A1-Node2", "value": 10 },
+                ...
+~~~
 
 <span class="chart-container" id="bubbles_0"></span>
 

@@ -1,23 +1,63 @@
 ## Bar chart
 
+<Parameters>
+    <Parameter
+        name="data"
+        type="List[dict], DataFrame, Series"
+    >
+<div>
+
+Contains inline data to use for the chart. In Markdown,
+the value must be a JSON string representing a list of
+dictionaries, as shown in the example below.  Each
+dictionary must contain a `label` element, with the
+label for the respective bar, and a `value` element,
+representing the height of the bar (which will be
+scaled appropriately).
+
+In Python, `data` may be any of:
+
+- A Python list of dictionaries, as above
+- A Pandas, FireDucks, Polars or pyarrow DataFrame with
+    a `label` and `value` column.
+- A Series whose index supplies the labels and entries supply the value.
+
+</div>
+  </Parameter>
+  <Parameter name="horizontal" type="Boolean">
+
+If true, the bars are drawn horizontally instead of vertically.
+Defaults to False.
+
+  </Parameter>
+  <Parameter name="moving_average" type="Boolean">
+
+If true, a moving average curve is added to the graph. Default is False.
+
+  </Parameter>
+</Parameters>
+
+### Examples
+
 Bar charts are drawn using the `barchart` tag, like this:
 
 ```html
 <barchart
-    data='[
+  data='[
         { "label": "Apples", "value": 10 },
         { "label": "Bananas", "value": 20 },
         { "label": "Cherries", "value": 15 },
         { "label": "Grapes", "value": 25 }
     ]'
-    width=500
-    height=350
-    colors='["DarkOrange"]'
+  width="500"
+  height="350"
+  colors='["DarkOrange"]'
 >
 </barchart>
 ```
 
 or this in Python:
+
 ```python
 import doodl
 
