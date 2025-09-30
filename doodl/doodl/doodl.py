@@ -107,9 +107,9 @@ PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 
 STANDARD_CHARTS = {
     "linechart": {"curved": False},
-    "piechart": {"donut": False, "continuous_rotation": False},
+    "piechart": {"donut": False, "continuous_rotation": False, "show_percentages": False},
     "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": False, "moving_average": False},
+    "barchart": {"horizontal": False, "moving_average": False, "x_label_angle": 0},
     "stacked_barchart": {"horizontal": False, "moving_average": False},
     "tree": {"vertical": False},
     "venn": None,

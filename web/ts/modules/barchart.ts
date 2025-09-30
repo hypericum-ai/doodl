@@ -5,7 +5,8 @@ export async function barchart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0, // 0 = Vertical, 1 = Horizontal,
-  moving_average = 0
+  moving_average = 0,
+  x_label_angle = 0,
 ) {
   const { width, height } = size;
   const margin: Margin = defaultMargin;
@@ -37,9 +38,17 @@ export async function barchart(
   const yVertical = d3.scaleLinear().domain([0, d3.max(processed_data, (d) => d.value)!]).range([chartHeight, 0]);
 
   // Draw X axis
-  svg.append("g")
+  const xAxis = svg.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(horizontal ? d3.axisBottom(xHorizontal) : d3.axisBottom(xVertical));
+
+  if (x_label_angle !== 0) {
+  xAxis.selectAll("text")
+    .attr("transform", `rotate(${x_label_angle})`)
+    .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+    .attr("dx", x_label_angle === 90 ? "0.8em" : "0")   // push horizontally if vertical
+    .attr("dy", x_label_angle === 90 ? "0" : "1.5em");  // only apply dy if not 90
+}
 
   // Draw Y axis
   svg.append("g").call(horizontal ? d3.axisLeft(yHorizontal) : d3.axisLeft(yVertical));
