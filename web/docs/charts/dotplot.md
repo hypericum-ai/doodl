@@ -7,13 +7,20 @@
 > types of charts are used to graphically depict certain data trends
 > or groupings.
 
-The data required for a dot plot consists of a (JSON) list of
-dictionaries, each one of which includes a `category` and a `value`.
-Here is an example of a dot plot in HTML/Markdown:
+<Parameters>
 
-~~~html
-<dotplot
-data='[
+Dot plots accept the [standard parameter](/charts/#standard-parameters)
+with `data` defined as follows:
+
+  <Parameter name='data' type='List of dicts'>
+<div>
+
+The data required for a dot plot consists of a (JSON) list of
+dictionaries, each one of which includes a `category` and a `value`,
+as follows:
+
+~~~python
+[
     { "category": "A", "value": 10 },
     { "category": "A", "value": 12 },
     { "category": "A", "value": 16 },
@@ -23,7 +30,30 @@ data='[
     { "category": "C", "value": 12 },
     { "category": "C", "value": 15 },
     { "category": "C", "value": 21 }
-]'
+]
+~~~
+
+</div>
+</Parameter>
+</Parameters>
+
+### Example
+
+Here is an example of a dot plot in HTML/Markdown using the above data.
+
+~~~html
+<dotplot
+  data='[
+    { "category": "A", "value": 10 },
+    { "category": "A", "value": 12 },
+    { "category": "A", "value": 16 },
+    { "category": "B", "value": 20 },
+    { "category": "B", "value": 24 },
+    { "category": "B", "value": 28 },
+    { "category": "C", "value": 12 },
+    { "category": "C", "value": 15 },
+    { "category": "C", "value": 21 }
+  ]'
   width=1000
   height=500
   colors='deep'

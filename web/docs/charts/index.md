@@ -35,11 +35,13 @@ doodl.piechart(data=[
 )
 ```
 
+## Standard parameters
+
 Some things are common to all chart types. These include data, size
 and colors. In this section, we discuss all of these
 common features.
 
-## Parameters for providing data
+### Parameters for providing data
 
 <Parameters no_header=true>
     <Parameter
@@ -116,7 +118,7 @@ to specify the format of the file indicated in the `path` argument.
 </Parameter>
 </Parameters>
 
-## Colors
+### Colors
 
 Color palettes in doodl are discussed in depth in
 [their own section](/colors). Here we'll discuss the
@@ -141,7 +143,7 @@ There are four main use cases (all discussed in more depth
 </Parameter>
 </Parameters>
 
-### Parameters for discrete color palettes
+#### Parameters for discrete color palettes
 
 <Parameters no_header=true>
   <Parameter name="n_colors" type="Integer">
@@ -161,7 +163,7 @@ of 1 (the default) returns a fully saturated palette.
   </Parameter>
 </Parameters>
 
-### Parameters for continuous color palettes
+#### Parameters for continuous color palettes
 
 The section on [color maps](/colors#color-maps) contains detailed
 documentation on how to specify colors palettes that map a range
@@ -186,7 +188,7 @@ Controls how bright the colors appear. Defaults to 0.5.
   </Parameter>
 </Parameters>
 
-## Size
+### Size
 
 Finally, if you'd like to specify the size of the chart, in
 pixels, you can do so with the `width` and `height` arguments.

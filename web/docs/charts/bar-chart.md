@@ -1,5 +1,8 @@
 ## Bar chart
 
+In addition to all of the [standard parameters](/charts/#standard-parameters)
+the following apply to bar charts.
+
 <Parameters>
     <Parameter
         name="data"
@@ -33,6 +36,13 @@ Defaults to False.
   <Parameter name="moving_average" type="Boolean">
 
 If true, a moving average curve is added to the graph. Default is False.
+
+  </Parameter>
+  <Parameter name="x_label_angle" type="Number (degrees)">
+
+Specifies the number of degrees clockwise that the X axis
+labels should be turned. This is to handle long labels.
+The default value is 0 (no rotation).
 
   </Parameter>
 </Parameters>

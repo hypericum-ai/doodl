@@ -1,7 +1,39 @@
 ## Line chart
 
 Along with bar graphs and pie charts, line charts are one of the most
-ubiquitous chart types. This:
+ubiquitous chart types.
+
+<Parameters>
+
+In addition to all of the
+[standard parameters](/charts/#standard-parameters)
+the following apply to line charts.
+
+  <Parameter name="data" type="JSON/Python dict/various">
+<div>
+
+Line charts take their data from a variety of formats, including:
+
+- A list of dictionaries, each of which has an `x` and a `y`
+  element.
+- A file containing a JSON representation of such a list.
+- A file containing CSV with two numerical columns.
+- A Pandas, Fireducks, pyarrow or polars DataFrame, with two
+  columns holding the `x` and `y` values.
+
+</div>
+  </Parameter>
+  <Parameter name="curve" type="Boolean">
+
+If true, a cubic spline is plotted to give a smooth(ed) version
+of the curve connecting the given points. `curved` defaults to `false`.
+
+  </Parameter>
+</Parameters>
+
+### Examples
+
+This:
 
 ~~~html
 <linechart
@@ -39,7 +71,8 @@ data='[
   { "x": 6, "y": 35 }
   ]'
   width=600
-  height='  curved=true
+  height=600
+  curved=true
 >
 </linechart>
 ~~~
@@ -47,9 +80,6 @@ data='[
 produces this:
 
 <span class="chart-container" id="linechart_1"></span>
-
-Data can also be provided in a CSV file that has an "x" and a "y"
-column.
 
 <script>
  setTimeout(() => {

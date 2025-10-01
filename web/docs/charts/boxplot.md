@@ -9,28 +9,14 @@ According to [Wikipedia](https://en.wikipedia.org/wiki/Box_plot), a box plot
 > outside the upper and lower quartiles, thus, the plot is also called
 > the box-and-whisker plot and the box-and-whisker diagram.
 
-The following:
+<Parameters>
 
-```html
-<boxplot
-  data='
-  [
-    {
-      "category": "A",
-      "values": [10, 15, 20]
-    },
-    {
-      "category": "B",
-      "values": [30, 35, 40]
-    }
-  ]'
-  width=500
-  height=350
-</boxplot>
-```
-would produce the following chart:
+Box plot accepts all of the [standard parameters](/charts/#standard-parameters)
+with the `data` (or `path`) parameter defined as follows:
 
-<span  class="chart-container" id="boxplot_0"></span>
+  <Parameter name="data" type="JSON or Python list of dicts">
+
+<div>
 
 The data for box plots is a (JSON) list of dictionaries, of the form:
 
@@ -71,6 +57,36 @@ or equivalently in JSON:
   { "category": "B", "value": 40 }
 ]
 ```
+
+</div>
+</Parameter>
+</Parameters>
+
+### Example
+
+The following:
+
+```html
+<boxplot
+  data='
+  [
+    {
+      "category": "A",
+      "values": [10, 15, 20]
+    },
+    {
+      "category": "B",
+      "values": [30, 35, 40]
+    }
+  ]'
+  width=500
+  height=350
+</boxplot>
+```
+would produce the following chart:
+
+<span  class="chart-container" id="boxplot_0"></span>
+
 
 <script>
  setTimeout(() => {

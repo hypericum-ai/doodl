@@ -11,7 +11,13 @@ to much larger:
 
 <span  class="chart-container" id="force_1"></span>
 
-The data given to a force directed graph has the form:
+<Parameters>
+
+The force directed graph takes the [standard parameters](/charts/#standard-parameters)
+where the data defining the graph has the form:
+
+<Parameter name="data" type="dict">
+<div>
 
 ~~~json
 {
@@ -29,6 +35,12 @@ The data given to a force directed graph has the form:
   ]
 }
 ~~~
+
+The definition of nodes and links is described below..
+
+</div>
+</Parameter>
+</Parameters>
 
 ### Nodes
 

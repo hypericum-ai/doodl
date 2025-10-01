@@ -4,7 +4,12 @@ The bubble chart is a means of representing hierarchically related
 data, that is, it represents groups of items that themselves may have
 other items grouped under them.
 
-<Parameters>
+### Parameters
+
+In addition to all of the [standard parameters](/charts/#standard-parameters)
+the following apply to bubble charts.
+
+<Parameters no_header=true>
   <Parameter name="data" type="JSON/Python dict">
 <div>
 
@@ -46,6 +51,7 @@ browser, and a `drag_animations` parameter.
   </Parameter>
 </Parameters>
 
+### Example
 
 Following is a relatively complex bubble chart produced with:
 

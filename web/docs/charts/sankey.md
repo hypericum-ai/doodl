@@ -7,30 +7,17 @@ stages or categories. The diagram uses nodes to represent the
 different categories and links (arrows) to represent the flow, with
 the width of the links proportional to the quantity being transferred.
 
-Here's an example of a Sankey diagram from HTML/Markdown:
+<Parameters>
 
-```html
-<skey
-  width=600
-  height=225
-  path="data/energy.json"
-  format="json"
-  colors="cc.glasbey"
->
-</skey>
-```
+In addition to all of the [standard parameters](/charts/#standard-parameters)
+the following apply to pie charts.
 
-which produces this:
+  <Parameter
+      name="data"
+      type="List[dict], DataFrame, Series"
+  >
+<div>
 
-<span  class="chart-container" id="skey_0"></span>
-
-
-Several things are worth noting here:
-
-- This example uses data from a file with the `path` and `format`
-  arguments instead of a `data` argument, as described in the
-  [chart overview](/charts/).
-  
   The format of the data is a JSON dictionary, with two elements:
   `nodes` and `links`. Here is an excerpt from the data file, above:
 
@@ -57,8 +44,49 @@ Several things are worth noting here:
   ]
 }
 ```
-  
-- The data may also be included inline as the following excerpt shows:
+
+</div>
+</Parameter>
+<Parameter name="link_color" type="String">
+
+The `link_color` parameter determines, as the name suggests,
+how to color the links. The default value of `"target"` uses
+the same color as the target node. The value `"source-target"` uses a
+gradient of the colors of the nodes that it connects. The
+`"source"` option colors the
+link the same as the nodes on the beginning of the
+link.
+
+</Parameter>
+<Parameter name="node_align" type="string">
+
+This parameter, which defaults to `"left"`, determines where
+to place each node. The possible values are `"left"`,
+`"right"`, `"center"` and `"justify"`.
+
+</Parameter>
+</Parameters>
+
+### Examples
+
+Here's an example of a Sankey diagram from HTML/Markdown:
+
+```html
+<skey
+  width=600
+  height=225
+  path="data/energy.json"
+  format="json"
+  colors="cc.glasbey"
+>
+</skey>
+```
+
+which produces this:
+
+<span  class="chart-container" id="skey_0"></span>
+
+The data may also be included inline:
 
 ```html
 <skey
@@ -91,23 +119,9 @@ Several things are worth noting here:
 
 ```
 
-Note the use of single quotes to mark the HTML attribute `data`,
-and the use of double quotes within the JSON string.
-  
-- As described in the [color palette](/color) section, we have used a
-  color palette from [Colorcet](https://github.com/holoviz/colorcet).
-  As an aside, this is a particularly good option for this chart type.
-
-This chart has two optional arguments:
-
-- `link_color` determines whether the links are colored using a
-  gradient or a solid color. A value of `target` (the default)
-  uses a solid color and a value of `source-target` colors using a
-  gradient between the colors of the source and target nodes.
-
-- `node_align` determines how the nodes are placed. The default value
-  is `"right"`. Other accepted values include `"left"`, `"center"` and
-  `"justify"`.
+As described in the [color palette](/color) section, we have used a
+color palette from [Colorcet](https://github.com/holoviz/colorcet).
+As an aside, this is a particularly good option for this chart type.
 
 Here is the same chart as above, but using `source-target` to color
 the links:
