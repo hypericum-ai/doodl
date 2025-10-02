@@ -57,6 +57,8 @@ doodl.scatterplot(
 
 which produce this:
 
+<span class="chart-container" id="scatterplot_0"></span>
+
 </div>
 
 </Parameter>
@@ -66,17 +68,11 @@ which produce this:
 The optional `dotsize` parameter, which defaults to 5, determines the
 size of the dots, as this example with a dotsize of 3 shows.
 
+<span class="chart-container" id="scatterplot_1"></span>
+
 </div>
 </Parameter>
 </Parameters>
-
-### Example 1
-
-<span class="chart-container" id="scatterplot_0"></span>
-
-### Example 2
-
-<span class="chart-container" id="scatterplot_1"></span>
 
 <script>
  setTimeout(() => {
@@ -92,26 +88,24 @@ size of the dots, as this example with a dotsize of 3 shows.
     ],
       {"width":250,"height":250},
       {},
-      ['darkblue'],
-      false,
+      ['#4C72B0'],
       5
     );
   Doodl.scatterplot('#scatterplot_1',
-      [
-        { "x": 1, "y": 10 }, 
-        { "x": 2, "y": 20 },
-        { "x": 3, "y": 15 },
-        { "x": 4, "y": 25 },
-        { "x": 5, "y": 30 },
-        { "x": 6, "y": 35 }
-      ],
-    {"width":250,"height":250},
+     [
+      { "x": 1, "y": 10 }, 
+      { "x": 2, "y": 20 },
+      { "x": 3, "y": 15 },
+      { "x": 4, "y": 25 },
+      { "x": 5, "y": 30 },
+      { "x": 6, "y": 35 }
+    ],
+      {"width":250,"height":250},
       {},
-      ['darkblue'],
-      false,
+      ['#4C72B0'],
       3
     );
-  }
+ }
 )
 }, 1000);
 
