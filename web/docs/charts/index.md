@@ -121,7 +121,7 @@ to specify the format of the file indicated in the `path` argument.
 ### Colors
 
 Color palettes in doodl are discussed in depth in
-[their own section](/colors). Here we'll discuss the
+[their own section](/color). Here we'll discuss the
 arguments that are used for specifying colors
 in charts.
 
@@ -131,7 +131,7 @@ in charts.
 
 The primary parameter for settings colors in a chart.
 There are four main use cases (all discussed in more depth
-[elsewhere](/colors)).
+[elsewhere](/color)).
 
 1. The name of a Seaborn or Color Brewer color palette (`colors="deep"`).
 2. The name of a Colorcet color palette (`colors="cc.glasbey"`).
@@ -165,7 +165,7 @@ of 1 (the default) returns a fully saturated palette.
 
 #### Parameters for continuous color palettes
 
-The section on [color maps](/colors#color-maps) contains detailed
+The section on [color maps](/color#color-maps) contains detailed
 documentation on how to specify colors palettes that map a range
 of values to a range of colors.
 
@@ -173,7 +173,7 @@ of values to a range of colors.
   <Parameter name="interp" type="String">
 
 One of the interpolation names described in the
-[color maps documentation](/colors#color-maps). Required.
+[color maps documentation](/color#color-maps). Required.
 
   </Parameter>
   <Parameter name="gamma" type="Number (0.0 to 1.0)">

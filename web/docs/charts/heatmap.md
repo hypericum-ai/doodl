@@ -7,7 +7,7 @@ complex data sets.
 
 <Parameters>
 
-In addition to the [standard parameters](charts/#standard-parameters)
+In addition to the [standard parameters](/charts/#standard-parameters)
 heatmaps take the following parameters:
 
 <Parameter name="data" type="list of dicts">
