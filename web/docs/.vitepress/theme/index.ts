@@ -4,6 +4,7 @@ import { h, App } from 'vue'
 import HomeFeaturesAfter from './HomeFeaturesAfter.vue'
 import Parameter from './components/Parameter.vue'
 import Parameters from './components/Parameters.vue'
+import TextRotator from './components/TextRotator.vue'
 
 export default {
   extends: DefaultTheme,
@@ -17,5 +18,6 @@ export default {
     // Register components globally
     app.component('Parameters', Parameters)
     app.component('Parameter', Parameter)
+    app.component('TextRotator', TextRotator)
   } 
 }
