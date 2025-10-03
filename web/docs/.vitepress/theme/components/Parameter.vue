@@ -6,7 +6,7 @@
         <code>{{ type }}</code>
       </span>
     </dt>
-    <dd><slot /></dd>
+    <dd><slot/></dd>
   </div>
 </template>
 
