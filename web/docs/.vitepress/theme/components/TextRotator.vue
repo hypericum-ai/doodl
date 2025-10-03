@@ -1,6 +1,13 @@
 <template>
   <div class="text-rotator-container">
-    <!-- <span class="static-text">Your awesome project </span> -->
+  <div class="custom-hero-text">
+  <h3>Doodl</h3>
+  
+  </div>
+    <span class="static-text">
+    <p>A publishing platform marrying d3 and&hellip;</p>
+  <p>tagline: High quality documents, with live visualizations.</p>
+     </span>
     <transition name="fade-slide" mode="out-in">
       <span :key="currentText" class="rotating-text">{{ currentText }}</span>
     </transition>
@@ -57,5 +64,13 @@ onUnmounted(() => {
 .fade-slide-leave-to {
   opacity: 0;
   transform: translateY(-20px);
+}
+
+.custom-hero-text{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 20px;
+  text-align: right;
 }
 </style>

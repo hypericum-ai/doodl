@@ -33,5 +33,3 @@ features:
     title: Custom graphics
     details: Use sophisticated charts written in Typescript or Javascript seemlessly
 ---
-
-<TextRotator/>
