@@ -106,28 +106,148 @@ PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
 STANDARD_CHARTS = {
-    "linechart": {"curved": False},
-    "piechart": {"donut": False, "continuous_rotation": False, "show_percentages": False},
-    "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": False, "moving_average": False, "x_label_angle": 0},
-    "stacked_barchart": {"horizontal": False, "moving_average": False},
-    "tree": {"vertical": False},
-    "venn": None,
-    "gantt": None,
-    "treemap": None,
-    "heatmap": {"show_legend": False, "interp": "rgb", "gamma": 0},
-    "dotplot": None,
-    "scatterplot": {"dotsize": 5},
-    "boxplot": None,
-    "force": None,
-    "chord": None,
-    "disjoint": None,
-    "bollinger": None,
-    "dendrogram": {"view_scale_factor": 1},
-    "contour": None,
-    "areachart": None,
-    "bubblechart": {"ease_in": 0, "drag_animations": 0},
-    "voronoi": None,
+    "linechart": {
+        "options": {
+            "curved": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y"]
+        }
+    },
+    "piechart": {
+        "options": {
+            "donut": False,
+            "continuous_rotation": False,
+            "show_percentages": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "skey": {
+        "options": {
+            "link_color": "source-target",
+            "node_align": "left"
+        }
+    },
+    "barchart": {
+        "options": {
+            "horizontal": False,
+            "moving_average": False,
+            "x_label_angle": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "stacked_barchart": {
+        "options": {
+            "horizontal": False,
+            "moving_average": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "tree": {
+        "options": {
+            "vertical": False
+        },
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "venn": {},
+    "gantt": {
+        "data": {
+            "type": "table",
+            "columns": ["start", "end", "task"]
+        }
+    },
+    "treemap": {
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "heatmap": {
+        "options": {
+            "show_legend": False,
+            "interp": "rgb", 
+            "gamma": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y", "value"]
+        }
+    },
+    "dotplot": {
+        "data": {
+            "type": "table",
+            "columns": ["category", "value"]
+        }
+    },
+    "scatterplot": {
+        "options": {
+            "dotsize": 5
+        }
+    },
+    "boxplot": {
+        "data": {
+            "type": "table",
+            "columns": ["category", "value"]
+        }
+    },
+    "force": {
+        "data": {
+            "type": "links"
+        }
+    },
+    "chord": {
+        "data": {
+            "type": "table",
+            "columns": ["x", "y", "value"]
+        }   
+    },
+    "disjoint": {
+        "data": {
+            "type": "links"
+        }
+    },
+    "bollinger": {
+        "data": {
+            "type": "table",
+            "columns": [
+                "date",
+                "close",
+                "upper",
+                "lower",
+                "movingAvg"
+            ]
+        }
+    },
+    "dendrogram": {
+        "options": {
+            "view_scale_factor": 1
+        }
+    },
+    "contour": {},
+    "areachart": {},
+    "bubblechart": {
+        "options": {
+            "ease_in": 0,
+            "drag_animations": 0
+        }
+    },
+    "voronoi": {
+        "data": {
+            "type": "table",
+            "columns": ["x", "y", "name"]
+        }
+    },
 }
 
 CHART_TAGS = list(STANDARD_CHARTS.keys())
@@ -296,6 +416,9 @@ def process_html_charts(soup, chart_defs):
     code_string = ""
 
     for s, args in STANDARD_CHARTS.items():
+        if args:
+            options = args.get('options', None)
+
         add_chart_to_html(s, args, soup, code_parts)
 
     # Add any custom chart defs
@@ -1090,7 +1213,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
     return [ json.dumps(a) for a in args ]
 
 
-def chart(func_name, fields=None):
+def chart(func_name, fields=None, data=None):
     def wrapper(
          **kwargs
     ):
@@ -1181,8 +1304,15 @@ def is_url(s: str) -> bool:
         return False
     
     
-for k, v in STANDARD_CHARTS.items():
-    globals()[k] = chart(k, v)
+for tag, spec in STANDARD_CHARTS.items():
+    if not spec:
+        spec = {}
+
+    globals()[tag] = chart(
+        tag,
+        spec.get('options', {}),
+        spec.get('data', {})
+    )
 
 
 if __name__ == "__main__":

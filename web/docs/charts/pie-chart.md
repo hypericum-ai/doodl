@@ -8,10 +8,10 @@ indicate how much of the whole each of a set of values represents.
 In addition to all of the [standard parameters](/charts/#standard-parameters)
 the following apply to pie charts.
 
-    <Parameter
-        name="data"
-        type="List[dict], DataFrame, Series"
-    >
+  <Parameter
+      name="data"
+      type="List[dict], DataFrame, Series"
+  >
 <div>
 
 Contains inline data to use for the chart. In Markdown,
@@ -66,6 +66,7 @@ data='[
   height=500
   colors='deep'
 >
+</piechart>
 ~~~
 
 which renders like this:

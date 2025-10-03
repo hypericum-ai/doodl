@@ -10,23 +10,28 @@
 </template>
 
 <script setup>
+// Todo: Take the values from the hero section in index.md frontmatter
 const name = 'Doodl';
-const text = 'A publishing platform marrying d3 and&hellip;';
+const text = 'A publishing platform marrying d3 and';
 const tagline = 'High quality documents, with live visualizations.';
+
+// Todo: Make this a property
+const delay = 3000; // Delay in milliseconds
 
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const rotatingTexts = [
   'Markdown',
   'HTML',
+  'Pandoc',
   'Angular',
   'Vue',
   'React',
-  'Data Science',
+  'data science',
   'PDF reports',
   'Word documents',
-  'Jupyter Notebooks',
-  'Colab Notebooks',
+  'Jupyter notebooks',
+  'Colab notebooks',
   'Tufte layout',
 ];
 const currentIndex = ref(0);
@@ -37,7 +42,7 @@ onMounted(() => {
   intervalId = setInterval(() => {
     currentIndex.value = (currentIndex.value + 1) % rotatingTexts.length;
     currentText.value = rotatingTexts[currentIndex.value];
-  }, 3000); // Change text every 3 seconds
+  }, delay); // Change text every 3 seconds
 });
 
 onUnmounted(() => {
@@ -46,12 +51,6 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.text-rotator-container {
-  display: inline-flex; /* Or block, depending on your layout */
-  font-size: 2em; /* Adjust as needed */
-  font-weight: bold;
-}
-
 /* CSS for fade-slide transition */
 .fade-slide-enter-active, .fade-slide-leave-active {
   transition: all 0.5s ease;
@@ -153,13 +152,5 @@ onUnmounted(() => {
   .VPHero.has-image .tagline {
     margin: 0;
   }
-}
-
-.custom-hero-text{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-right: 20px;
-  text-align: right;
 }
 </style>

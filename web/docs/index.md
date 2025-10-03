@@ -3,7 +3,7 @@ layout: home
 
 hero:
   name: Doodl
-  text: A publishing platform marrying d3 and&hellip; <TextRotator/>
+  text: A publishing platform marrying d3 and
   tagline: High quality documents, with live visualizations.
   actions:
     - theme: brand

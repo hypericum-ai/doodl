@@ -7,6 +7,7 @@ export default defineConfig({
     title: "Doodl",
     description: "Doodl",
     head: [
+        ['link', { rel: 'icon', href: '/favicon-16x16.png' }],
         [
             'script',
             {
