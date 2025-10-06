@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import io
 
-from data import interpret_data
+from .data import interpret_data
 
 import colorcet as cc
 import http.server
@@ -1136,11 +1136,19 @@ def handle_chart_field_arguments(
 
     all_fields["data"] = supplied_attrs.get("data", {})
 
+    # Convert supported dataframe types to list-of-dicts for JSON compatibility
+    
+    if preload_data_files and all_fields["file"] and not all_fields["data"]:
+        all_fields["data"] = load_file_data(
+            all_fields["file"]["path"],
+            all_fields["file"].get("format", ""))
+        all_fields["file"] = {}
+
     # Convert column names to parameters if needed
 
     assert data_spec is not None
 
-    if all_fields["data"]:
+    if all_fields["data"] is not None:
         column_mapping = {}
 
         if data_spec.get("type", "") == "table":
@@ -1154,14 +1162,6 @@ def handle_chart_field_arguments(
             all_fields["data"],
             data_spec,
             column_mapping)
-
-    # Convert supported dataframe types to list-of-dicts for JSON compatibility
-    
-    if preload_data_files and all_fields["file"] and not all_fields["data"]:
-        all_fields["data"] = load_file_data(
-            all_fields["file"]["path"],
-            all_fields["file"].get("format", ""))
-        all_fields["file"] = {}
 
     # Handle size
     all_fields["size"] = supplied_attrs.get("size", {})

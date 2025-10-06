@@ -1,3 +1,9 @@
+import logging
+
+
+logger = logging.getLogger(__name__)
+
+
 imports = {}
 
 def _init_imports():
@@ -49,37 +55,46 @@ def _interpret_table_data(data, spec, column_mapping):
 
     if imports["pd"] and isinstance(data, imports["pd"].DataFrame):
         df = _convert_pandas(data, spec, column_mapping)
-    elif imports["pl"] and isinstance(data, imports["pl"].DataFrame):
+    elif imports["pl"] and (
+            isinstance(data, imports["pl"].DataFrame) or
+            isinstance(data, imports["pl"].LazyFrame)
+        ):
         df = _convert_pandas(data.to_pandas(), spec, column_mapping)
     elif imports["duckdb"] and isinstance(data, imports["duckdb"].DuckDBPy):
         df = _convert_pandas(data.to_df(), spec, column_mapping)
     elif imports["pa"] and isinstance(data, imports["pa"].Table):
         df = imports["pd"].DataFrame.from_records(data.to_pylist())
         df = _convert_pandas(df, spec, column_mapping)
-    elif imports["fd"] and (
-            isinstance(data, imports["fd"].DataFrame) or
-            False # isinstance(data, imports["fd"].LazyFrame)
-        ):
-        df = data.to_pandas()
-    elif isinstance(data, list):
+    elif imports["fd"] and isinstance(data, imports["fd"].DataFrame):
+        df = _convert_pandas(data, spec, column_mapping)
+    elif isinstance(data, list) or isinstance(data, dict):
         return data
 
-    if df:
+    logger.info(f'Constructed data frame: {df}')
+
+    if df is not None:
+        logger.info('Making dict')
         return df.to_dict(orient="records")
 
     raise ValueError(f"Unsupported data format for table data type : {type(data)}")
 
 def _interpret_hierarchy_data(data, spec):
-    if isinstance(data, dict) and "name" in data and "children" in data:
-        return data
+    if isinstance(data, dict):
+        if "name" in data and "children" in data:
+            return data
+
+        raise ValueError(f"Hierarchy data must have 'name' and 'children' keys. Found: {list(data.keys())}")
 
     raise ValueError("Unsupported data format for hierarchy data type")
 
 def _interpret_links_data(data, spec):
-    if isinstance(data, dict) and "nodes" in data and "links" in data:
-        return data
+    if isinstance(data, dict):
+        if "nodes" in data and "links" in data:
+            return data
+        
+        raise ValueError(f"Links data must have 'nodes' and 'links' keys. Found: {list(data.keys())}")
 
-    raise ValueError("Unsupported data format for links data type")
+    raise ValueError(f"Unsupported data format for links data type: {type(data)}")
 
 def interpret_data(data, spec=None, column_mapping=None):
     if not spec:
