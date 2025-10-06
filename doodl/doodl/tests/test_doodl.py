@@ -37,7 +37,8 @@ def test_json_loads_if_string():
 def test_handle_chart_field_arguments_basic():
     chart_fields = {"colors": "deep", "n_colors": 5, "desat": 0.8}
     supplied_attrs = {"file": {"path": "data.csv", "format": "csv"}, "size": {"width": 400, "height": 300}}
-    args = doodl.handle_chart_field_arguments(chart_fields, supplied_attrs, "#chart1")
+    data_spec = {"type": "table", "columns": ["A", "B", "C"]}
+    args = doodl.handle_chart_field_arguments(chart_fields, data_spec, supplied_attrs, "#chart1")
     assert isinstance(args, list)
     assert json.loads(args[0]) == "#chart1"
 
@@ -88,7 +89,7 @@ def test_main_title(monkeypatch, capsys):
 
 def test_main_error(monkeypatch, capsys):
     monkeypatch.setattr("sys.argv", ["doodl.py"])
-    with pytest.raises(SystemExit) as e:
+    with pytest.raises(SystemExit):
         doodl.main()
 
     captured = capsys.readouterr()

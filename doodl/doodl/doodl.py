@@ -1,26 +1,8 @@
 #!/usr/bin/env python3
 import io
-# Safe imports for pandas, polars, duckdb, pyarrow, fireducks
-try:
-    import pandas as _pandas
-except ImportError:
-    _pandas = None
-try:
-    import polars as _polars
-except ImportError:
-    _polars = None
-try:
-    import duckdb as _duckdb
-except ImportError:
-    _duckdb = None
-try:
-    import pyarrow as _pyarrow
-except ImportError:
-    _pyarrow = None
-try:
-    import fireducks as _fireducks
-except ImportError:
-    _fireducks = None
+
+from data import interpret_data
+
 import colorcet as cc
 import http.server
 import json
@@ -416,10 +398,14 @@ def process_html_charts(soup, chart_defs):
     code_string = ""
 
     for s, args in STANDARD_CHARTS.items():
+        options = None
+        data_spec = None
+
         if args:
             options = args.get('options', None)
+            data_spec = args.get('data', None)
 
-        add_chart_to_html(s, args, soup, code_parts)
+        add_chart_to_html(s, options, data_spec, soup, code_parts)
 
     # Add any custom chart defs
 
@@ -444,7 +430,7 @@ def process_html_charts(soup, chart_defs):
 
 # Function to add charts
 def add_chart_to_html(
-    chart_type, fields, soup, code_parts, module=module_name, function_name=None
+    chart_type, fields, data_spec, soup, code_parts, module=module_name, function_name=None
 ):
     if not function_name:
         function_name = chart_type
@@ -458,7 +444,7 @@ def add_chart_to_html(
 
         chart_id = f"{chart_type}_{str(num)}"
 
-        args = handle_chart_field_arguments(fields, attrs, '#' + chart_id)
+        args = handle_chart_field_arguments(fields, data_spec, attrs, '#' + chart_id)
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
         elem.name = "span"
@@ -1077,7 +1063,13 @@ def json_loads_if_string(value):
     return value
 
 
-def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id, preload_data_files=False):
+def handle_chart_field_arguments(
+        chart_specific_fields,
+        data_spec,
+        supplied_attrs,
+        div_id,
+        preload_data_files=False
+    ):
     args = [div_id]  # Insert the div ID
     
     all_fields = {
@@ -1144,55 +1136,26 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
 
     all_fields["data"] = supplied_attrs.get("data", {})
 
+    # Convert column names to parameters if needed
+
+    assert data_spec is not None
+
+    if all_fields["data"]:
+        column_mapping = {}
+
+        if data_spec.get("type", "") == "table":
+            columns = data_spec.get("columns", [])
+            column_mapping = {
+                col: supplied_attrs[col] for col in columns
+                if col in supplied_attrs
+            }
+
+        all_fields["data"] = interpret_data(
+            all_fields["data"],
+            data_spec,
+            column_mapping)
+
     # Convert supported dataframe types to list-of-dicts for JSON compatibility
-    df = all_fields["data"]
-    # Supported: pandas.DataFrame, polars.DataFrame, duckdb.DuckDBPyRelation, fireducks.Relation, pyarrow.Table
-    _converted = False
-    if df is not None:
-        # pandas
-        if _pandas is not None and isinstance(df, _pandas.DataFrame):
-            try:
-                all_fields["data"] = df.to_dict(orient="records")
-                _converted = True
-            except Exception as e:
-                logger.error(f"Error converting pandas DataFrame: {e}")
-        # polars
-        elif _polars is not None and isinstance(df, _polars.DataFrame):
-            try:
-                all_fields["data"] = df.to_dicts()
-                _converted = True
-            except Exception as e:
-                logger.error(f"Error converting polars DataFrame: {e}")
-        # duckdb relation
-        elif _duckdb is not None and hasattr(_duckdb, "DuckDBPyRelation") and isinstance(df, _duckdb.DuckDBPyRelation):
-            try:
-                all_fields["data"] = df.df().to_dict(orient="records")
-                _converted = True
-            except Exception as e:
-                logger.error(f"Error converting duckdb relation: {e}")
-        # fireducks relation
-        elif _fireducks is not None and hasattr(_fireducks, "Relation") and isinstance(df, _fireducks.Relation):
-            try:
-                # Try to_pandas first
-                pd_df = df.to_pandas()
-                all_fields["data"] = pd_df.to_dict(orient="records")
-                _converted = True
-            except Exception as e:
-                logger.error(f"Error converting fireducks Relation: {e}")
-        # pyarrow table
-        elif _pyarrow is not None and hasattr(_pyarrow, "Table") and isinstance(df, _pyarrow.Table):
-            try:
-                pd_df = df.to_pandas()
-                all_fields["data"] = pd_df.to_dict(orient="records")
-                _converted = True
-            except Exception as e:
-                logger.error(f"Error converting pyarrow Table: {e}")
-    # fallback: if not already converted and data is a string, try JSON decode
-    if not _converted and isinstance(all_fields["data"], str):
-        try:
-            all_fields["data"] = json.loads(all_fields["data"])
-        except json.JSONDecodeError as e:
-            logger.error(e,f'Error decoding JSON for field "data": {all_fields["data"]}' )
     
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
         all_fields["data"] = load_file_data(
@@ -1226,6 +1189,7 @@ def chart(func_name, fields=None, data=None):
 
         args = handle_chart_field_arguments(
                 fields,
+                data,
                 kwargs,
                 '#' + chart_id,
                 True
