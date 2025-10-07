@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import io
 
-from .data import interpret_data
+from data import interpret_data
 
 import colorcet as cc
 import http.server
@@ -112,6 +112,9 @@ STANDARD_CHARTS = {
         "options": {
             "link_color": "source-target",
             "node_align": "left"
+        },
+        "data": {
+            "type": "links"
         }
     },
     "barchart": {
@@ -1146,7 +1149,9 @@ def handle_chart_field_arguments(
 
     # Convert column names to parameters if needed
 
-    assert data_spec is not None
+    if data_spec is None:
+        logger.error(f"data_spec is None for chart : {div_id}")
+        return []
 
     if all_fields["data"] is not None:
         column_mapping = {}
