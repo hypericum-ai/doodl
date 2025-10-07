@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Tue Sep 30 15:49:58 CAT 2025
+// Generated Tue Oct  7 14:57:50 CAT 2025
 
 
 /// base.ts
@@ -1210,7 +1210,8 @@ export async function heatmap(
   colors: string[] = defaultArgumentObject.colors,
   show_legend = 0,
   interp = "rgb",
-  gamma = 0
+  gamma = 0,
+  x_label_angle = 0,
 ) {
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
@@ -1256,8 +1257,9 @@ export async function heatmap(
     .domain(yCategories)
     .range([height, 0])
     .padding(0.05);
-  // const colorScale = d3.scaleLinear().range(colors) .domain([d3.min(data, (d: any) => +d.value) as number, d3.max(data, (d: any) => +d.value) as number])
-  const colorScale = d3
+  
+  
+    const colorScale = d3
     .scaleSequential(
       color_interp({
         colors: colors,
@@ -1271,17 +1273,20 @@ export async function heatmap(
     ]);
 
   // Add X Axis
-  zoomGroup
+  const xAxis = zoomGroup
     .append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(xScale).tickSize(0))
-    .selectAll("text")  
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-65)")
-    .select(".domain")
-    .remove();
+    .call(d3.axisBottom(xScale).tickSize(0));
+
+  if (x_label_angle !== 0) {
+    xAxis.selectAll("text")
+      .attr("transform", `rotate(${x_label_angle})`)
+      .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+      .attr("dx", x_label_angle === 90 ? "0.8em" : "0")
+      .attr("dy", x_label_angle === 90 ? "0" : "1.5em");
+  }
+
+  xAxis.select(".domain").remove();
 
   // Add Y Axis
   zoomGroup
