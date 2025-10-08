@@ -12,7 +12,7 @@ def _init_imports():
     for tag, args in {
         "pd": { "name": "pandas"},
         "pl": { "name": "polars"},
-        "duckdb": { "name": "duckdb"},
+        # "duckdb": { "name": "duckdb"},
         "pa": { "name": "pyarrow"},
         "fd": { "name": "fireducks.pandas", "fromlist": ["pandas"] }
     }.items():
@@ -64,8 +64,8 @@ def _interpret_table_data(data, spec, column_mapping):
             isinstance(data, imports["pl"].LazyFrame)
         ):
         df = _convert_pandas(data.to_pandas(), spec, column_mapping)
-    elif imports["duckdb"] and isinstance(data, imports["duckdb"].DuckDBPy):
-        df = _convert_pandas(data.to_df(), spec, column_mapping)
+    # elif imports["duckdb"] and isinstance(data, imports["duckdb"].DuckDBPy):
+    #     df = _convert_pandas(data.to_df(), spec, column_mapping)
     elif imports["pa"] and isinstance(data, imports["pa"].Table):
         df = imports["pd"].DataFrame.from_records(data.to_pylist())
         df = _convert_pandas(df, spec, column_mapping)

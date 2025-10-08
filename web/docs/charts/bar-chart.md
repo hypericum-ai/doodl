@@ -51,6 +51,8 @@ The default value is 0 (no rotation).
 
 Bar charts are drawn using the `barchart` tag, like this:
 
+:::tabs
+== markdown
 ```html
 <barchart
   data='[
@@ -65,9 +67,7 @@ Bar charts are drawn using the `barchart` tag, like this:
 >
 </barchart>
 ```
-
-or this in Python:
-
+== python
 ```python
 import doodl
 
@@ -83,6 +83,7 @@ doodl.barchart(
     colors=["DarkOrange"]
 )
 ```
+:::
 
 which is rendered like this:
 

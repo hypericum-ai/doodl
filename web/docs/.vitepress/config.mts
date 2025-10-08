@@ -1,5 +1,6 @@
 import { DefaultTheme, defineConfig } from 'vitepress'
 import pkg from '../package.json' with { type: 'json' }
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -35,6 +36,11 @@ export default defineConfig({
             { rel: 'icon', type: 'image/svg+xml', href: '/doodl.svg' }
         ],
     ],
+    markdown: {
+        config(md) {
+            md.use(tabsMarkdownPlugin)
+        },
+    },
     themeConfig: {
         nav: nav(),
 

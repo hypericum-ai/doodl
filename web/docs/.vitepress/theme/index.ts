@@ -5,6 +5,7 @@ import HomeFeaturesAfter from './HomeFeaturesAfter.vue'
 import HomeHeroInfo from './components/HomeHeroInfo.vue'
 import Parameter from './components/Parameter.vue'
 import Parameters from './components/Parameters.vue'
+import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
 
 export default {
   extends: DefaultTheme,
@@ -17,6 +18,7 @@ export default {
   enhanceApp({ app }: { app: App }) {
     // Register components globally
     app.component('Parameters', Parameters)
-    app.component('Parameter', Parameter)
+    app.component('Parameter', Parameter),
+    enhanceAppWithTabs(app)
   } 
 }
