@@ -83,13 +83,15 @@ def _interpret_table_data(data, spec, column_mapping):
     raise ValueError(f"Unsupported data format for table data type : {type(data)}")
 
 def _interpret_hierarchy_data(data, spec):
-    if isinstance(data, dict):
-        if "name" in data and "children" in data:
-            return data
+    return data
 
-        raise ValueError(f"Hierarchy data must have 'name' and 'children' keys. Found: {list(data.keys())}")
+    # if isinstance(data, dict):
+    #     if "name" in data and "children" in data:
+    #         return data
 
-    raise ValueError("Unsupported data format for hierarchy data type")
+    #     raise ValueError(f"Hierarchy data must have 'name' and 'children' keys. Found: {list(data.keys())}")
+
+    # raise ValueError("Unsupported data format for hierarchy data type")
 
 def _interpret_links_data(data, spec):
     if isinstance(data, dict):
