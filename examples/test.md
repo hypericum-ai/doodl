@@ -3,13 +3,14 @@
 
 
 <barchart
-data='[
-  { "label": "Apples", "value": 10 },
-  { "label": "Bananas", "value": 20 },
-  { "label": "Cherries", "value": 15 },
-  { "label": "Grapes", "value": 25 }
-]'
-  size='{"width":500,"height":500}'
+  data='[
+    { "label": "Apples", "value": 10 },
+    { "label": "Bananas", "value": 20 },
+    { "label": "Cherries", "value": 15 },
+    { "label": "Grapes", "value": 25 }
+  ]'
+  width=500
+  height=500
   colors='["#FF6700","#008000"]'
   horizontal='true'
   moving_average='true'
@@ -30,7 +31,8 @@ data='[
   { "label": "Cherries", "value": 150000000 },
   { "label": "Grapes", "value": 250000000 }
 ]'
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='["#FF6700","#008000"]'
   horizontal='false'
   moving_average='true'
@@ -51,7 +53,8 @@ data='[
   { "date": "2024-01-07", "catA": 24, "catB": 30, "catC": 35 },
   { "date": "2024-01-08", "catA": 28, "catB": 33, "catC": 40 }
 ]'
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='flare'
 >
 </areachart>
@@ -59,26 +62,27 @@ data='[
 
 <skey
   file='{
-        "path": "std_focus.json",
+        "path": "data/std_focus.json",
         "format": "json"
     }'
     link_color='"target"'
     colors='cc.glasbey'
-    size='{"width":1000,"height":500}'>
+    width=1000
+  height=500>
 </skey>
 
 
-
-
+<!-- 
 <skey
-  size='{"width":600,"height":225}'
+  width=600
+  height=225}'
   file='{"path": "data/energy.json", "format": "json"}'
   n_colors=10
   colors='pastel'
   link_color='"source-target"'
   node_align='"right"'
 >
-</skey>
+</skey> -->
 
 
 
@@ -114,7 +118,8 @@ data='[
 <piechart
   path="data/pie.json"
   format="json"
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='deep'
 >
 </piechart>
@@ -134,7 +139,8 @@ data='[
   { "label": "Cherries", "value": 15 },
   { "label": "Grapes", "value": 25 }
 ]'
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='pastel'
   donut = true
 >
@@ -159,7 +165,8 @@ data='[
         ]
     }
     '
-    size='{"width":1000,"height":500}'
+    width=1000
+  height=500
     colors='deep'
     vertical=True>
 </tree>
@@ -179,7 +186,8 @@ data='[
     { "task": "Testing", "start": "2024-03-26", "end": "2024-03-30" },
     { "task": "Deployment", "start": "2024-03-31", "end": "2024-04-02" }
   ]'
-  size='{"width":1000,"height":500}'
+  width=1000
+  height=500
   colors='deep'
 >
 </gantt>
@@ -197,7 +205,8 @@ data='[
   [2, 7, 6, 0]
 ]
 '
-  size='{"width":500,"height":500}'
+  width=500
+  height=500
   colors='deep'
 >
 </chord>

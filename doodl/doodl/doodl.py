@@ -477,7 +477,7 @@ def add_chart_to_html(
 
         chart_id = f"{chart_type}_{str(num)}"
 
-        args = handle_chart_field_arguments(fields, data_spec, attrs, '#' + chart_id)
+        args = handle_chart_field_arguments(fields, data_spec, attrs, '#' + chart_id, True)
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
         elem.name = "span"
@@ -1101,7 +1101,7 @@ def handle_chart_field_arguments(
         data_spec,
         supplied_attrs,
         div_id,
-        preload_data_files=False
+        preload_data_files
     ):
     from doodl.data import interpret_data
 
@@ -1165,6 +1165,7 @@ def handle_chart_field_arguments(
     # Resolve data
 
     all_fields["file"] = supplied_attrs.get("file", {})
+
     for field in ["path", "format"]:
         if field in supplied_attrs:
             all_fields["file"][field] = supplied_attrs[field]
@@ -1172,8 +1173,10 @@ def handle_chart_field_arguments(
     all_fields["data"] = supplied_attrs.get("data", {})
 
     # Convert supported dataframe types to list-of-dicts for JSON compatibility
-    
+
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
+        logger.info(f"Loading data file {all_fields['file']['path']} for chart : {div_id}")
+
         all_fields["data"] = load_file_data(
             all_fields["file"]["path"],
             all_fields["file"].get("format", ""))
