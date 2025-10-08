@@ -1,4 +1,5 @@
 import logging
+from pprint import pformat
 
 
 logger = logging.getLogger(__name__)
@@ -45,7 +46,10 @@ def _convert_pandas(
             columns={v: k for k, v in column_mapping.items()}
         )
 
-    return data[target_columns]
+    if not spec.get("include_all", False):
+        data = data[target_columns]
+
+    return data
 
 def _interpret_table_data(data, spec, column_mapping):
     if not imports:
@@ -92,7 +96,7 @@ def _interpret_links_data(data, spec):
         if "nodes" in data and "links" in data:
             return data
         
-        raise ValueError(f"Links data must have 'nodes' and 'links' keys. Found: {list(data.keys())}")
+        raise ValueError(f"Links data must have 'nodes' and 'links' keys. Found: {pformat(data)}")
 
     raise ValueError(f"Unsupported data format for links data type: {type(data)}")
 

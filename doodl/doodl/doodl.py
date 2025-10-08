@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import io
 
-from data import interpret_data
-
 import colorcet as cc
 import http.server
 import json
@@ -87,7 +85,112 @@ HTML_TPL = """<!DOCTYPE html>
 PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
+# Declaration of standard chart types. The layout out this table is:
+# - chart type - the tag used in the HTML to refer to the chart
+# - options - extra arguments to the chart function
+# - data - specification of the data to be passed to the chart
+#
+# The data types are:
+# - table - a table of data, passed as a list of dicts, a pandas 
+#   (or other) DataFrame, with optional required columns
+
 STANDARD_CHARTS = {
+    "areachart": {
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"],
+            "include_all": True
+        }
+    },
+    "barchart": {
+        "options": {
+            "horizontal": False,
+            "moving_average": False,
+            "x_label_angle": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "bollinger": {
+        "data": {
+            "type": "table",
+            "columns": [
+                "date",
+                "close",
+                "upper",
+                "lower",
+                "movingAvg"
+            ]
+        }
+    },
+    "boxplot": {
+        "data": {
+            "type": "table",
+            "columns": ["category", "value"]
+        }
+    },
+    "bubblechart": {
+        "options": {
+            "ease_in": 0,
+            "drag_animations": 0
+        },
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "chord": {
+        "data": {
+            "type": "matrix"
+        }   
+    },
+    "contour": {
+        "data": {
+            "type": "matrix",
+        }
+    },
+    "dendrogram": {
+        "options": {
+            "view_scale_factor": 1
+        },
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "disjoint": {
+        "data": {
+            "type": "links"
+        }
+    },
+    "dotplot": {
+        "data": {
+            "type": "table",
+            "columns": ["category", "value"]
+        }
+    },
+    "force": {
+        "data": {
+            "type": "links"
+        }
+    },
+    "gantt": {
+        "data": {
+            "type": "table",
+            "columns": ["start", "end", "task"]
+        }
+    },
+    "heatmap": {
+        "options": {
+            "show_legend": False,
+            "interp": "rgb", 
+            "gamma": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y", "value"]
+        }
+    },
     "linechart": {
         "options": {
             "curved": False
@@ -108,6 +211,15 @@ STANDARD_CHARTS = {
             "columns": ["label", "value"]
         }
     },
+    "scatterplot": {
+        "options": {
+            "dotsize": 5
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y"]
+        }
+    },
     "skey": {
         "options": {
             "link_color": "source-target",
@@ -115,17 +227,6 @@ STANDARD_CHARTS = {
         },
         "data": {
             "type": "links"
-        }
-    },
-    "barchart": {
-        "options": {
-            "horizontal": False,
-            "moving_average": False,
-            "x_label_angle": 0
-        },
-        "data": {
-            "type": "table",
-            "columns": ["label", "value"]
         }
     },
     "stacked_barchart": {
@@ -146,85 +247,14 @@ STANDARD_CHARTS = {
             "type": "hierarchy"
         }
     },
-    "venn": {},
-    "gantt": {
-        "data": {
-            "type": "table",
-            "columns": ["start", "end", "task"]
-        }
-    },
     "treemap": {
         "data": {
             "type": "hierarchy"
         }
     },
-    "heatmap": {
-        "options": {
-            "show_legend": False,
-            "interp": "rgb", 
-            "gamma": 0
-        },
+    "venn": {
         "data": {
-            "type": "table",
-            "columns": ["x", "y", "value"]
-        }
-    },
-    "dotplot": {
-        "data": {
-            "type": "table",
-            "columns": ["category", "value"]
-        }
-    },
-    "scatterplot": {
-        "options": {
-            "dotsize": 5
-        }
-    },
-    "boxplot": {
-        "data": {
-            "type": "table",
-            "columns": ["category", "value"]
-        }
-    },
-    "force": {
-        "data": {
-            "type": "links"
-        }
-    },
-    "chord": {
-        "data": {
-            "type": "table",
-            "columns": ["x", "y", "value"]
-        }   
-    },
-    "disjoint": {
-        "data": {
-            "type": "links"
-        }
-    },
-    "bollinger": {
-        "data": {
-            "type": "table",
-            "columns": [
-                "date",
-                "close",
-                "upper",
-                "lower",
-                "movingAvg"
-            ]
-        }
-    },
-    "dendrogram": {
-        "options": {
-            "view_scale_factor": 1
-        }
-    },
-    "contour": {},
-    "areachart": {},
-    "bubblechart": {
-        "options": {
-            "ease_in": 0,
-            "drag_animations": 0
+            "type": "hierarchy"
         }
     },
     "voronoi": {
@@ -1073,6 +1103,8 @@ def handle_chart_field_arguments(
         div_id,
         preload_data_files=False
     ):
+    from doodl.data import interpret_data
+
     args = [div_id]  # Insert the div ID
     
     all_fields = {
