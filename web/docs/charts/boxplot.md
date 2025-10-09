@@ -66,6 +66,8 @@ or equivalently in JSON:
 
 The following:
 
+:::tabs
+== markdown
 ```html
 <boxplot
   data='
@@ -83,6 +85,27 @@ The following:
   height=350
 </boxplot>
 ```
+== python
+```python
+import doodle
+
+doodl.boxplot(
+  data=[
+    {
+      "category": "A",
+      "values": [10, 15, 20]
+    },
+    {
+      "category": "B",
+      "values": [30, 35, 40]
+    }
+  ],
+  width=500,
+  height=350
+)
+```
+:::
+
 would produce the following chart:
 
 <span  class="chart-container" id="boxplot_0"></span>

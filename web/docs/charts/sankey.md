@@ -71,6 +71,8 @@ to place each node. The possible values are `"left"`,
 
 Here's an example of a Sankey diagram from HTML/Markdown:
 
+::: tabs
+== markdown
 ```html
 <skey
   width=600
@@ -81,43 +83,46 @@ Here's an example of a Sankey diagram from HTML/Markdown:
 >
 </skey>
 ```
+== python
+~~~python
+import doodl
+
+doodl.skey(
+  width=600,
+  height=225,
+  path="data/energy.json",
+  colors="cc.glasbey"
+)
+~~~
+== javascript
+```html
+<span  class="chart-container" id="skey_0"></span>
+<script>
+  Doodl.skey(
+    '#skey_0',
+    {},
+    {
+      'width': 600,
+      'height': 225
+    },{
+      "path": "data/energy.json",
+      "format": "json"
+    },
+    [
+      '#F67088', '#F77732', '#CE8F31', '#B29B31', '#96A331',
+      '#6BAC31', '#32B165', '#34AE8D', '#35ACA4', '#37AAB7',
+      '#38A7D0', '#5A9EF4', '#A38CF4', '#D673F4', '#F461DD',
+      '#F56AB4'
+    ],
+    "target",
+    "right"
+  );
+```
+:::
 
 which produces this:
 
 <span  class="chart-container" id="skey_0"></span>
-
-The data may also be included inline:
-
-```html
-<skey
-    data='{
-      "nodes": [
-        { "name": "Solar", "width": 100},
-        { "name": "Wind", "width": 120 },
-        { "name": "Hydro", "width": 80 },
-        { "name": "Nuclear", "width": 90 },
-        { "name": "Coal", "width": 200 },
-        { "name": "Natural gas", "width": 210 },
-        ...
-      ],
-      "links": [
-        { "source": "Solar", "target": "Electricity", "value": 100 },
-        { "source": "Wind", "target": "Electricity", "value": 120 },
-        { "source": "Hydro", "target": "Electricity", "value": 80 },
-        { "source": "Nuclear", "target": "Electricity", "value": 90 },
-        { "source": "Coal", "target": "Electricity", "value": 200 },
-        { "source": "Natural gas", "target": "Electricity", "value": 130 },
-        { "source": "Natural gas", "target": "Heat", "value": 80 },
-        ...
-      ]
-    }'
-  width=600
-  height=225
-  colors="cc.glasbey"
->
-</skey>
-
-```
 
 As described in the [color palette](/color) section, we have used a
 color palette from [Colorcet](https://github.com/holoviz/colorcet).

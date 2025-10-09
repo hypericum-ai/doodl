@@ -54,6 +54,8 @@ be added to the label inside the slice.
 
 Here is a simple example in HTML/Markdown:
 
+::: tabs
+== markdown
 ~~~html
 <piechart
 data='[
@@ -68,6 +70,44 @@ data='[
 >
 </piechart>
 ~~~
+== python
+~~~python
+import doodl
+
+doodl.piechart(
+  data=[
+    { "label": "Apples", "value": 10 },
+    { "label": "Bananas", "value": 20 },
+    { "label": "Cherries", "value": 15 },
+    { "label": "Grapes", "value": 25 }
+  ],
+  width=500,
+  height=500,
+  colors='deep'
+)
+~~~
+== javascript
+```html
+<span class="chart-container" id="piechart_0"></span>
+
+<script>
+  Doodl.piechart(
+    '#piechart_0',
+    [
+      { "label": "Apples", "value": 10 },
+      { "label": "Bananas", "value": 20 },
+      { "label": "Cherries", "value": 15 },
+      { "label": "Grapes", "value": 25 }
+    ],
+    {"width":500,"height":500},
+    {},[
+        '#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF',
+        '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'
+    ]
+  );
+</script>
+```
+:::
 
 which renders like this:
 

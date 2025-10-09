@@ -55,6 +55,8 @@ browser, and a `drag_animations` parameter.
 
 Following is a relatively complex bubble chart produced with:
 
+:::tabs
+== markdown
 ~~~html
 <bubblechart
   path="data/bubbles.json"
@@ -64,7 +66,20 @@ Following is a relatively complex bubble chart produced with:
   colors='deep'
   ease_in = 1
 > </bubblechart>
-~~~
+== python
+```python
+import doodl
+
+doodl.bubblechart(
+  path="data/bubbles.json",
+  format="json",
+  width=500,
+  height=500,
+  colors='deep',
+  ease_in=1
+)
+```
+:::
 
 where `data/bubbles.json` contains a file similar to the JSON shown
 above. Here are the first few lines:
