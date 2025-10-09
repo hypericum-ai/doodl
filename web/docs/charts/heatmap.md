@@ -57,7 +57,8 @@ Controls how fast the interpolator transitions between colors.
 
 Here's an example of a heatmap:
 
-
+::: tabs
+== markdown
 ```html
 <heatmap
 data='[
@@ -73,9 +74,7 @@ data='[
 >
 </heatmap>
 ```
-
-or, in Python:
-
+== python
 ```python
 import doodl
 
@@ -92,8 +91,23 @@ doodl.heatmap(
     interp='rgb'
 )
 ```
+== javascript
+```html
+<span class="chart-container" id='heatmap_0'></span>
 
-both of which are rendered like this:
+<script>
+    Doodl.heatmap('#heatmap_0',[
+        { "x": "A", "y": "1", "value": 5 },
+        { "x": "A", "y": "2", "value": 10 },
+        { "x": "B", "y": "1", "value": 15 },
+        { "x": "B", "y": "2", "value": 20 }
+    ],{"width":500,"height":500},{},
+    ['purple', 'orange'], 0, "rgb",0);
+</script>
+```
+:::
+
+which is rendered like this:
 
 <span class="chart-container" id='heatmap_0'></span>
 

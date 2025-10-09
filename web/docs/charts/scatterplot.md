@@ -12,11 +12,13 @@
 The scatterplot takes the [standard parameters](/charts/#standard-parameters)
 in addition to the following:
 
-<Parameter name="data" type="dict">
+<Parameter name="data" type="dict, data frame">
 <div>
 
 A scatterplot takes the same data as a line graph, like this:
 
+::: tabs
+== markdown
 ```html
 <scatterplot
   data='[
@@ -33,10 +35,9 @@ A scatterplot takes the same data as a line graph, like this:
 >
 </scatterplot>
 ```
-
-or, in Python:
-
+== python
 ```python
+
 import doodl
 data = [
   { "x": 1, "y": 10 }, 
@@ -54,6 +55,28 @@ doodl.scatterplot(
     colors=['darkblue']
 )
 ```
+== javascript
+```html
+<span class="chart-container" id="scatterplot_0"></span>
+
+<script>
+  Doodl.scatterplot('#scatterplot_0',
+    [
+      { "x": 1, "y": 10 }, 
+      { "x": 2, "y": 20 },
+      { "x": 3, "y": 15 },
+      { "x": 4, "y": 25 },
+      { "x": 5, "y": 30 },
+      { "x": 6, "y": 35 }
+    ],
+    {"width":250,"height":250},
+    {},
+    ['#4C72B0'],
+    5
+  );
+</script>
+```
+:::
 
 which produce this:
 

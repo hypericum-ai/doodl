@@ -34,6 +34,8 @@ each of four hair colors who dyed their hair to each of the colors.
 Following is an example replicating the documented chord diagram in
 D3.
 
+::: tabs
+== markdown
 ```html
 <chord
   data='[
@@ -41,16 +43,52 @@ D3.
     [ 1951, 10048, 2060, 6171],
     [ 8010, 16145, 8090, 8045],
     [ 1013,   990,  940, 6907]
-  ]
+  ]'
   width=350
   height=350
   colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>
 ```
+== python
+```python
+import doodl
+
+doodl.chord(
+  data=[
+    [11975,  5871, 8916, 2868],
+    [ 1951, 10048, 2060, 6171],
+    [ 8010, 16145, 8090, 8045],
+    [ 1013,   990,  940, 6907]
+  ],
+  width=350,
+  height=350,
+  colors=["black", "#ffdd89", "#957244", "#f26223"]
+)
+```
+== javascript
+```javascript
+<span class="chart-container" id="chord_0"></span>
+
+<script>
+  Doodl.chord(
+    '#chord_0',
+    [
+      [11975,  5871, 8916, 2868],
+      [ 1951, 10048, 2060, 6171],
+      [ 8010, 16145, 8090, 8045],
+      [ 1013,   990,  940, 6907]
+    ], {
+      'width': 350,
+      'height': 350
+    },{},["black", "#ffdd89", "#957244", "#f26223"]
+  )
+</script>
+```
+:::
 
 which produces this:
 
-<span  class="chart-container" id="chord_0"></span>
+<span class="chart-container" id="chord_0"></span>
 
 <script>
  setTimeout(() => {

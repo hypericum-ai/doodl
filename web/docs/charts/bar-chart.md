@@ -83,6 +83,25 @@ doodl.barchart(
     colors=["DarkOrange"]
 )
 ```
+== javascript
+```html
+<span class="chart-container" id='barchart_0'></span>
+
+<script>
+  Doodl.barchart(
+    '#barchart_0',
+    [
+      {'label': 'Apples', 'value': 10},
+      {'label': 'Bananas', 'value': 20},
+      {'label': 'Cherries', 'value': 15},
+      {'label': 'Grapes', 'value': 25}
+    ], {
+      'width': 500,
+      'height': 350
+    },{},["DarkOrange"]
+  )
+</script>
+```
 :::
 
 which is rendered like this:
