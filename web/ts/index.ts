@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Wed Oct  8 15:00:30 CAT 2025
+// Generated Fri Oct 10 01:48:01 CAT 2025
 
 
 /// base.ts
@@ -2695,7 +2695,7 @@ export async function bubblechart(
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
       });
 
-    node.append("title").text((d) => `${d.data.name}\n${format(d.value || 0)}`);
+    // node.append("title").text((d) => `${d.data.name}\n${format(d.value || 0)}`);
 
     // Add a filled circle.
     

@@ -165,10 +165,6 @@ export async function bubblechart(
       .on("tick", () => {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
       });
-
-    node.append("title").text((d) => `${d.data.name}\n${format(d.value || 0)}`);
-
-    // Add a filled circle.
     
 
     if (ease_in > 0) {
