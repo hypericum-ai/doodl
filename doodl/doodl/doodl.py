@@ -1095,7 +1095,6 @@ def json_loads_if_string(value):
 
     return value
 
-
 def handle_chart_field_arguments(
         chart_specific_fields,
         data_spec,
