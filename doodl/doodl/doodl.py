@@ -961,6 +961,7 @@ In dev mode, the script must be run in the same folder as the script.
     with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
         server_dir_name = dir_name
         copy_data(output_dir, dir_name)
+
         if os.path.isfile(html_file):
             shutil.copy2(html_file, dir_name)
             old_html_file_name = os.path.basename(html_file)
@@ -1062,6 +1063,8 @@ def zip_directory(folder_path, output_zip):
 def copy_data(output_dir, server_dir_path):
     if not os.path.isdir(output_dir):
         raise ValueError(f"Source directory does not exist: {output_dir}")
+
+    logger.info(f"Copying data from {output_dir} to {server_dir_path}")
 
     shutil.copytree(
         output_dir,
@@ -1226,6 +1229,9 @@ def chart(func_name, fields=None, data=None):
          **kwargs
     ):
         global chart_count
+        global input_file_dir
+
+        input_file_dir = os.getcwd()
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
