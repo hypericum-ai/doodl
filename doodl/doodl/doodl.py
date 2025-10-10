@@ -805,6 +805,8 @@ def main():
     global logger
     global output_format
     global src_dir
+    global input_file
+    global input_file_dir
 
     filters = []
     chart_defs = []
@@ -901,9 +903,9 @@ In dev mode, the script must be run in the same folder as the script.
         sys.exit(0)
 
     input_file = args[0]
-    input_file_dir = os.path.dirname(input_file)
-    if not os.path.isdir(input_file_dir) or os.path.exists(input_file_dir):
-        input_file_dir = os.getcwd()
+    input_file_dir = os.path.abspath(os.path.dirname(input_file))
+
+    logger.info(f"input file directory is {input_file_dir}")
 
     if output_file is None:
         base, ext = os.path.splitext(input_file)
@@ -923,6 +925,8 @@ In dev mode, the script must be run in the same folder as the script.
 
     if os.path.exists(output_file):
         os.rename(output_file, output_file + "~")
+
+    os.chdir(input_file_dir)
 
     _, output_ext = os.path.splitext(output_file)
 
@@ -1176,8 +1180,10 @@ def handle_chart_field_arguments(
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
         logger.info(f"Loading data file {all_fields['file']['path']} for chart : {div_id}")
 
+        path = os.path.join(input_file_dir, all_fields["file"]["path"])
+
         all_fields["data"] = load_file_data(
-            all_fields["file"]["path"],
+            path,
             all_fields["file"].get("format", ""))
         all_fields["file"] = {}
 
