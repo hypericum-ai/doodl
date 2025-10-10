@@ -29,12 +29,7 @@ export default defineConfig({
                 rel: 'stylesheet',
                 href: 'https://doodl.ai/assets/doodl/css/menu.css'
             }
-        ],
-        ['link', { rel: 'icon', href: 'favicon.ico' }],
-         [
-            'link',
-            { rel: 'icon', type: 'image/svg+xml', href: '/doodl.svg' }
-        ],
+        ]
     ],
     markdown: {
         config(md) {
