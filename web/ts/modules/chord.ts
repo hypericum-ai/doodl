@@ -3,7 +3,8 @@ export async function chord(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+  colors: string[] = defaultArgumentObject.colors,
+  names: string[] = []
 ) {
   if (file?.path) {
     data = await loadData(file?.path, file?.format);

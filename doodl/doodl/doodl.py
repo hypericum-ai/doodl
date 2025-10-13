@@ -924,8 +924,6 @@ In dev mode, the script must be run in the same folder as the script.
     if os.path.exists(output_file):
         os.rename(output_file, output_file + "~")
 
-    os.chdir(input_file_dir)
-
     _, output_ext = os.path.splitext(output_file)
 
     if title is None:
