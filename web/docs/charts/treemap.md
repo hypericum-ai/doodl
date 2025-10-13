@@ -46,7 +46,7 @@ doodl.treemap(
 ```
 == javascript
 ```html
-<span class="chart-container" id="treemap_0"></span>
+<span class="doodl-chart" id="treemap_0"></span>
 
 <script>
     Doodl.treemap('#treemap_0',
@@ -77,7 +77,7 @@ doodl.treemap(
 
 and looks like this:
 
-<span class="chart-container" id="treemap_0"></span>
+<span class="doodl-chart" id="treemap_0"></span>
 
 The treemap allows drilling down into deeper levels of a hierarchy
 by clicking once to go down a level and once to return to the previous

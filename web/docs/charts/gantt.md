@@ -43,7 +43,7 @@ doodl.gantt(
 ```
 == javascript
 ```html
-<span class="chart-container" id="gantt_0"></span>
+<span class="doodl-chart" id="gantt_0"></span>
 
 <script>
     Doodl.gantt('#gantt_0',[
@@ -63,7 +63,7 @@ doodl.gantt(
 
 which produces the following chart:
 
-<span class="chart-container" id="gantt_0"></span>
+<span class="doodl-chart" id="gantt_0"></span>
 
 <script>
  setTimeout(() => {

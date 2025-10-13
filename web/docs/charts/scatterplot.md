@@ -57,7 +57,7 @@ doodl.scatterplot(
 ```
 == javascript
 ```html
-<span class="chart-container" id="scatterplot_0"></span>
+<span class="doodl-chart" id="scatterplot_0"></span>
 
 <script>
   Doodl.scatterplot('#scatterplot_0',
@@ -80,7 +80,7 @@ doodl.scatterplot(
 
 which produce this:
 
-<span class="chart-container" id="scatterplot_0"></span>
+<span class="doodl-chart" id="scatterplot_0"></span>
 
 </div>
 
@@ -91,7 +91,7 @@ which produce this:
 The optional `dotsize` parameter, which defaults to 5, determines the
 size of the dots, as this example with a dotsize of 3 shows.
 
-<span class="chart-container" id="scatterplot_1"></span>
+<span class="doodl-chart" id="scatterplot_1"></span>
 
 </div>
 </Parameter>

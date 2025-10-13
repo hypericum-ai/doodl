@@ -67,7 +67,7 @@ doodl.chord(
 ```
 == javascript
 ```javascript
-<span class="chart-container" id="chord_0"></span>
+<span class="doodl-chart" id="chord_0"></span>
 
 <script>
   Doodl.chord(
@@ -88,7 +88,7 @@ doodl.chord(
 
 which produces this:
 
-<span class="chart-container" id="chord_0"></span>
+<span class="doodl-chart" id="chord_0"></span>
 
 <script>
  setTimeout(() => {

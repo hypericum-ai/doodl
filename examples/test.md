@@ -61,10 +61,7 @@ data='[
 
 
 <skey
-  file='{
-        "path": "data/std_focus.json",
-        "format": "json"
-    }'
+ path= "data/std_focus.json"
     link_color='"target"'
     colors='cc.glasbey'
     width=1000
@@ -72,17 +69,17 @@ data='[
 </skey>
 
 
-<!-- 
+
 <skey
   width=600
-  height=225}'
-  file='{"path": "data/energy.json", "format": "json"}'
+  height=225
+  path= "data/energy.json"
   n_colors=10
   colors='pastel'
   link_color='"source-target"'
   node_align='"right"'
 >
-</skey> -->
+</skey>
 
 
 
@@ -90,7 +87,7 @@ data='[
 
 
 <piechart
-  file='{"path":"data/pie.json","format":"json"}'
+  path="data/pie.json"
   width=900
   height=900
   colors='deep'
@@ -103,7 +100,7 @@ data='[
 
 
 <piechart
-  file='{"path":"data/pie.json","format":"json"}'
+  path="data/pie.json"
   width="900"
   height="900"
   colors='deep'
@@ -212,3 +209,14 @@ data='[
 </chord>
 
 
+
+
+<bubblechart
+  path="data/flare.json"
+  width=900
+  height=900
+  colors='deep'
+  ease_in=1
+  drag_animations=1
+>
+</bubblechart>

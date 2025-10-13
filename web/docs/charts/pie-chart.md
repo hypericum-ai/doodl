@@ -88,7 +88,7 @@ doodl.piechart(
 ~~~
 == javascript
 ```html
-<span class="chart-container" id="piechart_0"></span>
+<span class="doodl-chart" id="piechart_0"></span>
 
 <script>
   Doodl.piechart(
@@ -111,12 +111,12 @@ doodl.piechart(
 
 which renders like this:
 
-<span class="chart-container" id="piechart_0"></span>
+<span class="doodl-chart" id="piechart_0"></span>
 
 Here is an example with `donut` and `continuous_rotation`
 set to `true`:
 
-<span class="chart-container" id="piechart_1"></span>
+<span class="doodl-chart" id="piechart_1"></span>
 
 <script>
  setTimeout(() => {

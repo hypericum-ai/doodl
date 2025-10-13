@@ -104,7 +104,7 @@ above. Here are the first few lines:
                 ...
 ~~~
 
-<span class="chart-container" id="bubbles_0"></span>
+<span class="doodl-chart" id="bubbles_0"></span>
 
 <script>
  setTimeout(() => {

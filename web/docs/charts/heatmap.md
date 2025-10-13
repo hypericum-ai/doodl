@@ -93,7 +93,7 @@ doodl.heatmap(
 ```
 == javascript
 ```html
-<span class="chart-container" id='heatmap_0'></span>
+<span class="doodl-chart" id='heatmap_0'></span>
 
 <script>
     Doodl.heatmap('#heatmap_0',[
@@ -109,7 +109,7 @@ doodl.heatmap(
 
 which is rendered like this:
 
-<span class="chart-container" id='heatmap_0'></span>
+<span class="doodl-chart" id='heatmap_0'></span>
 
 <script>
  setTimeout(() => {

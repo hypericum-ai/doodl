@@ -34,7 +34,7 @@ data='[
 
 which is rendered as follows:
 
-<span class="chart-container" id="voronoi_0"></span>
+<span class="doodl-chart" id="voronoi_0"></span>
 
 <script>
  setTimeout(() => {

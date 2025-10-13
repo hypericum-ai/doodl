@@ -41,8 +41,7 @@ BASE_STYLESHEETS = [
 ]
 
 PROD_PYTHON_STYLESHEETS = [
-    "https://doodl.ai/assets/doodl/css/menu.css",
-    "https://doodl.ai/assets/doodl/css/doodlCharts.css",
+    "https://doodl.ai/assets/doodl/css/doodl.css",
 ]
 
 PROD_STYLESHEETS = [
@@ -51,8 +50,7 @@ PROD_STYLESHEETS = [
 
 DEV_STYLESHEETS = [
     "{dir}/css/tufte.css",
-    "{dir}/css/menu.css",
-    "{dir}/css/doodlCharts.css",
+    "{dir}/css/doodl.css",
 ]
 
 DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
@@ -484,7 +482,7 @@ def add_chart_to_html(
         elem.contents = ""
         elem.attrs = {}
         elem["id"] = chart_id
-        elem["class"] = "chart-container"
+        elem["class"] = "doodl-chart"
         tag = soup.new_tag("br")
         elem.insert_after(tag)
     return code_parts
@@ -1247,7 +1245,7 @@ def chart(func_name, fields=None, data=None):
             )
 
         script = f'''
-<p><span class="chart-container" id="{chart_id}"></span></p>
+<p><span class="doodl-chart" id="{chart_id}"></span></p>
 <script src="{PROD_SCRIPTS[0]}"></script>
 {stylesheets}
 <script type="text/javascript">

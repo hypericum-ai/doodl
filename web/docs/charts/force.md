@@ -5,11 +5,11 @@ are attracted to and repelled from each other. It is particularly
 used to convey the results of a multidimensional scaling. The
 force directed graph scales well, from small:
 
-<span  class="chart-container" id="force_0"></span>
+<span  class="doodl-chart" id="force_0"></span>
 
 to much larger:
 
-<span  class="chart-container" id="force_1"></span>
+<span  class="doodl-chart" id="force_1"></span>
 
 <Parameters>
 

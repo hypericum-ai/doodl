@@ -85,7 +85,7 @@ doodl.barchart(
 ```
 == javascript
 ```html
-<span class="chart-container" id='barchart_0'></span>
+<span class="doodl-chart" id='barchart_0'></span>
 
 <script>
   Doodl.barchart(
@@ -106,7 +106,7 @@ doodl.barchart(
 
 which is rendered like this:
 
-<span class="chart-container" id='barchart_0'></span>
+<span class="doodl-chart" id='barchart_0'></span>
 
 The data is provided as a JSON string containing a list of
 dictionaries, each of which has a `label` and `value` entry.

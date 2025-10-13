@@ -45,7 +45,7 @@ doodl.tree(
 ```
 == javascript
 ```html
-<span class="chart-container" id="tree_0"></span>
+<span class="doodl-chart" id="tree_0"></span>
 
 <script>
     Doodl.tree('#tree_0',
@@ -76,14 +76,14 @@ doodl.tree(
 
 but is rendered differently:
 
-<span class="chart-container" id="tree_0"></span>
+<span class="doodl-chart" id="tree_0"></span>
 
 The tree diagram can be drawn horizontally, as above, or vertically
 by setting the optional `vertical` parameter to `true` or `false`.
 The default value is `false`. Setting `vertical` to `true` creates
 a vertical tree diagram:
 
-<span class="chart-container" id="tree_1"></span>
+<span class="doodl-chart" id="tree_1"></span>
 
 <script>
  setTimeout(() => {

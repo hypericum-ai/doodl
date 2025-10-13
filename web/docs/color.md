@@ -16,7 +16,7 @@ Sankey diagram:
 
 which looks like this:
 
-<span class="chart-container" id="skey_0"></span>
+<span class="doodl-chart" id="skey_0"></span>
 
 ### Seaborn
 
@@ -80,7 +80,7 @@ You can use any Colorcet palette using the palette name prefixed by
 to use the `glasbey` color palette. Here is the same Sankey diagram as
 above, using `"cc.glasbey"` as the `colors` argument:
 
-<span  class="chart-container" id="skey_1"></span>
+<span  class="doodl-chart" id="skey_1"></span>
 
 ### Color Brewer
 

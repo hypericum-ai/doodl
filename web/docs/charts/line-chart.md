@@ -71,7 +71,7 @@ doodl.linechart(
 ~~~
 == javascript
 ~~~html
-<span class="chart-container" id="linechart_0"></span>
+<span class="doodl-chart" id="linechart_0"></span>
 
 <script>
   Doodl.linechart('#linechart_0',
@@ -97,7 +97,7 @@ doodl.linechart(
 
 produces this:
 
-<span class="chart-container" id="linechart_0"></span>
+<span class="doodl-chart" id="linechart_0"></span>
 
 As shown above, the data provided to the line chart is a list of
 dictionaries, each of which has a "x" and a "y" entry, with the X and
@@ -142,7 +142,7 @@ doodl.linechart(
 ~~~
 == javascript
 ```html
-<span class="chart-container" id="linechart_1"></span>
+<span class="doodl-chart" id="linechart_1"></span>
 
 <script>
   Doodl.linechart('#linechart_1',
@@ -167,7 +167,7 @@ doodl.linechart(
 
 produces this:
 
-<span class="chart-container" id="linechart_1"></span>
+<span class="doodl-chart" id="linechart_1"></span>
 
 <script>
  setTimeout(() => {

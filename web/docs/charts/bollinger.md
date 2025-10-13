@@ -60,7 +60,7 @@ doodl.bollinger(
 ```
 == javascript
 ```html
-<span class="chart-container" id='bollinger_0'></span>
+<span class="doodl-chart" id='bollinger_0'></span>
 
 <script>
   Doodl.bollinger(
@@ -89,7 +89,7 @@ doodl.bollinger(
 
 which looks like this:
 
-<span class="chart-container" id='bollinger_0'></span>
+<span class="doodl-chart" id='bollinger_0'></span>
 
 <script>
  setTimeout(() => {

@@ -87,7 +87,7 @@ doodl.dotplot(
 ```
 == javascript
 ```html
-<span class="chart-container" id="dotplot_0"></span>
+<span class="doodl-chart" id="dotplot_0"></span>
 
 <script>
   Doodl.dotplot('#dotplot_0',[
@@ -111,7 +111,7 @@ doodl.dotplot(
 
 which produces this:
 
-<span  class="chart-container" id="dotplot_0"></span>
+<span  class="doodl-chart" id="dotplot_0"></span>
 
 <script>
  setTimeout(() => {

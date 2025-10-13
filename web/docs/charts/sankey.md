@@ -96,7 +96,7 @@ doodl.skey(
 ~~~
 == javascript
 ```html
-<span  class="chart-container" id="skey_0"></span>
+<span  class="doodl-chart" id="skey_0"></span>
 <script>
   Doodl.skey(
     '#skey_0',
@@ -122,7 +122,7 @@ doodl.skey(
 
 which produces this:
 
-<span  class="chart-container" id="skey_0"></span>
+<span  class="doodl-chart" id="skey_0"></span>
 
 As described in the [color palette](/color) section, we have used a
 color palette from [Colorcet](https://github.com/holoviz/colorcet).
@@ -131,7 +131,7 @@ As an aside, this is a particularly good option for this chart type.
 Here is the same chart as above, but using `source-target` to color
 the links:
 
-<span  class="chart-container" id="skey_1"></span>
+<span  class="doodl-chart" id="skey_1"></span>
 
 <script>
  setTimeout(() => {

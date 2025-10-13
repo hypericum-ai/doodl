@@ -20,14 +20,7 @@ export default defineConfig({
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://doodl.ai/assets/doodl/css/docs.css'
-            }
-        ],
-        [
-            'link',
-            {
-                rel: 'stylesheet',
-                href: 'https://doodl.ai/assets/doodl/css/menu.css'
+                href: 'https://doodl.ai/assets/doodl/css/doodl.css'
             }
         ]
     ],

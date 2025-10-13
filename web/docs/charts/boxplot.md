@@ -108,7 +108,7 @@ doodl.boxplot(
 
 would produce the following chart:
 
-<span  class="chart-container" id="boxplot_0"></span>
+<span  class="doodl-chart" id="boxplot_0"></span>
 
 
 <script>
