@@ -139,8 +139,11 @@ STANDARD_CHARTS = {
         }
     },
     "chord": {
+        "options": {
+            "labels": None
+        },
         "data": {
-            "type": "matrix"
+            "type": "chords"
         }   
     },
     "contour": {
@@ -1202,10 +1205,13 @@ def handle_chart_field_arguments(
                 if col in supplied_attrs
             }
 
-        all_fields["data"] = interpret_data(
-            all_fields["data"],
-            data_spec,
-            column_mapping)
+        all_fields.update(
+            interpret_data(
+                all_fields["data"],
+                data_spec,
+                column_mapping
+            )
+        )
 
     # Handle size
     all_fields["size"] = supplied_attrs.get("size", {})
@@ -1257,6 +1263,7 @@ def chart(func_name, fields=None, data=None):
         display(HTML(script))
 
     return wrapper
+
 
 
 def load_file_data(path: str, file_format: str = ""):
