@@ -9,7 +9,7 @@ export async function boxplot(
   div: string,
   data: any,
   size: Size = { width: 300, height: 300 },
-  file?: DataFile,
+  file: DataFile = { path: "", format: "" },
   colors: string[] = ['pastel']
 ) {
 ...
@@ -50,13 +50,13 @@ your implementation in a JSON file, like this:
 ~~~js
 {
     "optional": {
-        "vertical": 0
+        "vertical": false
     },
     "tag": "special",
     "function": "special_chart",
     "module_name": "MyChartModule",
-    "module_source": "https://somesite.org/some_project/chart.js"
-
+    "module_source": "https://somesite.org/some_project/my_chart.js"
+}
 ~~~
 
 The only required entries are the tag, module name and module source.
