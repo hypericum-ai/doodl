@@ -7,6 +7,8 @@
     [ 8010, 16145, 8090, 8045],
     [ 1013,   990,  940, 6907]
   ]'
+  width=500
+  height=500
   labels='["black", "blond", "brunette", "redhead"]'
   colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>
@@ -24,6 +26,8 @@
 
 <chord
   path='data/chord-example.json'
+   width=500
+  height=500
   labels='["black", "blond", "brunette", "redhead"]'
   colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>
@@ -42,6 +46,8 @@
       "black", "blond", "brunette", "redhead"
     ]
   }'
+   width=500
+  height=500
   colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>
 
@@ -56,5 +62,7 @@
       [ 1013,   990,  940, 6907]
     ]
   }'
+   width=500
+  height=500
   colors='["black", "#ffdd89", "#957244", "#f26223"]'>
 </chord>

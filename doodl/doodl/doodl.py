@@ -140,7 +140,7 @@ STANDARD_CHARTS = {
     },
     "chord": {
         "options": {
-            "labels": None
+            "labels": []
         },
         "data": {
             "type": "chords"
@@ -1214,7 +1214,7 @@ def handle_chart_field_arguments(
         )
 
     # Handle size
-    all_fields["size"] = supplied_attrs.get("size", {})
+    all_fields["size"] = supplied_attrs.get("size", { "width": 300, "height": 300 })
     for field in ["width", "height"]:
         if field in supplied_attrs:
             all_fields["size"][field] = supplied_attrs[field]
