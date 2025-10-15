@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import io
+
 import colorcet as cc
 import http.server
 import json
@@ -22,7 +23,7 @@ import zipfile
 from bs4 import BeautifulSoup
 from getopt import getopt
 from playwright.sync_api import sync_playwright
-from pprint import pformat
+# from pprint import pformat
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
 from IPython.display import display, HTML
@@ -39,16 +40,17 @@ BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
 ]
 
+PROD_PYTHON_STYLESHEETS = [
+    "https://doodl.ai/assets/doodl/css/doodl.css",
+]
+
 PROD_STYLESHEETS = [
     "https://doodl.ai/assets/doodl/css/tufte.css",
-    "https://doodl.ai/assets/doodl/css/menu.css",
-    "https://doodl.ai/assets/doodl/css/doodlCharts.css",
-]
+] + PROD_PYTHON_STYLESHEETS
 
 DEV_STYLESHEETS = [
     "{dir}/css/tufte.css",
-    "{dir}/css/menu.css",
-    "{dir}/css/doodlCharts.css",
+    "{dir}/css/doodl.css",
 ]
 
 DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
@@ -81,28 +83,187 @@ HTML_TPL = """<!DOCTYPE html>
 PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 # Standard charts
 
+# Declaration of standard chart types. The layout out this table is:
+# - chart type - the tag used in the HTML to refer to the chart
+# - options - extra arguments to the chart function
+# - data - specification of the data to be passed to the chart
+#
+# The data types are:
+# - table - a table of data, passed as a list of dicts, a pandas 
+#   (or other) DataFrame, with optional required columns
+
 STANDARD_CHARTS = {
-    "linechart": {"curved": False},
-    "piechart": {"donut": False, "continuous_rotation": False},
-    "skey": {"link_color": "source-target", "node_align": "left"},
-    "barchart": {"horizontal": False},
-    "tree": {"vertical": False},
-    "venn": None,
-    "gantt": None,
-    "treemap": None,
-    "heatmap": {"show_legend": False, "interp": "rgb", "gamma": 0},
-    "dotplot": None,
-    "scatterplot": {"dotsize": 5},
-    "boxplot": None,
-    "force": None,
-    "chord": None,
-    "disjoint": None,
-    "bollinger": None,
-    "dendrogram": {"view_scale_factor": 1},
-    "contour": None,
-    "areachart": None,
-    "bubblechart": {"ease_in": 0, "drag_animations": 0},
-    "voronoi": None,
+    "areachart": {
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"],
+            "include_all": True
+        }
+    },
+    "barchart": {
+        "options": {
+            "horizontal": False,
+            "moving_average": False,
+            "x_label_angle": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "bollinger": {
+        "data": {
+            "type": "table",
+            "columns": [
+                "date",
+                "close",
+                "upper",
+                "lower",
+                "movingAvg"
+            ]
+        }
+    },
+    "boxplot": {
+        "data": {
+            "type": "table",
+            "columns": ["category", "value"]
+        }
+    },
+    "bubblechart": {
+        "options": {
+            "ease_in": 0,
+            "drag_animations": 0
+        },
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "chord": {
+        "options": {
+            "labels": []
+        },
+        "data": {
+            "type": "chords"
+        }   
+    },
+    "contour": {
+        "data": {
+            "type": "matrix",
+        }
+    },
+    "dendrogram": {
+        "options": {
+            "view_scale_factor": 1
+        },
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "disjoint": {
+        "data": {
+            "type": "links"
+        }
+    },
+    "dotplot": {
+        "data": {
+            "type": "table",
+            "columns": ["category", "value"]
+        }
+    },
+    "force": {
+        "data": {
+            "type": "links"
+        }
+    },
+    "gantt": {
+        "data": {
+            "type": "table",
+            "columns": ["start", "end", "task"]
+        }
+    },
+    "heatmap": {
+        "options": {
+            "show_legend": False,
+            "interp": "rgb", 
+            "gamma": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y", "value"]
+        }
+    },
+    "linechart": {
+        "options": {
+            "curved": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y"]
+        }
+    },
+    "piechart": {
+        "options": {
+            "donut": False,
+            "continuous_rotation": False,
+            "show_percentages": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "scatterplot": {
+        "options": {
+            "dotsize": 5
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y"]
+        }
+    },
+    "skey": {
+        "options": {
+            "link_color": "source-target",
+            "node_align": "left"
+        },
+        "data": {
+            "type": "links"
+        }
+    },
+    "stacked_barchart": {
+        "options": {
+            "horizontal": False,
+            "moving_average": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
+    "tree": {
+        "options": {
+            "vertical": False
+        },
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "treemap": {
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "venn": {
+        "data": {
+            "type": "hierarchy"
+        }
+    },
+    "voronoi": {
+        "data": {
+            "type": "table",
+            "columns": ["x", "y", "name"]
+        }
+    },
 }
 
 CHART_TAGS = list(STANDARD_CHARTS.keys())
@@ -271,7 +432,14 @@ def process_html_charts(soup, chart_defs):
     code_string = ""
 
     for s, args in STANDARD_CHARTS.items():
-        add_chart_to_html(s, args, soup, code_parts)
+        options = None
+        data_spec = None
+
+        if args:
+            options = args.get('options', None)
+            data_spec = args.get('data', None)
+
+        add_chart_to_html(s, options, data_spec, soup, code_parts)
 
     # Add any custom chart defs
 
@@ -296,29 +464,28 @@ def process_html_charts(soup, chart_defs):
 
 # Function to add charts
 def add_chart_to_html(
-    chart_type, fields, soup, code_parts, module=module_name, function_name=None
+    chart_type, fields, data_spec, soup, code_parts, module=module_name, function_name=None
 ):
     if not function_name:
         function_name = chart_type
 
     for num, elem in enumerate(soup.find_all(chart_type)):
         try:
-            # breakpoint()
-            attrs = {str(key): jsonLoads_If_String(value) for key, value in elem.attrs.items()}
-        except json.JSONDecodeError:
-            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}")
+            attrs = {str(key): json_loads_if_string(value) for key, value in elem.attrs.items()}
+        except Exception as e:
+            logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}: {e}")
             continue
 
         chart_id = f"{chart_type}_{str(num)}"
 
-        args = handle_chart_field_arguments(fields, attrs, '#' + chart_id)
+        args = handle_chart_field_arguments(fields, data_spec, attrs, '#' + chart_id, True)
 
         code_parts.append(f"{module}.{function_name}({','.join(args)});")
         elem.name = "span"
         elem.contents = ""
         elem.attrs = {}
         elem["id"] = chart_id
-        elem["class"] = "chart-container"
+        elem["class"] = "doodl-chart"
         tag = soup.new_tag("br")
         elem.insert_after(tag)
     return code_parts
@@ -639,6 +806,8 @@ def main():
     global logger
     global output_format
     global src_dir
+    global input_file
+    global input_file_dir
 
     filters = []
     chart_defs = []
@@ -735,9 +904,9 @@ In dev mode, the script must be run in the same folder as the script.
         sys.exit(0)
 
     input_file = args[0]
-    input_file_dir = os.path.dirname(input_file)
-    if not os.path.isdir(input_file_dir) or os.path.exists(input_file_dir):
-        input_file_dir = os.getcwd()
+    input_file_dir = os.path.abspath(os.path.dirname(input_file))
+
+    logger.info(f"input file directory is {input_file_dir}")
 
     if output_file is None:
         base, ext = os.path.splitext(input_file)
@@ -772,18 +941,6 @@ In dev mode, the script must be run in the same folder as the script.
     if output_format == "":
         output_format = output_ext[1:].lower()
 
-    # if (server_mode or zip_mode) and output_format != "html":
-    #     logger.error(
-    #         "Cannot run in server or zip mode when generating a file in a format other than HTML."
-    #     )
-    #     sys.exit(1)
-
-    # html_file = (
-    #     output_file
-    #     if not (server_mode or zip_mode) and output_format == "html"
-    #     else temp_file("html")
-    # )
-
     html_file = temp_file("html")
 
     # No matter what, we need to generate the HTML file first.
@@ -803,6 +960,7 @@ In dev mode, the script must be run in the same folder as the script.
     with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
         server_dir_name = dir_name
         copy_data(output_dir, dir_name)
+
         if os.path.isfile(html_file):
             shutil.copy2(html_file, dir_name)
             old_html_file_name = os.path.basename(html_file)
@@ -905,6 +1063,8 @@ def copy_data(output_dir, server_dir_path):
     if not os.path.isdir(output_dir):
         raise ValueError(f"Source directory does not exist: {output_dir}")
 
+    logger.info(f"Copying data from {output_dir} to {server_dir_path}")
+
     shutil.copytree(
         output_dir,
         server_dir_path,
@@ -930,16 +1090,26 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
-def jsonLoads_If_String(value):
+def json_loads_if_string(value):
     if isinstance(value, str):
         try:
             return json.loads(value)
-        except Exception:
+        except json.JSONDecodeError:
             return value
+        except Exception as e:
+            logger.error(f"Error decoding JSON: {e}")
+
     return value
 
+def handle_chart_field_arguments(
+        chart_specific_fields,
+        data_spec,
+        supplied_attrs,
+        div_id,
+        preload_data_files
+    ):
+    from doodl.data import interpret_data
 
-def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id, preload_data_files=False):
     args = [div_id]  # Insert the div ID
     
     all_fields = {
@@ -963,7 +1133,7 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
     for field, dv in palette_fields.items():
         if field in supplied_attrs:
             if field == "colors":
-                value = jsonLoads_If_String(supplied_attrs[field])
+                value = json_loads_if_string(supplied_attrs[field])
                 if (
                     isinstance(value, list)
                     and len(value) == 1
@@ -971,33 +1141,80 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
                 ):
                     value = value[0]
                 palette_fields["colors"] = value
-            else:
+            elif type(dv) is str:
                 try:
                     palette_fields[field] = json.loads(supplied_attrs[field])
-                except Exception as e:
-                    logger.error(e)
+                except json.JSONDecodeError as e:
+                    logger.error(e,f'Error decoding JSON for field "{field}": {dv}' )
+            else:
+                palette_fields[field] = dv
 
     # Construct the palette
 
     all_fields["colors"] = resolve_color_palette(**palette_fields)
 
+    # Grab any chart-specific fields
+
+    if chart_specific_fields and supplied_attrs:
+        for field in chart_specific_fields.keys():
+            if field in supplied_attrs:
+                value = supplied_attrs[field]
+
+                if type(value) is type(chart_specific_fields[field]):
+                    # Same type, so just use it
+                    all_fields[field] = value
+                else:
+                    value = json_loads_if_string(value)
+                    all_fields[field] = value
+
     # Resolve data
 
     all_fields["file"] = supplied_attrs.get("file", {})
+
     for field in ["path", "format"]:
         if field in supplied_attrs:
             all_fields["file"][field] = supplied_attrs[field]
 
     all_fields["data"] = supplied_attrs.get("data", {})
-    
+
+    # Convert supported dataframe types to list-of-dicts for JSON compatibility
+
     if preload_data_files and all_fields["file"] and not all_fields["data"]:
+        logger.info(f"Loading data file {all_fields['file']['path']} for chart : {div_id}")
+
+        path = os.path.join(input_file_dir, all_fields["file"]["path"])
+
         all_fields["data"] = load_file_data(
-            all_fields["file"]["path"],
+            path,
             all_fields["file"].get("format", ""))
         all_fields["file"] = {}
 
+    # Convert column names to parameters if needed
+
+    if data_spec is None:
+        logger.error(f"data_spec is None for chart : {div_id}")
+        return []
+
+    if all_fields["data"] is not None:
+        column_mapping = {}
+
+        if data_spec.get("type", "") == "table":
+            columns = data_spec.get("columns", [])
+            column_mapping = {
+                col: supplied_attrs[col] for col in columns
+                if col in supplied_attrs
+            }
+
+        all_fields.update(
+            interpret_data(
+                all_fields["data"],
+                data_spec,
+                column_mapping
+            )
+        )
+
     # Handle size
-    all_fields["size"] = supplied_attrs.get("size", {})
+    all_fields["size"] = supplied_attrs.get("size", { "width": 300, "height": 300 })
     for field in ["width", "height"]:
         if field in supplied_attrs:
             all_fields["size"][field] = supplied_attrs[field]
@@ -1009,27 +1226,32 @@ def handle_chart_field_arguments(chart_specific_fields, supplied_attrs , div_id,
     return [ json.dumps(a) for a in args ]
 
 
-def chart(func_name, fields=None):
+def chart(func_name, fields=None, data=None):
     def wrapper(
          **kwargs
     ):
         global chart_count
+        global input_file_dir
+
+        input_file_dir = os.getcwd()
 
         chart_id = f"{func_name}_{chart_count}"
         chart_count += 1
         
+        stylesheets = "\n".join([f'<link rel="stylesheet" href="{sheet}" />' for sheet in PROD_PYTHON_STYLESHEETS])
+
         args = handle_chart_field_arguments(
                 fields,
+                data,
                 kwargs,
                 '#' + chart_id,
                 True
             )
 
         script = f'''
-<p><span class="chart-container" id="{chart_id}"></span></p>
+<p><span class="doodl-chart" id="{chart_id}"></span></p>
 <script src="{PROD_SCRIPTS[0]}"></script>
-<link rel="stylesheet" href="{PROD_STYLESHEETS[1]}" />
-<link rel="stylesheet" href="{PROD_STYLESHEETS[2]}" />
+{stylesheets}
 <script type="text/javascript">
             Doodl.{func_name}({
             """,
@@ -1041,6 +1263,7 @@ def chart(func_name, fields=None):
         display(HTML(script))
 
     return wrapper
+
 
 
 def load_file_data(path: str, file_format: str = ""):
@@ -1099,9 +1322,17 @@ def is_url(s: str) -> bool:
         return False
     
     
-for k, v in STANDARD_CHARTS.items():
-    globals()[k] = chart(k, v)
+for tag, spec in STANDARD_CHARTS.items():
+    if not spec:
+        spec = {}
+
+    globals()[tag] = chart(
+        tag,
+        spec.get('options', {}),
+        spec.get('data', {})
+    )
 
 
 if __name__ == "__main__":
     main()
+

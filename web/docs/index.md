@@ -2,8 +2,8 @@
 layout: home
 
 hero:
-  name: "Doodl"
-  text: "A publishing platform marrying d3, Markdown and the Tufte layout"
+  name: Doodl
+  text: A publishing platform marrying d3 and
   tagline: High quality documents, with live visualizations.
   actions:
     - theme: brand
@@ -32,3 +32,4 @@ features:
   - icon: 🚀
     title: Custom graphics
     details: Use sophisticated charts written in Typescript or Javascript seemlessly
+---

@@ -5,7 +5,8 @@ export async function piechart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
   donut?: 0,
-  continuous_rotation?: 0
+  continuous_rotation?: 0,
+  show_percentages?: 0
 ) {
   const { width, height } = size;
   const radius = Math.min(width, height) / 2;
@@ -85,7 +86,14 @@ export async function piechart(
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
     .style("fill", "#FFFFFF")
-    .text((d: any) => d.data.label);
+    .text((d: any) => {
+      if (show_percentages) {
+        const total = d3.sum(processed_data, (d: any) => d.value);
+        const percentage = ((d.data.value / total) * 100).toFixed(1);
+        return `${d.data.label} (${percentage}%)`;
+      }
+      return d.data.label;
+    });
 
   if (continuous_rotation) {
     // Start continuous rotation after 2 second delay

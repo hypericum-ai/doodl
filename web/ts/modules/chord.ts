@@ -3,8 +3,10 @@ export async function chord(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+  colors: string[] = defaultArgumentObject.colors,
+  labels: string[] = []
 ) {
+  
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -54,7 +56,7 @@ export async function chord(
     .attr("x", (d) => (outerRadius + 5) * Math.cos((d.startAngle + d.endAngle) / 2 - Math.PI / 2))
     .attr("y", (d) => (outerRadius + 5) * Math.sin((d.startAngle + d.endAngle) / 2 - Math.PI / 2))
     .attr("text-anchor", (d) => ((d.startAngle + d.endAngle) / 2 > Math.PI ? "end" : "start"))
-    .text((d, i) => `Group ${i}`)
+    .text((d, i) => `${ labels.length>0 && labels[i] ? labels[i] : `Group ${i+1}`}`)
     .style("font-size", "12px")
     .style("fill", "#000");
 

@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Fri Aug 15 17:31:02 CAT 2025
+// Generated Tue Oct 14 15:54:32 CAT 2025
 
 
 /// base.ts
@@ -288,7 +288,9 @@ export async function barchart(
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
-  horizontal = 0 // 0 = Vertical, 1 = Horizontal
+  horizontal = 0, // 0 = Vertical, 1 = Horizontal,
+  moving_average = 0,
+  x_label_angle = 0,
 ) {
   const { width, height } = size;
   const margin: Margin = defaultMargin;
@@ -320,9 +322,17 @@ export async function barchart(
   const yVertical = d3.scaleLinear().domain([0, d3.max(processed_data, (d) => d.value)!]).range([chartHeight, 0]);
 
   // Draw X axis
-  svg.append("g")
+  const xAxis = svg.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(horizontal ? d3.axisBottom(xHorizontal) : d3.axisBottom(xVertical));
+
+  if (x_label_angle !== 0) {
+  xAxis.selectAll("text")
+    .attr("transform", `rotate(${x_label_angle})`)
+    .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+    .attr("dx", x_label_angle === 90 ? "0.8em" : "0")   // push horizontally if vertical
+    .attr("dy", x_label_angle === 90 ? "0" : "1.5em");  // only apply dy if not 90
+}
 
   // Draw Y axis
   svg.append("g").call(horizontal ? d3.axisLeft(yHorizontal) : d3.axisLeft(yVertical));
@@ -408,6 +418,324 @@ export async function barchart(
         return yHorizontal(d.label)!;
       }
     });
+
+  // Draw moving average line if requested
+  if (moving_average > 0) {
+    const values = processed_data.map(d => d.value);
+    const avgValues = values.map((_, i, arr) => {
+      const start = Math.max(0, i - moving_average + 1);
+      const subset = arr.slice(start, i + 1);
+      return d3.mean(subset)!;
+    });
+
+    if (!horizontal) {
+      const line = d3.line<number>()
+        .x((_, i) => xVertical(processed_data[i].label)! + xVertical.bandwidth() / 2)
+        .y((d) => yVertical(d))
+        .curve(d3.curveMonotoneX);
+
+      svg.append("path")
+        .datum(avgValues)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    } else {
+      const line = d3.line<number>()
+        .x((d) => xHorizontal(d))
+        .y((_, i) => yHorizontal(processed_data[i].label)! + yHorizontal.bandwidth() / 2)
+        .curve(d3.curveMonotoneX);
+
+      svg.append("path")
+        .datum(avgValues)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    }
+  }
+}
+/// stacked_barchart.ts
+
+
+export async function stacked_barchart(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  horizontal = 0, // 0 = Vertical, 1 = Horizontal
+  moving_average = 0
+) {
+  const { width, height } = size;
+  const margin: Margin = defaultMargin;
+
+  if (file?.path) {
+    data = await loadData(file?.path, file?.format);
+  }
+
+  // Extract keys for stacking
+  const keys = Object.keys(data[0]).filter((k: string) => k !== "label");
+
+  // Setup SVG
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  const chartWidth = width - margin.left - margin.right;
+  const chartHeight = height - margin.top - margin.bottom;
+
+  const g = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // Stack data
+  const stackGen = d3.stack<any>().keys(keys);
+  const stackedData = stackGen(data);
+
+  if (!horizontal) {
+    // ----- VERTICAL -----
+    const x = d3
+      .scaleBand()
+      .domain(data.map((d: any) => d.label))
+      .range([0, chartWidth])
+      .padding(0.1);
+
+    const y = d3
+      .scaleLinear()
+      .domain([
+        0,
+        d3.max(stackedData, (layer: any[]) =>
+          d3.max(layer, (d: [number, number, any]) => d[1])
+        ) as number,
+      ])
+      .nice()
+      .range([chartHeight, 0]);
+
+    const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+    // Bars
+    g.selectAll("g.layer")
+      .data(stackedData)
+      .join("g")
+      .attr("class", "layer")
+      .attr("fill", (d: { key: string }) => color(d.key)!)
+      .selectAll("rect")
+      .data((d: any) => d)
+      .join("rect")
+      .attr("x", (d: any) => x(d.data.label)!)
+      .attr("y", (d: any) => y(d[1]))
+      .attr("height", (d: any) => y(d[0]) - y(d[1]))
+      .attr("width", x.bandwidth());
+
+    // Axes
+    g.append("g")
+      .attr("transform", `translate(0,${chartHeight})`)
+      .call(d3.axisBottom(x));
+
+    g.append("g").call(d3.axisLeft(y));
+
+    // Moving average (on stacked totals)
+    if (moving_average) {
+      const totals = data.map((d: any) =>
+        keys.reduce((sum: number, k: string) => sum + d[k], 0)
+      );
+
+      const movingAvg = totals.map((_: number, i: number, arr: number[]) => {
+        const window = 3; // adjustable
+        const start = Math.max(0, i - window + 1);
+        const subset = arr.slice(start, i + 1);
+        return d3.mean(subset) as number;
+      });
+
+      const line = d3.line<number>()
+        .x((_: number, i: number) => x(data[i].label)! + x.bandwidth() / 2)
+        .y((d: number) => y(d))
+        .curve(d3.curveMonotoneX);
+
+      g.append("path")
+        .datum(movingAvg)
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    }
+  } else {
+    // ----- HORIZONTAL -----
+    const y = d3
+      .scaleBand()
+      .domain(data.map((d: any) => d.label))
+      .range([0, chartHeight])
+      .padding(0.1);
+
+    const x = d3
+      .scaleLinear()
+      .domain([
+        0,
+        d3.max(stackedData, (layer: any[]) =>
+          d3.max(layer, (d: [number, number, any]) => d[1])
+        ) as number,
+      ])
+      .nice()
+      .range([0, chartWidth]);
+
+    const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+    // Bars
+    g.selectAll("g.layer")
+      .data(stackedData)
+      .join("g")
+      .attr("class", "layer")
+      .attr("fill", (d: { key: string }) => color(d.key)!)
+      .selectAll("rect")
+      .data((d: any) => d)
+      .join("rect")
+      .attr("y", (d: any) => y(d.data.label)!)
+      .attr("x", (d: any) => x(d[0]))
+      .attr("width", (d: any) => x(d[1]) - x(d[0]))
+      .attr("height", y.bandwidth());
+
+    // Axes
+    g.append("g")
+      .attr("transform", `translate(0,${chartHeight})`)
+      .call(d3.axisBottom(x));
+
+    g.append("g").call(d3.axisLeft(y));
+
+    // Moving average (on stacked totals)
+    if (moving_average) {
+      const totals = data.map((d: any) =>
+        keys.reduce((sum: number, k: string) => sum + d[k], 0)
+      );
+
+      const movingAvg = totals.map((_: number, i: number, arr: number[]) => {
+        const window = 3;
+        const start = Math.max(0, i - window + 1);
+        const subset = arr.slice(start, i + 1);
+        return d3.mean(subset) as number;
+      });
+
+      const line = d3.line<number>()
+        .y((_: number, i: number) => y(data[i].label)! + y.bandwidth() / 2)
+        .x((d: number) => x(d))
+        .curve(d3.curveMonotoneY);
+
+      g.append("path")
+        .datum(movingAvg)
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    }
+  }
+}
+/// stacked_areachart.ts
+
+export async function stacked_areachart(
+   div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  horizontal = 0
+) {
+  const { width, height } = size;
+  const margin = { top: 40, right: 20, bottom: 40, left: 60 };
+  const svgWidth = width;
+  const svgHeight = height;
+  const chartWidth = svgWidth - margin.left - margin.right;
+  const chartHeight = svgHeight - margin.top - margin.bottom;
+
+  // Clear existing content
+  d3.select(div).selectAll("*").remove();
+
+  // Create SVG
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+  const chartArea = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // ---- Data preparation ----
+  // Expect data in format: [{ year: 2000, industry1: value, industry2: value, ...}, ...]
+  const keys = Object.keys(data[0]).filter((k) => k !== "year");
+
+  // X and Y scales
+  const x = d3
+    .scaleLinear()
+    .domain(d3.extent(data, (d: any) => +d.year) as [number, number])
+    .range([0, chartWidth]);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(data, (d: any) => d3.sum(keys, (k) => +d[k]))!])
+    .nice()
+    .range([chartHeight, 0]);
+
+  const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+  // Stack generator
+  const stackGen = d3.stack().keys(keys);
+  const stackedData = stackGen(data);
+
+  // Area generator
+  const area = d3
+    .area<any>()
+    .x((d: any) => x(d.data.year))
+    .y0((d: any) => y(d[0]))
+    .y1((d: any) => y(d[1]));
+
+  // ---- Draw layers ----
+  chartArea
+    .selectAll(".layer")
+    .data(stackedData)
+    .enter()
+    .append("path")
+    .attr("class", "layer")
+    .attr("fill", (d: any) => color(d.key)!)
+    .attr("d", area)
+    .attr("stroke", "none")
+    .attr("opacity", 0.9);
+
+  // ---- Axes ----
+  chartArea
+    .append("g")
+    .attr("transform", `translate(0,${chartHeight})`)
+    .call(d3.axisBottom(x).ticks(10).tickFormat(d3.format("d")));
+
+  chartArea.append("g").call(d3.axisLeft(y));
+
+  // ---- Legend ----
+  const legend = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, 10)`)
+    .attr("font-size", 12)
+    .attr("text-anchor", "start");
+
+  const legendItems = legend
+    .selectAll("g")
+    .data(keys)
+    .enter()
+    .append("g")
+    .attr("transform", (_, i) => `translate(${i * 130}, 0)`);
+
+  legendItems
+    .append("rect")
+    .attr("width", 12)
+    .attr("height", 12)
+    .attr("fill", (d: any) => color(d)!);
+
+  legendItems
+    .append("text")
+    .attr("x", 16)
+    .attr("y", 10)
+    .text((d: any) => d);
 }
 /// bollinger.ts
 
@@ -664,8 +992,10 @@ export async function chord(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+  colors: string[] = defaultArgumentObject.colors,
+  labels: string[] = []
 ) {
+  
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -715,7 +1045,7 @@ export async function chord(
     .attr("x", (d) => (outerRadius + 5) * Math.cos((d.startAngle + d.endAngle) / 2 - Math.PI / 2))
     .attr("y", (d) => (outerRadius + 5) * Math.sin((d.startAngle + d.endAngle) / 2 - Math.PI / 2))
     .attr("text-anchor", (d) => ((d.startAngle + d.endAngle) / 2 > Math.PI ? "end" : "start"))
-    .text((d, i) => `Group ${i}`)
+    .text((d, i) => `${ labels.length>0 && labels[i] ? labels[i] : `Group ${i+1}`}`)
     .style("font-size", "12px")
     .style("fill", "#000");
 
@@ -988,7 +1318,8 @@ export async function heatmap(
   colors: string[] = defaultArgumentObject.colors,
   show_legend = 0,
   interp = "rgb",
-  gamma = 0
+  gamma = 0,
+  x_label_angle = 0,
 ) {
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
@@ -1034,8 +1365,9 @@ export async function heatmap(
     .domain(yCategories)
     .range([height, 0])
     .padding(0.05);
-  // const colorScale = d3.scaleLinear().range(colors) .domain([d3.min(data, (d: any) => +d.value) as number, d3.max(data, (d: any) => +d.value) as number])
-  const colorScale = d3
+  
+  
+    const colorScale = d3
     .scaleSequential(
       color_interp({
         colors: colors,
@@ -1049,17 +1381,20 @@ export async function heatmap(
     ]);
 
   // Add X Axis
-  zoomGroup
+  const xAxis = zoomGroup
     .append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(xScale).tickSize(0))
-    .selectAll("text")  
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-65)")
-    .select(".domain")
-    .remove();
+    .call(d3.axisBottom(xScale).tickSize(0));
+
+  if (x_label_angle !== 0) {
+    xAxis.selectAll("text")
+      .attr("transform", `rotate(${x_label_angle})`)
+      .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+      .attr("dx", x_label_angle === 90 ? "0.8em" : "0")
+      .attr("dy", x_label_angle === 90 ? "0" : "1.5em");
+  }
+
+  xAxis.select(".domain").remove();
 
   // Add Y Axis
   zoomGroup
@@ -1248,7 +1583,8 @@ export async function piechart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
   donut?: 0,
-  continuous_rotation?: 0
+  continuous_rotation?: 0,
+  show_percentages?: 0
 ) {
   const { width, height } = size;
   const radius = Math.min(width, height) / 2;
@@ -1328,7 +1664,14 @@ export async function piechart(
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
     .style("fill", "#FFFFFF")
-    .text((d: any) => d.data.label);
+    .text((d: any) => {
+      if (show_percentages) {
+        const total = d3.sum(processed_data, (d: any) => d.value);
+        const percentage = ((d.data.value / total) * 100).toFixed(1);
+        return `${d.data.label} (${percentage}%)`;
+      }
+      return d.data.label;
+    });
 
   if (continuous_rotation) {
     // Start continuous rotation after 2 second delay
@@ -2322,6 +2665,18 @@ export async function bubblechart(
     .attr("viewBox", `0 0 ${size.width} ${size.height}`)
     .style("font-family", "sans-serif");
 
+  // Tooltip element
+  const tooltip = d3
+    .select(div)
+    .append("div")
+    .style("position", "absolute")
+    .style("background", "rgba(0, 0, 0, 0.7)")
+    .style("color", "#fff")
+    .style("padding", "6px 10px")
+    .style("border-radius", "4px")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
+
     hamburgerMenu(div, data);
 
   const colorScale = d3.scaleOrdinal<string>().range(colors);
@@ -2352,21 +2707,52 @@ export async function bubblechart(
 
     if (ease_in > 0) {
       node
-      .append("circle")
-      .attr("fill", (d, i) => colorScale(i.toString()))
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1)
+        .append("circle")
+        .attr("fill", (d, i) => colorScale(i.toString()))
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
         .attr("r", 0)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        })
         .transition()
         .duration(800)
         .ease(d3.easeBounceOut)
         .attr("r", (d) => d.r);
     } else {
       node
-      .append("circle")
-      .attr("fill", (d, i) => colorScale(i.toString()))
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1).attr("r", (d) => d.r);
+        .append("circle")
+        .attr("fill", (d, i) => colorScale(i.toString()))
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
+        .attr("r", (d) => d.r)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        });
     }
 
 
@@ -2416,20 +2802,31 @@ export async function bubblechart(
       .on("tick", () => {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
       });
-
-    node.append("title").text((d) => `${d.data.name}\n${format(d.value || 0)}`);
-
-    // Add a filled circle.
     
 
     if (ease_in > 0) {
       node
-      .append("circle")
-      .attr("fill", (d) =>
-        colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
-      )
+        .append("circle")
+        .attr("fill", (d) =>
+          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
+        )
         .attr("fill-opacity", 0)
         .attr("r", 0)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        })
         .transition()
         .duration(4000)
         .ease(d3.easeBounceOut)
@@ -2437,11 +2834,27 @@ export async function bubblechart(
         .attr("r", (d) => d.r);
     } else {
       node
-      .append("circle")
-      .attr("fill", (d) =>
-        colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
-      )
-      .attr("fill-opacity", 0.7).attr("r", (d) => d.r);
+        .append("circle")
+        .attr("fill", (d) =>
+          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
+        )
+        .attr("fill-opacity", 0.7)
+        .attr("r", (d) => d.r)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        });
     }
 
 

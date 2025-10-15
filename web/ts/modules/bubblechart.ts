@@ -28,6 +28,18 @@ export async function bubblechart(
     .attr("viewBox", `0 0 ${size.width} ${size.height}`)
     .style("font-family", "sans-serif");
 
+  // Tooltip element
+  const tooltip = d3
+    .select(div)
+    .append("div")
+    .style("position", "absolute")
+    .style("background", "rgba(0, 0, 0, 0.7)")
+    .style("color", "#fff")
+    .style("padding", "6px 10px")
+    .style("border-radius", "4px")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
+
     hamburgerMenu(div, data);
 
   const colorScale = d3.scaleOrdinal<string>().range(colors);
@@ -58,21 +70,52 @@ export async function bubblechart(
 
     if (ease_in > 0) {
       node
-      .append("circle")
-      .attr("fill", (d, i) => colorScale(i.toString()))
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1)
+        .append("circle")
+        .attr("fill", (d, i) => colorScale(i.toString()))
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
         .attr("r", 0)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        })
         .transition()
         .duration(800)
         .ease(d3.easeBounceOut)
         .attr("r", (d) => d.r);
     } else {
       node
-      .append("circle")
-      .attr("fill", (d, i) => colorScale(i.toString()))
-      .attr("stroke", "#fff")
-      .attr("stroke-width", 1).attr("r", (d) => d.r);
+        .append("circle")
+        .attr("fill", (d, i) => colorScale(i.toString()))
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
+        .attr("r", (d) => d.r)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        });
     }
 
 
@@ -122,20 +165,31 @@ export async function bubblechart(
       .on("tick", () => {
         node.attr("transform", (d) => `translate(${d.x},${d.y})`);
       });
-
-    node.append("title").text((d) => `${d.data.name}\n${format(d.value || 0)}`);
-
-    // Add a filled circle.
     
 
     if (ease_in > 0) {
       node
-      .append("circle")
-      .attr("fill", (d) =>
-        colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
-      )
+        .append("circle")
+        .attr("fill", (d) =>
+          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
+        )
         .attr("fill-opacity", 0)
         .attr("r", 0)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        })
         .transition()
         .duration(4000)
         .ease(d3.easeBounceOut)
@@ -143,11 +197,27 @@ export async function bubblechart(
         .attr("r", (d) => d.r);
     } else {
       node
-      .append("circle")
-      .attr("fill", (d) =>
-        colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
-      )
-      .attr("fill-opacity", 0.7).attr("r", (d) => d.r);
+        .append("circle")
+        .attr("fill", (d) =>
+          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
+        )
+        .attr("fill-opacity", 0.7)
+        .attr("r", (d) => d.r)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        });
     }
 
 

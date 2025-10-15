@@ -1,5 +1,6 @@
 import { DefaultTheme, defineConfig } from 'vitepress'
 import pkg from '../package.json' with { type: 'json' }
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -7,6 +8,7 @@ export default defineConfig({
     title: "Doodl",
     description: "Doodl",
     head: [
+        ['link', { rel: 'icon', href: '/favicon-16x16.png' }],
         [
             'script',
             {
@@ -18,22 +20,15 @@ export default defineConfig({
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://doodl.ai/assets/doodl/css/docs.css'
+                href: 'https://doodl.ai/assets/doodl/css/doodl.css'
             }
-        ],
-        [
-            'link',
-            {
-                rel: 'stylesheet',
-                href: 'https://doodl.ai/assets/doodl/css/menu.css'
-            }
-        ],
-        ['link', { rel: 'icon', href: 'favicon.ico' }],
-         [
-            'link',
-            { rel: 'icon', type: 'image/svg+xml', href: '/doodl.svg' }
-        ],
+        ]
     ],
+    markdown: {
+        config(md) {
+            md.use(tabsMarkdownPlugin)
+        },
+    },
     themeConfig: {
         nav: nav(),
 
@@ -58,9 +53,9 @@ export default defineConfig({
                 collapsed: false,
                 items: [
                     { text: 'Bar chart', link: '/charts/bar-chart' },
-                    // { text: 'Bollinger bands', link: '/charts/bollinger' },
-                    { text: 'Bubble chart', link: '/charts/bubbles' },
+                    { text: 'Bollinger bands', link: '/charts/bollinger' },
                     { text: 'Box plot', link: '/charts/boxplot' },
+                    { text: 'Bubble chart', link: '/charts/bubbles' },
                     { text: 'Chord diagram', link: '/charts/chord' },
                     { text: 'Dot plot', link: '/charts/dotplot' },
                     { text: 'Force diagram', link: '/charts/force' },

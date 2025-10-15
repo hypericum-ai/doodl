@@ -7,6 +7,8 @@ of progress and dependencies.
 
 Here's a simple example of a Gantt chart:
 
+::: tabs
+== markdown
 ~~~html
 <gantt
   data='[
@@ -22,10 +24,46 @@ Here's a simple example of a Gantt chart:
 >
 </gantt>
 ~~~
+== python
+```python
+import doodl
+
+doodl.gantt(
+  data=[
+    { "task": "Planning", "start": "2024-03-01", "end": "2024-03-05" },
+    { "task": "Design", "start": "2024-03-06", "end": "2024-03-12" },
+    { "task": "Development", "start": "2024-03-13", "end": "2024-03-25" },
+    { "task": "Testing", "start": "2024-03-26", "end": "2024-03-30" },
+    { "task": "Deployment", "start": "2024-03-31", "end": "2024-04-02" }
+  ],
+  width=1000,
+  height=500,
+  colors='deep',
+)
+```
+== javascript
+```html
+<span class="doodl-chart" id="gantt_0"></span>
+
+<script>
+    Doodl.gantt('#gantt_0',[
+      { "task": "Planning", "start": "2024-03-01", "end": "2024-03-05" },
+      { "task": "Design", "start": "2024-03-06", "end": "2024-03-12" },
+      { "task": "Development", "start": "2024-03-13", "end": "2024-03-25" },
+      { "task": "Testing", "start": "2024-03-26", "end": "2024-03-30" },
+      { "task": "Deployment", "start": "2024-03-31", "end": "2024-04-02" }
+    ],{"width":1000,"height":500},{},
+    [
+      '#4C72B0', '#DD8452', '#55A868', '#C44E52', '#8172B3',
+      '#937860', '#DA8BC3', '#8C8C8C', '#CCB974', '#64B5CD'
+    ]);
+</script>
+```
+:::
 
 which produces the following chart:
 
-<span class="chart-container" id="gantt_0"></span>
+<span class="doodl-chart" id="gantt_0"></span>
 
 <script>
  setTimeout(() => {

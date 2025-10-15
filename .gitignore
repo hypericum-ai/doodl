@@ -15,7 +15,7 @@ env/
 build/
 develop-eggs/
 downloads/
-demo/plots
+examples/plots
 plots
 cache
 eggs/
@@ -85,7 +85,7 @@ doodl/venv/
 doodl/.venv/
 doodl/.vscode/
 doodl/dist/
-include/
-lib/
-share/
+include/*
+lib/*
+share/*
 dist

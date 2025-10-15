@@ -4,6 +4,15 @@ The bubble chart is a means of representing hierarchically related
 data, that is, it represents groups of items that themselves may have
 other items grouped under them.
 
+### Parameters
+
+In addition to all of the [standard parameters](/charts/#standard-parameters)
+the following apply to bubble charts.
+
+<Parameters no_header=true>
+  <Parameter name="data" type="JSON/Python dict">
+<div>
+
 The data for a bubble chart is unique, with a single dictionary
 representing the outermost circle, and a list of child nodes, like
 this:
@@ -31,12 +40,23 @@ this:
 }
 ~~~
 
+</div>
+  </Parameter>
+  <Parameter name="ease_in" type="Boolean">
+
 In addition the chart takes an `ease_in` parameter, with default of
 `false` that produces an animation when the chart loads in the
 browser, and a `drag_animations` parameter.
 
+  </Parameter>
+</Parameters>
+
+### Example
+
 Following is a relatively complex bubble chart produced with:
 
+:::tabs
+== markdown
 ~~~html
 <bubblechart
   path="data/bubbles.json"
@@ -46,12 +66,45 @@ Following is a relatively complex bubble chart produced with:
   colors='deep'
   ease_in = 1
 > </bubblechart>
-~~~
+== python
+```python
+import doodl
+
+doodl.bubblechart(
+  path="data/bubbles.json",
+  format="json",
+  width=500,
+  height=500,
+  colors='deep',
+  ease_in=1
+)
+```
+:::
 
 where `data/bubbles.json` contains a file similar to the JSON shown
-above.
+above. Here are the first few lines:
 
-<span class="chart-container" id="bubbles_0"></span>
+~~~json
+{
+      "name": "root",
+      "children": [
+        {
+          "name": "Group A",
+          "children": [
+            { "name": "Alpha", "value": 50 },
+            { "name": "Beta", "value": 30 },
+            { "name": "Gamma", "value": 20 },
+            { "name": "Delta", "value": 25 },
+            { "name": "Epsilon", "value": 35 },
+            {
+              "name": "Subgroup A1",
+              "children": [
+                { "name": "A1-Node1", "value": 15 },
+                { "name": "A1-Node2", "value": 10 },
+                ...
+~~~
+
+<span class="doodl-chart" id="bubbles_0"></span>
 
 <script>
  setTimeout(() => {

@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "name": "Box Received",
+      "width": 195353
+    },
+    {
+      "name": "Sent for Pricing",
+      "width": 182353
+    },
+    {
+      "name": "Box Priced",
+      "width": 180803
+    },
+    {
+      "name": "Offer Communicated",
+      "width": 51789
+    },
+    {
+      "name": "Offer Rejected",
+      "width": 39848
+    },
+    {
+      "name": "No Offer",
+      "width": 15392
+    },
+    {
+      "name": "No Offer Returned",
+      "width": 12861
+    },
+    {
+      "name": "Box Returned",
+      "width": 38803
+    },
+    {
+      "name": "Box Bought",
+      "width": 180243
+    },
+    {
+      "name": "Abandoned",
+      "width": 75289
+    },
+    {
+      "name": "Offer Accepted",
+      "width": 139401
+    }
+  ],
+  "links": [
+    {
+      "source": "Box Received",
+      "target": "Sent for Pricing",
+      "value": 182024
+    },
+    {
+      "source": "Sent for Pricing",
+      "target": "Box Priced",
+      "value": 167890
+    },
+    {
+      "source": "Sent for Pricing",
+      "target": "No Offer",
+      "value": 13446
+    },
+    {
+      "source": "No Offer",
+      "target": "No Offer Returned",
+      "value": 12780
+    },
+    {
+      "source": "Box Priced",
+      "target": "Offer Rejected",
+      "value": 25719
+    },
+    {
+      "source": "Offer Communicated",
+      "target": "Offer Rejected",
+      "value": 11128
+    },
+    {
+      "source": "Box Priced",
+      "target": "Offer Accepted",
+      "value": 98128
+    },
+    {
+      "source": "Box Priced",
+      "target": "Offer Communicated",
+      "value": 49731
+    },
+    {
+      "source": "Offer Rejected",
+      "target": "Box Returned",
+      "value": 36517
+    },
+    {
+      "source": "Offer Accepted",
+      "target": "Box Bought",
+      "value": 136522
+    },
+    {
+      "source": "Box Bought",
+      "target": "Abandoned",
+      "value": 12659
+    },
+    {
+      "source": "Offer Communicated",
+      "target": "Offer Accepted",
+      "value": 35510
+    }
+  ]
+}

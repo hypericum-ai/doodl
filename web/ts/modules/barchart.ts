@@ -4,7 +4,9 @@ export async function barchart(
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
-  horizontal = 0 // 0 = Vertical, 1 = Horizontal
+  horizontal = 0, // 0 = Vertical, 1 = Horizontal,
+  moving_average = 0,
+  x_label_angle = 0,
 ) {
   const { width, height } = size;
   const margin: Margin = defaultMargin;
@@ -36,9 +38,17 @@ export async function barchart(
   const yVertical = d3.scaleLinear().domain([0, d3.max(processed_data, (d) => d.value)!]).range([chartHeight, 0]);
 
   // Draw X axis
-  svg.append("g")
+  const xAxis = svg.append("g")
     .attr("transform", `translate(0, ${chartHeight})`)
     .call(horizontal ? d3.axisBottom(xHorizontal) : d3.axisBottom(xVertical));
+
+  if (x_label_angle !== 0) {
+  xAxis.selectAll("text")
+    .attr("transform", `rotate(${x_label_angle})`)
+    .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+    .attr("dx", x_label_angle === 90 ? "0.8em" : "0")   // push horizontally if vertical
+    .attr("dy", x_label_angle === 90 ? "0" : "1.5em");  // only apply dy if not 90
+}
 
   // Draw Y axis
   svg.append("g").call(horizontal ? d3.axisLeft(yHorizontal) : d3.axisLeft(yVertical));
@@ -124,4 +134,40 @@ export async function barchart(
         return yHorizontal(d.label)!;
       }
     });
+
+  // Draw moving average line if requested
+  if (moving_average > 0) {
+    const values = processed_data.map(d => d.value);
+    const avgValues = values.map((_, i, arr) => {
+      const start = Math.max(0, i - moving_average + 1);
+      const subset = arr.slice(start, i + 1);
+      return d3.mean(subset)!;
+    });
+
+    if (!horizontal) {
+      const line = d3.line<number>()
+        .x((_, i) => xVertical(processed_data[i].label)! + xVertical.bandwidth() / 2)
+        .y((d) => yVertical(d))
+        .curve(d3.curveMonotoneX);
+
+      svg.append("path")
+        .datum(avgValues)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    } else {
+      const line = d3.line<number>()
+        .x((d) => xHorizontal(d))
+        .y((_, i) => yHorizontal(processed_data[i].label)! + yHorizontal.bandwidth() / 2)
+        .curve(d3.curveMonotoneX);
+
+      svg.append("path")
+        .datum(avgValues)
+        .attr("fill", "none")
+        .attr("stroke", "red")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    }
+  }
 }

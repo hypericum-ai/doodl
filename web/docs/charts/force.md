@@ -5,13 +5,19 @@ are attracted to and repelled from each other. It is particularly
 used to convey the results of a multidimensional scaling. The
 force directed graph scales well, from small:
 
-<span  class="chart-container" id="force_0"></span>
+<span  class="doodl-chart" id="force_0"></span>
 
 to much larger:
 
-<span  class="chart-container" id="force_1"></span>
+<span  class="doodl-chart" id="force_1"></span>
 
-The data given to a force directed graph has the form:
+<Parameters>
+
+The force directed graph takes the [standard parameters](/charts/#standard-parameters)
+where the data defining the graph has the form:
+
+<Parameter name="data" type="dict">
+<div>
 
 ~~~json
 {
@@ -29,6 +35,12 @@ The data given to a force directed graph has the form:
   ]
 }
 ~~~
+
+The definition of nodes and links is described below..
+
+</div>
+</Parameter>
+</Parameters>
 
 ### Nodes
 

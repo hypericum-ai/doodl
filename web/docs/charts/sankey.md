@@ -7,30 +7,17 @@ stages or categories. The diagram uses nodes to represent the
 different categories and links (arrows) to represent the flow, with
 the width of the links proportional to the quantity being transferred.
 
-Here's an example of a Sankey diagram from HTML/Markdown:
+<Parameters>
 
-```html
-<skey
-  width=600
-  height=225
-  path="data/energy.json"
-  format="json"
-  colors="cc.glasbey"
->
-</skey>
-```
+In addition to all of the [standard parameters](/charts/#standard-parameters)
+the following apply to pie charts.
 
-which produces this:
+  <Parameter
+      name="data"
+      type="List[dict], DataFrame, Series"
+  >
+<div>
 
-<span  class="chart-container" id="skey_0"></span>
-
-
-Several things are worth noting here:
-
-- This example uses data from a file with the `path` and `format`
-  arguments instead of a `data` argument, as described in the
-  [chart overview](/charts/).
-  
   The format of the data is a JSON dictionary, with two elements:
   `nodes` and `links`. Here is an excerpt from the data file, above:
 
@@ -57,62 +44,94 @@ Several things are worth noting here:
   ]
 }
 ```
-  
-- The data may also be included inline as the following excerpt shows:
 
+</div>
+</Parameter>
+<Parameter name="link_color" type="String">
+
+The `link_color` parameter determines, as the name suggests,
+how to color the links. The default value of `"target"` uses
+the same color as the target node. The value `"source-target"` uses a
+gradient of the colors of the nodes that it connects. The
+`"source"` option colors the
+link the same as the nodes on the beginning of the
+link.
+
+</Parameter>
+<Parameter name="node_align" type="string">
+
+This parameter, which defaults to `"left"`, determines where
+to place each node. The possible values are `"left"`,
+`"right"`, `"center"` and `"justify"`.
+
+</Parameter>
+</Parameters>
+
+### Examples
+
+Here's an example of a Sankey diagram from HTML/Markdown:
+
+::: tabs
+== markdown
 ```html
 <skey
-    data='{
-      "nodes": [
-        { "name": "Solar", "width": 100},
-        { "name": "Wind", "width": 120 },
-        { "name": "Hydro", "width": 80 },
-        { "name": "Nuclear", "width": 90 },
-        { "name": "Coal", "width": 200 },
-        { "name": "Natural gas", "width": 210 },
-        ...
-      ],
-      "links": [
-        { "source": "Solar", "target": "Electricity", "value": 100 },
-        { "source": "Wind", "target": "Electricity", "value": 120 },
-        { "source": "Hydro", "target": "Electricity", "value": 80 },
-        { "source": "Nuclear", "target": "Electricity", "value": 90 },
-        { "source": "Coal", "target": "Electricity", "value": 200 },
-        { "source": "Natural gas", "target": "Electricity", "value": 130 },
-        { "source": "Natural gas", "target": "Heat", "value": 80 },
-        ...
-      ]
-    }'
   width=600
   height=225
+  path="data/energy.json"
+  format="json"
   colors="cc.glasbey"
 >
 </skey>
-
 ```
+== python
+~~~python
+import doodl
 
-Note the use of single quotes to mark the HTML attribute `data`,
-and the use of double quotes within the JSON string.
-  
-- As described in the [color palette](/color) section, we have used a
-  color palette from [Colorcet](https://github.com/holoviz/colorcet).
-  As an aside, this is a particularly good option for this chart type.
+doodl.skey(
+  width=600,
+  height=225,
+  path="data/energy.json",
+  colors="cc.glasbey"
+)
+~~~
+== javascript
+```html
+<span  class="doodl-chart" id="skey_0"></span>
+<script>
+  Doodl.skey(
+    '#skey_0',
+    {},
+    {
+      'width': 600,
+      'height': 225
+    },{
+      "path": "data/energy.json",
+      "format": "json"
+    },
+    [
+      '#F67088', '#F77732', '#CE8F31', '#B29B31', '#96A331',
+      '#6BAC31', '#32B165', '#34AE8D', '#35ACA4', '#37AAB7',
+      '#38A7D0', '#5A9EF4', '#A38CF4', '#D673F4', '#F461DD',
+      '#F56AB4'
+    ],
+    "target",
+    "right"
+  );
+```
+:::
 
-This chart has two optional arguments:
+which produces this:
 
-- `link_color` determines whether the links are colored using a
-  gradient or a solid color. A value of `target` (the default)
-  uses a solid color and a value of `source-target` colors using a
-  gradient between the colors of the source and target nodes.
+<span  class="doodl-chart" id="skey_0"></span>
 
-- `node_align` determines how the nodes are placed. The default value
-  is `"right"`. Other accepted values include `"left"`, `"center"` and
-  `"justify"`.
+As described in the [color palette](/color) section, we have used a
+color palette from [Colorcet](https://github.com/holoviz/colorcet).
+As an aside, this is a particularly good option for this chart type.
 
 Here is the same chart as above, but using `source-target` to color
 the links:
 
-<span  class="chart-container" id="skey_1"></span>
+<span  class="doodl-chart" id="skey_1"></span>
 
 <script>
  setTimeout(() => {
