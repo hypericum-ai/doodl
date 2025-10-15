@@ -62,7 +62,7 @@ export async function chord(
 
   group
     .append("title")
-    .text((d, i) => `Group ${i}: ${d.value}`);
+    .text((d, i) => `${ labels.length>0 && labels[i] ? labels[i] : `Group ${i+1}`}: ${d.value}`);
 
   // Draw ribbons
   container
