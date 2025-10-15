@@ -206,7 +206,8 @@ doodl.chord(
     ], {
       'width': 350,
       'height': 350
-    },{},["black", "#ffdd89", "#957244", "#f26223"]
+    },{},["black", "#ffdd89", "#957244", "#f26223"],
+    ["black", "blond", "brunette", "redhead"]
   ));
 }, 1000);
 </script>
