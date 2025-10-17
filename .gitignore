@@ -78,6 +78,7 @@ doodl/.idea/
 *workspace.xml
 
 node_modules
+package-lock.json
 doodl/docs/.vitepress/dist/*
 .ipynb_checkpoints/*
 doodl/bin/
