@@ -239,14 +239,21 @@ STANDARD_CHARTS = {
             "columns": ["label", "value"]
         }
     },
+    "stacked_areachart": {
+        "options": {
+            "curved": False
+        },
+        "data": {
+            "type": "multiseries"
+        }
+    },
     "stacked_barchart": {
         "options": {
             "horizontal": False,
             "moving_average": False
         },
         "data": {
-            "type": "table",
-            "columns": ["label", "value"]
+            "type": "multiseries"
         }
     },
     "tree": {
@@ -1214,13 +1221,17 @@ def handle_chart_field_arguments(
                 if col in supplied_attrs
             }
 
-        all_fields.update(
-            interpret_data(
-                all_fields["data"],
-                data_spec,
-                column_mapping
+        try:
+            all_fields.update(
+                interpret_data(
+                    all_fields["data"],
+                    data_spec,
+                    column_mapping
+                )
             )
-        )
+        except ValueError as e:
+            logger.error(f"Error interpreting data for chart {div_id}: {e}")
+            return []
 
     # Handle size
     all_fields["size"] = supplied_attrs.get("size", { "width": 300, "height": 300 })

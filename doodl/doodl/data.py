@@ -130,6 +130,9 @@ def _interpret_chord_data(data, spec):
 
     return chords, labels
 
+def _interpret_multiseries_data(data, spec):
+    return data
+
 def interpret_data(data, spec=None, column_mapping=None):
     if not imports:
         _init_imports()
@@ -147,7 +150,11 @@ def interpret_data(data, spec=None, column_mapping=None):
     elif spec.get("type") == "links":
         data = _interpret_links_data(data, spec)
     elif spec.get("type") == "chords":
-        data,labels = _interpret_chord_data(data, spec)
+        data, labels = _interpret_chord_data(data, spec)
+    elif spec.get("type") == "multiseries":
+        data = _interpret_multiseries_data(data, spec)
+    else:
+        raise ValueError(f"Unsupported data type in spec: {spec.get('type')}")
 
     params['data'] = data
 
