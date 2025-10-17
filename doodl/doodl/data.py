@@ -131,7 +131,24 @@ def _interpret_chord_data(data, spec):
     return chords, labels
 
 def _interpret_multiseries_data(data, spec):
-    return data
+    if imports["pl"] and (
+            isinstance(data, imports["pl"].DataFrame) or
+            isinstance(data, imports["pl"].LazyFrame)
+        ):
+        data = data.to_pandas()
+    elif imports["pa"] and isinstance(data, imports["pa"].Table):
+        data = data.to_pylist()
+    elif imports["fd"] and isinstance(data, imports["fd"].DataFrame):
+        data = data.to_pandas()
+
+    if imports['pd'] and isinstance(data, imports['pd'].DataFrame):
+        data = data.to_dict(orient="records")
+
+    if isinstance(data, list):
+        return data
+    
+    raise ValueError(f"Unsupported data format for multiseries data type: {type(data)}")
+
 
 def interpret_data(data, spec=None, column_mapping=None):
     if not imports:

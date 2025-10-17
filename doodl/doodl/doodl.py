@@ -232,15 +232,6 @@ STANDARD_CHARTS = {
     },  
     "stacked_areachart": {
         "options": {
-            "horizontal": False
-        },
-        "data": {
-            "type": "table",
-            "columns": ["label", "value"]
-        }
-    },
-    "stacked_areachart": {
-        "options": {
             "curved": False
         },
         "data": {
