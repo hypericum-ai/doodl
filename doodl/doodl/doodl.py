@@ -229,6 +229,15 @@ STANDARD_CHARTS = {
         "data": {
             "type": "links"
         }
+    },  
+    "stacked_areachart": {
+        "options": {
+            "horizontal": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
     },
     "stacked_barchart": {
         "options": {

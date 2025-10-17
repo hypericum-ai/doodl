@@ -1,3 +1,138 @@
+
+
+### A stacked barchart 
+
+
+<stacked_barchart
+data='[
+  { label: "January",  Apples: 30, Bananas: 20, Cherries: 10 },
+  { label: "February", Apples: 20, Bananas: 25, Cherries: 15 },
+  { label: "March",    Apples: 25, Bananas: 30, Cherries: 20 },
+  { label: "April",    Apples: 35, Bananas: 20, Cherries: 25 },
+  { label: "May",      Apples: 40, Bananas: 35, Cherries: 30 },
+  { label: "June",     Apples: 30, Bananas: 40, Cherries: 20 },
+]'
+  width=500
+  height=500
+  colors='deep'
+>
+</stacked_barchart>
+
+
+
+
+
+### A stacked areachart 
+
+
+<stacked_areachart
+data='[
+  { label: 2018, Technology: 30, Finance: 20, Healthcare: 15 },
+  { label: 2019, Technology: 40, Finance: 25, Healthcare: 20 },
+  { label: 2020, Technology: 35, Finance: 30, Healthcare: 25 },
+  { label: 2021, Technology: 50, Finance: 35, Healthcare: 30 },
+  { label: 2022, Technology: 60, Finance: 40, Healthcare: 35 },
+  { label: 2023, Technology: 55, Finance: 45, Healthcare: 40 },
+]'
+  width=500
+  height=500
+  colors='deep'
+>
+</stacked_areachart>
+
+
+
+
+### A dotplot chart 
+
+
+<dotplot
+data='[
+    { "category": "A", "value": 10 },
+    { "category": "A", "value": 12 },
+    { "category": "A", "value": 16 },
+    { "category": "B", "value": 20 },
+    { "category": "B", "value": 24 },
+    { "category": "B", "value": 28 },
+    { "category": "C", "value": 12 },
+    { "category": "C", "value": 15 },
+    { "category": "C", "value": 21 }
+]'
+     width=500
+  height=500
+  colors='deep'
+>
+</dotplot>
+
+
+
+
+### A scatterplot chart 
+
+
+<scatterplot
+data='[
+     { "x": 10, "y": 20 },
+  { "x": 30, "y": 40 },
+  { "x": 50, "y": 60 }
+]'
+     width=500
+  height=500
+  dotsize=8
+>
+</scatterplot>
+
+<scatterplot
+data='[
+     { "x": 10, "y": 20 },
+  { "x": 30, "y": 40 },
+  { "x": 50, "y": 60 }
+]'
+    width=500
+  height=500
+>
+</scatterplot>
+
+
+
+### A boxplot chart 
+
+
+<boxplot
+data='[
+   { "category": "A", "value": 10 },
+  { "category": "A", "value": 15 },
+  { "category": "A", "value": 20 },
+  { "category": "B", "value": 30 },
+  { "category": "B", "value": 35 },
+  { "category": "B", "value": 40 }
+]'
+     width=500
+  height=500
+  colors='deep'
+>
+</boxplot>
+
+
+
+### A Contour diagramn
+
+
+<contour
+data='[
+  [0, 10, 20, 30, 20],
+  [10, 20, 30, 40, 30],
+  [20, 30, 40, 50, 40],
+  [10, 20, 30, 40, 30],
+  [0, 10, 20, 30, 20]
+]'
+   width=500
+  height=500
+  colors='flare'
+>
+</contour>
+
+
 ### A Vertical Bar chart
 
 
