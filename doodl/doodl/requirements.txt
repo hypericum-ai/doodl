@@ -5,3 +5,4 @@ seaborn==0.13.2
 playwright==1.52.0
 ipython==9.4.0
 requests==2.32.4
+tolerantjson==1.0.0

@@ -16,6 +16,7 @@ import shutil
 import socketserver
 import sys
 import threading
+import tolerantjson as tjson
 import webbrowser
 import xml.etree.ElementTree as ET
 import zipfile
@@ -478,7 +479,7 @@ def add_chart_to_html(
 
     for num, elem in enumerate(soup.find_all(chart_type)):
         try:
-            attrs = {str(key): json_loads_if_string(value) for key, value in elem.attrs.items()}
+            attrs = {str(key): json_loads_if_string(value,force=key=="data") for key, value in elem.attrs.items()}
         except Exception as e:
             logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}: {e}")
             continue
@@ -1097,12 +1098,17 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
-def json_loads_if_string(value):
+def json_loads_if_string(value, force=False):
     if isinstance(value, str):
         try:
             return json.loads(value)
         except json.JSONDecodeError:
-            return value
+            if force:
+                try:
+                    return tjson.tolerate(value)
+                except tjson.TolerantJSONDecodeError:
+                    logger.error(f"Error decoding JSON: {e}")
+
         except Exception as e:
             logger.error(f"Error decoding JSON: {e}")
 

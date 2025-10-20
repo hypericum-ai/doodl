@@ -8,6 +8,7 @@ export async function stacked_barchart(
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
   moving_average = 0
 ) {
+  
   const { width, height } = size;
   const margin: Margin = defaultMargin;
 

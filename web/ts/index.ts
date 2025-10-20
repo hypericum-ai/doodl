@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Thu Oct 16 16:12:10 CAT 2025
+// Generated Mon Oct 20 15:13:42 CAT 2025
 
 
 /// base.ts
@@ -467,6 +467,7 @@ export async function stacked_barchart(
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
   moving_average = 0
 ) {
+  console.log("Data = ", data);
   const { width, height } = size;
   const margin: Margin = defaultMargin;
 
@@ -641,6 +642,7 @@ export async function stacked_areachart(
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0
 ) {
+  console.log("Data = ", data);
   const { width, height } = size;
   const margin = { top: 40, right: 20, bottom: 40, left: 60 };
   const svgWidth = width;

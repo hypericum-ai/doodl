@@ -6,6 +6,7 @@ export async function stacked_areachart(
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0
 ) {
+  
   const { width, height } = size;
   const margin = { top: 40, right: 20, bottom: 40, left: 60 };
   const svgWidth = width;
