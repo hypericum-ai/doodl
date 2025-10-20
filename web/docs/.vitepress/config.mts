@@ -57,6 +57,7 @@ export default defineConfig({
                     { text: 'Box plot', link: '/charts/boxplot' },
                     { text: 'Bubble chart', link: '/charts/bubbles' },
                     { text: 'Chord diagram', link: '/charts/chord' },
+                    { text: 'Contour plot', link: '/charts/contour' },
                     { text: 'Dot plot', link: '/charts/dotplot' },
                     { text: 'Force diagram', link: '/charts/force' },
                     { text: 'Gantt chart', link: '/charts/gantt' },

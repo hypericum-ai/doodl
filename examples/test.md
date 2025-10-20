@@ -194,6 +194,20 @@ data='[
 >
 </areachart>
 
+<areachart
+data='[
+  { "date": 2018, "Technology": 30, "Finance": 20, "Healthcare": 15 },
+  { "date": 2019, "Technology": 40, "Finance": 25, "Healthcare": 20 },
+  { "date": 2020, "Technology": 35, "Finance": 30, "Healthcare": 25 },
+  { "date": 2021, "Technology": 50, "Finance": 35, "Healthcare": 30 },
+  { "date": 2022, "Technology": 60, "Finance": 40, "Healthcare": 35 },
+  { "date": 2023, "Technology": 55, "Finance": 45, "Healthcare": 40 },
+]'
+  width=500
+  height=500
+  colors='deep'
+>
+</areachart>
 
 <skey
  path= "data/std_focus.json"
