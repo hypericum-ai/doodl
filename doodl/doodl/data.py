@@ -161,7 +161,7 @@ def _interpret_matrix_data(data, spec):
         data = data.to_pandas()
 
     if imports["np"] and isinstance(data, imports["np"].ndarray):
-        data.tolist()
+        data = data.tolist()
     elif imports["pd"]:
         if isinstance(data, imports["pd"].DataFrame):
             data = data.values.tolist()
