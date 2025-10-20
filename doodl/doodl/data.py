@@ -12,6 +12,7 @@ def _init_imports():
     for tag, args in {
         "pd": { "name": "pandas"},
         "pl": { "name": "polars"},
+        "np": { "name": "numpy"},
         # "duckdb": { "name": "duckdb"},
         "pa": { "name": "pyarrow"},
         "fd": { "name": "fireducks.pandas", "fromlist": ["pandas"] }
@@ -150,6 +151,28 @@ def _interpret_multiseries_data(data, spec):
     raise ValueError(f"Unsupported data format for multiseries data type: {type(data)}")
 
 
+def _interpret_matrix_data(data, spec):
+    if imports["pl"] and (
+            isinstance(data, imports["pl"].DataFrame) or
+            isinstance(data, imports["pl"].Series)
+    ):
+        data = data.to_pandas()
+
+    if imports["np"] and isinstance(data, imports["np"].ndarray):
+        data.tolist()
+    elif imports["pd"]:
+        if isinstance(data, imports["pd"].DataFrame):
+            data = data.values.tolist()
+        elif isinstance(data, imports["pd"].Series):
+            data = data.apply(lambda x: x.tolist()).tolist()
+
+    # It should have been converted to a list of lists by now
+
+    if not isinstance(data, list):
+        raise ValueError(f"Unsupported data format for matrix data type: {type(data)}")
+    
+    return data
+
 def interpret_data(data, spec=None, column_mapping=None):
     if not imports:
         _init_imports()
@@ -170,6 +193,8 @@ def interpret_data(data, spec=None, column_mapping=None):
         data, labels = _interpret_chord_data(data, spec)
     elif spec.get("type") == "multiseries":
         data = _interpret_multiseries_data(data, spec)
+    elif spec.get("type") == "matrix":
+        data = _interpret_matrix_data(data, spec)
     else:
         raise ValueError(f"Unsupported data type in spec: {spec.get('type')}")
 
