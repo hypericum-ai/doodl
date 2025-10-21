@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Tue Oct 21 15:14:59 CAT 2025
+// Generated Tue Oct 21 15:31:25 CAT 2025
 
 
 /// base.ts
@@ -444,7 +444,7 @@ export async function barchart(
       const line = d3.line<number>()
         .x((d) => xHorizontal(d))
         .y((_, i) => yHorizontal(processed_data[i].label)! + yHorizontal.bandwidth() / 2)
-        .curve(d3.curveMonotoneX);
+        .curve(d3.curveMonotoneY);
 
       svg.append("path")
         .datum(avgValues)

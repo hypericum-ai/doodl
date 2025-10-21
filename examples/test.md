@@ -1,4 +1,48 @@
 
+
+
+### A Vertical Bar chart
+
+
+
+<barchart
+  data='[
+    { "label": "Apples", "value": 10 },
+    { "label": "Bananas", "value": 20 },
+    { "label": "Cherries", "value": 15 },
+    { "label": "Grapes", "value": 25 }
+  ]'
+  width=500
+  height=500
+  colors='["#FF6700","#008000"]'
+  horizontal='true'
+  moving_average='true'
+>
+</barchart>
+
+
+
+
+### A Horizontal Bar chart
+
+
+
+<barchart
+data='[
+  { "label": "Apples", "value": 100000000 },
+  { "label": "Bananas", "value": 200000000 },
+  { "label": "Cherries", "value": 150000000 },
+  { "label": "Grapes", "value": 250000000 }
+]'
+  width=500
+  height=500
+  colors='["#FF6700","#008000"]'
+  horizontal='false'
+  moving_average='true'
+>
+</barchart>
+
+
 ### An areachart 
 
 
@@ -152,46 +196,6 @@ data='[
 </contour>
 
 
-### A Vertical Bar chart
-
-
-
-<barchart
-  data='[
-    { "label": "Apples", "value": 10 },
-    { "label": "Bananas", "value": 20 },
-    { "label": "Cherries", "value": 15 },
-    { "label": "Grapes", "value": 25 }
-  ]'
-  width=500
-  height=500
-  colors='["#FF6700","#008000"]'
-  horizontal='true'
-  moving_average='true'
->
-</barchart>
-
-
-
-
-### A Horizontal Bar chart
-
-
-
-<barchart
-data='[
-  { "label": "Apples", "value": 100000000 },
-  { "label": "Bananas", "value": 200000000 },
-  { "label": "Cherries", "value": 150000000 },
-  { "label": "Grapes", "value": 250000000 }
-]'
-  width=500
-  height=500
-  colors='["#FF6700","#008000"]'
-  horizontal='false'
-  moving_average='true'
->
-</barchart>
 
 
 
