@@ -36,6 +36,8 @@ export async function contour(
     .attr("width", width)
     .attr("height", height);
 
+   hamburgerMenu(div, data);
+
   // Generate contours
   const contours = d3.contours()
     .size([m, n])

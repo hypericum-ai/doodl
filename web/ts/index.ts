@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Mon Oct 20 15:13:42 CAT 2025
+// Generated Tue Oct 21 15:14:59 CAT 2025
 
 
 /// base.ts
@@ -467,7 +467,7 @@ export async function stacked_barchart(
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
   moving_average = 0
 ) {
-  console.log("Data = ", data);
+  
   const { width, height } = size;
   const margin: Margin = defaultMargin;
 
@@ -484,6 +484,8 @@ export async function stacked_barchart(
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+   hamburgerMenu(div, data);
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
@@ -642,7 +644,7 @@ export async function stacked_areachart(
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0
 ) {
-  console.log("Data = ", data);
+  
   const { width, height } = size;
   const margin = { top: 40, right: 20, bottom: 40, left: 60 };
   const svgWidth = width;
@@ -663,6 +665,8 @@ export async function stacked_areachart(
   const chartArea = svg
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  hamburgerMenu(div, data);
 
   // ---- Data preparation ----
   // Expect data in format: [{ label: label1, value1: value, value2: value, ...}, ...]
@@ -1902,8 +1906,6 @@ export  async function skey(
         return `${prefix}-${++counter}`;
     }
 
-    // console.log(graph.links)
-
     if (link_color == "source-target") {
       const gradient = link.append("linearGradient")
       .attr("id", (d: any) => (d.uid = generateUid()))
@@ -2502,6 +2504,8 @@ export async function contour(
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+   hamburgerMenu(div, data);
 
   // Generate contours
   const contours = d3.contours()
