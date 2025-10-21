@@ -1,4 +1,23 @@
 
+### An areachart 
+
+
+<areachart
+data='[
+  { "label": 2018, "Technology": 30, "Finance": 20, "Healthcare": 15 },
+  { "label": 2019, "Technology": 40, "Finance": 25, "Healthcare": 20 },
+  { "label": 2020, "Technology": 35, "Finance": 30, "Healthcare": 25 },
+  { "label": 2021, "Technology": 50, "Finance": 35, "Healthcare": 30 },
+  { "label": 2022, "Technology": 60, "Finance": 40, "Healthcare": 35 },
+  { "label": 2023, "Technology": 55, "Finance": 45, "Healthcare": 40 },
+]'
+  width=500
+  height=500
+  colors='deep'
+>
+</areachart>
+
+
 
 ### A stacked barchart 
 
