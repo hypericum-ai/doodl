@@ -157,6 +157,8 @@ def _interpret_matrix_data(data, spec):
             isinstance(data, imports["pl"].Series)
     ):
         data = data.to_pandas()
+    elif imports["fd"] and isinstance(data, imports["fd"].DataFrame):
+        data = data.to_pandas()
 
     if imports["np"] and isinstance(data, imports["np"].ndarray):
         data = data.tolist()
