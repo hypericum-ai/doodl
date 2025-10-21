@@ -22,7 +22,7 @@ SOURCE_FILES = \
 	skey.ts \
 	tree.ts \
 	treemap.ts \
-	venn.ts \
+	vennchart.ts \
 	disjoint.ts \
 	dendrogram.ts \
 	contour.ts \

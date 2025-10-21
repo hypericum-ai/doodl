@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Tue Oct 21 15:31:25 CAT 2025
+// Generated Tue Oct 21 19:23:15 CAT 2025
 
 
 /// base.ts
@@ -2186,15 +2186,20 @@ export async function treemap(
    .text((d) => d.data.name);
 }
 
-/// venn.ts
+/// vennchart.ts
 
-export async function venn(
+import "venn.js";
+declare const venn: any;
+
+export async function vennchart(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors
 ) {
+
+  console.log("Venn data:", data);
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -2214,19 +2219,29 @@ export async function venn(
     .attr("width", svgWidth)
     .attr("height", svgHeight)
     .append("g")
-    .attr("transform", `translate(${svgWidth / 2}, ${svgHeight / 2})`);
+    .attr("transform", `translate(${margin.left || 0}, ${margin.top || 0})`);
 
-    hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
 
-  // Define a pack layout to determine circle positions
-  const pack = d3.pack<DataNode>().size([width, height]).padding(10);
+  // Convert your hierarchical data to venn.js set format
+  const sets = data.children.map((d: any) => ({
+    sets: [d.name],
+    size: d.size
+  }));
 
-  // Convert data to a hierarchy structure
-  const root = d3.hierarchy<DataNode>(data).sum((d: any) => d.size);
+  // Create Venn layout
+  const chart = venn.VennDiagram().width(width).height(height);
+  svg.datum(sets).call(chart);
 
-  // Apply pack layout to get node positions
-  const nodes = pack(root).leaves();
+  // Color circles
+  svg
+    .selectAll("path")
+    .style("fill", (d, i) => colors[i % colors.length])
+    .style("fill-opacity", 0.6)
+    .style("stroke", colors[0])
+    .style("stroke-width", 1.5);
 
+  // Tooltip
   const tooltip = d3
     .select("body")
     .append("div")
@@ -2238,49 +2253,21 @@ export async function venn(
     .style("font-size", "12px")
     .style("display", "none");
 
-  // Draw circles
   svg
-    .selectAll("circle")
-    .data(nodes)
-    .enter()
-    .append("circle")
-    .attr("cx", (d) => d.x - width / 2) // Center circles
-    .attr("cy", (d) => d.y - height / 2)
-    .attr("r", (d) => d.r)
-    .style("fill", (d, i) => colors[i % colors.length])
-    .style("opacity", 0.7)
-    .style("stroke", colors[0])
-    .style("stroke-width", 1.5)
-    .on("mouseover", function (event, d:any) {
-      d3.select(this).transition().duration(200).style("opacity", 1);
-      d3.select(this).transition().duration(200).attr("r", (d:any) => d.r * 1.05);
-
+    .selectAll("g")
+    .on("mouseover", function (event, d: any) {
+      venn.sortAreas(svg, d);
+      d3.select(this).select("path").transition().duration(200).style("fill-opacity", 0.9);
       tooltip
-      .style("display", "block")
-      .style("left", `${event.pageX}px`)
-      .style("top", `${event.pageY}px`)
-      .text(d.data.name);
-
+        .style("display", "block")
+        .style("left", `${event.pageX}px`)
+        .style("top", `${event.pageY}px`)
+        .text(d.sets.join(" ∩ "));
     })
     .on("mouseout", function () {
-      d3.select(this).transition().duration(200).style("opacity", 0.7);
-      d3.select(this).transition().duration(200).attr("r", (d:any) => d.r);
+      d3.select(this).select("path").transition().duration(200).style("fill-opacity", 0.6);
       tooltip.style("display", "none");
     });
-
-  // Add text labels
-  svg
-    .selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr("x", (d) => d.x - width / 2)
-    .attr("y", (d) => d.y - height / 2)
-    .attr("text-anchor", "middle")
-    .attr("dominant-baseline", "middle")
-    .style("fill", colors[0])
-    .style("font-size", "14px")
-    .text((d:any) => d.data.name);
 }
 /// disjoint.ts
 

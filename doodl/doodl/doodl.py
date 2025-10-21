@@ -261,7 +261,7 @@ STANDARD_CHARTS = {
             "type": "hierarchy"
         }
     },
-    "venn": {
+    "vennchart": {
         "data": {
             "type": "hierarchy"
         }

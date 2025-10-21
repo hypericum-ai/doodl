@@ -13,5 +13,6 @@ export default {
     resolve(),
     typescript(),
     terser({ format: { comments: false } })
-  ]
+  ],
+  context: "window"
 };

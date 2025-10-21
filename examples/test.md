@@ -1,4 +1,26 @@
 
+### A venn diagram 
+
+
+<vennchart
+data='{
+  children: [
+    { name: "A", size: 10 },
+    { name: "B", size: 15 },
+    { name: "C", size: 20 },
+    { name: "A&B", size: 5 },   // overlap between A and B
+    { name: "A&C", size: 3 },   // overlap between A and C
+    { name: "B&C", size: 4 },   // overlap between B and C
+    { name: "A&B&C", size: 2 }  // intersection of all three
+  ]
+}
+'
+  size='{"width":500,"height":500}'
+  colors='deep'
+>
+</vennchart>
+
+
 
 
 ### A Vertical Bar chart
