@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Mon Oct 20 15:13:42 CAT 2025
+// Generated Mon Oct 20 03:17:57 PM EDT 2025
 
 
 /// base.ts
@@ -467,7 +467,7 @@ export async function stacked_barchart(
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
   moving_average = 0
 ) {
-  console.log("Data = ", data);
+  
   const { width, height } = size;
   const margin: Margin = defaultMargin;
 
@@ -642,7 +642,7 @@ export async function stacked_areachart(
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0
 ) {
-  console.log("Data = ", data);
+  
   const { width, height } = size;
   const margin = { top: 40, right: 20, bottom: 40, left: 60 };
   const svgWidth = width;
@@ -2502,6 +2502,8 @@ export async function contour(
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+  hamburgerMenu(div, data);
 
   // Generate contours
   const contours = d3.contours()
