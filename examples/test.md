@@ -1,5 +1,68 @@
 
 
+
+### A Vertical Bar chart
+
+
+
+<barchart
+  data='[
+    { "label": "Apples", "value": 10 },
+    { "label": "Bananas", "value": 20 },
+    { "label": "Cherries", "value": 15 },
+    { "label": "Grapes", "value": 25 }
+  ]'
+  width=500
+  height=500
+  colors='["#FF6700","#008000"]'
+  horizontal='true'
+  moving_average='true'
+>
+</barchart>
+
+
+
+
+### A Horizontal Bar chart
+
+
+
+<barchart
+data='[
+  { "label": "Apples", "value": 100000000 },
+  { "label": "Bananas", "value": 200000000 },
+  { "label": "Cherries", "value": 150000000 },
+  { "label": "Grapes", "value": 250000000 }
+]'
+  width=500
+  height=500
+  colors='["#FF6700","#008000"]'
+  horizontal='false'
+  moving_average='true'
+>
+</barchart>
+
+
+### An areachart 
+
+
+<areachart
+data='[
+  { "label": 2018, "Technology": 30, "Finance": 20, "Healthcare": 15 },
+  { "label": 2019, "Technology": 40, "Finance": 25, "Healthcare": 20 },
+  { "label": 2020, "Technology": 35, "Finance": 30, "Healthcare": 25 },
+  { "label": 2021, "Technology": 50, "Finance": 35, "Healthcare": 30 },
+  { "label": 2022, "Technology": 60, "Finance": 40, "Healthcare": 35 },
+  { "label": 2023, "Technology": 55, "Finance": 45, "Healthcare": 40 },
+]'
+  width=500
+  height=500
+  colors='deep'
+>
+</areachart>
+
+
+
 ### A stacked barchart 
 
 
@@ -133,46 +196,6 @@ data='[
 </contour>
 
 
-### A Vertical Bar chart
-
-
-
-<barchart
-  data='[
-    { "label": "Apples", "value": 10 },
-    { "label": "Bananas", "value": 20 },
-    { "label": "Cherries", "value": 15 },
-    { "label": "Grapes", "value": 25 }
-  ]'
-  width=500
-  height=500
-  colors='["#FF6700","#008000"]'
-  horizontal='true'
-  moving_average='true'
->
-</barchart>
-
-
-
-
-### A Horizontal Bar chart
-
-
-
-<barchart
-data='[
-  { "label": "Apples", "value": 100000000 },
-  { "label": "Bananas", "value": 200000000 },
-  { "label": "Cherries", "value": 150000000 },
-  { "label": "Grapes", "value": 250000000 }
-]'
-  width=500
-  height=500
-  colors='["#FF6700","#008000"]'
-  horizontal='false'
-  moving_average='true'
->
-</barchart>
 
 
 

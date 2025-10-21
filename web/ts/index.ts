@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Mon Oct 20 03:17:57 PM EDT 2025
+// Generated Tue Oct 21 15:31:25 CAT 2025
 
 
 /// base.ts
@@ -444,7 +444,7 @@ export async function barchart(
       const line = d3.line<number>()
         .x((d) => xHorizontal(d))
         .y((_, i) => yHorizontal(processed_data[i].label)! + yHorizontal.bandwidth() / 2)
-        .curve(d3.curveMonotoneX);
+        .curve(d3.curveMonotoneY);
 
       svg.append("path")
         .datum(avgValues)
@@ -484,6 +484,8 @@ export async function stacked_barchart(
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+   hamburgerMenu(div, data);
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
@@ -663,6 +665,8 @@ export async function stacked_areachart(
   const chartArea = svg
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  hamburgerMenu(div, data);
 
   // ---- Data preparation ----
   // Expect data in format: [{ label: label1, value1: value, value2: value, ...}, ...]
@@ -1902,8 +1906,6 @@ export  async function skey(
         return `${prefix}-${++counter}`;
     }
 
-    // console.log(graph.links)
-
     if (link_color == "source-target") {
       const gradient = link.append("linearGradient")
       .attr("id", (d: any) => (d.uid = generateUid()))
@@ -2503,7 +2505,7 @@ export async function contour(
     .attr("width", width)
     .attr("height", height);
 
-  hamburgerMenu(div, data);
+   hamburgerMenu(div, data);
 
   // Generate contours
   const contours = d3.contours()

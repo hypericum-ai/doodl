@@ -26,6 +26,8 @@ export async function stacked_barchart(
     .attr("width", width)
     .attr("height", height);
 
+   hamburgerMenu(div, data);
+
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
 

@@ -78,8 +78,6 @@ export  async function skey(
         return `${prefix}-${++counter}`;
     }
 
-    // console.log(graph.links)
-
     if (link_color == "source-target") {
       const gradient = link.append("linearGradient")
       .attr("id", (d: any) => (d.uid = generateUid()))

@@ -28,6 +28,8 @@ export async function stacked_areachart(
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
+  hamburgerMenu(div, data);
+
   // ---- Data preparation ----
   // Expect data in format: [{ label: label1, value1: value, value2: value, ...}, ...]
   const keys = Object.keys(data[0]).filter((k) => k !== "label");
