@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Tue Oct 21 19:23:15 CAT 2025
+// Generated Wed Oct 22 18:54:31 CAT 2025
 
 
 /// base.ts
@@ -2509,7 +2509,7 @@ export async function contour(
     .attr("stroke", "#333")
     .attr("stroke-width", 0.3);
 }
-/// area.ts
+/// areachart.ts
 
 export async function areachart(
   div: string = defaultArgumentObject.div,
@@ -2521,48 +2521,11 @@ export async function areachart(
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
+d3.select(div).selectAll("*").remove();
 
-  const margin = defaultMargin;
+  const margin = { top: 20, right: 30, bottom: 30, left: 50 };
   const width = size.width - margin.left - margin.right;
   const height = size.height - margin.top - margin.bottom;
-
-  const parseDate = d3.timeParse("%Y-%m-%d");
-  data.forEach((d: any) => {
-    d.date = parseDate(d.date);
-  });
-
-  const keys = Object.keys(data[0]).filter((k) => k !== "date");
-  const stackedData = d3.stack().keys(keys)(data);
-
-  const dateExtent = d3.extent(data, (d: any) => d.date) as [
-    Date | undefined,
-    Date | undefined
-  ];
-  const validDateExtent: [Date, Date] =
-    dateExtent[0] && dateExtent[1]
-      ? [dateExtent[0], dateExtent[1]]
-      : [new Date(), new Date()];
-
-  const x = d3
-    .scaleTime()
-    .domain(validDateExtent)
-    .range([0, width]);
-
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(stackedData[stackedData.length - 1], (d) => d[1])!])
-    .nice()
-    .range([height, 0]);
-
-  const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
-
-  const area = d3
-    .area<[number, number]>()
-    .x((d, i) => x(data[i].date)!)
-    .y0((d) => y(d[0]))
-    .y1((d) => y(d[1]));
-
-  d3.select(div).selectAll("*").remove();
 
   const svg = d3
     .select(div)
@@ -2572,80 +2535,80 @@ export async function areachart(
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
 
-  // Add areas
-  svg
-    .selectAll("path")
-    .data(stackedData)
-    .join("path")
-    .attr("fill", ({ key }) => color(key)!)
-    .attr("d", (d: d3.Series<any, string>) => area(d as [number, number][])!)
-    .on("mousemove", function (event, layer) {
-      const [xPos] = d3.pointer(event);
-      const xDate = x.invert(xPos);
-      const i = d3.bisector((d: any) => d.date).center(data, xDate);
-      const d = data[i];
-      const tooltipHtml = keys
-        .map(
-          (k) =>
-            `<div><span style="color:${color(k)};">●</span> ${k}: ${d[k]}</div>`
-        )
-        .join("");
-      tooltip
-        .html(
-          `<strong>${d3.timeFormat("%Y-%m-%d")(d.date)}</strong>${tooltipHtml}`
-        )
-        .style("left", `${event.pageX + 15}px`)
-        .style("top", `${event.pageY - 28}px`)
-        .style("opacity", 1);
+  const xValues = data.map((d: any) => d.x);
+  const firstX = xValues[0];
+
+  // Type guards
+  const isDateArray = firstX instanceof Date;
+  const isNumberArray = typeof firstX === "number";
+  const isStringArray = typeof firstX === "string";
+
+  // Declare generic scale variable
+  let xScale:
+    | d3.ScaleTime<number, number>
+    | d3.ScaleLinear<number, number>
+    | d3.ScalePoint<string>;
+
+  if (isDateArray) {
+    const domain = d3.extent(xValues as Date[]).filter(
+      (d): d is Date => d instanceof Date
+    );
+    xScale = d3
+      .scaleTime()
+      .domain(domain.length === 2 ? domain : [new Date(), new Date()])
+      .range([0, width]);
+  } else if (isNumberArray) {
+    const domain = d3.extent(xValues as number[]).filter(
+      (d): d is number => typeof d === "number"
+    );
+    xScale = d3
+      .scaleLinear()
+      .domain(domain.length === 2 ? domain : [0, 1])
+      .range([0, width]);
+  } else if (isStringArray) {
+    xScale = d3
+      .scalePoint()
+      .domain(xValues as string[])
+      .range([0, width])
+      .padding(0.5);
+  } else {
+    throw new Error("Unsupported x value type");
+  }
+
+  // Y scale (always numeric)
+  const yMax = d3.max(data, (d: any) => +d.y) ?? 0;
+  const yScale = d3.scaleLinear().domain([0, yMax]).range([height, 0]);
+
+  // Area generator
+  const area = d3
+    .area<any>()
+    .x((d) => {
+      if (xScale instanceof d3.scalePoint) {
+        return xScale(d.x)!;
+      }
+      return (xScale as any)(d.x) ?? 0;
     })
-    .on("mouseout", () => {
-      tooltip.style("opacity", 0);
-    });
+    .y0(height)
+    .y1((d) => yScale(d.y));
 
-  // Axes
+  // Draw area
+  svg
+    .append("path")
+    .datum(data)
+    .attr("fill", colors[0] || "steelblue")
+    .attr("d", area);
+
+  // X axis
   svg
     .append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(x).ticks(6));
+    .call(d3.axisBottom(xScale as any));
 
-  svg.append("g").call(d3.axisLeft(y));
+  // Y axis
+  svg.append("g").call(d3.axisLeft(yScale));
 
-  // Tooltip div
-  const tooltip = d3
-    .select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("background", "#fff")
-    .style("border", "1px solid #ccc")
-    .style("border-radius", "4px")
-    .style("padding", "8px")
-    .style("font-size", "12px")
-    .style("pointer-events", "none")
-    .style("opacity", 0);
-
-  // Legend
-  const legend = svg
-    .append("g")
-    .attr("transform", `translate(${width + 20}, 0)`);
-
-  keys.forEach((key, i) => {
-    const g = legend.append("g").attr("transform", `translate(0, ${i * 20})`);
-
-    g.append("rect")
-      .attr("width", 12)
-      .attr("height", 12)
-      .attr("fill", color(key)!);
-
-    g.append("text")
-      .attr("x", 18)
-      .attr("y", 10)
-      .text(key)
-      .style("font-size", "12px")
-      .style("alignment-baseline", "middle");
-  });
 }
 
 /// bubblechart.ts

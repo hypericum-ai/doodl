@@ -1,4 +1,25 @@
 
+
+### An areachart 
+
+
+<areachart
+data='[
+  { "x": 1, "y": 10 }, 
+  { "x": 2, "y": 20 },
+  { "x": 3, "y": 15 },
+  { "x": 4, "y": 25 },
+  { "x": 5, "y": 30 },
+  { "x": 6, "y": 35 }
+  ]'
+  width=500
+  height=500
+  colors='deep'
+>
+</areachart>
+
+
+
 ### A venn diagram 
 
 
@@ -64,24 +85,6 @@ data='[
 >
 </barchart>
 
-
-### An areachart 
-
-
-<areachart
-data='[
-  { "label": 2018, "Technology": 30, "Finance": 20, "Healthcare": 15 },
-  { "label": 2019, "Technology": 40, "Finance": 25, "Healthcare": 20 },
-  { "label": 2020, "Technology": 35, "Finance": 30, "Healthcare": 25 },
-  { "label": 2021, "Technology": 50, "Finance": 35, "Healthcare": 30 },
-  { "label": 2022, "Technology": 60, "Finance": 40, "Healthcare": 35 },
-  { "label": 2023, "Technology": 55, "Finance": 45, "Healthcare": 40 },
-]'
-  width=500
-  height=500
-  colors='deep'
->
-</areachart>
 
 
 
@@ -220,39 +223,6 @@ data='[
 
 
 
-
-
-<areachart
-data='[
-  { "date": "2024-01-01", "catA": 10, "catB": 20, "catC": 30 },
-  { "date": "2024-01-02", "catA": 15, "catB": 25, "catC": 35 },
-  { "date": "2024-01-03", "catA": 20, "catB": 22, "catC": 28 },
-  { "date": "2024-01-04", "catA": 18, "catB": 30, "catC": 25 },
-  { "date": "2024-01-05", "catA": 22, "catB": 28, "catC": 32 },
-  { "date": "2024-01-06", "catA": 19, "catB": 26, "catC": 29 },
-  { "date": "2024-01-07", "catA": 24, "catB": 30, "catC": 35 },
-  { "date": "2024-01-08", "catA": 28, "catB": 33, "catC": 40 }
-]'
-  width=500
-  height=500
-  colors='flare'
->
-</areachart>
-
-<areachart
-data='[
-  { "date": 2018, "Technology": 30, "Finance": 20, "Healthcare": 15 },
-  { "date": 2019, "Technology": 40, "Finance": 25, "Healthcare": 20 },
-  { "date": 2020, "Technology": 35, "Finance": 30, "Healthcare": 25 },
-  { "date": 2021, "Technology": 50, "Finance": 35, "Healthcare": 30 },
-  { "date": 2022, "Technology": 60, "Finance": 40, "Healthcare": 35 },
-  { "date": 2023, "Technology": 55, "Finance": 45, "Healthcare": 40 },
-]'
-  width=500
-  height=500
-  colors='deep'
->
-</areachart>
 
 <skey
  path= "data/std_focus.json"
