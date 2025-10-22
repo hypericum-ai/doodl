@@ -175,6 +175,9 @@ def _interpret_matrix_data(data, spec):
     
     return data
 
+def _interpret_venn_data(data, spec):
+    return data
+
 def interpret_data(data, spec=None, column_mapping=None):
     if not imports:
         _init_imports()
@@ -197,6 +200,8 @@ def interpret_data(data, spec=None, column_mapping=None):
         data = _interpret_multiseries_data(data, spec)
     elif spec.get("type") == "matrix":
         data = _interpret_matrix_data(data, spec)
+    elif spec.get("type") == "venn":
+        data = _interpret_venn_data(data, spec)
     else:
         raise ValueError(f"Unsupported data type in spec: {spec.get('type')}")
 

@@ -263,7 +263,7 @@ STANDARD_CHARTS = {
     },
     "vennchart": {
         "data": {
-            "type": "hierarchy"
+            "type": "venn"
         }
     },
     "voronoi": {
