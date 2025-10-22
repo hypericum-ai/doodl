@@ -1,5 +1,7 @@
-from doodl.doodl import\
-    linechart, piechart, skey, barchart, tree, vennchart, gantt, treemap,\
-    heatmap, dotplot, scatterplot, boxplot, force, chord, disjoint,\
-    bollinger, dendrogram, contour, areachart, bubblechart, voronoi
+from doodl.doodl import \
+    areachart, barchart, bollinger, boxplot, bubblechart, chord, \
+    contour, dendrogram, disjoint, dotplot, force, gantt, heatmap, \
+    linechart, piechart, scatterplot, skey, stacked_areachart, \
+    stacked_barchart, tree, treemap, vennchart, voronoi
+
 from doodl.data import interpret_data

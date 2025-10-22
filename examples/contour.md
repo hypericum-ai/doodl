@@ -1,7 +1,8 @@
 <contour
-    path='data/volcano.json'
-    width=500
-    height=500
-    colors='flare'
+    path='data/volcano/volcano.json'
+    width=696
+    height=488
+    colors='Spectral_r'
+    n_colors=20
 >
 </contour>

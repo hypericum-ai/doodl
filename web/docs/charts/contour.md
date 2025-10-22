@@ -42,8 +42,8 @@ like:
 ~~~html
 <contour
     path='data/volcano/volcano.json'
-    width=500
-    height=500
+    width=696
+    height=488
     colors='Spectral_r'
     n_colors=20
 >
@@ -55,8 +55,8 @@ import doodl
 
 doodl.contour(
     path='data/volcano/volcano.json',
-    width=500,
-    height=500,
+    width=696
+    height=488
     colors='Spectral_r',
     n_colors=20
 )
@@ -69,8 +69,8 @@ doodl.contour(
   Doodl.contour(
     '#contour_0',
     [], {
-      'width': 500,
-      'height': 500
+      'width': 696,
+      'height': 488
     },{'path': 'data/volcano/volcano.json', 'format': 'json'},
     [
         '#4969ae', '#3484bb', '#479fb3', '#5fbba7', '#7ecba4',

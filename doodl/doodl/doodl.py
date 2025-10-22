@@ -1106,11 +1106,10 @@ def json_loads_if_string(value, force=False):
             if force:
                 try:
                     return tjson.tolerate(value)
-                except tjson.TolerantJSONDecodeError:
-                    logger.error(f"Error decoding JSON: {e}")
-
+                except tjson.TolerantJSONDecodeError as tolerant_decode_error:
+                    logger.error(f"Error decoding (non-strict) JSON: {tolerant_decode_error}")
         except Exception as e:
-            logger.error(f"Error decoding JSON: {e}")
+            logger.error(f"Unexpected error decoding JSON: {e}")
 
     return value
 
@@ -1144,9 +1143,10 @@ def handle_chart_field_arguments(
     # Figure out the colors
 
     for field, dv in palette_fields.items():
+        raw_value = supplied_attrs.get(field, dv)
         if field in supplied_attrs:
             if field == "colors":
-                value = json_loads_if_string(supplied_attrs[field])
+                value = json_loads_if_string(raw_value)
                 if (
                     isinstance(value, list)
                     and len(value) == 1
@@ -1158,9 +1158,9 @@ def handle_chart_field_arguments(
                 try:
                     palette_fields[field] = json.loads(supplied_attrs[field])
                 except json.JSONDecodeError as e:
-                    logger.error(e,f'Error decoding JSON for field "{field}": {dv}' )
+                    logger.error(f'Error decoding JSON for field "{field}": {dv}: {e}')
             else:
-                palette_fields[field] = dv
+                palette_fields[field] = raw_value
 
     # Construct the palette
 
