@@ -26,7 +26,7 @@ SOURCE_FILES = \
 	disjoint.ts \
 	dendrogram.ts \
 	contour.ts \
-	area.ts \
+	areachart.ts \
 	bubblechart.ts \
 	voronoi.ts \
 
