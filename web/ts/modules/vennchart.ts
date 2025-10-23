@@ -33,13 +33,11 @@ export async function vennchart(
 
   hamburgerMenu(div, data);
 
-  // Convert your hierarchical data to venn.js set format
-  // const sets = data.children.map((d: any) => ({
-  //   sets: [d.name],
-  //   size: d.size
-  // }));
-
-  // Create Venn layout
+  // Create Venn layout with venn existence check
+  if (typeof venn === "undefined" || !venn.VennDiagram) {
+    console.error("Venn.js not properly loaded — ensure it's imported or globally available.");
+    return;
+  }
   const chart = venn.VennDiagram().width(width).height(height);
   svg.datum(data).call(chart);
 
