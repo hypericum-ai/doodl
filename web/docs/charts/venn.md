@@ -80,7 +80,6 @@ df = pd.DataFrame([
     { 'company': 'A&B&C', 'sales':     4_000, 'clients':   4 },
 ])
 
-
 doodl.vennchart(
     data=df,
     name='company',
