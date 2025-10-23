@@ -1106,8 +1106,8 @@ def json_loads_if_string(value, force=False):
             if force:
                 try:
                     return tjson.tolerate(value)
-                except tjson.TolerantJSONDecodeError as tolerant_decode_error:
-                    logger.error(f"Error decoding (non-strict) JSON: {tolerant_decode_error}")
+                except tjson.ParseException as terror:
+                    logger.error(f"Error decoding (non-strict) JSON \"{value}\": {terror}")
         except Exception as e:
             logger.error(f"Unexpected error decoding JSON: {e}")
 
@@ -1211,7 +1211,7 @@ def handle_chart_field_arguments(
     if all_fields["data"] is not None:
         column_mapping = {}
 
-        if data_spec.get("type", "") == "table":
+        if data_spec.get("type", "") in ["table", "venn"]:
             columns = data_spec.get("columns", [])
             column_mapping = {
                 col: supplied_attrs[col] for col in columns

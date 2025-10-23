@@ -175,10 +175,53 @@ def _interpret_matrix_data(data, spec):
     
     return data
 
-def _interpret_venn_data(data, spec):
-    return data
+def _interpret_venn_data(data, spec: dict, column_mapping: dict):
+    # Convert data frames to a Pandas DataFrame first
 
-def interpret_data(data, spec=None, column_mapping=None):
+    if imports["pl"] and (
+            isinstance(data, imports["pl"].DataFrame) or
+            isinstance(data, imports["pl"].LazyFrame)
+        ):
+        data = data.to_pandas()
+    elif imports["pa"] and isinstance(data, imports["pa"].Table):
+        data = data.to_pylist()
+    elif imports["fd"] and isinstance(data, imports["fd"].DataFrame):
+        data = data.to_pandas()
+
+    # Convert Pandas DataFrame to list of dicts
+
+    if imports['pd'] and isinstance(data, imports['pd'].DataFrame):
+        data = data[[
+            column_mapping.get('name', 'name'),
+            column_mapping.get('size', 'size')
+        ]].to_dict(orient="records")
+
+    # Now handle the 'name' to 'sets' conversion
+
+    if type(data) is list and all(isinstance(item, dict) for item in data):
+        for item in data:
+            if 'name' in item:
+                set_names = list(map(lambda x: x.strip(), item['name'].split('&')))
+                item['sets'] = set_names
+                del item['name']
+
+        return data
+    
+    else:
+        raise ValueError(f"Unsupported data format for venn data type: {type(data)}")
+
+def interpret_data(data, spec={}, column_mapping={}):
+    """
+    Interpret the data according to the spec.
+
+    Parameters:
+    data (any): The data to interpret.
+    spec (dict): A dictionary containing information about the data.
+    column_mapping (dict): A dictionary mapping column names in the spec to column names in the data.
+
+    Returns:
+    A canonical representation of the data according to the spec.
+    """
     if not imports:
         _init_imports()
 
@@ -201,7 +244,7 @@ def interpret_data(data, spec=None, column_mapping=None):
     elif spec.get("type") == "matrix":
         data = _interpret_matrix_data(data, spec)
     elif spec.get("type") == "venn":
-        data = _interpret_venn_data(data, spec)
+        data = _interpret_venn_data(data, spec, column_mapping)
     else:
         raise ValueError(f"Unsupported data type in spec: {spec.get('type')}")
 
