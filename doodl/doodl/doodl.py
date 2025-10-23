@@ -1211,7 +1211,7 @@ def handle_chart_field_arguments(
     if all_fields["data"] is not None:
         column_mapping = {}
 
-        if data_spec.get("type", "") == "table":
+        if data_spec.get("type", "") in ["table", "venn"]:
             columns = data_spec.get("columns", [])
             column_mapping = {
                 col: supplied_attrs[col] for col in columns
