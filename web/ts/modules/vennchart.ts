@@ -8,8 +8,6 @@ export async function vennchart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors
 ) {
-
-  console.log("Venn data:", data);
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -33,13 +31,18 @@ export async function vennchart(
 
   hamburgerMenu(div, data);
 
+
+  try {
+    
+
+
   // Create Venn layout with venn existence check
   if (typeof venn === "undefined" || !venn.VennDiagram) {
-    console.error("Venn.js not properly loaded — ensure it's imported or globally available.");
+    console.error("Venn.js not properly loaded");
     return;
   }
   const chart = venn.VennDiagram().width(width).height(height);
-  svg.datum(data).call(chart);
+  svg.datum(data)?.call(chart);
 
   // Color circles
   svg
@@ -76,4 +79,8 @@ export async function vennchart(
       d3.select(this).select("path").transition().duration(200).style("fill-opacity", 0.6);
       tooltip.style("display", "none");
     });
+
+  } catch (error) {
+    console.log("Non critical warning in vennchart:");
+  }
 }

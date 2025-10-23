@@ -26,9 +26,13 @@ data='[
 <vennchart
 data='
   [ 
-  {"sets": ["A"], "size": 12}, 
-    {"sets": ["B"], "size": 12},
-    {"sets": ["A","B"], "size": 2}
+  {"sets": ["A"], "size": 10}, 
+    {"sets": ["B"], "size": 15},
+    {"sets": ["C"], "size": 20},
+    {"sets": ["A","B"], "size": 5}
+    {"sets": ["A","C"], "size": 3}
+    {"sets": ["B","C"], "size": 4}
+    {"sets": ["A","B","C"], "size": 2}
   ]
 '
   size='{"width":500,"height":500}'

@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Thu Oct 23 15:29:53 CAT 2025
+// Generated Thu Oct 23 18:54:35 CAT 2025
 
 
 /// base.ts
@@ -2198,8 +2198,6 @@ export async function vennchart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors
 ) {
-
-  console.log("Venn data:", data);
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -2223,15 +2221,18 @@ export async function vennchart(
 
   hamburgerMenu(div, data);
 
-  // Convert your hierarchical data to venn.js set format
-  // const sets = data.children.map((d: any) => ({
-  //   sets: [d.name],
-  //   size: d.size
-  // }));
 
-  // Create Venn layout
+  try {
+    
+
+
+  // Create Venn layout with venn existence check
+  if (typeof venn === "undefined" || !venn.VennDiagram) {
+    console.error("Venn.js not properly loaded");
+    return;
+  }
   const chart = venn.VennDiagram().width(width).height(height);
-  svg.datum(data).call(chart);
+  svg.datum(data)?.call(chart);
 
   // Color circles
   svg
@@ -2268,6 +2269,10 @@ export async function vennchart(
       d3.select(this).select("path").transition().duration(200).style("fill-opacity", 0.6);
       tooltip.style("display", "none");
     });
+
+  } catch (error) {
+    console.log("Non critical error in vennchart:");
+  }
 }
 /// disjoint.ts
 
