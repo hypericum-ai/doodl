@@ -1,6 +1,6 @@
 ## Venn diagrams
 
-According to[Wikipedia](https://en.wikipedia.org/wiki/Venn_diagram)
+According to [Wikipedia](https://en.wikipedia.org/wiki/Venn_diagram)
 
 > a Venn diagram, also called a set diagram or logic diagram, shows
 > all possible logical relations between a finite collection of

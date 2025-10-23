@@ -68,7 +68,7 @@ export default defineConfig({
                     { text: 'Pie chart', link: '/charts/pie-chart' },
                     { text: 'Sankey diagram', link: '/charts/sankey' },
                     { text: 'Scatter plot', link: '/charts/scatterplot' },
-                    { text: 'Stacked area chart', link: '/charts/stacked-area-chart' },
+                    // { text: 'Stacked area chart', link: '/charts/stacked-area-chart' },
                     { text: 'Stacked bar chart', link: '/charts/stacked-bar-chart' },
                     { text: 'Tree diagram', link: '/charts/tree' },
                     { text: 'Tree map', link: '/charts/treemap' },
