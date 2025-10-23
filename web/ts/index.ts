@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Wed Oct 22 18:54:31 CAT 2025
+// Generated Thu Oct 23 15:29:53 CAT 2025
 
 
 /// base.ts
@@ -2224,14 +2224,14 @@ export async function vennchart(
   hamburgerMenu(div, data);
 
   // Convert your hierarchical data to venn.js set format
-  const sets = data.children.map((d: any) => ({
-    sets: [d.name],
-    size: d.size
-  }));
+  // const sets = data.children.map((d: any) => ({
+  //   sets: [d.name],
+  //   size: d.size
+  // }));
 
   // Create Venn layout
   const chart = venn.VennDiagram().width(width).height(height);
-  svg.datum(sets).call(chart);
+  svg.datum(data).call(chart);
 
   // Color circles
   svg

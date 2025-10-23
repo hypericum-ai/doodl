@@ -24,17 +24,12 @@ data='[
 
 
 <vennchart
-data='{
-  children: [
-    { name: "A", size: 10 },
-    { name: "B", size: 15 },
-    { name: "C", size: 20 },
-    { name: "A&B", size: 5 },   // overlap between A and B
-    { name: "A&C", size: 3 },   // overlap between A and C
-    { name: "B&C", size: 4 },   // overlap between B and C
-    { name: "A&B&C", size: 2 }  // intersection of all three
+data='
+  [ 
+  {"sets": ["A"], "size": 12}, 
+    {"sets": ["B"], "size": 12},
+    {"sets": ["A","B"], "size": 2}
   ]
-}
 '
   size='{"width":500,"height":500}'
   colors='deep'
