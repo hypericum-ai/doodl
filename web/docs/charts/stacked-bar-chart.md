@@ -19,7 +19,7 @@ In addition to the [standard parameters](/charts/#standard-parameters),
   </Parameter>
   <Parameter name="moving_average" type="Boolean">
   
-  As with the [bar chart](/charts/barchart), if `moving_average` is
+  As with the [bar chart](/charts/bar-chart), if `moving_average` is
   true (default false) then a (smoothed) curve is added to the graph
   to indicate the series' moving average.
 
