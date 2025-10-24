@@ -182,7 +182,7 @@ Doodl.vennchart(
 
 all produce the following diagram:
 
-<span class="doodl-chart" id="venn_0"></span>
+<span class="doodl-chart" id="vennchart_0"></span>
 
 <script>
  setTimeout(() => {
