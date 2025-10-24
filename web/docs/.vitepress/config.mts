@@ -52,7 +52,7 @@ export default defineConfig({
                 link: '/charts',
                 collapsed: false,
                 items: [
-                    { text: 'Area chart', link: '/charts/area-chart' },
+                    // { text: 'Area chart', link: '/charts/area-chart' },
                     { text: 'Bar chart', link: '/charts/bar-chart' },
                     { text: 'Bollinger bands', link: '/charts/bollinger' },
                     { text: 'Box plot', link: '/charts/boxplot' },
