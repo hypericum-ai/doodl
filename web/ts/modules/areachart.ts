@@ -8,7 +8,8 @@ export async function areachart(
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
-d3.select(div).selectAll("*").remove();
+  
+  d3.select(div).selectAll("*").remove();
 
   const margin = { top: 20, right: 30, bottom: 30, left: 50 };
   const width = size.width - margin.left - margin.right;

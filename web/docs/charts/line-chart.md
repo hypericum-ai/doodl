@@ -142,6 +142,8 @@ doodl.linechart(
 ~~~
 == javascript
 ```html
+
+
 <span class="doodl-chart" id="linechart_1"></span>
 
 <script>

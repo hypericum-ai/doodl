@@ -97,7 +97,7 @@ STANDARD_CHARTS = {
     "areachart": {
         "data": {
             "type": "table",
-            "columns": ["label", "value"],
+            "columns": ["x", "y"],
             "include_all": True
         }
     },
