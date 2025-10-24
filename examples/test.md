@@ -1,3 +1,68 @@
+### A bollinger band diagram 
+
+
+<bollinger
+data='[
+  { "date": "2024-03-01", "close": 100, "upper": 105, "lower": 95, "movingAvg": 100 },
+  { "date": "2024-03-02", "close": 102, "upper": 107, "lower": 97, "movingAvg": 101 },
+  { "date": "2024-03-03", "close": 104, "upper": 109, "lower": 99, "movingAvg": 102 },
+  { "date": "2024-03-04", "close": 101, "upper": 106, "lower": 96, "movingAvg": 100.5 },
+  { "date": "2024-03-05", "close": 98, "upper": 103, "lower": 93, "movingAvg": 98.5 },
+  { "date": "2024-03-06", "close": 96, "upper": 101, "lower": 91, "movingAvg": 96.5 },
+  { "date": "2024-03-07", "close": 99, "upper": 104, "lower": 94, "movingAvg": 98 },
+  { "date": "2024-03-08", "close": 103, "upper": 108, "lower": 98, "movingAvg": 101 }
+]'
+  size='{"width":500,"height":500}'
+  colors='deep'
+>
+</bollinger>
+
+
+
+
+### An areachart 
+
+
+<areachart
+data='[
+  { "x": 1, "y": 10 }, 
+  { "x": 2, "y": 20 },
+  { "x": 3, "y": 15 },
+  { "x": 4, "y": 25 },
+  { "x": 5, "y": 30 },
+  { "x": 6, "y": 35 }
+  ]'
+  width=500
+  height=500
+  colors='deep'
+>
+</areachart>
+
+
+
+### A venn diagram 
+
+
+<vennchart
+data='
+  [ 
+  {"sets": ["A"], "size": 10}, 
+    {"sets": ["B"], "size": 15},
+    {"sets": ["C"], "size": 20},
+    {"sets": ["A","B"], "size": 5}
+    {"sets": ["A","C"], "size": 3}
+    {"sets": ["B","C"], "size": 4}
+    {"sets": ["A","B","C"], "size": 2}
+  ]
+'
+  size='{"width":500,"height":500}'
+  colors='deep'
+>
+</vennchart>
+
+
+
+
 ### A Vertical Bar chart
 
 
@@ -42,22 +107,140 @@ data='[
 
 
 
-<areachart
+### A stacked barchart 
+
+
+<stacked_barchart
 data='[
-  { "date": "2024-01-01", "catA": 10, "catB": 20, "catC": 30 },
-  { "date": "2024-01-02", "catA": 15, "catB": 25, "catC": 35 },
-  { "date": "2024-01-03", "catA": 20, "catB": 22, "catC": 28 },
-  { "date": "2024-01-04", "catA": 18, "catB": 30, "catC": 25 },
-  { "date": "2024-01-05", "catA": 22, "catB": 28, "catC": 32 },
-  { "date": "2024-01-06", "catA": 19, "catB": 26, "catC": 29 },
-  { "date": "2024-01-07", "catA": 24, "catB": 30, "catC": 35 },
-  { "date": "2024-01-08", "catA": 28, "catB": 33, "catC": 40 }
+  { "label": "January",  "Apples": 30, "Bananas": 20, "Cherries": 10 },
+  { "label": "February", "Apples": 20, "Bananas": 25, "Cherries": 15 },
+  { "label": "March",    "Apples": 25, "Bananas": 30, "Cherries": 20 },
+  { "label": "April",    "Apples": 35, "Bananas": 20, "Cherries": 25 },
+  { "label": "May",      "Apples": 40, "Bananas": 35, "Cherries": 30 },
+  { "label": "June",     "Apples": 30, "Bananas": 40, "Cherries": 20 },
 ]'
   width=500
   height=500
+  colors='deep'
+>
+</stacked_barchart>
+
+
+
+
+
+### A stacked areachart 
+
+
+<stacked_areachart
+data='[
+  { "label": 2018, "Technology": 30, "Finance": 20, "Healthcare": 15 },
+  { "label": 2019, "Technology": 40, "Finance": 25, "Healthcare": 20 },
+  { "label": 2020, "Technology": 35, "Finance": 30, "Healthcare": 25 },
+  { "label": 2021, "Technology": 50, "Finance": 35, "Healthcare": 30 },
+  { "label": 2022, "Technology": 60, "Finance": 40, "Healthcare": 35 },
+  { "label": 2023, "Technology": 55, "Finance": 45, "Healthcare": 40 },
+]'
+  width=500
+  height=500
+  colors='deep'
+>
+</stacked_areachart>
+
+
+
+
+### A dotplot chart 
+
+
+<dotplot
+data='[
+    { "category": "A", "value": 10 },
+    { "category": "A", "value": 12 },
+    { "category": "A", "value": 16 },
+    { "category": "B", "value": 20 },
+    { "category": "B", "value": 24 },
+    { "category": "B", "value": 28 },
+    { "category": "C", "value": 12 },
+    { "category": "C", "value": 15 },
+    { "category": "C", "value": 21 }
+]'
+     width=500
+  height=500
+  colors='deep'
+>
+</dotplot>
+
+
+
+
+### A scatterplot chart 
+
+
+<scatterplot
+data='[
+     { "x": 10, "y": 20 },
+  { "x": 30, "y": 40 },
+  { "x": 50, "y": 60 }
+]'
+     width=500
+  height=500
+  dotsize=8
+>
+</scatterplot>
+
+<scatterplot
+data='[
+     { "x": 10, "y": 20 },
+  { "x": 30, "y": 40 },
+  { "x": 50, "y": 60 }
+]'
+    width=500
+  height=500
+>
+</scatterplot>
+
+
+
+### A boxplot chart 
+
+
+<boxplot
+data='[
+   { "category": "A", "value": 10 },
+  { "category": "A", "value": 15 },
+  { "category": "A", "value": 20 },
+  { "category": "B", "value": 30 },
+  { "category": "B", "value": 35 },
+  { "category": "B", "value": 40 }
+]'
+     width=500
+  height=500
+  colors='deep'
+>
+</boxplot>
+
+
+
+### A Contour diagramn
+
+
+<contour
+data='[
+  [0, 10, 20, 30, 20],
+  [10, 20, 30, 40, 30],
+  [20, 30, 40, 50, 40],
+  [10, 20, 30, 40, 30],
+  [0, 10, 20, 30, 20]
+]'
+   width=500
+  height=500
   colors='flare'
 >
-</areachart>
+</contour>
+
+
+
 
 
 <skey

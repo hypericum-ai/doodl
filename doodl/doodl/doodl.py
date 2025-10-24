@@ -16,6 +16,7 @@ import shutil
 import socketserver
 import sys
 import threading
+import tolerantjson as tjson
 import webbrowser
 import xml.etree.ElementTree as ET
 import zipfile
@@ -229,6 +230,14 @@ STANDARD_CHARTS = {
         "data": {
             "type": "links"
         }
+    },  
+    "stacked_areachart": {
+        "options": {
+            "curved": False
+        },
+        "data": {
+            "type": "multiseries"
+        }
     },
     "stacked_barchart": {
         "options": {
@@ -236,8 +245,7 @@ STANDARD_CHARTS = {
             "moving_average": False
         },
         "data": {
-            "type": "table",
-            "columns": ["label", "value"]
+            "type": "multiseries"
         }
     },
     "tree": {
@@ -253,9 +261,9 @@ STANDARD_CHARTS = {
             "type": "hierarchy"
         }
     },
-    "venn": {
+    "vennchart": {
         "data": {
-            "type": "hierarchy"
+            "type": "venn"
         }
     },
     "voronoi": {
@@ -471,7 +479,7 @@ def add_chart_to_html(
 
     for num, elem in enumerate(soup.find_all(chart_type)):
         try:
-            attrs = {str(key): json_loads_if_string(value) for key, value in elem.attrs.items()}
+            attrs = {str(key): json_loads_if_string(value,force=key=="data") for key, value in elem.attrs.items()}
         except Exception as e:
             logger.error(f"Error decoding JSON for {chart_type}_{str(num)} element {elem.attrs}: {e}")
             continue
@@ -1090,14 +1098,18 @@ def copy_data(output_dir, server_dir_path):
 
 chart_count = 0
 
-def json_loads_if_string(value):
+def json_loads_if_string(value, force=False):
     if isinstance(value, str):
         try:
             return json.loads(value)
         except json.JSONDecodeError:
-            return value
+            if force:
+                try:
+                    return tjson.tolerate(value)
+                except tjson.ParseException as terror:
+                    logger.error(f"Error decoding (non-strict) JSON \"{value}\": {terror}")
         except Exception as e:
-            logger.error(f"Error decoding JSON: {e}")
+            logger.error(f"Unexpected error decoding JSON: {e}")
 
     return value
 
@@ -1131,9 +1143,10 @@ def handle_chart_field_arguments(
     # Figure out the colors
 
     for field, dv in palette_fields.items():
+        raw_value = supplied_attrs.get(field, dv)
         if field in supplied_attrs:
             if field == "colors":
-                value = json_loads_if_string(supplied_attrs[field])
+                value = json_loads_if_string(raw_value)
                 if (
                     isinstance(value, list)
                     and len(value) == 1
@@ -1145,9 +1158,9 @@ def handle_chart_field_arguments(
                 try:
                     palette_fields[field] = json.loads(supplied_attrs[field])
                 except json.JSONDecodeError as e:
-                    logger.error(e,f'Error decoding JSON for field "{field}": {dv}' )
+                    logger.error(f'Error decoding JSON for field "{field}": {dv}: {e}')
             else:
-                palette_fields[field] = dv
+                palette_fields[field] = raw_value
 
     # Construct the palette
 
@@ -1198,20 +1211,24 @@ def handle_chart_field_arguments(
     if all_fields["data"] is not None:
         column_mapping = {}
 
-        if data_spec.get("type", "") == "table":
+        if data_spec.get("type", "") in ["table", "venn"]:
             columns = data_spec.get("columns", [])
             column_mapping = {
                 col: supplied_attrs[col] for col in columns
                 if col in supplied_attrs
             }
 
-        all_fields.update(
-            interpret_data(
-                all_fields["data"],
-                data_spec,
-                column_mapping
+        try:
+            all_fields.update(
+                interpret_data(
+                    all_fields["data"],
+                    data_spec,
+                    column_mapping
+                )
             )
-        )
+        except ValueError as e:
+            logger.error(f"Error interpreting data for chart {div_id}: {e}")
+            return []
 
     # Handle size
     all_fields["size"] = supplied_attrs.get("size", { "width": 300, "height": 300 })

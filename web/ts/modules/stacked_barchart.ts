@@ -8,6 +8,7 @@ export async function stacked_barchart(
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
   moving_average = 0
 ) {
+  
   const { width, height } = size;
   const margin: Margin = defaultMargin;
 
@@ -24,6 +25,8 @@ export async function stacked_barchart(
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
+   hamburgerMenu(div, data);
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;

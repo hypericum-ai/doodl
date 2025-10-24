@@ -31,5 +31,5 @@ features:
     details: Include graphics with interaction and drill-down in Jupyter (and other) notebooks
   - icon: 🚀
     title: Custom graphics
-    details: Use sophisticated charts written in Typescript or Javascript seemlessly
+    details: Use sophisticated charts written in Typescript or Javascript seamlessly
 ---

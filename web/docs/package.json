@@ -1,6 +1,6 @@
 {
   "name": "doodl-docs",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "documentation for doodl",
   "license": "MIT",
   "author": "",
@@ -13,7 +13,8 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-google-analytics": "^1.0.2"
   },
   "dependencies": {
     "vitepress-plugin-tabs": "^0.7.3"
