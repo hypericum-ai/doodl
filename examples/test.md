@@ -20,7 +20,29 @@ data='[
 
 
 
-### An areachart 
+### An curved areachart 
+
+
+<areachart
+data='[
+  { "x": 1, "y": 10 }, 
+  { "x": 2, "y": 20 },
+  { "x": 3, "y": 15 },
+  { "x": 4, "y": 25 },
+  { "x": 5, "y": 30 },
+  { "x": 6, "y": 35 }
+  ]'
+  width=500
+  height=500
+  colors='deep'
+  curved='true'
+>
+</areachart>
+
+
+
+
+### An non-curved areachart 
 
 
 <areachart
@@ -37,8 +59,6 @@ data='[
   colors='deep'
 >
 </areachart>
-
-
 
 ### A venn diagram 
 

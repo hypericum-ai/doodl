@@ -95,6 +95,9 @@ PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
 
 STANDARD_CHARTS = {
     "areachart": {
+         "options": {
+            "curved": False
+        },
         "data": {
             "type": "table",
             "columns": ["x", "y"],

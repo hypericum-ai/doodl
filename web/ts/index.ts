@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Thu Oct 23 18:54:35 CAT 2025
+// Generated Mon Oct 27 16:06:24 CAT 2025
 
 
 /// base.ts
@@ -2271,7 +2271,7 @@ export async function vennchart(
     });
 
   } catch (error) {
-    console.log("Non critical error in vennchart:");
+    console.log("Non critical warning in vennchart:");
   }
 }
 /// disjoint.ts
@@ -2521,12 +2521,14 @@ export async function areachart(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+  colors: string[] = defaultArgumentObject.colors,
+  curved = 0
 ) {
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
-d3.select(div).selectAll("*").remove();
+  
+  d3.select(div).selectAll("*").remove();
 
   const margin = { top: 20, right: 30, bottom: 30, left: 50 };
   const width = size.width - margin.left - margin.right;
@@ -2596,7 +2598,8 @@ d3.select(div).selectAll("*").remove();
       return (xScale as any)(d.x) ?? 0;
     })
     .y0(height)
-    .y1((d) => yScale(d.y));
+    .y1((d) => yScale(d.y))
+    .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
 
   // Draw area
   svg

@@ -3,7 +3,8 @@ export async function areachart(
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
+  colors: string[] = defaultArgumentObject.colors,
+  curved = 0
 ) {
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
@@ -79,7 +80,8 @@ export async function areachart(
       return (xScale as any)(d.x) ?? 0;
     })
     .y0(height)
-    .y1((d) => yScale(d.y));
+    .y1((d) => yScale(d.y))
+    .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
 
   // Draw area
   svg
