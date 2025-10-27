@@ -1,3 +1,7 @@
+interface PivotedDatum {
+  label: string | Date;
+  [category: string]: number | string | Date;
+}
 
 export async function stacked_barchart(
   div: string = defaultArgumentObject.div,
@@ -8,16 +12,26 @@ export async function stacked_barchart(
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
   moving_average = 0
 ) {
-  
   const { width, height } = size;
   const margin: Margin = defaultMargin;
 
   if (file?.path) {
-    data = await loadData(file?.path, file?.format);
+    data = await loadData(file.path, file.format);
   }
 
-  // Extract keys for stacking
-  const keys = Object.keys(data[0]).filter((k: string) => k !== "label");
+  // Pivot long-form data into wide-form structure for stacking
+  const nested = d3.rollups(
+    data,
+    (v: any[]) => {
+      const obj: PivotedDatum = { label: v[0].label };
+      v.forEach((d: any) => (obj[d.category] = Number(d.value)));
+      return obj;
+    },
+    (d: any) => d.label
+  );
+
+  const pivotedData: PivotedDatum[] = nested.map(([_, values]) => values);
+  const keys: string[] = Array.from(new Set(data.map((d: any) => String(d.category))));
 
   // Setup SVG
   const svg = d3
@@ -26,7 +40,7 @@ export async function stacked_barchart(
     .attr("width", width)
     .attr("height", height);
 
-   hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
@@ -36,25 +50,24 @@ export async function stacked_barchart(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Stack data
-  const stackGen = d3.stack<any>().keys(keys);
-  const stackedData = stackGen(data);
+  const stackGen = d3.stack<PivotedDatum>().keys(keys);
+  const stackedData = stackGen(pivotedData);
 
   if (!horizontal) {
     // ----- VERTICAL -----
     const x = d3
       .scaleBand()
-      .domain(data.map((d: any) => d.label))
+      .domain(pivotedData.map((d) => String(d.label)))
       .range([0, chartWidth])
       .padding(0.1);
 
+    const yMax = d3.max(stackedData, (layer) =>
+      d3.max(layer, (d) => Number(d[1]))
+    ) as number;
+
     const y = d3
       .scaleLinear()
-      .domain([
-        0,
-        d3.max(stackedData, (layer: any[]) =>
-          d3.max(layer, (d: [number, number, any]) => d[1])
-        ) as number,
-      ])
+      .domain([0, yMax])
       .nice()
       .range([chartHeight, 0]);
 
@@ -65,13 +78,13 @@ export async function stacked_barchart(
       .data(stackedData)
       .join("g")
       .attr("class", "layer")
-      .attr("fill", (d: { key: string }) => color(d.key)!)
+      .attr("fill", (d: any) => color(d.key)!)
       .selectAll("rect")
       .data((d: any) => d)
       .join("rect")
-      .attr("x", (d: any) => x(d.data.label)!)
-      .attr("y", (d: any) => y(d[1]))
-      .attr("height", (d: any) => y(d[0]) - y(d[1]))
+      .attr("x", (d: any) => x(String(d.data.label))!)
+      .attr("y", (d: any) => y(Number(d[1])))
+      .attr("height", (d: any) => y(Number(d[0])) - y(Number(d[1])))
       .attr("width", x.bandwidth());
 
     // Axes
@@ -81,22 +94,22 @@ export async function stacked_barchart(
 
     g.append("g").call(d3.axisLeft(y));
 
-    // Moving average (on stacked totals)
+    // Moving average
     if (moving_average) {
-      const totals = data.map((d: any) =>
-        keys.reduce((sum: number, k: string) => sum + d[k], 0)
+      const totals = pivotedData.map((d) =>
+        keys.reduce((sum, k) => sum + Number(d[k] ?? 0), 0)
       );
 
-      const movingAvg = totals.map((_: number, i: number, arr: number[]) => {
-        const window = 3; // adjustable
+      const movingAvg = totals.map((_, i, arr) => {
+        const window = 3;
         const start = Math.max(0, i - window + 1);
         const subset = arr.slice(start, i + 1);
         return d3.mean(subset) as number;
       });
 
       const line = d3.line<number>()
-        .x((_: number, i: number) => x(data[i].label)! + x.bandwidth() / 2)
-        .y((d: number) => y(d))
+        .x((_, i) => x(String(pivotedData[i].label))! + x.bandwidth() / 2)
+        .y((d) => y(d))
         .curve(d3.curveMonotoneX);
 
       g.append("path")
@@ -110,18 +123,17 @@ export async function stacked_barchart(
     // ----- HORIZONTAL -----
     const y = d3
       .scaleBand()
-      .domain(data.map((d: any) => d.label))
+      .domain(pivotedData.map((d) => String(d.label)))
       .range([0, chartHeight])
       .padding(0.1);
 
+    const xMax = d3.max(stackedData, (layer) =>
+      d3.max(layer, (d) => Number(d[1]))
+    ) as number;
+
     const x = d3
       .scaleLinear()
-      .domain([
-        0,
-        d3.max(stackedData, (layer: any[]) =>
-          d3.max(layer, (d: [number, number, any]) => d[1])
-        ) as number,
-      ])
+      .domain([0, xMax])
       .nice()
       .range([0, chartWidth]);
 
@@ -132,13 +144,13 @@ export async function stacked_barchart(
       .data(stackedData)
       .join("g")
       .attr("class", "layer")
-      .attr("fill", (d: { key: string }) => color(d.key)!)
+      .attr("fill", (d: any) => color(d.key)!)
       .selectAll("rect")
       .data((d: any) => d)
       .join("rect")
-      .attr("y", (d: any) => y(d.data.label)!)
-      .attr("x", (d: any) => x(d[0]))
-      .attr("width", (d: any) => x(d[1]) - x(d[0]))
+      .attr("y", (d: any) => y(String(d.data.label))!)
+      .attr("x", (d: any) => x(Number(d[0])))
+      .attr("width", (d: any) => x(Number(d[1])) - x(Number(d[0])))
       .attr("height", y.bandwidth());
 
     // Axes
@@ -148,13 +160,13 @@ export async function stacked_barchart(
 
     g.append("g").call(d3.axisLeft(y));
 
-    // Moving average (on stacked totals)
+    // Moving average
     if (moving_average) {
-      const totals = data.map((d: any) =>
-        keys.reduce((sum: number, k: string) => sum + d[k], 0)
+      const totals = pivotedData.map((d) =>
+        keys.reduce((sum, k) => sum + Number(d[k] ?? 0), 0)
       );
 
-      const movingAvg = totals.map((_: number, i: number, arr: number[]) => {
+      const movingAvg = totals.map((_, i, arr) => {
         const window = 3;
         const start = Math.max(0, i - window + 1);
         const subset = arr.slice(start, i + 1);
@@ -162,8 +174,8 @@ export async function stacked_barchart(
       });
 
       const line = d3.line<number>()
-        .y((_: number, i: number) => y(data[i].label)! + y.bandwidth() / 2)
-        .x((d: number) => x(d))
+        .y((_, i) => y(String(pivotedData[i].label))! + y.bandwidth() / 2)
+        .x((d) => x(d))
         .curve(d3.curveMonotoneY);
 
       g.append("path")

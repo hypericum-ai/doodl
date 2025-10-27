@@ -239,7 +239,8 @@ STANDARD_CHARTS = {
             "curved": False
         },
         "data": {
-            "type": "multiseries"
+            "type": "table",
+            "columns": ["label", "category", "value"]
         }
     },
     "stacked_barchart": {
@@ -248,7 +249,8 @@ STANDARD_CHARTS = {
             "moving_average": False
         },
         "data": {
-            "type": "multiseries"
+            "type": "table",
+            "columns": ["label", "category", "value"]
         }
     },
     "tree": {
