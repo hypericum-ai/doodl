@@ -231,5 +231,5 @@ doodl.areachart(
       ]
     );
   })
- })
+}, 1000);
 </script>
