@@ -10,7 +10,8 @@ export async function stacked_barchart(
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
   horizontal = 0, // 0 = Vertical, 1 = Horizontal
-  moving_average = 0
+  moving_average = 0,
+  x_label_angle = 0
 ) {
   const { width, height } = size;
   const margin: Margin = defaultMargin;
@@ -88,9 +89,17 @@ export async function stacked_barchart(
       .attr("width", x.bandwidth());
 
     // Axes
-    g.append("g")
+    const xAxis = g.append("g")
       .attr("transform", `translate(0,${chartHeight})`)
       .call(d3.axisBottom(x));
+
+    if (x_label_angle !== 0) {
+      xAxis.selectAll("text")
+        .attr("transform", `rotate(${x_label_angle})`)
+        .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+        .attr("dx", x_label_angle === 90 ? "0.8em" : "0")
+        .attr("dy", x_label_angle === 90 ? "0" : "1.5em");
+    }
 
     g.append("g").call(d3.axisLeft(y));
 

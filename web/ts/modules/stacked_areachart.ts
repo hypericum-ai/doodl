@@ -1,13 +1,17 @@
-
 export async function stacked_areachart(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
-  horizontal = 0,
-  curved = false
+  curved = false,
+  x_label_angle = 0
 ) {
+
+  if (file?.path) {
+    data = await loadData(file.path, file.format);
+  }
+
   const { width, height } = size;
   const margin = { top: 40, right: 20, bottom: 40, left: 60 };
   const svgWidth = width;
@@ -101,7 +105,7 @@ export async function stacked_areachart(
     .attr("stroke", "none")
     .attr("opacity", 0.9);
 
-  chartArea
+  const xAxisG = chartArea
     .append("g")
     .attr("transform", `translate(0,${chartHeight})`)
     .call(
@@ -112,21 +116,47 @@ export async function stacked_areachart(
         : d3.axisBottom(x as d3.ScalePoint<string>)
     );
 
+  if (x_label_angle !== 0) {
+    const texts = xAxisG.selectAll("text");
+    texts
+      .attr("transform", `rotate(${x_label_angle})`)
+      .style(
+        "text-anchor",
+        x_label_angle === 90
+          ? "start"
+          : x_label_angle > 0
+          ? "start"
+          : "end"
+      )
+      .attr("dx", x_label_angle === 90 ? "0.8em" : "-0.5em")
+      .attr("dy", x_label_angle === 90 ? "-0.1em" : "0.5em");
+  }
+
   chartArea.append("g").call(d3.axisLeft(y));
 
   // ---- Legend ----
   const legend = svg
     .append("g")
     .attr("transform", `translate(${margin.left}, 10)`)
-    .attr("font-size", 12)
+    .attr("font-size", 9)
     .attr("text-anchor", "start");
 
   const legendItems = legend
     .selectAll("g")
     .data(keys)
     .enter()
-    .append("g")
-    .attr("transform", (_, i) => `translate(${i * 130}, 0)`);
+    .append("g");
+
+  const legendSpacing = 200;
+  const legendItemHeight = 16;
+  const itemsPerRow = Math.floor(chartWidth / legendSpacing);
+
+  legendItems
+    .attr("transform", (_, i) => {
+      const xPos = (i % itemsPerRow) * legendSpacing;
+      const yPos = Math.floor(i / itemsPerRow) * legendItemHeight;
+      return `translate(${xPos}, ${yPos})`;
+    });
 
   legendItems
     .append("rect")

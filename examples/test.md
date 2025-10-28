@@ -1,3 +1,36 @@
+
+
+
+### A stacked barchart 
+
+
+<stacked_barchart
+  path= "data/label_category_value.json"
+  width=1200
+  height=1000
+  colors='deep'
+  x_label_angle=90
+>
+</stacked_barchart>
+
+
+
+
+
+### A stacked areachart 
+
+
+<stacked_areachart
+  path= "data/label_category_value.json"
+  width=1200
+  height=1000
+  colors='deep'
+  x_label_angle=90
+>
+</stacked_areachart>
+
+
+
 ### A bollinger band diagram 
 
 
@@ -99,6 +132,7 @@ data='
   colors='["#FF6700","#008000"]'
   horizontal='true'
   moving_average='true'
+  x_label_angle=90
 >
 </barchart>
 
@@ -121,37 +155,9 @@ data='[
   colors='["#FF6700","#008000"]'
   horizontal='false'
   moving_average='true'
+  x_label_angle=90
 >
 </barchart>
-
-
-
-
-### A stacked barchart 
-
-
-<stacked_barchart
-  path= "data/label_category_value.json"
-  width=1200
-  height=1000
-  colors='deep'
->
-</stacked_barchart>
-
-
-
-
-
-### A stacked areachart 
-
-
-<stacked_areachart
-  path= "data/label_category_value.json"
-  width=1200
-  height=1000
-  colors='deep'
->
-</stacked_areachart>
 
 
 
