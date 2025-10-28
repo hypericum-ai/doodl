@@ -12,7 +12,6 @@
 /* General chart formatting */
 body,
 html {
-  font-family: var(--font);
   margin: 0;
 }
 

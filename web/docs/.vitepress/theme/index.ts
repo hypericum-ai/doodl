@@ -6,6 +6,7 @@ import HomeHeroInfo from './components/HomeHeroInfo.vue'
 import Parameter from './components/Parameter.vue'
 import Parameters from './components/Parameters.vue'
 import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
+import './custom.css'
 // import googleAnalytics from 'vitepress-plugin-google-analytics'
 
 export default {

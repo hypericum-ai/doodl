@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --vp-font-family-base: "Exo", sans-serif;
+}
+
+html, body {
+  font-family: var(--vp-font-family-base);
+}
