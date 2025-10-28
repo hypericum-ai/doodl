@@ -838,8 +838,8 @@ def main():
     verbosity = logging.WARNING
     zipped_filename = ""
     errors = 0
-    usage = """Usage: doodl args input_file
-where args are one of:
+    usage = """Usage: doodl [options] input_file
+where options may include:
 -c|--chart  file   # Add a custom chart to doodl
 -D|--dev           # Run this script in development mode
 -f|--filter filter # Add a filter to be passed to pandoc
@@ -850,7 +850,7 @@ where args are one of:
 -t|--title         # Title for generated HTML document
 -v|--verbose       # Increase debugging output. May be repeated
 -z|--zip  file     # zip the output directory to file
---port             # the port to use in the url. defaults to 7300
+-P|--port          # the port to use in the url. defaults to 7300
 --format           # generate a file in this format 
 
 In dev mode, the script must be run in the same folder as the script.
@@ -858,7 +858,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     opts, args = getopt(
         sys.argv[1:],
-        "c:D:f:o:pst:vz:",
+        "c:D:f:o:pst:vz:P",
         (
             "chart",
             "dir",
@@ -895,7 +895,7 @@ In dev mode, the script must be run in the same folder as the script.
         elif k in ["-z", "--zip"]:
             zipped_filename = v
             zip_mode = True
-        elif k in ["--port"]:
+        elif k in ["-P", "--port"]:
             port = int(v)
         elif k in ["--format"]:
             output_format = v

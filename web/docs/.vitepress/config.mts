@@ -33,10 +33,7 @@ export default defineConfig({
         nav: nav(),
 
         sidebar: [
-            {
-                text: 'History',
-                link: '/history',
-            },
+            { text: 'Introduction to doodl', link: '/docs' },
             {
                 text: 'Using doodl',
                 collapsed: false,
@@ -48,10 +45,10 @@ export default defineConfig({
                 ]
             },
             {
-                text: 'Chart types',
-                link: '/charts',
+                text: 'Charts',
                 collapsed: false,
                 items: [
+                    { text: 'Introduction to charts', link: '/charts/intro' },
                     { text: 'Area chart', link: '/charts/area-chart' },
                     { text: 'Bar chart', link: '/charts/bar-chart' },
                     { text: 'Bollinger bands', link: '/charts/bollinger' },
@@ -68,7 +65,7 @@ export default defineConfig({
                     { text: 'Pie chart', link: '/charts/pie-chart' },
                     { text: 'Sankey diagram', link: '/charts/sankey' },
                     { text: 'Scatter plot', link: '/charts/scatterplot' },
-                    // { text: 'Stacked area chart', link: '/charts/stacked-area-chart' },
+                    { text: 'Stacked area chart', link: '/charts/stacked-area-chart' },
                     { text: 'Stacked bar chart', link: '/charts/stacked-bar-chart' },
                     { text: 'Tree diagram', link: '/charts/tree' },
                     { text: 'Tree map', link: '/charts/treemap' },
@@ -84,7 +81,8 @@ export default defineConfig({
                     { text: 'Implementation', link: '/custom/implement' },
                 ]
             },
-            { text: 'Pandoc-Plot', link: '/pandoc-plot' }
+            { text: 'Pandoc-Plot', link: '/pandoc-plot' },
+            { text: 'History', link: '/history', }
         ],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/hypericum-ai/doodl' }
@@ -103,11 +101,11 @@ function nav(): DefaultTheme.NavItem[] {
   return [
     {
       text: 'Documentation',
-      link: '/markdown'
+      link: '/docs'
     },
     {
       text: 'Charts',
-      link: '/charts/'
+      link: '/charts/intro'
     },
     // {
     //   text: 'Pricing',

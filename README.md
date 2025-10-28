@@ -2,8 +2,8 @@
 
 Doodl is the Swiss Army knife of data visualization. It has several audiences:
 
-- Regular folks who want to write documents in Markdown that include high
-  quality interactive (output format permitting) visualizations.
+- Folks who want to write documents in Markdown that include high quality
+  interactive (output format permitting) visualizations.
 
 - Data analysts and data scientists who use any of the several Jupyter notebook
   derivative platforms to do data science.

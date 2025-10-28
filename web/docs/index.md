@@ -11,10 +11,10 @@ hero:
       link: /get-started
     - theme: alt
       text: Charts
-      link: /charts/
+      link: /charts/intro
     - theme: alt
       text: Documentation
-      link: /markdown
+      link: /docs
   image:
     src: ./doodl-docs-graphic.png
     alt: Doodl
