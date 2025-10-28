@@ -140,7 +140,7 @@ doodl.contour(data=df)
 :::
 
 The `n_colors` parameter is of particular interest with contour plots. The
-number of colors chosen determines the number of equi-valent lines on the
+number of colors chosen determines the number of lines of points with equal value on the
 plot. The followiing three plots have 10, 20 and 100 for `n_colors`, respectively:
 
 <span class='doodl-chart' id='contour_1'></span>
