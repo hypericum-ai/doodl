@@ -14,6 +14,7 @@ export class App implements OnInit, AfterViewInit {
   @Input() spanId: string = 'doodl-chart-span';
   @Input() size: { width: number; height: number } = { width: 500, height: 500 };
   @Input() data: any = [];
+  @Input() options: any = {};
   @Input() colors: string[] = []
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
