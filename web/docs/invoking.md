@@ -11,24 +11,25 @@ is what you would use for any of these use cases:
 - Format and save a copy of a formatted document in a form that can be
   transfered by email and displayed on another computer. The output
   format can include HTML, PDF, Microsoft Word, or any other format
-  that Pandoc knows. [Here](https://pandoc.org/MANUAL.html#options)
-  is a comprehensive list of output formats.
+  that Pandoc knows. [Pandoc](https://pandoc.org/) has
+  [a comprehensive list](https://pandoc.org/MANUAL.html#options)
+  of output formats.
 
 The command line arguments to doodl include:
 
 | Short | Long | Value | Description |
 | - | - | - | - |
-| -c|--chart| *file* | Add a custom chart to doodl |
-| -f|--filter | *filter* | Add a filter to be passed to pandoc |
-| -h|--help | | Print this message |
+| -c|--chart| *file* | Add a [custom chart](/custom/) to doodl. |
+| -f|--filter | *filter* | Add a filter to be passed to pandoc. |
+| -h|--help | | Print this message. |
 | -o|--output | *file* | File to which to store HTML document |
 | -p|--plot | | Short cut for adding the pandoc-plot filter |
-| -s|--server | | Run doodl in server mode |
+| -s|--server | | Run doodl in server mode. |
 | -t|--title | *title* | Title for generated HTML document |
-| -v|--verbose | | Increase debugging output. May be repeated |
-| -z|--zip | *file* | zip the output directory to file |
-| | --port | | the port to use in the url. defaults to 7300 |
-| | --format | *format* | generate a file in this format |
+| -v|--verbose | | Increase debugging output. May be repeated. |
+| -z|--zip | *file* | Use zip to write the output directory to file. |
+| -P| --port | | The port to use in the url. Defaults to 7300. |
+|   | --format | *format* | Generate a file in this format. |
 
 ## From a notebook
 
@@ -41,17 +42,50 @@ example of doing so:
 #! ~/myvenv/bin/pip install doodl
 import doodl
 doodl.chord(
-  data=[
+  data={
+    'chords': [
+      [11975,  5871, 8916, 2868],
+      [ 1951, 10048, 2060, 6171],
+      [ 8010, 16145, 8090, 8045],
+      [ 1013,   990,  940, 6907]
+    ],
+    'labels': [
+      "black", "blond", "brunette", "redhead"
+    ]
+  },
+  width=350,
+  height=350,
+  colors=["black", "#ffdd89", "#957244", "#f26223"]
+)
+~~~
+
+or, if you like:
+
+~~~python
+#! ~/myvenv/bin/pip install doodl
+import doodl
+import pandas as pd
+
+df = pd.DataFrame(
+  [
     [11975,  5871, 8916, 2868],
     [ 1951, 10048, 2060, 6171],
     [ 8010, 16145, 8090, 8045],
     [ 1013,   990,  940, 6907]
   ]
-  width=350
-  height=350
+)
+
+doodl.chord(
+  data=df,
+  labels=[
+    "black", "blond", "brunette", "redhead"
+  ],
+  width=350,
+  height=350,
   colors=["black", "#ffdd89", "#957244", "#f26223"]
 )
 ~~~
+
 
 You should see the visualization that you have requested in the next
 block.

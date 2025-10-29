@@ -1,4 +1,4 @@
-# Charts
+## Introduction to charts
 
 In Markdown, all doodl charts are inserted into a document using an HTML-style
 tag, as you've already seen:

@@ -3,7 +3,7 @@
 Color palettes are part of the core arguments to each chart type.
 Doodl uses [Seaborn](https://seaborn.pydata.org/tutorial/color_palettes.html)
 to specify how to color your charts. Consider, for example, the following
-Sankey diagram:
+[Sankey diagram](/charts/sankey):
 
 ```html
 <skey
@@ -41,9 +41,11 @@ palette:
 
 You may use any of the Seaborn discrete palettes in your charts.
 Each chart makes use of its color palette in a manner particular
-to the chart. It is well worth studying [`color_palette` API documentation](https://seaborn.pydata.org/generated/seaborn.color_palette.html).
-One palette of particular interest is `husl`, which returns "a specified number of evenly spaced hues in the *HUSL* system"
-like the following palette of nine colors:
+to the chart. It is well worth studying
+[`color_palette` API documentation](https://seaborn.pydata.org/generated/seaborn.color_palette.html).
+One palette of particular interest is `husl`, which returns
+"a specified number of evenly spaced hues in the *HUSL* system"
+like the following palette of (for example) nine colors:
 
 <svg width="495" height="55">
     <rect x="0" y="0" width="55" height="55" style="fill:#f77189;stroke-width:2;stroke:rgb(255,255,255)"></rect>
