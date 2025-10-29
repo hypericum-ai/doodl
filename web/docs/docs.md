@@ -24,7 +24,7 @@ Here's a quick guide to what you'll find in the documentation:
   set up doodl and get going.
 
 - Some general topics like [invoking doodl](/invoking) and
-  [color palettes](/colors)
+  [color palettes](/color)
   explain doodl in action.
 
 - Each of the [chart types](/charts/intro) is documented individually,
