@@ -8,7 +8,7 @@ stacked on top of each other, like this:
 
 <Parameters>
 
-In addition to the [standard parameters](/charts/#standard-parameters),
+In addition to the [standard parameters](/charts/intro#standard-parameters),
 `stacked_barchart` takes the following arguments:
 
   <Parameter name="horizontal" type="Boolean">

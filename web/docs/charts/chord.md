@@ -6,7 +6,7 @@
 > points typically drawn as arcs connecting the data.
 > [Wikipedia](https://en.wikipedia.org/wiki/Chord_diagram_(information_visualization))
 
-Chord diagrams accept the [standard parameter](/charts/#standard-parameters) plus
+Chord diagrams accept the [standard parameter](/charts/intro#standard-parameters) plus
 an optional `labels` argument as described below.
 
 ### Data

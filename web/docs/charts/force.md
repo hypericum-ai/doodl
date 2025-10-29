@@ -13,7 +13,7 @@ to much larger:
 
 <Parameters>
 
-The force directed graph takes the [standard parameters](/charts/#standard-parameters)
+The force directed graph takes the [standard parameters](/charts/intro#standard-parameters)
 where the data defining the graph has the form:
 
 <Parameter name="data" type="dict">

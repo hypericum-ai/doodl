@@ -11,7 +11,7 @@ According to [Wikipedia](https://en.wikipedia.org/wiki/Box_plot), a box plot
 
 <Parameters>
 
-Box plot accepts all of the [standard parameters](/charts/#standard-parameters)
+Box plot accepts all of the [standard parameters](/charts/intro#standard-parameters)
 with the `data` (or `path`) parameter defined as follows:
 
   <Parameter name="data" type="JSON or Python list of dicts">

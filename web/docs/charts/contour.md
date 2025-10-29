@@ -10,7 +10,7 @@ Contour plots have several uses:
 
 <Parameters>
 
-In addition to all of the [standard parameters](/charts/#standard-parameters)
+In addition to all of the [standard parameters](/charts/intro#standard-parameters)
 the following apply to contour plots.
 
 <Parameter

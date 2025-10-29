@@ -9,7 +9,7 @@
 
 <Parameters>
 
-Dot plots accept the [standard parameter](/charts/#standard-parameters)
+Dot plots accept the [standard parameter](/charts/intro#standard-parameters)
 with `data` defined as follows:
 
   <Parameter name='data' type='List of dicts'>

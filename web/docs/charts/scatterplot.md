@@ -9,7 +9,7 @@
 
 <Parameters>
 
-The scatterplot takes the [standard parameters](/charts/#standard-parameters)
+The scatterplot takes the [standard parameters](/charts/intro#standard-parameters)
 in addition to the following:
 
 <Parameter name="data" type="dict, data frame">

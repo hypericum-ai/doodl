@@ -10,7 +10,7 @@ does a good job of portraying the area covered by the data.
 
 <Parameters>
 
-In addition to the [standard parameters](/charts/#standard-parameters)
+In addition to the [standard parameters](/charts/intro#standard-parameters)
 the following apply to area charts.
 
 <Parameter name="data" type="List[dict], DataFrame">

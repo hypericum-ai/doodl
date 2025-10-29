@@ -6,7 +6,7 @@ other items grouped under them.
 
 ### Parameters
 
-In addition to all of the [standard parameters](/charts/#standard-parameters)
+In addition to all of the [standard parameters](/charts/intro#standard-parameters)
 the following apply to bubble charts.
 
 <Parameters no_header=true>

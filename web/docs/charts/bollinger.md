@@ -3,7 +3,7 @@
 [Wikipedia](https://en.wikipedia.org/wiki/Bollinger_Bands)
 describes Bollinger bands as "a type of statistical chart characterizing the prices and volatility over time of a financial instrument or commodity, using a formulaic method propounded by John Bollinger in the 1980s."
 
-The `bollinger` chart accepts the [standard parameter](/charts/#standard-parameters).
+The `bollinger` chart accepts the [standard parameter](/charts/intro#standard-parameters).
 The data for a Bollinger band diagram is unique, given its special purpose. The data is given in a (JSON) list of dictionaries that include the following entries:
 
 Entry | Description

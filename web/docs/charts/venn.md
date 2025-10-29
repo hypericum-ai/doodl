@@ -15,7 +15,7 @@ According to [Wikipedia](https://en.wikipedia.org/wiki/Venn_diagram)
 > intersection of S and T", is represented visually by the area of
 > overlap of the regions S and T.
 
-Venn diagrams take all of the [standard parameters](/charts/#standard-parameters).
+Venn diagrams take all of the [standard parameters](/charts/intro#standard-parameters).
 
 ### Data
 

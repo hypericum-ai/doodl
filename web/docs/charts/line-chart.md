@@ -6,7 +6,7 @@ ubiquitous chart types.
 <Parameters>
 
 In addition to all of the
-[standard parameters](/charts/#standard-parameters)
+[standard parameters](/charts/intro#standard-parameters)
 the following apply to line charts.
 
   <Parameter name="data" type="JSON/Python dict/various">

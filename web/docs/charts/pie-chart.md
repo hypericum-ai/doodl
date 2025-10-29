@@ -5,7 +5,7 @@ indicate how much of the whole each of a set of values represents.
 
 <Parameters>
 
-In addition to all of the [standard parameters](/charts/#standard-parameters)
+In addition to all of the [standard parameters](/charts/intro#standard-parameters)
 the following apply to pie charts.
 
   <Parameter
