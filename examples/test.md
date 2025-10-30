@@ -10,6 +10,7 @@
   height=1000
   colors='deep'
   x_label_angle=90
+  show_legend='true'
 >
 </stacked_barchart>
 

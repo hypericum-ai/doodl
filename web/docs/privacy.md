@@ -2,8 +2,6 @@
 title: Privacy Policy
 ---
 
-**doodl.ai**
-
 *Effective Date: October 29, 2025*
 
 Welcome to doodl.ai. We are committed to protecting your privacy and

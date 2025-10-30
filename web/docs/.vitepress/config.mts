@@ -91,8 +91,8 @@ export default defineConfig({
             provider: "local"
         },
         footer: {
-        message: 'Released under the MIT License.',
-        copyright: 'Copyright © 2025-present Hypericum-ai'
+            message: 'Released under the MIT License. | <a href="/privacy">Privacy Policy</a>',
+            copyright: 'Copyright © 2025-present Hypericum-ai'
         }
     }
 })

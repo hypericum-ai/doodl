@@ -244,7 +244,8 @@ STANDARD_CHARTS = {
     "stacked_areachart": {
         "options": {
             "curved": False,
-            "x_label_angle": 0
+            "x_label_angle": 0,
+            "show_legend": 0
         },
         "data": {
             "type": "table",
@@ -255,7 +256,8 @@ STANDARD_CHARTS = {
         "options": {
             "horizontal": False,
             "moving_average": False,
-            "x_label_angle": 0
+            "x_label_angle": 0,
+            "show_legend": 0
         },
         "data": {
             "type": "table",
