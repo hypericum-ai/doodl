@@ -61,57 +61,57 @@ Here is an example:
 ::: tabs
 == Markdown
 ```javascript
-<stacked_barchart
+<stacked_areachart
     data='[
-        { "label": "January",  "Apples": 30 },
-        { "label": "January",  "Bananas": 20 },
-        { "label": "January",  "Cherries": 10 },
-        { "label": "February", "Apples": 20 },
-        { "label": "February", "Bananas": 25 },
-        { "label": "February", "Cherries": 15 },
-        { "label": "March",    "Apples": 25 },
-        { "label": "March",    "Bananas": 30 },
-        { "label": "March",    "Cherries": 20 },
-        { "label": "April",    "Apples": 35 },
-        { "label": "April",    "Bananas": 20 },
-        { "label": "April",    "Cherries": 25 },
-        { "label": "May",      "Apples": 40 },
-        { "label": "May",      "Bananas": 35 },
-        { "label": "May",      "Cherries": 30 },
-        { "label": "June",     "Apples": 30 },
-        { "label": "June",     "Bananas": 40 },
-        { "label": "June",     "Cherries": 20 },
+        { "label": "January",  "category": "Apples", "value": 30 },
+        { "label": "January",  "category": "Bananas", "value": 20 },
+        { "label": "January",  "category": "Cherries", "value": 10 },
+        { "label": "February", "category": "Apples", "value": 20 },
+        { "label": "February", "category": "Bananas", "value": 25 },
+        { "label": "February", "category": "Cherries", "value": 15 },
+        { "label": "March",    "category": "Apples", "value": 25 },
+        { "label": "March",    "category": "Bananas", "value": 30 },
+        { "label": "March",    "category": "Cherries", "value": 20 },
+        { "label": "April",    "category": "Apples", "value": 35 },
+        { "label": "April",    "category": "Bananas", "value": 20 },
+        { "label": "April",    "category": "Cherries", "value": 25 },
+        { "label": "May",      "category": "Apples", "value": 40 },
+        { "label": "May",      "category": "Bananas", "value": 35 },
+        { "label": "May",      "category": "Cherries", "value": 30 },
+        { "label": "June",     "category": "Apples", "value": 30 },
+        { "label": "June",     "category": "Bananas", "value": 40 },
+        { "label": "June",     "category": "Cherries", "value": 20 },
     ]'
     width=500
     height=500
     colors='deep'
 >
-</stacked_barchart>
+</stacked_areachart>
 ```
 == Python
 ```python
 import doodl
 
-doodl.stacked_barchart(
+doodl.stacked_areachart(
     data=[
-        { "label": "January",  "Apples": 30 },
-        { "label": "January",  "Bananas": 20 },
-        { "label": "January",  "Cherries": 10 },
-        { "label": "February", "Apples": 20 },
-        { "label": "February", "Bananas": 25 },
-        { "label": "February", "Cherries": 15 },
-        { "label": "March",    "Apples": 25 },
-        { "label": "March",    "Bananas": 30 },
-        { "label": "March",    "Cherries": 20 },
-        { "label": "April",    "Apples": 35 },
-        { "label": "April",    "Bananas": 20 },
-        { "label": "April",    "Cherries": 25 },
-        { "label": "May",      "Apples": 40 },
-        { "label": "May",      "Bananas": 35 },
-        { "label": "May",      "Cherries": 30 },
-        { "label": "June",     "Apples": 30 },
-        { "label": "June",     "Bananas": 40 },
-        { "label": "June",     "Cherries": 20 },
+        { "label": "January",  "category": "Apples", "value": 30 },
+        { "label": "January",  "category": "Bananas", "value": 20 },
+        { "label": "January",  "category": "Cherries", "value": 10 },
+        { "label": "February", "category": "Apples", "value": 20 },
+        { "label": "February", "category": "Bananas", "value": 25 },
+        { "label": "February", "category": "Cherries", "value": 15 },
+        { "label": "March",    "category": "Apples", "value": 25 },
+        { "label": "March",    "category": "Bananas", "value": 30 },
+        { "label": "March",    "category": "Cherries", "value": 20 },
+        { "label": "April",    "category": "Apples", "value": 35 },
+        { "label": "April",    "category": "Bananas", "value": 20 },
+        { "label": "April",    "category": "Cherries", "value": 25 },
+        { "label": "May",      "category": "Apples", "value": 40 },
+        { "label": "May",      "category": "Bananas", "value": 35 },
+        { "label": "May",      "category": "Cherries", "value": 30 },
+        { "label": "June",     "category": "Apples", "value": 30 },
+        { "label": "June",     "category": "Bananas", "value": 40 },
+        { "label": "June",     "category": "Cherries", "value": 20 },
     ],
     width=500,
     height=500,
@@ -126,28 +126,28 @@ import pandas as pd
 import doodl
 
 data =  [
-    { "label": "January",  "Apples": 30 },
-    { "label": "January",  "Bananas": 20 },
-    { "label": "January",  "Cherries": 10 },
-    { "label": "February", "Apples": 20 },
-    { "label": "February", "Bananas": 25 },
-    { "label": "February", "Cherries": 15 },
-    { "label": "March",    "Apples": 25 },
-    { "label": "March",    "Bananas": 30 },
-    { "label": "March",    "Cherries": 20 },
-    { "label": "April",    "Apples": 35 },
-    { "label": "April",    "Bananas": 20 },
-    { "label": "April",    "Cherries": 25 },
-    { "label": "May",      "Apples": 40 },
-    { "label": "May",      "Bananas": 35 },
-    { "label": "May",      "Cherries": 30 },
-    { "label": "June",     "Apples": 30 },
-    { "label": "June",     "Bananas": 40 },
-    { "label": "June",     "Cherries": 20 },
+    { "label": "January",  "category": "Apples", "value": 30 },
+    { "label": "January",  "category": "Bananas", "value": 20 },
+    { "label": "January",  "category": "Cherries", "value": 10 },
+    { "label": "February", "category": "Apples", "value": 20 },
+    { "label": "February", "category": "Bananas", "value": 25 },
+    { "label": "February", "category": "Cherries", "value": 15 },
+    { "label": "March",    "category": "Apples", "value": 25 },
+    { "label": "March",    "category": "Bananas", "value": 30 },
+    { "label": "March",    "category": "Cherries", "value": 20 },
+    { "label": "April",    "category": "Apples", "value": 35 },
+    { "label": "April",    "category": "Bananas", "value": 20 },
+    { "label": "April",    "category": "Cherries", "value": 25 },
+    { "label": "May",      "category": "Apples", "value": 40 },
+    { "label": "May",      "category": "Bananas", "value": 35 },
+    { "label": "May",      "category": "Cherries", "value": 30 },
+    { "label": "June",     "category": "Apples", "value": 30 },
+    { "label": "June",     "category": "Bananas", "value": 40 },
+    { "label": "June",     "category": "Cherries", "value": 20 },
 ]
 df = pd.DataFrame(data)
 
-doodl.stacked_barchart(
+doodl.stacked_areachart(
     data=df,
     width=350,
     height=350,
@@ -160,31 +160,31 @@ names of the rest of the series are taken from the column names of all
 remaining columns.
 == Javascript
 ```javascript
-<span class="doodl-chart" id="stacked_barchart_0"></span>
+<span class="doodl-chart" id="stacked_areachart_0"></span>
 
 <script>
-  Doodl.stacked_barchart(
-    '#stacked_barchart_0',
+  Doodl.stacked_areachart(
+    '#stacked_areachart_0',
     [
 [
-        { "label": "January",  "Apples": 30 },
-        { "label": "January",  "Bananas": 20 },
-        { "label": "January",  "Cherries": 10 },
-        { "label": "February", "Apples": 20 },
-        { "label": "February", "Bananas": 25 },
-        { "label": "February", "Cherries": 15 },
-        { "label": "March",    "Apples": 25 },
-        { "label": "March",    "Bananas": 30 },
-        { "label": "March",    "Cherries": 20 },
-        { "label": "April",    "Apples": 35 },
-        { "label": "April",    "Bananas": 20 },
-        { "label": "April",    "Cherries": 25 },
-        { "label": "May",      "Apples": 40 },
-        { "label": "May",      "Bananas": 35 },
-        { "label": "May",      "Cherries": 30 },
-        { "label": "June",     "Apples": 30 },
-        { "label": "June",     "Bananas": 40 },
-        { "label": "June",     "Cherries": 20 },
+        { "label": "January",  "category": "Apples", "value": 30 },
+        { "label": "January",  "category": "Bananas", "value": 20 },
+        { "label": "January",  "category": "Cherries", "value": 10 },
+        { "label": "February", "category": "Apples", "value": 20 },
+        { "label": "February", "category": "Bananas", "value": 25 },
+        { "label": "February", "category": "Cherries", "value": 15 },
+        { "label": "March",    "category": "Apples", "value": 25 },
+        { "label": "March",    "category": "Bananas", "value": 30 },
+        { "label": "March",    "category": "Cherries", "value": 20 },
+        { "label": "April",    "category": "Apples", "value": 35 },
+        { "label": "April",    "category": "Bananas", "value": 20 },
+        { "label": "April",    "category": "Cherries", "value": 25 },
+        { "label": "May",      "category": "Apples", "value": 40 },
+        { "label": "May",      "category": "Bananas", "value": 35 },
+        { "label": "May",      "category": "Cherries", "value": 30 },
+        { "label": "June",     "category": "Apples", "value": 30 },
+        { "label": "June",     "category": "Bananas", "value": 40 },
+        { "label": "June",     "category": "Cherries", "value": 20 },
     ]    ], {
         'width': 350,
         'height': 350
@@ -201,24 +201,24 @@ remaining columns.
  setTimeout(() => {
   Promise.resolve().then(() => {
     Doodl.stacked_areachart('#chart_0', [
-        { "label": "January",  "Apples": 30 },
-        { "label": "January",  "Bananas": 20 },
-        { "label": "January",  "Cherries": 10 },
-        { "label": "February", "Apples": 20 },
-        { "label": "February", "Bananas": 25 },
-        { "label": "February", "Cherries": 15 },
-        { "label": "March",    "Apples": 25 },
-        { "label": "March",    "Bananas": 30 },
-        { "label": "March",    "Cherries": 20 },
-        { "label": "April",    "Apples": 35 },
-        { "label": "April",    "Bananas": 20 },
-        { "label": "April",    "Cherries": 25 },
-        { "label": "May",      "Apples": 40 },
-        { "label": "May",      "Bananas": 35 },
-        { "label": "May",      "Cherries": 30 },
-        { "label": "June",     "Apples": 30 },
-        { "label": "June",     "Bananas": 40 },
-        { "label": "June",     "Cherries": 20 }
+        { "label": "January",  "category": "Apples", "value": 30 },
+        { "label": "January",  "category": "Bananas", "value": 20 },
+        { "label": "January",  "category": "Cherries", "value": 10 },
+        { "label": "February", "category": "Apples", "value": 20 },
+        { "label": "February", "category": "Bananas", "value": 25 },
+        { "label": "February", "category": "Cherries", "value": 15 },
+        { "label": "March",    "category": "Apples", "value": 25 },
+        { "label": "March",    "category": "Bananas", "value": 30 },
+        { "label": "March",    "category": "Cherries", "value": 20 },
+        { "label": "April",    "category": "Apples", "value": 35 },
+        { "label": "April",    "category": "Bananas", "value": 20 },
+        { "label": "April",    "category": "Cherries", "value": 25 },
+        { "label": "May",      "category": "Apples", "value": 40 },
+        { "label": "May",      "category": "Bananas", "value": 35 },
+        { "label": "May",      "category": "Cherries", "value": 30 },
+        { "label": "June",     "category": "Apples", "value": 30 },
+        { "label": "June",     "category": "Bananas", "value": 40 },
+        { "label": "June",     "category": "Cherries", "value": 20 }
     ],
     {"width":500,"height":500},
     {},
