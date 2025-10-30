@@ -20,7 +20,7 @@ app or a chatbot.
 
 If you'd like to give it a spin, mosey on over to [doodl.ai](https://doodl.ai)
 and click on "[Get started](https://doodl.ai/get-started.html)". You'll find
-[extensive documentation](http://localhost:5173/charts.html) there as well.
+[extensive documentation](http://localhost:5173/docs.html) there as well.
 
 Doodl is a project of [Hypericum](https://hypericum.ai), the computational
 intuition company.
