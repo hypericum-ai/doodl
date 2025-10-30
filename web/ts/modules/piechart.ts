@@ -27,6 +27,7 @@ export async function piechart(
     .attr("height", height);
 
   hamburgerMenu(div, data);
+  trackChart("piechart");
 
   const container = svg
     .append("g")

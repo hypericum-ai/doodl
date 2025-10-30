@@ -25,6 +25,7 @@ export async function areachart(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   hamburgerMenu(div, data);
+  trackChart("areachart");
 
   const xValues = data.map((d: any) => d.x);
   const firstX = xValues[0];

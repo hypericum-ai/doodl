@@ -36,7 +36,8 @@ export async function contour(
     .attr("width", width)
     .attr("height", height);
 
-   hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
+  trackChart("contour");
 
   // Generate contours
   const contours = d3.contours()

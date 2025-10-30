@@ -26,6 +26,7 @@ export  async function skey(
     .attr("style", "max-width: 100%; height: auto;");
 
     hamburgerMenu(div, data);
+    trackChart("skey");
 
   // Define Sankey generator
   const sankeyGenerator = sankey<any, any>()

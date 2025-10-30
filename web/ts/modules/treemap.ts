@@ -38,6 +38,7 @@ export async function treemap(
    .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
    hamburgerMenu(div, data);
+    trackChart("treemap");
 
  // Add rectangles
  svg

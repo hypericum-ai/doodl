@@ -58,6 +58,7 @@ export function bollinger(
     .append("g");
 
     hamburgerMenu(div, data);
+    trackChart("bollinger");
 
   // Draw bands
   svg

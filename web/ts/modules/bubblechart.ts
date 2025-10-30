@@ -40,7 +40,8 @@ export async function bubblechart(
     .style("pointer-events", "none")
     .style("opacity", 0);
 
-    hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
+  trackChart("bubblechart");
 
   const colorScale = d3.scaleOrdinal<string>().range(colors);
 

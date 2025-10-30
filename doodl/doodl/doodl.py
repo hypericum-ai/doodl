@@ -67,6 +67,13 @@ HTML_TPL = """<!DOCTYPE html>
         <title>{title}</title>
         {fonts}
         {stylesheets}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S5Q864CYN6"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){{dataLayer.push(arguments);}}
+            gtag('js', new Date());
+            gtag('config', 'G-S5Q864CYN6');
+        </script>
         {scripts}
     </head>
 

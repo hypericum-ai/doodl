@@ -27,6 +27,7 @@ export async function voronoi(
     .style("font-family", "sans-serif");
 
   hamburgerMenu(div, data);
+  trackChart("voronoi");
 
   const delaunay = d3.Delaunay.from(
     points,

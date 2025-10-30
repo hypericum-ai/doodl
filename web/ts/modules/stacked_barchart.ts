@@ -42,6 +42,7 @@ export async function stacked_barchart(
     .attr("height", height);
 
   hamburgerMenu(div, data);
+  trackChart("stacked_barchart");
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;

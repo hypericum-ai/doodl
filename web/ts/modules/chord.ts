@@ -30,11 +30,12 @@ export async function chord(
     .attr("width", width)
     .attr("height", height);
 
-    hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
+  trackChart("chord");
 
-    const container = svg
-    .append("g")
-    .attr("transform", `translate(${width / 2}, ${height / 2}) rotate(0)`);
+  const container = svg
+  .append("g")
+  .attr("transform", `translate(${width / 2}, ${height / 2}) rotate(0)`);
 
   // Draw arcs
   const group = container

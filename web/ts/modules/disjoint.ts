@@ -35,6 +35,7 @@ export async function disjoint(
         .attr("style", "max-width: 100%; height: auto;");
 
         hamburgerMenu(div, data);
+        trackChart("disjoint");
 
     // Add a line for each link, and a circle for each node.
     const link = svg.append("g")

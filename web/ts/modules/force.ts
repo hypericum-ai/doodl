@@ -23,6 +23,7 @@ export async function force(
     .attr("style", "max-width: 100%; height: auto;");
 
     hamburgerMenu(div, data);
+    trackChart("force");
 
   const simulation = d3
     .forceSimulation<Node>(data.nodes)

@@ -32,6 +32,7 @@ export async function stacked_areachart(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   hamburgerMenu(div, data);
+  trackChart("stacked_areachart");
 
   // ---- Data preparation ----
   interface PivotedRow {

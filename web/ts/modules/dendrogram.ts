@@ -26,6 +26,7 @@ export async function dendrogram(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
     hamburgerMenu(div, data);
+    trackChart("dendrogram");
 
   const root = d3.hierarchy(data);
   const treeLayout = d3.tree().size([height, width]);

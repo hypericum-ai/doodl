@@ -29,6 +29,7 @@ export async function heatmap(
     .attr("height", svgHeight);
 
     hamburgerMenu(div, data);
+    trackChart("heatmap");
 
   const zoomGroup = svg
     .append("g")

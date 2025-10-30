@@ -23,6 +23,7 @@ export async function minard(
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
       hamburgerMenu(div, data);
+      trackChart("minard");
   
     const root = d3.hierarchy(data);
     const treeLayout = d3.tree().size([height, width]);

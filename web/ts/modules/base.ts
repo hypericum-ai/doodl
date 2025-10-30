@@ -273,3 +273,19 @@ function hamburgerMenu(div: string = "", data: object | any[] = []) {
       downloadAsJson(data, `${divIdWithoutHash}.json`);
     });
 }
+
+// Declare gtag globally for TS
+declare function gtag(...args: any[]): void;
+
+export function trackChart(chartId: string): void { //chartId is a unique identifier for the chart in snake_case
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    gtag("event", "view_chart", {
+      chart_id: chartId,
+      event_category: "charts",
+      event_label: `Chart Viewed: ${chartId}`,
+      non_interaction: true, // optional
+    });
+  } else {
+    console.warn("Google Analytics not initialized or gtag not found.");
+  }
+}

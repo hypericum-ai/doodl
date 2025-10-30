@@ -27,6 +27,7 @@ export async function linechart(
     .attr("height", height);
 
     hamburgerMenu(div, data);
+    trackChart("linechart");
 
   // Define X and Y scales
   const xScale = d3

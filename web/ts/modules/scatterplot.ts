@@ -29,6 +29,7 @@ export async function scatterplot(
     .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
     hamburgerMenu(div, data);
+    trackChart("scatterplot");
 
   // Define scales
   const xScale = d3

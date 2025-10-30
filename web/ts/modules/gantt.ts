@@ -20,6 +20,7 @@ export async function gantt(
     .attr("transform", `translate(${margin.left},${margin.top})`);;
 
     hamburgerMenu(div, data);
+    trackChart("gantt");
 
   const width = size.width - margin.left - margin.right;
   const height = size.height - margin.top - margin.bottom;

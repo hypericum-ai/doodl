@@ -25,6 +25,7 @@ export async function barchart(
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     hamburgerMenu(div, data);
+    trackChart("barchart");
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;

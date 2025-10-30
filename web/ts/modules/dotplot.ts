@@ -28,6 +28,7 @@ export async function dotplot(
     .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
     hamburgerMenu(div, data);
+    trackChart("dotplot");
 
   // Define scales
   const xScale = d3

@@ -30,12 +30,10 @@ export async function vennchart(
     .attr("transform", `translate(${margin.left || 0}, ${margin.top || 0})`);
 
   hamburgerMenu(div, data);
+  trackChart("vennchart");
 
 
   try {
-    
-
-
   // Create Venn layout with venn existence check
   if (typeof venn === "undefined" || !venn.VennDiagram) {
     console.error("Venn.js not properly loaded");

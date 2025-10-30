@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Tue Oct 28 19:26:52 CAT 2025
+// Generated Wed Oct 29 19:06:41 CAT 2025
 
 
 /// base.ts
@@ -280,6 +280,21 @@ function hamburgerMenu(div: string = "", data: object | any[] = []) {
     });
 }
 
+// Declare gtag globally for TS
+declare function gtag(...args: any[]): void;
+
+export function trackChart(chartId: string): void { //chartId is a unique identifier for the chart in snake_case
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    gtag("event", "view_chart", {
+      chart_id: chartId,
+      event_category: "charts",
+      event_label: `Chart Viewed: ${chartId}`,
+      non_interaction: true, // optional
+    });
+  } else {
+    console.warn("Google Analytics not initialized or gtag not found.");
+  }
+}
 /// barchart.ts
 
 export async function barchart(
@@ -309,6 +324,7 @@ export async function barchart(
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     hamburgerMenu(div, data);
+    trackChart("barchart");
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
@@ -501,6 +517,7 @@ export async function stacked_barchart(
     .attr("height", height);
 
   hamburgerMenu(div, data);
+  trackChart("stacked_barchart");
 
   const chartWidth = width - margin.left - margin.right;
   const chartHeight = height - margin.top - margin.bottom;
@@ -691,6 +708,7 @@ export async function stacked_areachart(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   hamburgerMenu(div, data);
+  trackChart("stacked_areachart");
 
   // ---- Data preparation ----
   interface PivotedRow {
@@ -891,6 +909,7 @@ export function bollinger(
     .append("g");
 
     hamburgerMenu(div, data);
+    trackChart("bollinger");
 
   // Draw bands
   svg
@@ -977,6 +996,7 @@ export async function boxplot(
     .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
     hamburgerMenu(div, data);
+    trackChart("boxplot");
 
   // Compute summary statistics (quartiles, median, min, max)
   const groupedData = d3.group(data, (d: any) => d.category);
@@ -1111,11 +1131,12 @@ export async function chord(
     .attr("width", width)
     .attr("height", height);
 
-    hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
+  trackChart("chord");
 
-    const container = svg
-    .append("g")
-    .attr("transform", `translate(${width / 2}, ${height / 2}) rotate(0)`);
+  const container = svg
+  .append("g")
+  .attr("transform", `translate(${width / 2}, ${height / 2}) rotate(0)`);
 
   // Draw arcs
   const group = container
@@ -1202,6 +1223,7 @@ export async function dotplot(
     .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
     hamburgerMenu(div, data);
+    trackChart("dotplot");
 
   // Define scales
   const xScale = d3
@@ -1290,6 +1312,7 @@ export async function force(
     .attr("style", "max-width: 100%; height: auto;");
 
     hamburgerMenu(div, data);
+    trackChart("force");
 
   const simulation = d3
     .forceSimulation<Node>(data.nodes)
@@ -1364,6 +1387,7 @@ export async function gantt(
     .attr("transform", `translate(${margin.left},${margin.top})`);;
 
     hamburgerMenu(div, data);
+    trackChart("gantt");
 
   const width = size.width - margin.left - margin.right;
   const height = size.height - margin.top - margin.bottom;
@@ -1433,6 +1457,7 @@ export async function heatmap(
     .attr("height", svgHeight);
 
     hamburgerMenu(div, data);
+    trackChart("heatmap");
 
   const zoomGroup = svg
     .append("g")
@@ -1613,6 +1638,7 @@ export async function linechart(
     .attr("height", height);
 
     hamburgerMenu(div, data);
+    trackChart("linechart");
 
   // Define X and Y scales
   const xScale = d3
@@ -1697,6 +1723,7 @@ export async function piechart(
     .attr("height", height);
 
   hamburgerMenu(div, data);
+  trackChart("piechart");
 
   const container = svg
     .append("g")
@@ -1826,6 +1853,7 @@ export async function scatterplot(
     .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
     hamburgerMenu(div, data);
+    trackChart("scatterplot");
 
   // Define scales
   const xScale = d3
@@ -1918,6 +1946,7 @@ export  async function skey(
     .attr("style", "max-width: 100%; height: auto;");
 
     hamburgerMenu(div, data);
+    trackChart("skey");
 
   // Define Sankey generator
   const sankeyGenerator = sankey<any, any>()
@@ -2060,6 +2089,7 @@ export async function tree(
     .attr("transform", `translate(${margin?.left || 0}, ${margin?.top || 0})`);
 
     hamburgerMenu(div, data);
+    trackChart("tree");
 
   // Create hierarchical data structure
   const root = d3.hierarchy(data);
@@ -2215,6 +2245,7 @@ export async function treemap(
    .attr("transform", `translate(${margin?.left || 0},${margin?.top || 0})`);
 
    hamburgerMenu(div, data);
+    trackChart("treemap");
 
  // Add rectangles
  svg
@@ -2284,12 +2315,10 @@ export async function vennchart(
     .attr("transform", `translate(${margin.left || 0}, ${margin.top || 0})`);
 
   hamburgerMenu(div, data);
+  trackChart("vennchart");
 
 
   try {
-    
-
-
   // Create Venn layout with venn existence check
   if (typeof venn === "undefined" || !venn.VennDiagram) {
     console.error("Venn.js not properly loaded");
@@ -2377,6 +2406,7 @@ export async function disjoint(
         .attr("style", "max-width: 100%; height: auto;");
 
         hamburgerMenu(div, data);
+        trackChart("disjoint");
 
     // Add a line for each link, and a circle for each node.
     const link = svg.append("g")
@@ -2480,6 +2510,7 @@ export async function dendrogram(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
     hamburgerMenu(div, data);
+    trackChart("dendrogram");
 
   const root = d3.hierarchy(data);
   const treeLayout = d3.tree().size([height, width]);
@@ -2561,7 +2592,8 @@ export async function contour(
     .attr("width", width)
     .attr("height", height);
 
-   hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
+  trackChart("contour");
 
   // Generate contours
   const contours = d3.contours()
@@ -2607,6 +2639,7 @@ export async function areachart(
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   hamburgerMenu(div, data);
+  trackChart("areachart");
 
   const xValues = data.map((d: any) => d.x);
   const firstX = xValues[0];
@@ -2727,7 +2760,8 @@ export async function bubblechart(
     .style("pointer-events", "none")
     .style("opacity", 0);
 
-    hamburgerMenu(div, data);
+  hamburgerMenu(div, data);
+  trackChart("bubblechart");
 
   const colorScale = d3.scaleOrdinal<string>().range(colors);
 
@@ -2988,6 +3022,7 @@ export async function voronoi(
     .style("font-family", "sans-serif");
 
   hamburgerMenu(div, data);
+  trackChart("voronoi");
 
   const delaunay = d3.Delaunay.from(
     points,
