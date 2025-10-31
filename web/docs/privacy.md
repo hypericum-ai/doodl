@@ -2,6 +2,8 @@
 title: Privacy Policy
 ---
 
+# Privacy Policy
+
 *Effective Date: October 29, 2025*
 
 Welcome to doodl.ai. We are committed to protecting your privacy and
@@ -9,9 +11,9 @@ ensuring you have a positive experience when using our services. This
 Privacy Policy explains how we collect, use, disclose, and safeguard
 your information when you visit our website and use our services.
 
-# 1. Information We Collect
+## 1. Information We Collect
 
-## 1.1 Information You Provide
+### 1.1 Information You Provide
 
 We may collect personal information that you voluntarily provide to us
 when you:
@@ -27,7 +29,7 @@ when you:
 This information may include your name, email address, username, and any
 other information you choose to provide.
 
-## 1.2 Automatically Collected Information
+### 1.2 Automatically Collected Information
 
 When you access doodl.ai, we automatically collect certain information
 about your device and usage, including:
@@ -46,7 +48,7 @@ about your device and usage, including:
 
 -   Geographic location data
 
-# 2. How We Use Your Information
+## 2. How We Use Your Information
 
 We use the information we collect for various purposes, including to:
 
@@ -69,7 +71,7 @@ We use the information we collect for various purposes, including to:
 
 -   Comply with legal obligations
 
-# 3. Google Analytics
+## 3. Google Analytics
 
 We use Google Analytics, a web analytics service provided by Google LLC,
 to help us understand how users interact with our website. Google
@@ -95,7 +97,7 @@ You can opt-out of Google Analytics by:
 For more information about how Google uses data, please visit
 <https://policies.google.com/privacy>.
 
-# 4. Cookies and Tracking Technologies
+## 4. Cookies and Tracking Technologies
 
 We use cookies and similar tracking technologies to track activity on
 our service and store certain information. Cookies are files with a
@@ -104,7 +106,7 @@ You can instruct your browser to refuse all cookies or to indicate when
 a cookie is being sent. However, if you do not accept cookies, you may
 not be able to use some portions of our service.
 
-# 5. How We Share Your Information
+## 5. How We Share Your Information
 
 We may share your information in the following circumstances:
 
@@ -124,7 +126,7 @@ We may share your information in the following circumstances:
 -   **With Your Consent:** We may share your information with third
     parties when you give us explicit consent to do so.
 
-# 6. Data Security
+## 6. Data Security
 
 We implement appropriate technical and organizational security measures
 to protect your information against unauthorized access, alteration,
@@ -132,14 +134,14 @@ disclosure, or destruction. However, no method of transmission over the
 Internet or electronic storage is 100% secure, and we cannot guarantee
 absolute security.
 
-# 7. Data Retention
+## 7. Data Retention
 
 We retain your personal information only for as long as necessary to
 fulfill the purposes outlined in this Privacy Policy, unless a longer
 retention period is required or permitted by law. When we no longer need
 your information, we will securely delete or anonymize it.
 
-# 8. Your Privacy Rights
+## 8. Your Privacy Rights
 
 Depending on your location, you may have certain rights regarding your
 personal information, including:
@@ -163,7 +165,7 @@ personal information, including:
 To exercise these rights, please contact us using the information
 provided in the Contact Us section below.
 
-# 9. Children\'s Privacy
+## 9. Children\'s Privacy
 
 Our services are not intended for children under the age of 13. We do
 not knowingly collect personal information from children under 13. If
@@ -171,7 +173,7 @@ you are a parent or guardian and believe that your child has provided us
 with personal information, please contact us, and we will take steps to
 delete such information.
 
-# 10. International Data Transfers
+## 10. International Data Transfers
 
 Your information may be transferred to and maintained on servers located
 outside of your state, province, country, or other governmental
@@ -179,14 +181,14 @@ jurisdiction where data protection laws may differ. By using our
 services, you consent to the transfer of your information to these
 locations.
 
-# 11. Third-Party Links
+## 11. Third-Party Links
 
 Our website may contain links to third-party websites. We are not
 responsible for the privacy practices or content of these third-party
 sites. We encourage you to read the privacy policies of any third-party
 sites you visit.
 
-# 12. Changes to This Privacy Policy
+## 12. Changes to This Privacy Policy
 
 We may update this Privacy Policy from time to time. We will notify you
 of any changes by posting the new Privacy Policy on this page and
@@ -194,14 +196,14 @@ updating the effective date. You are advised to review this Privacy
 Policy periodically for any changes. Changes to this Privacy Policy are
 effective when they are posted on this page.
 
-# 13. Contact Us
+## 13. Contact Us
 
 If you have any questions about this Privacy Policy or our privacy
 practices, please contact us at:
 
 **doodl.ai**
 
-Email: info@doodl.ai
+Email: [info@doodl.ai](mailto:info@doodl.ai)
 
 Website: https://doodl.ai
 
