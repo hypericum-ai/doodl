@@ -75,6 +75,7 @@ doodl/data
 *.idea*
 .idea/
 doodl/.idea/
+.vscode/
 *workspace.xml
 
 node_modules
@@ -84,7 +85,6 @@ doodl/docs/.vitepress/dist/*
 doodl/bin/
 doodl/venv/
 doodl/.venv/
-doodl/.vscode/
 doodl/dist/
 include/*
 lib/*

@@ -13,7 +13,8 @@ authors = [
   {name = "doodl.ai", email = "info@doodl.ai"}
 ]
 dependencies = [
-    'pypandoc', 'beautifulsoup4', 'seaborn', 'colorcet', 'playwright', 'requests', 'ipython'
+    'pypandoc', 'beautifulsoup4', 'seaborn', 'colorcet', 'playwright',
+    'requests', 'ipython' 'panflute', 'tolerantjson'
 ]
 
 [tool.flit.module]
