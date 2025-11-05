@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, PLATFORM_ID, Inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, PLATFORM_ID, Inject, Input } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 declare var Doodl: any;
@@ -10,7 +10,7 @@ declare var Doodl: any;
   styleUrl: './doodl-chart.css',
   host: { ngSkipHydration: '' }
 })
-export class DoodlChart implements OnInit, AfterViewInit {
+export class DoodlChart implements AfterViewInit {
   @Input() chartId: string = '';
   @Input() size: { width: number; height: number } = { width: 500, height: 500 };
   @Input() data: any = [];
@@ -21,9 +21,6 @@ export class DoodlChart implements OnInit, AfterViewInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngOnInit() {
-  }
-
   ngAfterViewInit() {
     // Only run in browser, not during SSR
     if (isPlatformBrowser(this.platformId)) {
@@ -33,9 +30,7 @@ export class DoodlChart implements OnInit, AfterViewInit {
         this.size,
         {},
         this.colors,
-        true,
-        false,
-        true
+        ...Object.values(this.options)
       );
     }
   }
