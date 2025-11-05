@@ -11,7 +11,7 @@ declare var Doodl: any;
   host: { ngSkipHydration: '' }
 })
 export class DoodlChart implements AfterViewInit {
-  @Input() chartId: string = '';
+  @Input() chartType: string = '';
   @Input() size: { width: number; height: number } = { width: 500, height: 500 };
   @Input() data: any = [];
   @Input() options: any = {};
@@ -24,7 +24,7 @@ export class DoodlChart implements AfterViewInit {
   ngAfterViewInit() {
     // Only run in browser, not during SSR
     if (isPlatformBrowser(this.platformId)) {
-      Doodl[this.chartId](
+      Doodl[this.chartType](
         `#${this.spanId}`,
         this.data,
         this.size,
