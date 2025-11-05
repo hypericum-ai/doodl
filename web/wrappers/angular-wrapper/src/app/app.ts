@@ -30,9 +30,9 @@ export class App implements OnInit {
       { label: "Grapes", value: 25 }
     ];
     this.options = {
-      show_percentages: true,
-      donut: false,
-      continuous_rotation: true
+      donut: true,
+      continuous_rotation: true,
+      show_percentages: false
     };
     this.colors = [
       "#A1C9F4",
