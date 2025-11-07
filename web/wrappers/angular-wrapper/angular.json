@@ -85,6 +85,32 @@
           }
         }
       }
+    },
+    "doodl-ai-angular": {
+      "projectType": "library",
+      "root": "projects/doodl-ai-angular",
+      "sourceRoot": "projects/doodl-ai-angular/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/doodl-ai-angular/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/doodl-ai-angular/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/doodl-ai-angular/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

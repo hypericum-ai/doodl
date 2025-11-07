@@ -1,5 +1,5 @@
 import { Component, signal, PLATFORM_ID, Inject, Input, OnInit } from '@angular/core';
-import { DoodlChart } from './charts/doodl-chart/doodl-chart';
+import { DoodlChart } from '../../projects/doodl-ai-angular/src/lib/doodl-chart/doodl-chart';
 import { CommonModule } from '@angular/common';
 
 declare var Doodl: any;

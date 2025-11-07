@@ -1,6 +1,5 @@
 <div class="app-container">
   @for (chart of demo_charts; track $index) {
-  <p>
     <doodl-chart
       [chartType]="chart.chartType"
       [size]="size"
@@ -8,6 +7,5 @@
       [options]="chart.options"
       [colors]="colors"
     ></doodl-chart>
-  </p>
   }
 </div>

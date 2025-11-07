@@ -3,6 +3,11 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "doodl-ai-angular": [
+        "./dist/doodl-ai-angular"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -29,6 +34,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/doodl-ai-angular/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/doodl-ai-angular/tsconfig.spec.json"
     }
   ]
 }
