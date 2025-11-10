@@ -1,0 +1,49 @@
+name: Publish doodl-ai-angular to npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    name: Build & Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular library
+        run: | 
+          cd web/wrappers/angular-wrapper
+          npx ng build doodl-ai-angular --configuration production
+
+      - name: Check if version changed
+        id: version_check
+        run: |
+          cd web/wrappers/angular-wrapper
+          CURRENT_VERSION=$(node -p "require('./projects/doodl-ai-angular/package.json').version")
+          PUBLISHED_VERSION=$(npm view doodl-ai-angular version || echo "0.0.0")
+          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "published=$PUBLISHED_VERSION" >> $GITHUB_OUTPUT
+          if [ "$CURRENT_VERSION" = "$PUBLISHED_VERSION" ]; then
+            echo "Version has not changed. Skipping publish."
+            exit 0
+          fi
+
+      - name: Publish to npm
+        run: | 
+          cd web/wrappers/angular-wrapper
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
