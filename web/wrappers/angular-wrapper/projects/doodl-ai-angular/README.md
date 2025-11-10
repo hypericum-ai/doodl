@@ -1,63 +1,135 @@
-# DoodlAiAngular
+# Doodl Ai Angular Wrapper
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.0.
+This project is an angular wrapper to use doodl-ai charts inside an angular project.
+For detailed information and documentation check the official website [doodl.ai](https://doodl.ai/)
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
+Example angular typescript component
+
+```ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DoodlChart } from 'doodl-ai-angular';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, DoodlChart],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+  size: { width: number; height: number } = { width: 500, height: 500 };
+  colors: string[] = [
+    '#A1C9F4',
+    '#FFB482',
+    '#8DE5A1',
+    '#FF9F9B',
+    '#D0BBFF',
+    '#DEBB9B',
+    '#FAB0E4',
+    '#CFCFCF',
+    '#FFFEA3',
+    '#B9F2F0',
+  ];
+
+  demo_charts = [
+    {
+      chartType: 'piechart',
+      data: [
+        { label: 'Apples', value: 10 },
+        { label: 'Bananas', value: 20 },
+        { label: 'Cherries', value: 15 },
+        { label: 'Grapes', value: 25 },
+      ],
+      options: {
+        donut: false,
+        continuous_rotation: true,
+        show_percentages: true,
+      },
+    },
+
+
+    {
+      chartType: 'piechart',
+      data: [
+        { label: 'Apples', value: 10 },
+        { label: 'Bananas', value: 20 },
+        { label: 'Cherries', value: 15 },
+        { label: 'Grapes', value: 25 },
+      ],
+      options: {
+        donut: true,
+        continuous_rotation: false,
+        show_percentages: false,
+      },
+    },
+    {
+      chartType: 'piechart',
+      data: [
+        { label: 'Apples', value: 10 },
+        { label: 'Bananas', value: 20 },
+        { label: 'Cherries', value: 15 },
+        { label: 'Grapes', value: 25 },
+      ],
+      options: {
+        donut: false,
+        continuous_rotation: true,
+        show_percentages: false,
+      },
+    },
+
+    {
+      chartType: 'barchart',
+      data: [
+        { label: 'Apples', value: 10 },
+        { label: 'Bananas', value: 20 },
+        { label: 'Cherries', value: 15 },
+        { label: 'Grapes', value: 25 },
+      ],
+      options: {
+        horizontal: false,
+        moving_average: true,
+        x_label_angle: 90,
+      },
+    },
+
+
+    {
+      chartType: 'barchart',
+      data: [
+        { label: 'Apples', value: 10 },
+        { label: 'Bananas', value: 20 },
+        { label: 'Cherries', value: 15 },
+        { label: 'Grapes', value: 25 },
+      ],
+      options: {
+        horizontal: true,
+        moving_average: false,
+        x_label_angle: 90,
+      },
+    }
+  ];
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
+and the example template would look something like this 
+
+
+```ts
+
+<div class="app-container">
+  @for (chart of demo_charts; track $index) {
+    <doodl-chart
+      [chartType]="chart.chartType"
+      [size]="size"
+      [data]="chart.data"
+      [options]="chart.options"
+      [colors]="colors"
+    ></doodl-chart>
+  }
+</div>
+
 ```
-
-## Building
-
-To build the library, run:
-
-```bash
-ng build doodl-ai-angular
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/doodl-ai-angular
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -1,23 +1,17 @@
-import { Component, signal, PLATFORM_ID, Inject, Input, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { DoodlChart } from '../../projects/doodl-ai-angular/src/lib/doodl-chart/doodl-chart';
 import { CommonModule } from '@angular/common';
-
-declare var Doodl: any;
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, DoodlChart],
   templateUrl: './app.html',
-  styleUrl: './app.css',
-  host: { ngSkipHydration: '' },
+  styleUrl: './app.css'
 })
-export class App implements OnInit {
+export class App {
   protected readonly title = signal('doodl-angular');
-  chartType: string = '';
   size: { width: number; height: number } = { width: 500, height: 500 };
-  data: any = [];
-  options: any = {};
   colors: string[] = [
     '#A1C9F4',
     '#FFB482',
@@ -201,8 +195,4 @@ export class App implements OnInit {
     //   options: {},
     // },
   ];
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
-  ngOnInit() {}
 }
