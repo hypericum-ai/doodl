@@ -21,7 +21,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm install
+        run: | 
+          cd web/wrappers/angular-wrapper
+          npm install
 
       - name: Build Angular library
         run: | 
