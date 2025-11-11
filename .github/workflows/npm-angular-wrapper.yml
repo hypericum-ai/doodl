@@ -28,7 +28,7 @@ jobs:
       - name: Build Angular library
         run: | 
           cd web/wrappers/angular-wrapper
-          ng build doodl-ai-angular --configuration production
+          npx ng build doodl-ai-angular --configuration production
 
       - name: Check if version changed
         id: version_check
