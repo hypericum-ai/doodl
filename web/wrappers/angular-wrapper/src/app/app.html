@@ -1,3 +1,11 @@
-<p>
-  <span class="doodl-chart" id="doodl-chart-span"></span>
-</p>
+<div class="app-container">
+  @for (chart of demo_charts; track $index) {
+    <doodl-chart
+      [chartType]="chart.chartType"
+      [size]="size"
+      [data]="chart.data"
+      [options]="chart.options"
+      [colors]="colors"
+    ></doodl-chart>
+  }
+</div>

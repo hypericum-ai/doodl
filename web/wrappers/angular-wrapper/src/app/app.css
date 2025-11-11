@@ -1,0 +1,21 @@
+div.app-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  height: fit-content;
+}
+
+p
+{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+doodl-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 500px;
+}
