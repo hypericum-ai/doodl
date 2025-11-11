@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { DoodlChart } from '../../projects/doodl-ai-angular/src/lib/doodl-chart/doodl-chart';
+import { DoodlChartComponent } from '../../projects/doodl-ai-angular/src/lib/doodl-chart/doodl-chart.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, DoodlChart],
+  imports: [CommonModule, DoodlChartComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
