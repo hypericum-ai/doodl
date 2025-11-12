@@ -20,7 +20,7 @@ plots
 cache
 eggs/
 .eggs/
-lib/
+/lib/
 lib64/
 parts/
 sdist/
@@ -86,7 +86,8 @@ doodl/bin/
 doodl/venv/
 doodl/.venv/
 doodl/dist/
+/doodl/lib/
 include/*
-lib/*
+/lib/*
 share/*
 dist
