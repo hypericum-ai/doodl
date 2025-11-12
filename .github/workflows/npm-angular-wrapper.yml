@@ -23,6 +23,7 @@ jobs:
       - name: Install dependencies
         run: | 
           cd web/wrappers/angular-wrapper
+          rm -rf package-lock.json node_modules
           npm install
 
       - name: Build Angular library
