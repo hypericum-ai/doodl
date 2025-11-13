@@ -31,6 +31,19 @@ jobs:
         cd doodl
         flit build
 
+    - name: Check if version changed
+      id: version_check
+      run: |
+        cd doodl
+        CURRENT_VERSION=$(grep -E '^version\s*=' pyproject.toml | head -n 1 | cut -d '"' -f2)
+        PUBLISHED_VERSION=$(python -m pip index versions doodl | grep -Eo 'Available versions: (.*)' | sed 's/Available versions: //' | cut -d, -f1 | xargs || echo "0.0.0")
+        echo "Current version: $CURRENT_VERSION"
+        echo "Published version: $PUBLISHED_VERSION"
+        if [ "$CURRENT_VERSION" = "$PUBLISHED_VERSION" ]; then
+          echo "Version has not changed. Skipping publish."
+          exit 0
+        fi
+
     - name: Publish package to PyPI
       run: | 
         cd doodl
