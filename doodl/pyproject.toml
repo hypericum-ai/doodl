@@ -14,7 +14,7 @@ authors = [
 ]
 dependencies = [
     'pypandoc', 'beautifulsoup4', 'seaborn', 'colorcet', 'playwright',
-    'requests', 'ipython' 'panflute', 'tolerantjson'
+    'requests', 'ipython', 'panflute', 'tolerantjson'
 ]
 
 [tool.flit.module]
