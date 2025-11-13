@@ -43,6 +43,7 @@ jobs:
             exit 0
           else
             echo "New version detected. Publishing to npm..."
+            cd dist/doodl-ai-angular
             npm publish --access public
           fi
         env:
