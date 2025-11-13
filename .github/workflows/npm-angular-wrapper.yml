@@ -31,22 +31,19 @@ jobs:
           cd web/wrappers/angular-wrapper
           npx ng build doodl-ai-angular --configuration production
 
-      - name: Check if version changed
-        id: version_check
+      - name: Check if version changed and publish
         run: |
           cd web/wrappers/angular-wrapper
           CURRENT_VERSION=$(node -p "require('./projects/doodl-ai-angular/package.json').version")
           PUBLISHED_VERSION=$(npm view doodl-ai-angular version || echo "0.0.0")
-          echo "current=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "published=$PUBLISHED_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+          echo "Published version: $PUBLISHED_VERSION"
           if [ "$CURRENT_VERSION" = "$PUBLISHED_VERSION" ]; then
             echo "Version has not changed. Skipping publish."
             exit 0
+          else
+            echo "New version detected. Publishing to npm..."
+            npm publish --access public
           fi
-
-      - name: Publish to npm
-        run: | 
-          cd web/wrappers/angular-wrapper
-          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
