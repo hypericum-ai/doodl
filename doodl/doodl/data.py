@@ -229,7 +229,8 @@ def interpret_data(data, spec={}, column_mapping={}):
     labels = None
 
     if not spec:
-        return data
+        params["data"] = data
+        return params
 
     if spec.get("type") == "table":
         data = _interpret_table_data(data, spec, column_mapping)
