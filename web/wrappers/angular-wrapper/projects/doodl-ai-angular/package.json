@@ -1,6 +1,10 @@
 {
   "name": "doodl-ai-angular",
   "version": "0.1.4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hypericum-ai/doodl"
+  },
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0"

@@ -22,6 +22,10 @@
     ]
   },
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hypericum-ai/doodl"
+  },
   "dependencies": {
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
