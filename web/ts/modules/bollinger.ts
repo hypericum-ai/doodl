@@ -1,114 +1,145 @@
-export function bollinger(
-  div: string = "",
-  data: any,
-  size?: any,
-  colors: string[] = []
-) {
-  const width = size.width,
-    height = size.height;
+interface BollingerRow {
+  date: Date;
+  close: number;
+  upper: number;
+  lower: number;
+  movingAvg: number;
+}
 
-  // Parse data
-  const parsedData = data.map((d: any) => ({
+export async function bollinger(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors
+) {
+  if (file?.path) {
+    data = await loadData(file?.path, file?.format);
+  }
+
+  const container = d3.select(div);
+  container.selectAll("*").remove(); // clean previous chart
+
+  const margin = { top: 30, right: 40, bottom: 30, left: 50 };
+  const width = size.width - margin.left - margin.right;
+  const height = size.height - margin.top - margin.bottom;
+
+  const svg = container
+    .append("svg")
+    .attr("width", size.width)
+    .attr("height", size.height)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  hamburgerMenu(div, data);
+  trackChart("barchart");
+
+  // ---- PARSE DATA ----
+  const parsed: BollingerRow[] = data.map((d: any): BollingerRow => ({
     date: new Date(d.date),
-    close: d.close,
-    upper: d.upper,
-    lower: d.lower,
-    movingAvg: d.movingAvg,
+    close: Number(d.close),
+    upper: Number(d.upper),
+    lower: Number(d.lower),
+    movingAvg: Number(d.movingAvg),
   }));
 
-  // Create scales
-  const dateExtent = d3.extent(parsedData, (d: any) => d.date) as [
-    Date | undefined,
-    Date | undefined
-  ];
-  const validDateExtent: [Date, Date] =
-    dateExtent[0] && dateExtent[1]
-      ? [dateExtent[0], dateExtent[1]]
-      : [new Date(), new Date()];
+  // ---- SCALES ----
 
-  const x = d3.scaleTime().domain(validDateExtent).range([0, width]);
+  // X domain with safe fallback
+  const xExtent = d3.extent(parsed, (d: BollingerRow) => d.date) as [Date, Date];
+  const xDomain: [Date, Date] = xExtent;
 
-  const yMin = d3.min(parsedData, (d: any) => Number(d.lower)) ?? 0;
-  const yMax = d3.max(parsedData, (d: any) => Number(d.upper)) ?? 100;
+  const x = d3
+    .scaleUtc()
+    .domain(xDomain)
+    .range([0, width]);
 
-  const y = d3.scaleLinear().domain([yMin, yMax]).range([height, 0]);
+  // Y domain with number fallback
+  const yMin = d3.min(parsed, (d: BollingerRow) => d.lower) as number;
+  const yMax = d3.max(parsed, (d: BollingerRow) => d.upper) as number;
 
-  // Line generators
-  const line = d3
+  const y = d3
+    .scaleLinear()
+    .domain([yMin, yMax])
+    .nice()
+    .range([height, 0]);
+
+  // ---- LINE GENERATORS ----
+  const lineClose = d3
     .line<any>()
     .x((d: any) => x(d.date))
-    .y((d: any) => y(d.movingAvg));
+    .y((d: any) => y(d.close));
 
-  const upperBand = d3
+  const lineUpper = d3
     .line<any>()
     .x((d: any) => x(d.date))
     .y((d: any) => y(d.upper));
 
-  const lowerBand = d3
+  const lineLower = d3
     .line<any>()
     .x((d: any) => x(d.date))
     .y((d: any) => y(d.lower));
 
-  // Create SVG
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g");
+  const lineMA = d3
+    .line<any>()
+    .x((d: any) => x(d.date))
+    .y((d: any) => y(d.movingAvg));
 
-    hamburgerMenu(div, data);
-    trackChart("bollinger");
-
-  // Draw bands
-  svg
-    .append("path")
-    .datum(parsedData)
-    .attr("fill", "none")
-    .attr("stroke", colors[0] || "#ff0000")
-    .attr("stroke-width", 1.5)
-    .attr("d", upperBand);
+  // ---- AREA FOR BANDS ----
+  const areaBand = d3
+    .area<any>()
+    .x((d: any) => x(d.date))
+    .y0((d: any) => y(d.lower))
+    .y1((d: any) => y(d.upper));
 
   svg
     .append("path")
-    .datum(parsedData)
-    .attr("fill", "none")
-    .attr("stroke", colors[1] || "#0000ff")
-    .attr("stroke-width", 1.5)
-    .attr("d", lowerBand);
+    .datum(parsed)
+    .attr("fill", colors[1] || "#ddd")
+    .attr("opacity", 0.4)
+    .attr("d", areaBand);
 
+  // ---- UPPER BAND ----
   svg
     .append("path")
-    .datum(parsedData)
+    .datum(parsed)
     .attr("fill", "none")
-    .attr("stroke", colors[2] || "#00ff00")
+    .attr("stroke", colors[1] || "#ccc")
+    .attr("stroke-width", 1.4)
+    .attr("d", lineUpper);
+
+  // ---- LOWER BAND ----
+  svg
+    .append("path")
+    .datum(parsed)
+    .attr("fill", "none")
+    .attr("stroke", colors[1] || "#ccc")
+    .attr("stroke-width", 1.4)
+    .attr("d", lineLower);
+
+  // ---- MOVING AVERAGE ----
+  svg
+    .append("path")
+    .datum(parsed)
+    .attr("fill", "none")
+    .attr("stroke", colors[2] || "red")
     .attr("stroke-width", 2)
-    .attr("d", line);
+    .attr("d", lineMA);
 
-  const xAxis = d3.axisBottom(x);
-  const yAxis = d3.axisLeft(y);
+  // ---- CLOSE PRICE ----
+  svg
+    .append("path")
+    .datum(parsed)
+    .attr("fill", "none")
+    .attr("stroke", colors[0] || "steelblue")
+    .attr("stroke-width", 1.7)
+    .attr("d", lineClose);
 
-  svg.append("g")
+  // ---- AXES ----
+  svg
+    .append("g")
     .attr("transform", `translate(0,${height})`)
-    .call(xAxis)
-    .append("text")
-    .attr("x", width / 2)
-    .attr("y", 50) // Increase y position for visibility
-    .attr("fill", "black")
-    .attr("font-size", "14px") // Ensure readable font size
-    .attr("font-weight", "bold") // Make it more prominent
-    .attr("text-anchor", "middle")
-    .text("Date");
+    .call(d3.axisBottom(x));
 
-  svg.append("g")
-    .call(yAxis)
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("x", -height / 2)
-    .attr("y", -50) // Adjust position for visibility
-    .attr("fill", "red")
-    .attr("font-size", "14px") // Ensure readable font size
-    .attr("font-weight", "bold") // Make it more prominent
-    .attr("text-anchor", "middle")
-    .text("Price");
+  svg.append("g").call(d3.axisLeft(y));
 }

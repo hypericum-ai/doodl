@@ -36,18 +36,9 @@
 
 
 <bollinger
-data='[
-  { "date": "2024-03-01", "close": 100, "upper": 105, "lower": 95, "movingAvg": 100 },
-  { "date": "2024-03-02", "close": 102, "upper": 107, "lower": 97, "movingAvg": 101 },
-  { "date": "2024-03-03", "close": 104, "upper": 109, "lower": 99, "movingAvg": 102 },
-  { "date": "2024-03-04", "close": 101, "upper": 106, "lower": 96, "movingAvg": 100.5 },
-  { "date": "2024-03-05", "close": 98, "upper": 103, "lower": 93, "movingAvg": 98.5 },
-  { "date": "2024-03-06", "close": 96, "upper": 101, "lower": 91, "movingAvg": 96.5 },
-  { "date": "2024-03-07", "close": 99, "upper": 104, "lower": 94, "movingAvg": 98 },
-  { "date": "2024-03-08", "close": 103, "upper": 108, "lower": 98, "movingAvg": 101 }
-]'
-  size='{"width":500,"height":500}'
-  colors='deep'
+path= "data/bollinger_50.json"
+  size='{"width":1000,"height":1000}'
+  colors='pastel'
 >
 </bollinger>
 
