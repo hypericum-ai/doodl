@@ -422,6 +422,8 @@ def register_chart(source=None, filename=None, namespace=None):
 
         namespace = _namespace()
 
+    modules = set()
+
     for defn_dict in defn_list:
         if defn_dict["tag"] in custom_charts:
             logger.warning(f'duplicate chart tag "{defn_dict["tag"]}"')
@@ -434,6 +436,15 @@ def register_chart(source=None, filename=None, namespace=None):
         setattr(namespace, str(defn.tag), chart(
             defn.tag, defn.options, defn.data
         ))
+
+        modules.add(defn.module_source)
+
+    scripts = [
+        f'<script src="{module}"></script>'
+        for module in modules
+    ]
+
+    display(HTML("\n".join(scripts)))
 
     return namespace
 

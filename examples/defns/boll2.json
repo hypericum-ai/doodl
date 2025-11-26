@@ -1,0 +1,19 @@
+{
+    "options": {
+        "vertical": 0
+    },
+    "data": {
+        "type": "table",
+        "columns": [
+            "date",
+            "close",
+            "upper",
+            "lower",
+            "movingAvg"
+        ]
+    },
+    "tag": "boll2",
+    "function": "bollinger",
+    "module_name": "BollingerModule",
+    "module_source": "https://cdn.jsdelivr.net/gh/hubbl-ai/bollinger-chart@main/dist/bollinger.js"
+}
