@@ -30,12 +30,15 @@ from time import sleep
 from IPython.display import display, HTML
 from urllib.parse import urlparse
 
+# Global constants
 
 FONTS = [
     "http://fonts.googleapis.com/css?family=Raleway",
     "http://fonts.googleapis.com/css?family=Droid%20Sans",
     "http://fonts.googleapis.com/css?family=Lato",
 ]
+
+# Style sheets and scripts
 
 BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
@@ -59,6 +62,8 @@ DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
 PROD_SCRIPTS = [
     "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
 ]
+
+# The HTML template
 
 HTML_TPL = """<!DOCTYPE html>
 <html>
@@ -88,7 +93,10 @@ HTML_TPL = """<!DOCTYPE html>
 </html>
 """
 
+# Supported PDF engines
+
 PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
+
 # Standard charts
 
 # Declaration of standard chart types. The layout out this table is:
@@ -292,6 +300,8 @@ STANDARD_CHARTS = {
 
 CHART_TAGS = list(STANDARD_CHARTS.keys())
 
+# Definiions for processing RawInline elements
+
 # Optional: restrict which RawInline.format values are eligible.
 # None = accept all formats; otherwise a set like {"html", "latex"}
 
@@ -303,11 +313,15 @@ INLINE_CONTAINERS = (
     pf.Cite, pf.Link  # (Images inside links are allowed in Pandoc)
 )
 
+# Handle pypandoc convert function name change
+
 if hasattr(py, "convert"):
     convert = py.convert  # type: ignore
 else:
     convert = py.convert_file
 
+
+# Global variables
 
 # Mode is 'dev' for development mode (with the '-D' flag), and 'prod'
 # for production mode.
@@ -315,8 +329,20 @@ else:
 mode = "prod"
 module_name = "Doodl"
 src_dir = "."
+
+# Map of custom chart definitions
+custom_charts = {}
+
+# Set up logging
+
 logger = logging.getLogger(module_name)
+
+# URL for SVG to PNG conversion service
+
 convert_url = "https://svgtopng.doodl.ai/convert"
+
+# Default port for HTTP server. Settable via the '--port' argument.
+
 default_port = 7300
 
 
@@ -326,6 +352,8 @@ def wrap(to_wrap, wrap_in):
     wrap_in.append(contents)
 
 
+# Convert the higher level chart color specifications to a
+# list of colors using Seaborn and Colorcet.
 def resolve_color_palette(colors, n_colors, desat):
     cc_palette = ""
 
@@ -348,19 +376,20 @@ def resolve_color_palette(colors, n_colors, desat):
 
     return palette
 
-
+# Class to hold chart definitions for custom charts
 class ChartDefinition:
     def __init__(self, *args, **kwargs):
         self.tag = None
         self.module_name = None
         self.module_source = None
         self.function = None
-        self.optional = {}
+        self.options = {}
+        self.data = {}
 
         for k, v in kwargs.items():
             setattr(self, k, v)
 
-        for attr in ["tag", "module_name", "module_source"]:
+        for attr in ["tag", "data", "module_name", "module_source"]:
             if not hasattr(self, attr):
                 raise Exception("invalid function definition")
 
@@ -368,27 +397,50 @@ class ChartDefinition:
             self.function = self.tag
 
 
-# Register a custom chart
-def register_chart(filename, defs):
-    with open(filename) as ifp:
-        # Parse the file, and add it to a list of function
-        # definitions.
-        defn_list = json.loads(ifp.read())
-        if type(defn_list) is dict:
-            defn_list = [defn_list]
-        for defn_dict in defn_list:
-            defn = ChartDefinition(**defn_dict)
-            defs.append(defn)
-            CHART_TAGS.append(str(defn.tag))
+# Register a custom chart, from either a declaration as a Python
+# dict, or from a JSON file.
+def register_chart(source=None, filename=None, namespace=None):
+    logger.info("registering custom chart")
 
-    return defs
+    if source is not None:
+        defn_list = source
+    elif filename is not None:
+        with open(filename) as ifp:
+            defn_list = json.loads(ifp.read())
+    else:
+        raise Exception("must specify either source or filename")
 
+    # Parse the file, and add it to a list of function
+    # definitions.
+
+    if type(defn_list) is dict:
+        defn_list = [defn_list]
+
+    if namespace is None:
+        class _namespace:
+            pass
+
+        namespace = _namespace()
+
+    for defn_dict in defn_list:
+        if defn_dict["tag"] in custom_charts:
+            logger.warning(f'duplicate chart tag "{defn_dict["tag"]}"')
+            continue
+
+        defn = ChartDefinition(**defn_dict)
+        custom_charts[defn.tag] = defn
+        CHART_TAGS.append(str(defn.tag))
+
+        setattr(namespace, str(defn.tag), chart(
+            defn.tag, defn.options, defn.data
+        ))
+
+    return namespace
 
 # Functions related to HTML
 
-
+# Call pandoc and parse the HTML with BeautifulSoup
 def parse_html(input_file, output_dir, filters=[], extras=[]):
-    # Call pandoc and parse the HTML with BeautifulSoup
     with NamedTemporaryFile(
         suffix="html", delete_on_close=False, dir=output_dir
     ) as pfp:
@@ -412,6 +464,7 @@ def parse_html(input_file, output_dir, filters=[], extras=[]):
     return soup
 
 
+# Do the Tufte-specific transformations on the HTML
 def transform_html(soup):
     # Process the generated HTML to match the Tufte format
 
@@ -449,7 +502,10 @@ def transform_html(soup):
     return soup
 
 
-def process_html_charts(soup, chart_defs):
+# Replace chart tags with a call to the appropriate chart function.
+def process_html_charts(soup):
+    global custom_charts
+
     # Process the charts.
 
     code_parts = []
@@ -467,7 +523,7 @@ def process_html_charts(soup, chart_defs):
 
     # Add any custom chart defs
 
-    for defn in chart_defs:
+    for defn in custom_charts.values():
         add_chart_to_html(
             defn.tag, defn.optional, soup, code_parts, defn.module_name, defn.function
         )
@@ -486,7 +542,7 @@ def process_html_charts(soup, chart_defs):
     return code_string
 
 
-# Function to add charts
+# Function to add a chart to the HTML, using the appropriate chart implementations
 def add_chart_to_html(
     chart_type, fields, data_spec, soup, code_parts, module=module_name, function_name=None
 ):
@@ -515,7 +571,10 @@ def add_chart_to_html(
     return code_parts
 
 
-def make_supporting(chart_defs):
+# Add ancillary scripts and stylesheets to the HTML
+def make_supporting():
+    global custom_charts
+
     # Construct the mode-specificities
     scripts = []
     stylesheets = BASE_STYLESHEETS
@@ -529,12 +588,13 @@ def make_supporting(chart_defs):
         scripts = scripts + PROD_SCRIPTS
         stylesheets = stylesheets + PROD_STYLESHEETS
 
-    for src in set([defn.module_source for defn in chart_defs]):
+    for src in set([defn.module_source for defn in custom_charts.values()]):
         scripts.append(src)
 
     return scripts, stylesheets
 
 
+# Generate the final HTML document
 def write_html(
     scripts,
     stylesheets,
@@ -572,7 +632,7 @@ def write_html(
 
 # Functions for other formats
 
-
+# Generate a Pandoc JSON document from the input (Markdown) file
 def generate_json(input_file, output_dir, filters=[], extras=[]):
     
     os.makedirs(output_dir, exist_ok=True)
@@ -594,6 +654,8 @@ def generate_json(input_file, output_dir, filters=[], extras=[]):
     return raw_json
 
 
+# Convert SVG images in the HTML document to PNG files for use in
+# other formats (e.g. PDF).
 def convert_images(httpd, page_url, output_path=""):
     soup = None
 
@@ -626,7 +688,7 @@ def convert_images(httpd, page_url, output_path=""):
 
         convert_svg_to_png(svg_name, output_path)  # type: ignore
 
-
+# Convert a single SVG file to PNG using the conversion service
 def convert_svg_to_png(svg_name: str, output_path: str):
     url = convert_url
     svg_path = os.path.join(output_path, f"{svg_name}.svg")
@@ -649,6 +711,7 @@ def convert_svg_to_png(svg_name: str, output_path: str):
         logger.info(response.text)
 
 
+# Utility function for converting length strings like '100px' to float values
 def parse_length(value: str | None) -> float | None:
     """Strip units like 'px' and convert to float."""
     if value is None:
@@ -657,6 +720,7 @@ def parse_length(value: str | None) -> float | None:
     return float(match.group(1)) if match else None
 
 
+# Parse SVG file to get its dimensions
 def get_svg_dimensions(svg_path: str):
     tree = ET.parse(svg_path)
     root = tree.getroot()
@@ -675,6 +739,7 @@ def get_svg_dimensions(svg_path: str):
 
     return width, height
 
+# Worker function to determine if an element is a RawInline of acceptable format
 def _ok_html(elem: pf.RawInline) -> bool:
     if not isinstance(elem, pf.RawInline):
         return False
@@ -683,6 +748,7 @@ def _ok_html(elem: pf.RawInline) -> bool:
     return elem.format in MATCH_FORMATS
 
 
+# Determine if a RawInline element is a Doodl start block
 def is_doodl_start_block(elem) -> str | None:
     if not _ok_html(elem):
         return None
@@ -697,6 +763,7 @@ def is_doodl_start_block(elem) -> str | None:
 
     return None
 
+# Determine if a RawInline element is a Doodl end block
 def is_doodl_end_block(elem, tag) -> bool:
     if not _ok_html(elem):
         return False
@@ -709,11 +776,13 @@ def is_doodl_end_block(elem, tag) -> bool:
     return False
 
 
+# Make a Pandoc Image element from alt text and URL
 def _make_image(alt_text: str, url: str) -> pf.Image:
     alt_inlines = [pf.Str(alt_text)] if alt_text else []
     # Use keyword for clarity; Pandoc expects URL as target
     return pf.Image(*alt_inlines, url=url)
 
+# Rewrite inlines to replace Doodl tags with Images
 def _rewrite_inlines(inlines, doc):
     """Return a new list of inlines with RawInline[ Space/SoftBreak RawInline ] collapsed to Image."""
     out = []
@@ -756,6 +825,7 @@ def _rewrite_inlines(inlines, doc):
 
     return out
 
+# Helper function for panflute filter
 def action(elem, doc):
     # Only process inline containers (those that have a list of Inline children)
     if isinstance(elem, INLINE_CONTAINERS) and hasattr(elem, 'content'):
@@ -765,6 +835,7 @@ def action(elem, doc):
             elem.content = pf.ListContainer(*new_seq)
 
 
+# Use panflute to replace Doodl tags with images in the JSON document
 def replace_tags_with_images(json_doc, image_path_directory):
     doc = pf.load(io.StringIO(json.dumps(json_doc, ensure_ascii=False)))
 
@@ -780,6 +851,7 @@ def replace_tags_with_images(json_doc, image_path_directory):
     return json_doc
 
 
+# Convert the JSON document to the specified format using Pandoc
 def convert_to_format(doc, output_format, output_file_path):
     with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
@@ -810,6 +882,7 @@ def convert_to_format(doc, output_format, output_file_path):
     logger.info(f"Generated File: {output_file_path}")
 
 
+# Determine the PDF engine to use
 def get_pdf_engine():
     for engine in PDF_ENGINES:
         if hasattr(shutil, "which") and shutil.which(engine) is not None:
@@ -820,27 +893,43 @@ def get_pdf_engine():
     return None
 
 
+# Light wrapper for NamedTemporaryFile
 def temp_file(suffix):
     """Create a temporary file with the given suffix."""
     return NamedTemporaryFile(suffix=f".{suffix}", delete=False).name
 
 
+# Main
 def main():
+    # Global variables that are set by command line options
+
     global mode
     global logger
     global output_format
     global src_dir
     global input_file
     global input_file_dir
+    global custom_charts
 
+    # List of pandoc filters to apply
     filters = []
-    chart_defs = []
+
+    # List of extra arguments to pass to pandoc
     extras = ["--mathjax"]
+
+    # Title for the generated HTML document, if specified
     title = None
+
+    # Input and output files
     input_file = None
     output_file = None
+
+    # If true, run in server mode
     server_mode = False
+
+    # If true, output a zip file
     zip_mode = False
+
     output_format = "html"  # Default output format
     output_file_path = ""
     port = default_port
@@ -865,9 +954,11 @@ where options may include:
 In dev mode, the script must be run in the same folder as the script.
 """
 
+    # Process command line arguments
+
     opts, args = getopt(
         sys.argv[1:],
-        "c:D:f:o:pst:vz:P",
+        "c:D:f:o:pst:vz:P:",
         (
             "chart",
             "dir",
@@ -885,7 +976,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     for k, v in opts:
         if k in ["-c", "--chart"]:
-            chart_defs = register_chart(v, chart_defs)
+            register_chart(filename=v)
         elif k in ["-D", "--dir"]:
             mode = "dev"
             src_dir = os.path.abspath(v)
@@ -914,11 +1005,12 @@ In dev mode, the script must be run in the same folder as the script.
             sys.stderr.write(f"invalid option {k}\n")
             errors += 1
 
+    # Reset up logging with the specified verbosity
     logging.basicConfig(level=verbosity)
-
     logger = logging.getLogger()
-
     logger.info(f"running in {mode} mode")
+
+    # Process file arguments
 
     if len(args) != 1:
         errors += 1
@@ -926,6 +1018,8 @@ In dev mode, the script must be run in the same folder as the script.
     if errors:
         sys.stderr.write(usage)
         sys.exit(0)
+
+    # Get the input and output files
 
     input_file = args[0]
     input_file_dir = os.path.abspath(os.path.dirname(input_file))
@@ -953,6 +1047,8 @@ In dev mode, the script must be run in the same folder as the script.
 
     _, output_ext = os.path.splitext(output_file)
 
+    # Derive the title if not specified
+
     if title is None:
         title, _ = os.path.splitext(os.path.basename(output_file))
 
@@ -975,8 +1071,8 @@ In dev mode, the script must be run in the same folder as the script.
 
     soup = parse_html(input_file, output_dir, filters, extras)
     soup = transform_html(soup)
-    code_string = process_html_charts(soup, chart_defs)
-    scripts, stylesheets = make_supporting(chart_defs)
+    code_string = process_html_charts(soup)
+    scripts, stylesheets = make_supporting()
     
     # Copy the generated HTML file and dependencies to a temporary directory,
     # and then handle the output based on the mode.
@@ -1259,16 +1355,17 @@ def handle_chart_field_arguments(
     return [ json.dumps(a) for a in args ]
 
 
-def chart(func_name, fields=None, data=None):
+def chart(chart_name, fields=None, data=None):
     def wrapper(
          **kwargs
     ):
+        global custom_charts
         global chart_count
         global input_file_dir
 
         input_file_dir = os.getcwd()
 
-        chart_id = f"{func_name}_{chart_count}"
+        chart_id = f"{chart_name}_{chart_count}"
         chart_count += 1
         
         stylesheets = "\n".join([f'<link rel="stylesheet" href="{sheet}" />' for sheet in PROD_PYTHON_STYLESHEETS])
@@ -1281,12 +1378,22 @@ def chart(func_name, fields=None, data=None):
                 True
             )
 
+        if chart_name in custom_charts:
+            defn = custom_charts[chart_name]
+            module_source = defn.module_source
+            module_name = defn.module_name
+            func_name = defn.function
+        else:
+            module_source = PROD_SCRIPTS[0]
+            module_name = "Doodl"
+            func_name = chart_name
+
         script = f'''
 <p><span class="doodl-chart" id="{chart_id}"></span></p>
-<script src="{PROD_SCRIPTS[0]}"></script>
+<script src="{module_source}"></script>
 {stylesheets}
 <script type="text/javascript">
-            Doodl.{func_name}({
+            {module_name}.{func_name}({
             """,
                 """.join(args)
         }
