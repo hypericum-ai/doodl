@@ -1,7 +1,23 @@
 
 
+### A HORIZONTAL stacked barchart 
 
-### A stacked barchart 
+
+<stacked_barchart
+  path= "data/label_category_value.json"
+  width=1200
+  height=1000
+  colors='deep'
+  x_label_angle=90
+  show_legend='true'
+  horizontal='true'
+>
+</stacked_barchart>
+
+
+
+
+### A VERTICAL stacked barchart 
 
 
 <stacked_barchart
@@ -18,7 +34,7 @@
 
 
 
-### A stacked areachart 
+### A HORIZONTAL stacked areachart 
 
 
 <stacked_areachart
@@ -27,8 +43,29 @@
   height=1000
   colors='deep'
   x_label_angle=90
+  show_legend='true'
+  horizontal='true'
 >
 </stacked_areachart>
+
+
+
+
+
+
+### A VERTICAL stacked areachart 
+
+
+<stacked_areachart
+  path= "data/label_category_value.json"
+  width=1200
+  height=1000
+  colors='deep'
+  x_label_angle=90
+  show_legend='true'
+>
+</stacked_areachart>
+
 
 
 

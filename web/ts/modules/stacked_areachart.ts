@@ -6,7 +6,8 @@ export async function stacked_areachart(
   colors: string[] = defaultArgumentObject.colors,
   curved = false,
   x_label_angle = 0,
-  show_legend = 0
+  show_legend = 0,
+  horizontal = 0, // 0 = Vertical, 1 = Horizontal
 ) {
   if (file?.path) {
     data = await loadData(file.path, file.format);
@@ -56,27 +57,55 @@ export async function stacked_areachart(
 
   const isNumeric = pivotedData.every((d: any) => !isNaN(Number(d.label)));
 
-  const x = isNumeric
+  const x = horizontal
     ? d3
         .scaleLinear()
-        .domain(
-          d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
-        )
+        .domain([
+          0,
+          d3.max(pivotedData, (d: any) =>
+            d3.sum(keys, (k: any) => +(d[k] ?? 0))
+          )!
+        ])
+        .nice()
         .range([0, chartWidth])
-    : d3
-        .scalePoint<string>()
-        .domain(pivotedData.map((d: any) => String(d.label)))
-        .range([0, chartWidth])
-        .padding(0.5);
+    : (isNumeric
+        ? d3
+            .scaleLinear()
+            .domain(
+              d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
+            )
+            .range([0, chartWidth])
+        : d3
+            .scalePoint<string>()
+            .domain(pivotedData.map((d: any) => String(d.label)))
+            .range([0, chartWidth])
+            .padding(0.5)
+      );
 
-  const y = d3
-    .scaleLinear()
-    .domain([
-      0,
-      d3.max(pivotedData, (d: any) => d3.sum(keys, (k: any) => +(d[k] ?? 0)))!,
-    ])
-    .nice()
-    .range([chartHeight, 0]);
+  const y = horizontal
+    ? (isNumeric
+        ? d3
+            .scaleLinear()
+            .domain(
+              d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
+            )
+            .range([chartHeight, 0])
+        : d3
+            .scalePoint<string>()
+            .domain(pivotedData.map((d: any) => String(d.label)))
+            .range([chartHeight, 0])
+            .padding(0.5)
+      )
+    : d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(pivotedData, (d: any) =>
+            d3.sum(keys, (k: any) => +(d[k] ?? 0))
+          )!,
+        ])
+        .nice()
+        .range([chartHeight, 0]);
 
   const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
 
@@ -84,16 +113,29 @@ export async function stacked_areachart(
   const stackedData = stackGen(pivotedData);
 
   const xAccessor = (d: d3.SeriesPoint<PivotedRow>): number =>
-    isNumeric
-      ? (x as d3.ScaleLinear<number, number>)(+d.data.label)
-      : (x as d3.ScalePoint<string>)(String(d.data.label))!;
+    horizontal ? (x as d3.ScaleLinear<number, number>)(d[1] as number) : (
+      isNumeric
+        ? (x as d3.ScaleLinear<number, number>)(+d.data.label)
+        : (x as d3.ScalePoint<string>)(String(d.data.label))!
+    );
 
-  const area = d3
-    .area<d3.SeriesPoint<PivotedRow>>()
-    .x(xAccessor)
-    .y0((d: any) => y(d[0]))
-    .y1((d: any) => y(d[1]))
-    .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
+  const area = horizontal
+    ? d3
+        .area<d3.SeriesPoint<PivotedRow>>()
+        .y((d: any) =>
+          isNumeric
+            ? (y as d3.ScaleLinear<number, number>)(+d.data.label)
+            : (y as d3.ScalePoint<string>)(String(d.data.label))!
+        )
+        .x0((d: any) => (x as d3.ScaleLinear<number, number>)(d[0] as number))
+        .x1((d: any) => (x as d3.ScaleLinear<number, number>)(d[1] as number))
+        .curve(curved ? d3.curveMonotoneY : d3.curveLinear)
+    : d3
+        .area<d3.SeriesPoint<PivotedRow>>()
+        .x(xAccessor)
+        .y0((d: any) => (y as d3.ScaleLinear<number, number>)(d[0] as number))
+        .y1((d: any) => (y as d3.ScaleLinear<number, number>)(d[1] as number))
+        .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
 
   chartArea
     .selectAll(".layer")
@@ -110,12 +152,13 @@ export async function stacked_areachart(
     .append("g")
     .attr("transform", `translate(0,${chartHeight})`)
     .call(
-      isNumeric
-        ? d3
-            .axisBottom(x as d3.ScaleLinear<number, number>)
-            .ticks(10)
-            .tickFormat(d3.format("d"))
-        : d3.axisBottom(x as d3.ScalePoint<string>)
+      horizontal
+        ? d3.axisBottom(x as any)
+        : (
+            isNumeric
+              ? d3.axisBottom(x as d3.ScaleLinear<number, number>).ticks(10).tickFormat(d3.format("d"))
+              : d3.axisBottom(x as d3.ScalePoint<string>)
+          )
     );
 
   if (x_label_angle !== 0) {
@@ -130,7 +173,11 @@ export async function stacked_areachart(
       .attr("dy", x_label_angle === 90 ? "-0.1em" : "0.5em");
   }
 
-  chartArea.append("g").call(d3.axisLeft(y));
+  chartArea.append("g").call(
+    isNumeric
+      ? d3.axisLeft(y as d3.ScaleLinear<number, number>)
+      : d3.axisLeft(y as d3.ScalePoint<string>)
+  );
 
   // ---- Legend ----
   if (show_legend) {

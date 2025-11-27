@@ -253,7 +253,8 @@ STANDARD_CHARTS = {
         "options": {
             "curved": False,
             "x_label_angle": 0,
-            "show_legend": 0
+            "show_legend": 0,
+            "horizontal": False,
         },
         "data": {
             "type": "table",
