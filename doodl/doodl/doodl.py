@@ -231,6 +231,16 @@ STANDARD_CHARTS = {
             "columns": ["label", "value"]
         }
     },
+     "piegrid": {
+        "options": {
+            "show_percentages": False,
+            "columns": 3
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        }
+    },
     "scatterplot": {
         "options": {
             "dotsize": 5

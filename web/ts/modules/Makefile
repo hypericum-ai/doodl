@@ -18,6 +18,7 @@ SOURCE_FILES = \
 	heatmap.ts \
 	linechart.ts \
 	piechart.ts \
+	piegrid.ts \
 	scatterplot.ts \
 	skey.ts \
 	tree.ts \

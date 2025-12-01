@@ -1,5 +1,19 @@
 
 
+
+### A Pie chart from data file format
+
+
+<piegrid
+  path="data/pie.json"
+  width=900
+  height=900
+  colors='deep'
+>
+</piegrid>
+
+
+
 ### A HORIZONTAL stacked barchart 
 
 
