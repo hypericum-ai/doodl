@@ -1,14 +1,16 @@
 
 
 
-### A Pie chart from data file format
+### A Pie Grid from data file format
 
 
 <piegrid
   path="data/pie.json"
   width=900
-  height=900
+  height=300
   colors='deep'
+  show_percentages='true'
+  columns=4
 >
 </piegrid>
 

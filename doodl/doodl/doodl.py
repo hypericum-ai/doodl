@@ -234,7 +234,13 @@ STANDARD_CHARTS = {
      "piegrid": {
         "options": {
             "show_percentages": False,
-            "columns": 3
+            "columns": 3,
+            "color_names": {
+                "bg_arc": "#2b2b2f",
+                "text": "#aaa",
+                "percent": "#eb0707ff",
+                "total": "#777"
+            }
         },
         "data": {
             "type": "table",

@@ -1,3 +1,17 @@
+interface nameColor {
+    bg_arc?: string,
+    text?: string,
+    percent?: string,
+    total?: string
+}
+
+const defaultColors: nameColor =  {
+    bg_arc : '#2b2b2f',
+    text : '#aaa',
+    percent : '#eb0707ff',
+    total : '#777'
+}
+
 export async function piegrid(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
@@ -6,32 +20,30 @@ export async function piegrid(
   colors: string[] = defaultArgumentObject.colors,
   show_percentages?: 0,
   columns?: 3,
+  color_names: nameColor = defaultColors
 ) {
-    if (file?.path) {
+  if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
   d3.select(div).selectAll("*").remove();
 
-  
   const width = size?.width ?? 700;
   const height = size?.height ?? 400;
   const cols = columns ?? 3;
   const cellW = width / cols;
   const cellH = 200;
 
-  
   const svg = d3
     .select(div)
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
+    .attr("height", height);
 
-   hamburgerMenu(div, data);
-  trackChart("piechart");
+  hamburgerMenu(div, data);
+  trackChart("piegrid");
 
   const total = d3.sum(data, (d: any) => d.value);
 
- 
   const radius = 55;
   const arc = d3
     .arc()
@@ -45,10 +57,8 @@ export async function piegrid(
     .startAngle(0)
     .endAngle(2 * Math.PI);
 
-  
   const colorScale = d3.scaleOrdinal(colors);
 
- 
   data.forEach((d: any, i: number) => {
     const percent = d.value / total;
     const angle = percent * 2 * Math.PI;
@@ -58,47 +68,38 @@ export async function piegrid(
 
     const cx = col * cellW + cellW / 2;
     const cy = row * cellH + 90;
-    const cy = row * cellH + 90;
 
     const g = svg.append("g").attr("transform", `translate(${cx}, ${cy})`);
 
-    
     g.append("path")
       .attr("d", backgroundArc as any)
-      .attr("fill", "#2b2b2f");
+      .attr("fill", color_names.bg_arc ?? defaultColors.bg_arc!);
 
-    
     g.append("path")
-      .attr(
-        "d",
-        arc.startAngle(0).endAngle(angle) as any
-      )
+      .attr("d", arc.startAngle(0).endAngle(angle) as any)
       .attr("fill", colorScale(i.toString()));
 
-    
     if (show_percentages) {
       g.append("text")
         .attr("text-anchor", "middle")
         .attr("dy", "-0.3em")
         .attr("font-size", "16px")
-        .attr("fill", "#fff")
+        .attr("fill", color_names.percent ?? defaultColors.percent!)
         .text(Math.round(percent * 100) + "%");
     }
 
-   
     g.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "1.2em")
       .attr("font-size", "12px")
-      .attr("fill", "#aaa")
+      .attr("fill", color_names.text ?? defaultColors.text!)
       .text(d.label);
 
-    
     g.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "2.6em")
       .attr("font-size", "12px")
-      .attr("fill", "#777")
+      .attr("fill", color_names.total ?? defaultColors.total!)
       .text(`Total: ${d.value.toLocaleString()}`);
   });
 }
