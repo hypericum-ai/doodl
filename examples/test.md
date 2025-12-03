@@ -11,6 +11,10 @@
   colors='deep'
   show_percentages='true'
   columns=4
+  color_names="{
+    bg_arc: '#aaa',
+    text: '#00ab'
+  }"
 >
 </piegrid>
 

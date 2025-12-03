@@ -6,12 +6,15 @@ TARGET_FILE = ../dist/doodlchart.min.js
 
 SOURCE_FILES = \
 	base.ts \
+	areachart.ts \
 	barchart.ts \
-	stacked_barchart.ts \
-	stacked_areachart.ts \
 	bollinger.ts \
 	boxplot.ts \
+	bubblechart.ts \
 	chord.ts \
+	contour.ts \
+	dendrogram.ts \
+	disjoint.ts \
 	dotplot.ts \
 	force.ts \
 	gantt.ts \
@@ -21,15 +24,12 @@ SOURCE_FILES = \
 	piegrid.ts \
 	scatterplot.ts \
 	skey.ts \
+	stacked_areachart.ts \
+	stacked_barchart.ts \
 	tree.ts \
 	treemap.ts \
 	vennchart.ts \
-	disjoint.ts \
-	dendrogram.ts \
-	contour.ts \
-	areachart.ts \
-	bubblechart.ts \
-	voronoi.ts \
+	voronoi.ts
 
 all: $(TARGET_FILE)
 

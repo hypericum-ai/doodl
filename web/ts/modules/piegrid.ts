@@ -1,11 +1,4 @@
-interface nameColor {
-    bg_arc?: string,
-    text?: string,
-    percent?: string,
-    total?: string
-}
-
-const defaultColors: nameColor =  {
+const defaultColors =  {
     bg_arc : '#2b2b2f',
     text : '#aaa',
     percent : '#eb0707ff',
@@ -20,11 +13,16 @@ export async function piegrid(
   colors: string[] = defaultArgumentObject.colors,
   show_percentages?: 0,
   columns?: 3,
-  color_names: nameColor = defaultColors
+  color_names = {}
 ) {
+  console.log("piegrid() called with color_names:", color_names);
+  const merged_colors = { ...defaultColors, ...color_names }
+  console.log("after merge, merged_colors:", merged_colors);
+
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
+
   d3.select(div).selectAll("*").remove();
 
   const width = size?.width ?? 700;
@@ -73,7 +71,7 @@ export async function piegrid(
 
     g.append("path")
       .attr("d", backgroundArc as any)
-      .attr("fill", color_names.bg_arc ?? defaultColors.bg_arc!);
+      .attr("fill", merged_colors.bg_arc!);
 
     g.append("path")
       .attr("d", arc.startAngle(0).endAngle(angle) as any)
@@ -84,7 +82,7 @@ export async function piegrid(
         .attr("text-anchor", "middle")
         .attr("dy", "-0.3em")
         .attr("font-size", "16px")
-        .attr("fill", color_names.percent ?? defaultColors.percent!)
+        .attr("fill", merged_colors.percent!)
         .text(Math.round(percent * 100) + "%");
     }
 
@@ -92,14 +90,14 @@ export async function piegrid(
       .attr("text-anchor", "middle")
       .attr("dy", "1.2em")
       .attr("font-size", "12px")
-      .attr("fill", color_names.text ?? defaultColors.text!)
+      .attr("fill", merged_colors.text!)
       .text(d.label);
 
     g.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "2.6em")
       .attr("font-size", "12px")
-      .attr("fill", color_names.total ?? defaultColors.total!)
+      .attr("fill", merged_colors.total!)
       .text(`Total: ${d.value.toLocaleString()}`);
   });
 }

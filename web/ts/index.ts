@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Tue Dec  2 17:39:37 CAT 2025
+// Generated Wed Dec  3 03:00:47 PM EST 2025
 
 
 /// base.ts
@@ -295,6 +295,112 @@ export function trackChart(chartId: string): void { //chartId is a unique identi
     console.warn("Google Analytics not initialized or gtag not found.");
   }
 }
+/// areachart.ts
+
+export async function areachart(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  curved = 0
+) {
+  if (file?.path) {
+    data = await loadData(file?.path, file?.format);
+  }
+  
+  d3.select(div).selectAll("*").remove();
+
+  const margin = { top: 20, right: 30, bottom: 30, left: 50 };
+  const width = size.width - margin.left - margin.right;
+  const height = size.height - margin.top - margin.bottom;
+
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", size.width)
+    .attr("height", size.height)
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  hamburgerMenu(div, data);
+  trackChart("areachart");
+
+  const xValues = data.map((d: any) => d.x);
+  const firstX = xValues[0];
+
+  // Type guards
+  const isDateArray = firstX instanceof Date;
+  const isNumberArray = typeof firstX === "number";
+  const isStringArray = typeof firstX === "string";
+
+  // Declare generic scale variable
+  let xScale:
+    | d3.ScaleTime<number, number>
+    | d3.ScaleLinear<number, number>
+    | d3.ScalePoint<string>;
+
+  if (isDateArray) {
+    const domain = d3.extent(xValues as Date[]).filter(
+      (d): d is Date => d instanceof Date
+    );
+    xScale = d3
+      .scaleTime()
+      .domain(domain.length === 2 ? domain : [new Date(), new Date()])
+      .range([0, width]);
+  } else if (isNumberArray) {
+    const domain = d3.extent(xValues as number[]).filter(
+      (d): d is number => typeof d === "number"
+    );
+    xScale = d3
+      .scaleLinear()
+      .domain(domain.length === 2 ? domain : [0, 1])
+      .range([0, width]);
+  } else if (isStringArray) {
+    xScale = d3
+      .scalePoint()
+      .domain(xValues as string[])
+      .range([0, width])
+      .padding(0.5);
+  } else {
+    throw new Error("Unsupported x value type");
+  }
+
+  // Y scale (always numeric)
+  const yMax = d3.max(data, (d: any) => +d.y) ?? 0;
+  const yScale = d3.scaleLinear().domain([0, yMax]).range([height, 0]);
+
+  // Area generator
+  const area = d3
+    .area<any>()
+    .x((d) => {
+      if (xScale instanceof d3.scalePoint) {
+        return xScale(d.x)!;
+      }
+      return (xScale as any)(d.x) ?? 0;
+    })
+    .y0(height)
+    .y1((d) => yScale(d.y))
+    .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
+
+  // Draw area
+  svg
+    .append("path")
+    .datum(data)
+    .attr("fill", colors[0] || "steelblue")
+    .attr("d", area);
+
+  // X axis
+  svg
+    .append("g")
+    .attr("transform", `translate(0,${height})`)
+    .call(d3.axisBottom(xScale as any));
+
+  // Y axis
+  svg.append("g").call(d3.axisLeft(yScale));
+
+}
+
 /// barchart.ts
 
 export async function barchart(
@@ -471,460 +577,6 @@ export async function barchart(
     }
   }
 }
-/// stacked_barchart.ts
-
-interface PivotedDatum {
-  label: string | Date;
-  [category: string]: number | string | Date;
-}
-
-export async function stacked_barchart(
-  div: string = defaultArgumentObject.div,
-  data: any = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors,
-  horizontal = 0, // 0 = Vertical, 1 = Horizontal
-  moving_average = 0,
-  x_label_angle = 0,
-  show_legend = 0
-) {
-  const { width, height } = size;
-  const margin: Margin = defaultMargin;
-
-  if (file?.path) {
-    data = await loadData(file.path, file.format);
-  }
-
-  // Pivot long-form data into wide-form structure for stacking
-  const nested = d3.rollups(
-    data,
-    (v: any[]) => {
-      const obj: PivotedDatum = { label: v[0].label };
-      v.forEach((d: any) => (obj[d.category] = Number(d.value)));
-      return obj;
-    },
-    (d: any) => d.label
-  );
-
-  const pivotedData: PivotedDatum[] = nested.map(([_, values]) => values);
-  const keys: string[] = Array.from(
-    new Set(data.map((d: any) => String(d.category)))
-  );
-
-  // Setup SVG
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  hamburgerMenu(div, data);
-  trackChart("stacked_barchart");
-
-  const chartWidth = width - margin.left - margin.right;
-  const chartHeight = height - margin.top - margin.bottom;
-
-  const g = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top + 30})`);
-
-  // Stack data
-  const stackGen = d3.stack<PivotedDatum>().keys(keys);
-  const stackedData = stackGen(pivotedData);
-
-  if (!horizontal) {
-    // ----- VERTICAL -----
-    const x = d3
-      .scaleBand()
-      .domain(pivotedData.map((d) => String(d.label)))
-      .range([0, chartWidth])
-      .padding(0.1);
-
-    const yMax = d3.max(stackedData, (layer) =>
-      d3.max(layer, (d) => Number(d[1]))
-    ) as number;
-
-    const y = d3.scaleLinear().domain([0, yMax]).nice().range([chartHeight, 0]);
-
-    const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
-
-    // Bars
-    g.selectAll("g.layer")
-      .data(stackedData)
-      .join("g")
-      .attr("class", "layer")
-      .attr("fill", (d: any) => color(d.key)!)
-      .selectAll("rect")
-      .data((d: any) => d)
-      .join("rect")
-      .attr("x", (d: any) => x(String(d.data.label))!)
-      .attr("y", (d: any) => y(Number(d[1])))
-      .attr("height", (d: any) => y(Number(d[0])) - y(Number(d[1])))
-      .attr("width", x.bandwidth());
-
-    // Axes
-    const xAxis = g
-      .append("g")
-      .attr("transform", `translate(0,${chartHeight})`)
-      .call(d3.axisBottom(x));
-
-    if (x_label_angle !== 0) {
-      xAxis
-        .selectAll("text")
-        .attr("transform", `rotate(${x_label_angle})`)
-        .style("text-anchor", x_label_angle > 0 ? "start" : "end")
-        .attr("dx", x_label_angle === 90 ? "0.8em" : "0")
-        .attr("dy", x_label_angle === 90 ? "0" : "1.5em");
-    }
-
-    g.append("g").call(d3.axisLeft(y));
-
-    // Moving average
-    if (moving_average) {
-      const totals = pivotedData.map((d) =>
-        keys.reduce((sum, k) => sum + Number(d[k] ?? 0), 0)
-      );
-
-      const movingAvg = totals.map((_, i, arr) => {
-        const window = 3;
-        const start = Math.max(0, i - window + 1);
-        const subset = arr.slice(start, i + 1);
-        return d3.mean(subset) as number;
-      });
-
-      const line = d3
-        .line<number>()
-        .x((_, i) => x(String(pivotedData[i].label))! + x.bandwidth() / 2)
-        .y((d) => y(d))
-        .curve(d3.curveMonotoneX);
-
-      g.append("path")
-        .datum(movingAvg)
-        .attr("fill", "none")
-        .attr("stroke", "black")
-        .attr("stroke-width", 2)
-        .attr("d", line);
-    }
-  } else {
-    // ----- HORIZONTAL -----
-    const y = d3
-      .scaleBand()
-      .domain(pivotedData.map((d) => String(d.label)))
-      .range([0, chartHeight])
-      .padding(0.1);
-
-    const xMax = d3.max(stackedData, (layer) =>
-      d3.max(layer, (d) => Number(d[1]))
-    ) as number;
-
-    const x = d3.scaleLinear().domain([0, xMax]).nice().range([0, chartWidth]);
-
-    const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
-
-    // Bars
-    g.selectAll("g.layer")
-      .data(stackedData)
-      .join("g")
-      .attr("class", "layer")
-      .attr("fill", (d: any) => color(d.key)!)
-      .selectAll("rect")
-      .data((d: any) => d)
-      .join("rect")
-      .attr("y", (d: any) => y(String(d.data.label))!)
-      .attr("x", (d: any) => x(Number(d[0])))
-      .attr("width", (d: any) => x(Number(d[1])) - x(Number(d[0])))
-      .attr("height", y.bandwidth());
-
-    // Axes
-    g.append("g")
-      .attr("transform", `translate(0,${chartHeight})`)
-      .call(d3.axisBottom(x));
-
-    g.append("g").call(d3.axisLeft(y));
-
-    // Moving average
-    if (moving_average) {
-      const totals = pivotedData.map((d) =>
-        keys.reduce((sum, k) => sum + Number(d[k] ?? 0), 0)
-      );
-
-      const movingAvg = totals.map((_, i, arr) => {
-        const window = 3;
-        const start = Math.max(0, i - window + 1);
-        const subset = arr.slice(start, i + 1);
-        return d3.mean(subset) as number;
-      });
-
-      const line = d3
-        .line<number>()
-        .y((_, i) => y(String(pivotedData[i].label))! + y.bandwidth() / 2)
-        .x((d) => x(d))
-        .curve(d3.curveMonotoneY);
-
-      g.append("path")
-        .datum(movingAvg)
-        .attr("fill", "none")
-        .attr("stroke", "black")
-        .attr("stroke-width", 2)
-        .attr("d", line);
-    }
-  }
-
-  // ---- Legend ----
-  if (show_legend) {
-    const legend = svg
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top / 2})`)
-      .attr("font-size", 9)
-      .attr("text-anchor", "start");
-
-    const legendItems = legend.selectAll("g").data(keys).enter().append("g");
-
-    const legendSpacing = 200;
-    const legendItemHeight = 16;
-    const itemsPerRow = Math.floor(chartWidth / legendSpacing);
-
-    legendItems.attr("transform", (_, i) => {
-      const xPos = (i % itemsPerRow) * legendSpacing;
-      const yPos = Math.floor(i / itemsPerRow) * legendItemHeight;
-      return `translate(${xPos}, ${yPos})`;
-    });
-
-    legendItems
-      .append("rect")
-      .attr("width", 12)
-      .attr("height", 12)
-      .attr(
-        "fill",
-        (d) => d3.scaleOrdinal<string>().domain(keys).range(colors)(d)!
-      );
-
-    legendItems
-      .append("text")
-      .attr("x", 16)
-      .attr("y", 10)
-      .text((d: any) => d);
-  }
-}
-
-/// stacked_areachart.ts
-
-export async function stacked_areachart(
-  div: string = defaultArgumentObject.div,
-  data: any = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors,
-  curved = false,
-  x_label_angle = 0,
-  show_legend = 0,
-  horizontal = 0, // 0 = Vertical, 1 = Horizontal
-) {
-  if (file?.path) {
-    data = await loadData(file.path, file.format);
-  }
-
-  const { width, height } = size;
-  const margin = { top: 40, right: 20, bottom: 40, left: 60 };
-  const svgWidth = width;
-  const svgHeight = height;
-  const chartWidth = svgWidth - margin.left - margin.right;
-  const chartHeight = svgHeight - margin.top - margin.bottom;
-
-  d3.select(div).selectAll("*").remove();
-
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgHeight);
-
-  const chartArea = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-  hamburgerMenu(div, data);
-  trackChart("stacked_areachart");
-
-  // ---- Data preparation ----
-  interface PivotedRow {
-    label: string | number;
-    [category: string]: number | string;
-  }
-
-  // Group data by label
-  const grouped = d3.group(data, (d: any) => d.label);
-
-  // Create pivoted data array
-  const pivotedData: PivotedRow[] = Array.from(grouped, ([label, values]) => {
-    const obj: PivotedRow = { label };
-    values.forEach((d: any) => {
-      obj[d.category] = +d.value;
-    });
-    return obj;
-  });
-
-  const keys: string[] = Array.from(new Set(data.map((d: any) => d.category)));
-
-  const isNumeric = pivotedData.every((d: any) => !isNaN(Number(d.label)));
-
-  const x = horizontal
-    ? d3
-        .scaleLinear()
-        .domain([
-          0,
-          d3.max(pivotedData, (d: any) =>
-            d3.sum(keys, (k: any) => +(d[k] ?? 0))
-          )!
-        ])
-        .nice()
-        .range([0, chartWidth])
-    : (isNumeric
-        ? d3
-            .scaleLinear()
-            .domain(
-              d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
-            )
-            .range([0, chartWidth])
-        : d3
-            .scalePoint<string>()
-            .domain(pivotedData.map((d: any) => String(d.label)))
-            .range([0, chartWidth])
-            .padding(0.5)
-      );
-
-  const y = horizontal
-    ? (isNumeric
-        ? d3
-            .scaleLinear()
-            .domain(
-              d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
-            )
-            .range([chartHeight, 0])
-        : d3
-            .scalePoint<string>()
-            .domain(pivotedData.map((d: any) => String(d.label)))
-            .range([chartHeight, 0])
-            .padding(0.5)
-      )
-    : d3
-        .scaleLinear()
-        .domain([
-          0,
-          d3.max(pivotedData, (d: any) =>
-            d3.sum(keys, (k: any) => +(d[k] ?? 0))
-          )!,
-        ])
-        .nice()
-        .range([chartHeight, 0]);
-
-  const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
-
-  const stackGen = d3.stack<PivotedRow>().keys(keys);
-  const stackedData = stackGen(pivotedData);
-
-  const xAccessor = (d: d3.SeriesPoint<PivotedRow>): number =>
-    horizontal ? (x as d3.ScaleLinear<number, number>)(d[1] as number) : (
-      isNumeric
-        ? (x as d3.ScaleLinear<number, number>)(+d.data.label)
-        : (x as d3.ScalePoint<string>)(String(d.data.label))!
-    );
-
-  const area = horizontal
-    ? d3
-        .area<d3.SeriesPoint<PivotedRow>>()
-        .y((d: any) =>
-          isNumeric
-            ? (y as d3.ScaleLinear<number, number>)(+d.data.label)
-            : (y as d3.ScalePoint<string>)(String(d.data.label))!
-        )
-        .x0((d: any) => (x as d3.ScaleLinear<number, number>)(d[0] as number))
-        .x1((d: any) => (x as d3.ScaleLinear<number, number>)(d[1] as number))
-        .curve(curved ? d3.curveMonotoneY : d3.curveLinear)
-    : d3
-        .area<d3.SeriesPoint<PivotedRow>>()
-        .x(xAccessor)
-        .y0((d: any) => (y as d3.ScaleLinear<number, number>)(d[0] as number))
-        .y1((d: any) => (y as d3.ScaleLinear<number, number>)(d[1] as number))
-        .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
-
-  chartArea
-    .selectAll(".layer")
-    .data(stackedData)
-    .enter()
-    .append("path")
-    .attr("class", "layer")
-    .attr("fill", (d) => color(d.key)!)
-    .attr("d", area)
-    .attr("stroke", "none")
-    .attr("opacity", 0.9);
-
-  const xAxisG = chartArea
-    .append("g")
-    .attr("transform", `translate(0,${chartHeight})`)
-    .call(
-      horizontal
-        ? d3.axisBottom(x as any)
-        : (
-            isNumeric
-              ? d3.axisBottom(x as d3.ScaleLinear<number, number>).ticks(10).tickFormat(d3.format("d"))
-              : d3.axisBottom(x as d3.ScalePoint<string>)
-          )
-    );
-
-  if (x_label_angle !== 0) {
-    const texts = xAxisG.selectAll("text");
-    texts
-      .attr("transform", `rotate(${x_label_angle})`)
-      .style(
-        "text-anchor",
-        x_label_angle === 90 ? "start" : x_label_angle > 0 ? "start" : "end"
-      )
-      .attr("dx", x_label_angle === 90 ? "0.8em" : "-0.5em")
-      .attr("dy", x_label_angle === 90 ? "-0.1em" : "0.5em");
-  }
-
-  chartArea.append("g").call(
-    isNumeric
-      ? d3.axisLeft(y as d3.ScaleLinear<number, number>)
-      : d3.axisLeft(y as d3.ScalePoint<string>)
-  );
-
-  // ---- Legend ----
-  if (show_legend) {
-    const legend = svg
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top / 2})`)
-      .attr("font-size", 9)
-      .attr("text-anchor", "start");
-
-    const legendItems = legend.selectAll("g").data(keys).enter().append("g");
-
-    const legendSpacing = 200;
-    const legendItemHeight = 16;
-    const itemsPerRow = Math.floor(chartWidth / legendSpacing);
-
-    legendItems.attr("transform", (_, i) => {
-      const xPos = (i % itemsPerRow) * legendSpacing;
-      const yPos = Math.floor(i / itemsPerRow) * legendItemHeight;
-      return `translate(${xPos}, ${yPos})`;
-    });
-
-    legendItems
-      .append("rect")
-      .attr("width", 12)
-      .attr("height", 12)
-      .attr("fill", (d) => color(d)!);
-
-    legendItems
-      .append("text")
-      .attr("x", 16)
-      .attr("y", 10)
-      .text((d: any) => d);
-  }
-}
-
 /// bollinger.ts
 
 interface BollingerRow {
@@ -1206,6 +858,281 @@ export async function boxplot(
   // Add Y Axis
   svg.append("g").call(d3.axisLeft(yScale));
 }
+/// bubblechart.ts
+
+interface BubbleNode {
+  name?: string;
+  value?: number;
+  children?: BubbleNode[];
+}
+
+export async function bubblechart(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  ease_in = 0,
+  drag_animations = 0
+) {
+  if (file?.path) {
+    data = await loadData(file?.path, file?.format);
+  }
+
+  // Clear existing content
+  d3.select(div).selectAll("*").remove();
+
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", size.width)
+    .attr("height", size.height)
+    .attr("viewBox", `0 0 ${size.width} ${size.height}`)
+    .style("font-family", "sans-serif");
+
+  // Tooltip element
+  const tooltip = d3
+    .select(div)
+    .append("div")
+    .style("position", "absolute")
+    .style("background", "rgba(0, 0, 0, 0.7)")
+    .style("color", "#fff")
+    .style("padding", "6px 10px")
+    .style("border-radius", "4px")
+    .style("pointer-events", "none")
+    .style("opacity", 0);
+
+  hamburgerMenu(div, data);
+  trackChart("bubblechart");
+
+  const colorScale = d3.scaleOrdinal<string>().range(colors);
+
+  const format = d3.format(",d");
+
+  const pack = d3.pack<BubbleNode>().size([size.width, size.height]).padding(5);
+
+  let nodes: HierarchyCircularNode<BubbleNode>[] = [];
+  const isNested = !Array.isArray(data);
+
+  if (isNested) {
+    const root = d3
+      .hierarchy<BubbleNode>(data)
+      .sum((d) => d.value || 0)
+      .sort((a, b) => b.value! - a.value!);
+
+    nodes = pack(root).descendants();
+
+    const node = svg
+      .selectAll("g")
+      .data(nodes)
+      .enter()
+      .append("g")
+      .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+
+
+    if (ease_in > 0) {
+      node
+        .append("circle")
+        .attr("fill", (d, i) => colorScale(i.toString()))
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
+        .attr("r", 0)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        })
+        .transition()
+        .duration(800)
+        .ease(d3.easeBounceOut)
+        .attr("r", (d) => d.r);
+    } else {
+      node
+        .append("circle")
+        .attr("fill", (d, i) => colorScale(i.toString()))
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1)
+        .attr("r", (d) => d.r)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        });
+    }
+
+
+    if (ease_in > 0) {
+      node
+      .append("text")
+      .text((d) => d.data.name || "")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.3em")
+      .style("fill", "#fff")
+      .style(
+        "font-size",
+        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
+      ).style("opacity", 0).transition().delay(4000).style("opacity", 1);
+    } else {
+      node
+      .append("text")
+      .text((d) => d.data.name || "")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.3em")
+      .style("fill", "#fff")
+      .style(
+        "font-size",
+        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
+      ).style("opacity", 1);
+    }
+  } else {
+    const root = pack(
+      d3.hierarchy<BubbleNode>({ children: data }).sum((d) => d.value || 0)
+    );
+
+    const node = svg
+      .append("g")
+      .selectAll()
+      .data(root.leaves())
+      .join("g")
+      .attr("transform", (d) => `translate(${d.x},${d.y})`);
+
+    const simulation = d3
+      .forceSimulation(root.leaves())
+      .force("charge", d3.forceManyBody().strength(5))
+      .force("center", d3.forceCenter(size.width / 2, size.height / 2))
+      .force(
+        "collision",
+        d3.forceCollide((d: any) => d.r + 2)
+      )
+      .on("tick", () => {
+        node.attr("transform", (d) => `translate(${d.x},${d.y})`);
+      });
+    
+
+    if (ease_in > 0) {
+      node
+        .append("circle")
+        .attr("fill", (d) =>
+          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
+        )
+        .attr("fill-opacity", 0)
+        .attr("r", 0)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        })
+        .transition()
+        .duration(4000)
+        .ease(d3.easeBounceOut)
+        .attr("fill-opacity", 0.7)
+        .attr("r", (d) => d.r);
+    } else {
+      node
+        .append("circle")
+        .attr("fill", (d) =>
+          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
+        )
+        .attr("fill-opacity", 0.7)
+        .attr("r", (d) => d.r)
+        .on("mouseover", (event, d) => {
+          tooltip.transition().duration(200).style("opacity", 0.9);
+          tooltip
+            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltip
+            .style("left", event.pageX + 10 + "px")
+            .style("top", event.pageY - 20 + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.transition().duration(300).style("opacity", 0);
+        });
+    }
+
+
+    if (ease_in > 0) {
+      node
+      .append("text")
+      .text((d) => d.data.name || "")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.3em")
+      .style("fill", "#fff")
+      .style(
+        "font-size",
+        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
+      ).style("opacity", 0).transition().delay(4000).style("opacity", 1);
+    } else {
+      node
+      .append("text")
+      .text((d) => d.data.name || "")
+      .attr("text-anchor", "middle")
+      .attr("dy", "0.3em")
+      .style("fill", "#fff")
+      .style(
+        "font-size",
+        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
+      ).style("opacity", 1);
+    }
+
+    const drag = d3
+      .drag<any, any>()
+      .on("start", (event, d) => {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+        console.log("start drag", d);
+      })
+      .on("drag", (event, d) => {
+        d.fx = event.x;
+        d.fy = event.y;
+        console.log("drag", d, event);
+      })
+      .on("end", (event, d) => {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+        console.log("end drag", d);
+      });
+    if (drag_animations > 0) {
+      node.call(drag);
+    }
+  }
+}
+
 /// chord.ts
 
 export async function chord(
@@ -1298,6 +1225,249 @@ export async function chord(
           )
         );
     }, 100);
+}
+
+/// contour.ts
+
+export async function contour(
+  div: string = defaultArgumentObject.div,
+  data: number[][] = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors
+) {
+    if (file?.path) {
+        data = await loadData(file?.path, file?.format);
+      }
+
+  const width = size.width;
+  const height = size.height;
+
+  const n = data.length;
+  const m = data[0].length;
+
+  // Flatten 2D data
+  const values = data.reduce((acc, row) => acc.concat(row), []);
+
+  // Create scales
+  const x = d3.scaleLinear().domain([0, m]).range([0, width]);
+  const y = d3.scaleLinear().domain([0, n]).range([0, height]);
+
+  // Create color scale
+  const thresholds = d3.range(d3.min(values)!, d3.max(values)!, (d3.max(values)! - d3.min(values)!) / colors.length);
+  const color = d3.scaleLinear<string>().domain(thresholds).range(colors).interpolate(d3.interpolateHcl);
+
+  // Clear existing SVG if present
+  d3.select(div).select("svg").remove();
+
+  // Append new SVG
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  hamburgerMenu(div, data);
+  trackChart("contour");
+
+  // Generate contours
+  const contours = d3.contours()
+    .size([m, n])
+    .thresholds(thresholds)(values);
+
+  // Render contours
+  svg.selectAll("path")
+    .data(contours)
+    .enter()
+    .append("path")
+    .attr("d", d3.geoPath(d3.geoIdentity().scale(width / m)))
+    .attr("fill", (d: any) => color(d.value))
+    .attr("stroke", "#333")
+    .attr("stroke-width", 0.3);
+}
+/// dendrogram.ts
+
+export async function dendrogram(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  view_scale_factor = 1
+) {
+  if (file?.path) {
+    data = await loadData(file?.path, file?.format);
+  }
+  const margin = defaultMargin;
+  const width = size.width - margin.left - margin.right;
+  const height = size.height - margin.top - margin.bottom;
+
+  d3.select(div).select("svg").remove(); // Clear previous
+  
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", size.width)
+    .attr("height", size.height)
+    .attr("viewBox", [0, 0, width/view_scale_factor, height/view_scale_factor])
+    .attr("style", "max-width: 100%; height: auto;")
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+    hamburgerMenu(div, data);
+    trackChart("dendrogram");
+
+  const root = d3.hierarchy(data);
+  const treeLayout = d3.tree().size([height, width]);
+  treeLayout(root);
+  const sizeRatio = height/(2 * root.data.size)
+
+  // Links
+  svg
+    .selectAll("path.link")
+    .data(root.links())
+    .enter()
+    .append("path")
+    .attr("class", "link")
+    .attr("fill", "none")
+    .attr("stroke", (d, i) => colors[i % colors.length])
+    .attr("stroke-width", (d) => d.target.data.size * sizeRatio)
+    .attr(
+      "d",
+      d3
+        .linkHorizontal<any, any>()
+        .x((d: any) => d.y)
+        .y((d: any) => d.x)
+    );
+
+  // Nodes
+  const node = svg
+    .selectAll("g.node")
+    .data(root.descendants())
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .attr("transform", (d: any) => `translate(${d.y},${d.x})`);
+
+  node
+    .append("text")
+    .attr("dy", 3)
+    .attr("x", (d) => (d.children ? -8 : 8))
+    .style("text-anchor", (d) => (d.children ? "end" : "start"))
+    .text((d) => d.data.name);
+}
+
+/// disjoint.ts
+
+// Adapted from https://observablehq.com/@d3/disjoint-force-directed-graph/2
+
+export async function disjoint(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors
+) {
+    if (file?.path) {
+        data = await loadData(file?.path, file?.format);
+    }
+
+    // Specify the dimensions of the chart.
+    const { width, height } = size;
+    const viewScaleFactor = 1.5;
+
+    // Specify the color scale.
+    const color = d3.scaleOrdinal(colors);
+
+    // Create a simulation with several forces.
+    const simulation = d3.forceSimulation(data.nodes)
+        .force("link", d3.forceLink<Node, Link>(data.links).id(d => d.id))
+        .force("charge", d3.forceManyBody())
+        .force("x", d3.forceX())
+        .force("y", d3.forceY());
+
+    // Create the SVG container.
+    const svg = d3
+        .select(div)
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("viewBox", [-width / viewScaleFactor, -height / viewScaleFactor, width, height])
+        .attr("style", "max-width: 100%; height: auto;");
+
+        hamburgerMenu(div, data);
+        trackChart("disjoint");
+
+    // Add a line for each link, and a circle for each node.
+    const link = svg.append("g")
+        .attr("stroke", "#999")
+        .attr("stroke-opacity", 0.6)
+        .selectAll("line")
+        .data(data.links)
+        .join("line")
+        .attr("stroke-width", (d: any) => Math.sqrt(d.value));
+
+    const node = svg.append("g")
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 1.5)
+        .selectAll("circle")
+        .data(data.nodes)
+        .join("circle")
+        .attr("r", 5)
+        .attr("fill", (d: any) => color(d.group));
+
+    node.append("title")
+        .text((d: any) => d.id);
+
+    // Add a drag behavior.
+    node.call(d3.drag<any,any>()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended));
+    
+    // Set the position attributes of links and nodes each time the simulation ticks.
+    simulation.on("tick", () => {
+        link
+            .attr("x1", (d: any) => d.source.x)
+            .attr("y1", (d: any) => d.source.y)
+            .attr("x2", (d: any) => d.target.x)
+            .attr("y2", (d: any) => d.target.y);
+
+        node
+            .attr("cx", (d: any) => d.x)
+            .attr("cy", (d: any) => d.y);
+    });
+
+    // Reheat the simulation when drag starts, and fix the subject position.
+    function dragstarted(event:any) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        event.subject.fx = event.subject.x;
+        event.subject.fy = event.subject.y;
+    }
+
+    // Update the subject (dragged node) position during drag.
+    function dragged(event:any) {
+        event.subject.fx = event.x;
+        event.subject.fy = event.y;
+    }
+
+    // Restore the target alpha so the simulation cools after dragging ends.
+    // Unfix the subject position now that it’s no longer being dragged.
+    function dragended(event:any) {
+        if (!event.active) simulation.alphaTarget(0);
+        event.subject.fx = null;
+        event.subject.fy = null;
+    }
+
+    simulation.on("tick", () => {
+        link
+            .attr("x1", (d:any) => (d.source as Node).x!)
+            .attr("y1", (d:any) => (d.source as Node).y!)
+            .attr("x2", (d:any) => (d.target as Node).x!)
+            .attr("y2", (d:any) => (d.target as Node).y!);
+
+        node.attr("cx", (d:any) => d.x!).attr("cy", (d:any) => d.y!);
+    });
 }
 
 /// dotplot.ts
@@ -1931,14 +2101,7 @@ export async function piechart(
 
 /// piegrid.ts
 
-interface nameColor {
-    bg_arc?: string,
-    text?: string,
-    percent?: string,
-    total?: string
-}
-
-const defaultColors: nameColor =  {
+const defaultColors =  {
     bg_arc : '#2b2b2f',
     text : '#aaa',
     percent : '#eb0707ff',
@@ -1953,11 +2116,16 @@ export async function piegrid(
   colors: string[] = defaultArgumentObject.colors,
   show_percentages?: 0,
   columns?: 3,
-  color_names: nameColor = defaultColors
+  color_names = {}
 ) {
+  console.log("piegrid() called with color_names:", color_names);
+  const merged_colors = { ...defaultColors, ...color_names }
+  console.log("after merge, merged_colors:", merged_colors);
+
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
+
   d3.select(div).selectAll("*").remove();
 
   const width = size?.width ?? 700;
@@ -2006,7 +2174,7 @@ export async function piegrid(
 
     g.append("path")
       .attr("d", backgroundArc as any)
-      .attr("fill", color_names.bg_arc ?? defaultColors.bg_arc!);
+      .attr("fill", merged_colors.bg_arc!);
 
     g.append("path")
       .attr("d", arc.startAngle(0).endAngle(angle) as any)
@@ -2017,7 +2185,7 @@ export async function piegrid(
         .attr("text-anchor", "middle")
         .attr("dy", "-0.3em")
         .attr("font-size", "16px")
-        .attr("fill", color_names.percent ?? defaultColors.percent!)
+        .attr("fill", merged_colors.percent!)
         .text(Math.round(percent * 100) + "%");
     }
 
@@ -2025,14 +2193,14 @@ export async function piegrid(
       .attr("text-anchor", "middle")
       .attr("dy", "1.2em")
       .attr("font-size", "12px")
-      .attr("fill", color_names.text ?? defaultColors.text!)
+      .attr("fill", merged_colors.text!)
       .text(d.label);
 
     g.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "2.6em")
       .attr("font-size", "12px")
-      .attr("fill", color_names.total ?? defaultColors.total!)
+      .attr("fill", merged_colors.total!)
       .text(`Total: ${d.value.toLocaleString()}`);
   });
 }
@@ -2271,6 +2439,460 @@ export  async function skey(
     .attr("fill", "#000");
 
   return svg.node();
+}
+
+/// stacked_areachart.ts
+
+export async function stacked_areachart(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  curved = false,
+  x_label_angle = 0,
+  show_legend = 0,
+  horizontal = 0, // 0 = Vertical, 1 = Horizontal
+) {
+  if (file?.path) {
+    data = await loadData(file.path, file.format);
+  }
+
+  const { width, height } = size;
+  const margin = { top: 40, right: 20, bottom: 40, left: 60 };
+  const svgWidth = width;
+  const svgHeight = height;
+  const chartWidth = svgWidth - margin.left - margin.right;
+  const chartHeight = svgHeight - margin.top - margin.bottom;
+
+  d3.select(div).selectAll("*").remove();
+
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+  const chartArea = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  hamburgerMenu(div, data);
+  trackChart("stacked_areachart");
+
+  // ---- Data preparation ----
+  interface PivotedRow {
+    label: string | number;
+    [category: string]: number | string;
+  }
+
+  // Group data by label
+  const grouped = d3.group(data, (d: any) => d.label);
+
+  // Create pivoted data array
+  const pivotedData: PivotedRow[] = Array.from(grouped, ([label, values]) => {
+    const obj: PivotedRow = { label };
+    values.forEach((d: any) => {
+      obj[d.category] = +d.value;
+    });
+    return obj;
+  });
+
+  const keys: string[] = Array.from(new Set(data.map((d: any) => d.category)));
+
+  const isNumeric = pivotedData.every((d: any) => !isNaN(Number(d.label)));
+
+  const x = horizontal
+    ? d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(pivotedData, (d: any) =>
+            d3.sum(keys, (k: any) => +(d[k] ?? 0))
+          )!
+        ])
+        .nice()
+        .range([0, chartWidth])
+    : (isNumeric
+        ? d3
+            .scaleLinear()
+            .domain(
+              d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
+            )
+            .range([0, chartWidth])
+        : d3
+            .scalePoint<string>()
+            .domain(pivotedData.map((d: any) => String(d.label)))
+            .range([0, chartWidth])
+            .padding(0.5)
+      );
+
+  const y = horizontal
+    ? (isNumeric
+        ? d3
+            .scaleLinear()
+            .domain(
+              d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
+            )
+            .range([chartHeight, 0])
+        : d3
+            .scalePoint<string>()
+            .domain(pivotedData.map((d: any) => String(d.label)))
+            .range([chartHeight, 0])
+            .padding(0.5)
+      )
+    : d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(pivotedData, (d: any) =>
+            d3.sum(keys, (k: any) => +(d[k] ?? 0))
+          )!,
+        ])
+        .nice()
+        .range([chartHeight, 0]);
+
+  const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+  const stackGen = d3.stack<PivotedRow>().keys(keys);
+  const stackedData = stackGen(pivotedData);
+
+  const xAccessor = (d: d3.SeriesPoint<PivotedRow>): number =>
+    horizontal ? (x as d3.ScaleLinear<number, number>)(d[1] as number) : (
+      isNumeric
+        ? (x as d3.ScaleLinear<number, number>)(+d.data.label)
+        : (x as d3.ScalePoint<string>)(String(d.data.label))!
+    );
+
+  const area = horizontal
+    ? d3
+        .area<d3.SeriesPoint<PivotedRow>>()
+        .y((d: any) =>
+          isNumeric
+            ? (y as d3.ScaleLinear<number, number>)(+d.data.label)
+            : (y as d3.ScalePoint<string>)(String(d.data.label))!
+        )
+        .x0((d: any) => (x as d3.ScaleLinear<number, number>)(d[0] as number))
+        .x1((d: any) => (x as d3.ScaleLinear<number, number>)(d[1] as number))
+        .curve(curved ? d3.curveMonotoneY : d3.curveLinear)
+    : d3
+        .area<d3.SeriesPoint<PivotedRow>>()
+        .x(xAccessor)
+        .y0((d: any) => (y as d3.ScaleLinear<number, number>)(d[0] as number))
+        .y1((d: any) => (y as d3.ScaleLinear<number, number>)(d[1] as number))
+        .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
+
+  chartArea
+    .selectAll(".layer")
+    .data(stackedData)
+    .enter()
+    .append("path")
+    .attr("class", "layer")
+    .attr("fill", (d) => color(d.key)!)
+    .attr("d", area)
+    .attr("stroke", "none")
+    .attr("opacity", 0.9);
+
+  const xAxisG = chartArea
+    .append("g")
+    .attr("transform", `translate(0,${chartHeight})`)
+    .call(
+      horizontal
+        ? d3.axisBottom(x as any)
+        : (
+            isNumeric
+              ? d3.axisBottom(x as d3.ScaleLinear<number, number>).ticks(10).tickFormat(d3.format("d"))
+              : d3.axisBottom(x as d3.ScalePoint<string>)
+          )
+    );
+
+  if (x_label_angle !== 0) {
+    const texts = xAxisG.selectAll("text");
+    texts
+      .attr("transform", `rotate(${x_label_angle})`)
+      .style(
+        "text-anchor",
+        x_label_angle === 90 ? "start" : x_label_angle > 0 ? "start" : "end"
+      )
+      .attr("dx", x_label_angle === 90 ? "0.8em" : "-0.5em")
+      .attr("dy", x_label_angle === 90 ? "-0.1em" : "0.5em");
+  }
+
+  chartArea.append("g").call(
+    isNumeric
+      ? d3.axisLeft(y as d3.ScaleLinear<number, number>)
+      : d3.axisLeft(y as d3.ScalePoint<string>)
+  );
+
+  // ---- Legend ----
+  if (show_legend) {
+    const legend = svg
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top / 2})`)
+      .attr("font-size", 9)
+      .attr("text-anchor", "start");
+
+    const legendItems = legend.selectAll("g").data(keys).enter().append("g");
+
+    const legendSpacing = 200;
+    const legendItemHeight = 16;
+    const itemsPerRow = Math.floor(chartWidth / legendSpacing);
+
+    legendItems.attr("transform", (_, i) => {
+      const xPos = (i % itemsPerRow) * legendSpacing;
+      const yPos = Math.floor(i / itemsPerRow) * legendItemHeight;
+      return `translate(${xPos}, ${yPos})`;
+    });
+
+    legendItems
+      .append("rect")
+      .attr("width", 12)
+      .attr("height", 12)
+      .attr("fill", (d) => color(d)!);
+
+    legendItems
+      .append("text")
+      .attr("x", 16)
+      .attr("y", 10)
+      .text((d: any) => d);
+  }
+}
+
+/// stacked_barchart.ts
+
+interface PivotedDatum {
+  label: string | Date;
+  [category: string]: number | string | Date;
+}
+
+export async function stacked_barchart(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  horizontal = 0, // 0 = Vertical, 1 = Horizontal
+  moving_average = 0,
+  x_label_angle = 0,
+  show_legend = 0
+) {
+  const { width, height } = size;
+  const margin: Margin = defaultMargin;
+
+  if (file?.path) {
+    data = await loadData(file.path, file.format);
+  }
+
+  // Pivot long-form data into wide-form structure for stacking
+  const nested = d3.rollups(
+    data,
+    (v: any[]) => {
+      const obj: PivotedDatum = { label: v[0].label };
+      v.forEach((d: any) => (obj[d.category] = Number(d.value)));
+      return obj;
+    },
+    (d: any) => d.label
+  );
+
+  const pivotedData: PivotedDatum[] = nested.map(([_, values]) => values);
+  const keys: string[] = Array.from(
+    new Set(data.map((d: any) => String(d.category)))
+  );
+
+  // Setup SVG
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  hamburgerMenu(div, data);
+  trackChart("stacked_barchart");
+
+  const chartWidth = width - margin.left - margin.right;
+  const chartHeight = height - margin.top - margin.bottom;
+
+  const g = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top + 30})`);
+
+  // Stack data
+  const stackGen = d3.stack<PivotedDatum>().keys(keys);
+  const stackedData = stackGen(pivotedData);
+
+  if (!horizontal) {
+    // ----- VERTICAL -----
+    const x = d3
+      .scaleBand()
+      .domain(pivotedData.map((d) => String(d.label)))
+      .range([0, chartWidth])
+      .padding(0.1);
+
+    const yMax = d3.max(stackedData, (layer) =>
+      d3.max(layer, (d) => Number(d[1]))
+    ) as number;
+
+    const y = d3.scaleLinear().domain([0, yMax]).nice().range([chartHeight, 0]);
+
+    const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+    // Bars
+    g.selectAll("g.layer")
+      .data(stackedData)
+      .join("g")
+      .attr("class", "layer")
+      .attr("fill", (d: any) => color(d.key)!)
+      .selectAll("rect")
+      .data((d: any) => d)
+      .join("rect")
+      .attr("x", (d: any) => x(String(d.data.label))!)
+      .attr("y", (d: any) => y(Number(d[1])))
+      .attr("height", (d: any) => y(Number(d[0])) - y(Number(d[1])))
+      .attr("width", x.bandwidth());
+
+    // Axes
+    const xAxis = g
+      .append("g")
+      .attr("transform", `translate(0,${chartHeight})`)
+      .call(d3.axisBottom(x));
+
+    if (x_label_angle !== 0) {
+      xAxis
+        .selectAll("text")
+        .attr("transform", `rotate(${x_label_angle})`)
+        .style("text-anchor", x_label_angle > 0 ? "start" : "end")
+        .attr("dx", x_label_angle === 90 ? "0.8em" : "0")
+        .attr("dy", x_label_angle === 90 ? "0" : "1.5em");
+    }
+
+    g.append("g").call(d3.axisLeft(y));
+
+    // Moving average
+    if (moving_average) {
+      const totals = pivotedData.map((d) =>
+        keys.reduce((sum, k) => sum + Number(d[k] ?? 0), 0)
+      );
+
+      const movingAvg = totals.map((_, i, arr) => {
+        const window = 3;
+        const start = Math.max(0, i - window + 1);
+        const subset = arr.slice(start, i + 1);
+        return d3.mean(subset) as number;
+      });
+
+      const line = d3
+        .line<number>()
+        .x((_, i) => x(String(pivotedData[i].label))! + x.bandwidth() / 2)
+        .y((d) => y(d))
+        .curve(d3.curveMonotoneX);
+
+      g.append("path")
+        .datum(movingAvg)
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    }
+  } else {
+    // ----- HORIZONTAL -----
+    const y = d3
+      .scaleBand()
+      .domain(pivotedData.map((d) => String(d.label)))
+      .range([0, chartHeight])
+      .padding(0.1);
+
+    const xMax = d3.max(stackedData, (layer) =>
+      d3.max(layer, (d) => Number(d[1]))
+    ) as number;
+
+    const x = d3.scaleLinear().domain([0, xMax]).nice().range([0, chartWidth]);
+
+    const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+    // Bars
+    g.selectAll("g.layer")
+      .data(stackedData)
+      .join("g")
+      .attr("class", "layer")
+      .attr("fill", (d: any) => color(d.key)!)
+      .selectAll("rect")
+      .data((d: any) => d)
+      .join("rect")
+      .attr("y", (d: any) => y(String(d.data.label))!)
+      .attr("x", (d: any) => x(Number(d[0])))
+      .attr("width", (d: any) => x(Number(d[1])) - x(Number(d[0])))
+      .attr("height", y.bandwidth());
+
+    // Axes
+    g.append("g")
+      .attr("transform", `translate(0,${chartHeight})`)
+      .call(d3.axisBottom(x));
+
+    g.append("g").call(d3.axisLeft(y));
+
+    // Moving average
+    if (moving_average) {
+      const totals = pivotedData.map((d) =>
+        keys.reduce((sum, k) => sum + Number(d[k] ?? 0), 0)
+      );
+
+      const movingAvg = totals.map((_, i, arr) => {
+        const window = 3;
+        const start = Math.max(0, i - window + 1);
+        const subset = arr.slice(start, i + 1);
+        return d3.mean(subset) as number;
+      });
+
+      const line = d3
+        .line<number>()
+        .y((_, i) => y(String(pivotedData[i].label))! + y.bandwidth() / 2)
+        .x((d) => x(d))
+        .curve(d3.curveMonotoneY);
+
+      g.append("path")
+        .datum(movingAvg)
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .attr("d", line);
+    }
+  }
+
+  // ---- Legend ----
+  if (show_legend) {
+    const legend = svg
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top / 2})`)
+      .attr("font-size", 9)
+      .attr("text-anchor", "start");
+
+    const legendItems = legend.selectAll("g").data(keys).enter().append("g");
+
+    const legendSpacing = 200;
+    const legendItemHeight = 16;
+    const itemsPerRow = Math.floor(chartWidth / legendSpacing);
+
+    legendItems.attr("transform", (_, i) => {
+      const xPos = (i % itemsPerRow) * legendSpacing;
+      const yPos = Math.floor(i / itemsPerRow) * legendItemHeight;
+      return `translate(${xPos}, ${yPos})`;
+    });
+
+    legendItems
+      .append("rect")
+      .attr("width", 12)
+      .attr("height", 12)
+      .attr(
+        "fill",
+        (d) => d3.scaleOrdinal<string>().domain(keys).range(colors)(d)!
+      );
+
+    legendItems
+      .append("text")
+      .attr("x", 16)
+      .attr("y", 10)
+      .text((d: any) => d);
+  }
 }
 
 /// tree.ts
@@ -2584,630 +3206,6 @@ export async function vennchart(
     console.log("Non critical warning in vennchart:");
   }
 }
-/// disjoint.ts
-
-// Adapted from https://observablehq.com/@d3/disjoint-force-directed-graph/2
-
-export async function disjoint(
-  div: string = defaultArgumentObject.div,
-  data: any = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
-) {
-    if (file?.path) {
-        data = await loadData(file?.path, file?.format);
-    }
-
-    // Specify the dimensions of the chart.
-    const { width, height } = size;
-    const viewScaleFactor = 1.5;
-
-    // Specify the color scale.
-    const color = d3.scaleOrdinal(colors);
-
-    // Create a simulation with several forces.
-    const simulation = d3.forceSimulation(data.nodes)
-        .force("link", d3.forceLink<Node, Link>(data.links).id(d => d.id))
-        .force("charge", d3.forceManyBody())
-        .force("x", d3.forceX())
-        .force("y", d3.forceY());
-
-    // Create the SVG container.
-    const svg = d3
-        .select(div)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("viewBox", [-width / viewScaleFactor, -height / viewScaleFactor, width, height])
-        .attr("style", "max-width: 100%; height: auto;");
-
-        hamburgerMenu(div, data);
-        trackChart("disjoint");
-
-    // Add a line for each link, and a circle for each node.
-    const link = svg.append("g")
-        .attr("stroke", "#999")
-        .attr("stroke-opacity", 0.6)
-        .selectAll("line")
-        .data(data.links)
-        .join("line")
-        .attr("stroke-width", (d: any) => Math.sqrt(d.value));
-
-    const node = svg.append("g")
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1.5)
-        .selectAll("circle")
-        .data(data.nodes)
-        .join("circle")
-        .attr("r", 5)
-        .attr("fill", (d: any) => color(d.group));
-
-    node.append("title")
-        .text((d: any) => d.id);
-
-    // Add a drag behavior.
-    node.call(d3.drag<any,any>()
-              .on("start", dragstarted)
-              .on("drag", dragged)
-              .on("end", dragended));
-    
-    // Set the position attributes of links and nodes each time the simulation ticks.
-    simulation.on("tick", () => {
-        link
-            .attr("x1", (d: any) => d.source.x)
-            .attr("y1", (d: any) => d.source.y)
-            .attr("x2", (d: any) => d.target.x)
-            .attr("y2", (d: any) => d.target.y);
-
-        node
-            .attr("cx", (d: any) => d.x)
-            .attr("cy", (d: any) => d.y);
-    });
-
-    // Reheat the simulation when drag starts, and fix the subject position.
-    function dragstarted(event:any) {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-        event.subject.fx = event.subject.x;
-        event.subject.fy = event.subject.y;
-    }
-
-    // Update the subject (dragged node) position during drag.
-    function dragged(event:any) {
-        event.subject.fx = event.x;
-        event.subject.fy = event.y;
-    }
-
-    // Restore the target alpha so the simulation cools after dragging ends.
-    // Unfix the subject position now that it’s no longer being dragged.
-    function dragended(event:any) {
-        if (!event.active) simulation.alphaTarget(0);
-        event.subject.fx = null;
-        event.subject.fy = null;
-    }
-
-    simulation.on("tick", () => {
-        link
-            .attr("x1", (d:any) => (d.source as Node).x!)
-            .attr("y1", (d:any) => (d.source as Node).y!)
-            .attr("x2", (d:any) => (d.target as Node).x!)
-            .attr("y2", (d:any) => (d.target as Node).y!);
-
-        node.attr("cx", (d:any) => d.x!).attr("cy", (d:any) => d.y!);
-    });
-}
-
-/// dendrogram.ts
-
-export async function dendrogram(
-  div: string = defaultArgumentObject.div,
-  data: any = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors,
-  view_scale_factor = 1
-) {
-  if (file?.path) {
-    data = await loadData(file?.path, file?.format);
-  }
-  const margin = defaultMargin;
-  const width = size.width - margin.left - margin.right;
-  const height = size.height - margin.top - margin.bottom;
-
-  d3.select(div).select("svg").remove(); // Clear previous
-  
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", size.width)
-    .attr("height", size.height)
-    .attr("viewBox", [0, 0, width/view_scale_factor, height/view_scale_factor])
-    .attr("style", "max-width: 100%; height: auto;")
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-    hamburgerMenu(div, data);
-    trackChart("dendrogram");
-
-  const root = d3.hierarchy(data);
-  const treeLayout = d3.tree().size([height, width]);
-  treeLayout(root);
-  const sizeRatio = height/(2 * root.data.size)
-
-  // Links
-  svg
-    .selectAll("path.link")
-    .data(root.links())
-    .enter()
-    .append("path")
-    .attr("class", "link")
-    .attr("fill", "none")
-    .attr("stroke", (d, i) => colors[i % colors.length])
-    .attr("stroke-width", (d) => d.target.data.size * sizeRatio)
-    .attr(
-      "d",
-      d3
-        .linkHorizontal<any, any>()
-        .x((d: any) => d.y)
-        .y((d: any) => d.x)
-    );
-
-  // Nodes
-  const node = svg
-    .selectAll("g.node")
-    .data(root.descendants())
-    .enter()
-    .append("g")
-    .attr("class", "node")
-    .attr("transform", (d: any) => `translate(${d.y},${d.x})`);
-
-  node
-    .append("text")
-    .attr("dy", 3)
-    .attr("x", (d) => (d.children ? -8 : 8))
-    .style("text-anchor", (d) => (d.children ? "end" : "start"))
-    .text((d) => d.data.name);
-}
-
-/// contour.ts
-
-export async function contour(
-  div: string = defaultArgumentObject.div,
-  data: number[][] = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors
-) {
-    if (file?.path) {
-        data = await loadData(file?.path, file?.format);
-      }
-
-  const width = size.width;
-  const height = size.height;
-
-  const n = data.length;
-  const m = data[0].length;
-
-  // Flatten 2D data
-  const values = data.reduce((acc, row) => acc.concat(row), []);
-
-  // Create scales
-  const x = d3.scaleLinear().domain([0, m]).range([0, width]);
-  const y = d3.scaleLinear().domain([0, n]).range([0, height]);
-
-  // Create color scale
-  const thresholds = d3.range(d3.min(values)!, d3.max(values)!, (d3.max(values)! - d3.min(values)!) / colors.length);
-  const color = d3.scaleLinear<string>().domain(thresholds).range(colors).interpolate(d3.interpolateHcl);
-
-  // Clear existing SVG if present
-  d3.select(div).select("svg").remove();
-
-  // Append new SVG
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  hamburgerMenu(div, data);
-  trackChart("contour");
-
-  // Generate contours
-  const contours = d3.contours()
-    .size([m, n])
-    .thresholds(thresholds)(values);
-
-  // Render contours
-  svg.selectAll("path")
-    .data(contours)
-    .enter()
-    .append("path")
-    .attr("d", d3.geoPath(d3.geoIdentity().scale(width / m)))
-    .attr("fill", (d: any) => color(d.value))
-    .attr("stroke", "#333")
-    .attr("stroke-width", 0.3);
-}
-/// areachart.ts
-
-export async function areachart(
-  div: string = defaultArgumentObject.div,
-  data: any = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors,
-  curved = 0
-) {
-  if (file?.path) {
-    data = await loadData(file?.path, file?.format);
-  }
-  
-  d3.select(div).selectAll("*").remove();
-
-  const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-  const width = size.width - margin.left - margin.right;
-  const height = size.height - margin.top - margin.bottom;
-
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", size.width)
-    .attr("height", size.height)
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
-
-  hamburgerMenu(div, data);
-  trackChart("areachart");
-
-  const xValues = data.map((d: any) => d.x);
-  const firstX = xValues[0];
-
-  // Type guards
-  const isDateArray = firstX instanceof Date;
-  const isNumberArray = typeof firstX === "number";
-  const isStringArray = typeof firstX === "string";
-
-  // Declare generic scale variable
-  let xScale:
-    | d3.ScaleTime<number, number>
-    | d3.ScaleLinear<number, number>
-    | d3.ScalePoint<string>;
-
-  if (isDateArray) {
-    const domain = d3.extent(xValues as Date[]).filter(
-      (d): d is Date => d instanceof Date
-    );
-    xScale = d3
-      .scaleTime()
-      .domain(domain.length === 2 ? domain : [new Date(), new Date()])
-      .range([0, width]);
-  } else if (isNumberArray) {
-    const domain = d3.extent(xValues as number[]).filter(
-      (d): d is number => typeof d === "number"
-    );
-    xScale = d3
-      .scaleLinear()
-      .domain(domain.length === 2 ? domain : [0, 1])
-      .range([0, width]);
-  } else if (isStringArray) {
-    xScale = d3
-      .scalePoint()
-      .domain(xValues as string[])
-      .range([0, width])
-      .padding(0.5);
-  } else {
-    throw new Error("Unsupported x value type");
-  }
-
-  // Y scale (always numeric)
-  const yMax = d3.max(data, (d: any) => +d.y) ?? 0;
-  const yScale = d3.scaleLinear().domain([0, yMax]).range([height, 0]);
-
-  // Area generator
-  const area = d3
-    .area<any>()
-    .x((d) => {
-      if (xScale instanceof d3.scalePoint) {
-        return xScale(d.x)!;
-      }
-      return (xScale as any)(d.x) ?? 0;
-    })
-    .y0(height)
-    .y1((d) => yScale(d.y))
-    .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
-
-  // Draw area
-  svg
-    .append("path")
-    .datum(data)
-    .attr("fill", colors[0] || "steelblue")
-    .attr("d", area);
-
-  // X axis
-  svg
-    .append("g")
-    .attr("transform", `translate(0,${height})`)
-    .call(d3.axisBottom(xScale as any));
-
-  // Y axis
-  svg.append("g").call(d3.axisLeft(yScale));
-
-}
-
-/// bubblechart.ts
-
-interface BubbleNode {
-  name?: string;
-  value?: number;
-  children?: BubbleNode[];
-}
-
-export async function bubblechart(
-  div: string = defaultArgumentObject.div,
-  data: any = defaultArgumentObject.data,
-  size: Size = defaultArgumentObject.size,
-  file?: DataFile,
-  colors: string[] = defaultArgumentObject.colors,
-  ease_in = 0,
-  drag_animations = 0
-) {
-  if (file?.path) {
-    data = await loadData(file?.path, file?.format);
-  }
-
-  // Clear existing content
-  d3.select(div).selectAll("*").remove();
-
-  const svg = d3
-    .select(div)
-    .append("svg")
-    .attr("width", size.width)
-    .attr("height", size.height)
-    .attr("viewBox", `0 0 ${size.width} ${size.height}`)
-    .style("font-family", "sans-serif");
-
-  // Tooltip element
-  const tooltip = d3
-    .select(div)
-    .append("div")
-    .style("position", "absolute")
-    .style("background", "rgba(0, 0, 0, 0.7)")
-    .style("color", "#fff")
-    .style("padding", "6px 10px")
-    .style("border-radius", "4px")
-    .style("pointer-events", "none")
-    .style("opacity", 0);
-
-  hamburgerMenu(div, data);
-  trackChart("bubblechart");
-
-  const colorScale = d3.scaleOrdinal<string>().range(colors);
-
-  const format = d3.format(",d");
-
-  const pack = d3.pack<BubbleNode>().size([size.width, size.height]).padding(5);
-
-  let nodes: HierarchyCircularNode<BubbleNode>[] = [];
-  const isNested = !Array.isArray(data);
-
-  if (isNested) {
-    const root = d3
-      .hierarchy<BubbleNode>(data)
-      .sum((d) => d.value || 0)
-      .sort((a, b) => b.value! - a.value!);
-
-    nodes = pack(root).descendants();
-
-    const node = svg
-      .selectAll("g")
-      .data(nodes)
-      .enter()
-      .append("g")
-      .attr("transform", (d) => `translate(${d.x},${d.y})`);
-
-
-
-    if (ease_in > 0) {
-      node
-        .append("circle")
-        .attr("fill", (d, i) => colorScale(i.toString()))
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1)
-        .attr("r", 0)
-        .on("mouseover", (event, d) => {
-          tooltip.transition().duration(200).style("opacity", 0.9);
-          tooltip
-            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mousemove", (event) => {
-          tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mouseout", () => {
-          tooltip.transition().duration(300).style("opacity", 0);
-        })
-        .transition()
-        .duration(800)
-        .ease(d3.easeBounceOut)
-        .attr("r", (d) => d.r);
-    } else {
-      node
-        .append("circle")
-        .attr("fill", (d, i) => colorScale(i.toString()))
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1)
-        .attr("r", (d) => d.r)
-        .on("mouseover", (event, d) => {
-          tooltip.transition().duration(200).style("opacity", 0.9);
-          tooltip
-            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mousemove", (event) => {
-          tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mouseout", () => {
-          tooltip.transition().duration(300).style("opacity", 0);
-        });
-    }
-
-
-    if (ease_in > 0) {
-      node
-      .append("text")
-      .text((d) => d.data.name || "")
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.3em")
-      .style("fill", "#fff")
-      .style(
-        "font-size",
-        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
-      ).style("opacity", 0).transition().delay(4000).style("opacity", 1);
-    } else {
-      node
-      .append("text")
-      .text((d) => d.data.name || "")
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.3em")
-      .style("fill", "#fff")
-      .style(
-        "font-size",
-        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
-      ).style("opacity", 1);
-    }
-  } else {
-    const root = pack(
-      d3.hierarchy<BubbleNode>({ children: data }).sum((d) => d.value || 0)
-    );
-
-    const node = svg
-      .append("g")
-      .selectAll()
-      .data(root.leaves())
-      .join("g")
-      .attr("transform", (d) => `translate(${d.x},${d.y})`);
-
-    const simulation = d3
-      .forceSimulation(root.leaves())
-      .force("charge", d3.forceManyBody().strength(5))
-      .force("center", d3.forceCenter(size.width / 2, size.height / 2))
-      .force(
-        "collision",
-        d3.forceCollide((d: any) => d.r + 2)
-      )
-      .on("tick", () => {
-        node.attr("transform", (d) => `translate(${d.x},${d.y})`);
-      });
-    
-
-    if (ease_in > 0) {
-      node
-        .append("circle")
-        .attr("fill", (d) =>
-          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
-        )
-        .attr("fill-opacity", 0)
-        .attr("r", 0)
-        .on("mouseover", (event, d) => {
-          tooltip.transition().duration(200).style("opacity", 0.9);
-          tooltip
-            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mousemove", (event) => {
-          tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mouseout", () => {
-          tooltip.transition().duration(300).style("opacity", 0);
-        })
-        .transition()
-        .duration(4000)
-        .ease(d3.easeBounceOut)
-        .attr("fill-opacity", 0.7)
-        .attr("r", (d) => d.r);
-    } else {
-      node
-        .append("circle")
-        .attr("fill", (d) =>
-          colorScale(d.parent?.data.name || d.data.name?.split(".")[1] || "")
-        )
-        .attr("fill-opacity", 0.7)
-        .attr("r", (d) => d.r)
-        .on("mouseover", (event, d) => {
-          tooltip.transition().duration(200).style("opacity", 0.9);
-          tooltip
-            .html(`<strong>${d.data.name}</strong><br/>Value: ${format(d.value || 0)}`)
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mousemove", (event) => {
-          tooltip
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 20 + "px");
-        })
-        .on("mouseout", () => {
-          tooltip.transition().duration(300).style("opacity", 0);
-        });
-    }
-
-
-    if (ease_in > 0) {
-      node
-      .append("text")
-      .text((d) => d.data.name || "")
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.3em")
-      .style("fill", "#fff")
-      .style(
-        "font-size",
-        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
-      ).style("opacity", 0).transition().delay(4000).style("opacity", 1);
-    } else {
-      node
-      .append("text")
-      .text((d) => d.data.name || "")
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.3em")
-      .style("fill", "#fff")
-      .style(
-        "font-size",
-        (d) => `${Math.min((2 * d.r) / (d.data.name?.length || 1), 12)}px`
-      ).style("opacity", 1);
-    }
-
-    const drag = d3
-      .drag<any, any>()
-      .on("start", (event, d) => {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-        console.log("start drag", d);
-      })
-      .on("drag", (event, d) => {
-        d.fx = event.x;
-        d.fy = event.y;
-        console.log("drag", d, event);
-      })
-      .on("end", (event, d) => {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-        console.log("end drag", d);
-      });
-    if (drag_animations > 0) {
-      node.call(drag);
-    }
-  }
-}
-
 /// voronoi.ts
 
 interface PointData {
