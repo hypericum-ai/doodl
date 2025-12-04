@@ -63,6 +63,7 @@ export default defineConfig({
                     { text: 'Heat map', link: '/charts/heatmap' },
                     { text: 'Line chart', link: '/charts/line-chart' },
                     { text: 'Pie chart', link: '/charts/pie-chart' },
+                    { text: 'Pie grid', link: '/charts/pie-grid' },
                     { text: 'Sankey diagram', link: '/charts/sankey' },
                     { text: 'Scatter plot', link: '/charts/scatterplot' },
                     { text: 'Stacked area chart', link: '/charts/stacked-area-chart' },

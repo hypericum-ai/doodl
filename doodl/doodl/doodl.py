@@ -237,7 +237,7 @@ STANDARD_CHARTS = {
             "columns": 3,
             "bg_arc_color": "#2b2b2f",
             "text_color": "#aaa",
-            "percent_color": "#eb0707ff",
+            "percent_color": "#eb0707",
             "total_color": "#aaa"
         },
         "data": {

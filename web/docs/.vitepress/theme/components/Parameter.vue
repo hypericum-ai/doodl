@@ -37,7 +37,8 @@
 <script setup>
 defineProps({
   name: { type: String, required: true },
-  type: { type: String, default: '' }
+  type: { type: String, default: '' },
+  default_value: { type: String}
 })
 </script>
 
