@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Wed Dec  3 03:00:47 PM EST 2025
+// Generated Thu Dec  4 09:42:54 AM EST 2025
 
 
 /// base.ts
@@ -2116,12 +2116,11 @@ export async function piegrid(
   colors: string[] = defaultArgumentObject.colors,
   show_percentages?: 0,
   columns?: 3,
-  color_names = {}
+  bg_arc_color = '#2b2b2f',
+  text_color = '#aaa',
+  percent_color = '#eb0707ff',
+  total_color = '#777'
 ) {
-  console.log("piegrid() called with color_names:", color_names);
-  const merged_colors = { ...defaultColors, ...color_names }
-  console.log("after merge, merged_colors:", merged_colors);
-
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
   }
@@ -2174,7 +2173,7 @@ export async function piegrid(
 
     g.append("path")
       .attr("d", backgroundArc as any)
-      .attr("fill", merged_colors.bg_arc!);
+      .attr("fill", bg_arc_color);
 
     g.append("path")
       .attr("d", arc.startAngle(0).endAngle(angle) as any)
@@ -2185,7 +2184,7 @@ export async function piegrid(
         .attr("text-anchor", "middle")
         .attr("dy", "-0.3em")
         .attr("font-size", "16px")
-        .attr("fill", merged_colors.percent!)
+        .attr("fill", percent_color)
         .text(Math.round(percent * 100) + "%");
     }
 
@@ -2193,14 +2192,14 @@ export async function piegrid(
       .attr("text-anchor", "middle")
       .attr("dy", "1.2em")
       .attr("font-size", "12px")
-      .attr("fill", merged_colors.text!)
+      .attr("fill", text_color)
       .text(d.label);
 
     g.append("text")
       .attr("text-anchor", "middle")
       .attr("dy", "2.6em")
       .attr("font-size", "12px")
-      .attr("fill", merged_colors.total!)
+      .attr("fill", total_color)
       .text(`Total: ${d.value.toLocaleString()}`);
   });
 }

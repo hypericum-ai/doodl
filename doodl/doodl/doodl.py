@@ -235,7 +235,10 @@ STANDARD_CHARTS = {
         "options": {
             "show_percentages": False,
             "columns": 3,
-            "color_names": {}
+            "bg_arc_color": "#2b2b2f",
+            "text_color": "#aaa",
+            "percent_color": "#eb0707ff",
+            "total_color": "#aaa"
         },
         "data": {
             "type": "table",

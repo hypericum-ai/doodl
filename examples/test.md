@@ -11,10 +11,8 @@
   colors='deep'
   show_percentages='true'
   columns=4
-  color_names="{
-    bg_arc: '#aaa',
-    text: '#00ab'
-  }"
+  bg_arc_color='#aaa'
+  text_color='#0000aa'
 >
 </piegrid>
 
@@ -24,7 +22,7 @@
 
 
 <stacked_barchart
-  path= "data/label_category_value.json"
+  path="data/label_category_value.json"
   width=1200
   height=1000
   colors='deep'
@@ -41,7 +39,7 @@
 
 
 <stacked_barchart
-  path= "data/label_category_value.json"
+  path="data/label_category_value.json"
   width=1200
   height=1000
   colors='deep'
