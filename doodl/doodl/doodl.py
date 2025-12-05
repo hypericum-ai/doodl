@@ -200,6 +200,17 @@ STANDARD_CHARTS = {
             "columns": ["start", "end", "task"]
         }
     },
+    "grouped_barchart": {
+        "options": {
+            "horizontal": False,
+            "x_label_angle": 0,
+            "show_legend": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "group", "value"]
+        }
+    },
     "heatmap": {
         "options": {
             "show_legend": False,

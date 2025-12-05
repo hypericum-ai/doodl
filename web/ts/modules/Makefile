@@ -18,6 +18,7 @@ SOURCE_FILES = \
 	dotplot.ts \
 	force.ts \
 	gantt.ts \
+	grouped_barchart.ts \
 	heatmap.ts \
 	linechart.ts \
 	piechart.ts \
