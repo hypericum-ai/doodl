@@ -33,7 +33,7 @@ export async function grouped_barchart(
 
   if (horizontal) {
     y = d3.scaleBand()
-      .domain(groups.keys())
+      .domain(Array.from(groups.keys()))
       .range([0, height])
       .paddingInner(0.1);
 
@@ -48,7 +48,7 @@ export async function grouped_barchart(
       .range([0, width]);
   } else {
     x0 = d3.scaleBand()
-      .domain(groups.keys())
+      .domain(Array.from(groups.keys()))
       .range([0, width])
       .paddingInner(0.1);
 
@@ -65,7 +65,7 @@ export async function grouped_barchart(
 
   svg.append("g")
     .selectAll("g")
-    .data(groups)
+    .data(Array.from(groups))
     .enter().append("g")
     .attr("transform", (d: any) => `translate(${x0(d[0])},0)`)
     .selectAll("rect")

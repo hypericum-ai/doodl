@@ -1,4 +1,70 @@
 
+### A multi_linechart 
+
+
+<multi_linechart
+data='[
+  { "label": "A", "x": 1, "y": 10 },
+  { "label": "A", "x": 2, "y": 14 },
+  { "label": "A", "x": 3, "y": 18 },
+  { "label": "A", "x": 4, "y": 22 },
+  { "label": "A", "x": 5, "y": 28 },
+  { "label": "A", "x": 6, "y": 32 },
+  { "label": "A", "x": 7, "y": 35 },
+  { "label": "A", "x": 8, "y": 38 },
+  { "label": "A", "x": 9, "y": 40 },
+  { "label": "A", "x": 10, "y": 43 },
+  { "label": "A", "x": 11, "y": 45 },
+  { "label": "A", "x": 12, "y": 48 },
+
+  { "label": "B", "x": 1, "y": 8 },
+  { "label": "B", "x": 2, "y": 12 },
+  { "label": "B", "x": 3, "y": 16 },
+  { "label": "B", "x": 4, "y": 20 },
+  { "label": "B", "x": 5, "y": 25 },
+  { "label": "B", "x": 6, "y": 30 },
+  { "label": "B", "x": 7, "y": 34 },
+  { "label": "B", "x": 8, "y": 37 },
+  { "label": "B", "x": 9, "y": 39 },
+  { "label": "B", "x": 10, "y": 42 },
+  { "label": "B", "x": 11, "y": 44 },
+  { "label": "B", "x": 12, "y": 47 },
+
+  { "label": "C", "x": 1, "y": 5 },
+  { "label": "C", "x": 2, "y": 9 },
+  { "label": "C", "x": 3, "y": 12 },
+  { "label": "C", "x": 4, "y": 16 },
+  { "label": "C", "x": 5, "y": 20 },
+  { "label": "C", "x": 6, "y": 23 },
+  { "label": "C", "x": 7, "y": 26 },
+  { "label": "C", "x": 8, "y": 28 },
+  { "label": "C", "x": 9, "y": 30 },
+  { "label": "C", "x": 10, "y": 33 },
+  { "label": "C", "x": 11, "y": 35 },
+  { "label": "C", "x": 12, "y": 37 },
+
+  { "label": "D", "x": 1, "y": 15 },
+  { "label": "D", "x": 2, "y": 18 },
+  { "label": "D", "x": 3, "y": 20 },
+  { "label": "D", "x": 4, "y": 24 },
+  { "label": "D", "x": 5, "y": 27 },
+  { "label": "D", "x": 6, "y": 29 },
+  { "label": "D", "x": 7, "y": 33 },
+  { "label": "D", "x": 8, "y": 36 },
+  { "label": "D", "x": 9, "y": 38 },
+  { "label": "D", "x": 10, "y": 41 },
+  { "label": "D", "x": 11, "y": 43 },
+  { "label": "D", "x": 12, "y": 46 }
+]'
+  width=500
+  height=500
+  colors='deep'
+  curved='true'
+  show_legend='true'
+>
+</multi_linechart>
+
+
 ### A HORIZONTAL grouped_barchart 
 
 
@@ -219,9 +285,9 @@ data='
   {"sets": ["A"], "size": 10}, 
     {"sets": ["B"], "size": 15},
     {"sets": ["C"], "size": 20},
-    {"sets": ["A","B"], "size": 5}
-    {"sets": ["A","C"], "size": 3}
-    {"sets": ["B","C"], "size": 4}
+    {"sets": ["A","B"], "size": 5},
+    {"sets": ["A","C"], "size": 3},
+    {"sets": ["B","C"], "size": 4},
     {"sets": ["A","B","C"], "size": 2}
   ]
 '

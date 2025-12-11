@@ -21,6 +21,7 @@ SOURCE_FILES = \
 	grouped_barchart.ts \
 	heatmap.ts \
 	linechart.ts \
+	multi_linechart.ts \
 	piechart.ts \
 	piegrid.ts \
 	scatterplot.ts \
