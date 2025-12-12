@@ -289,3 +289,14 @@ export function trackChart(chartId: string): void { //chartId is a unique identi
     console.warn("Google Analytics not initialized or gtag not found.");
   }
 }
+
+
+// check subscription status of the provided token
+export function checkToken(token: string, chartName:string): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const isValid = token === "valid-token"; 
+      resolve(isValid);
+    }, 1000);
+  });
+}
