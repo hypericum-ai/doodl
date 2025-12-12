@@ -1,5 +1,3 @@
-
-
 export async function linechart(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,

@@ -231,6 +231,16 @@ STANDARD_CHARTS = {
             "columns": ["x", "y"]
         }
     },
+    "multi_linechart": {
+        "options": {
+            "curved": False,
+            "show_legend": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label","x", "y"]
+        }
+    },
     "piechart": {
         "options": {
             "donut": False,
