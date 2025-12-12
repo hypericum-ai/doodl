@@ -219,9 +219,9 @@ data='
   {"sets": ["A"], "size": 10}, 
     {"sets": ["B"], "size": 15},
     {"sets": ["C"], "size": 20},
-    {"sets": ["A","B"], "size": 5}
-    {"sets": ["A","C"], "size": 3}
-    {"sets": ["B","C"], "size": 4}
+    {"sets": ["A","B"], "size": 5},
+    {"sets": ["A","C"], "size": 3},
+    {"sets": ["B","C"], "size": 4},
     {"sets": ["A","B","C"], "size": 2}
   ]
 '
