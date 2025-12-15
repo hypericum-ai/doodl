@@ -1,8 +1,10 @@
-import { checkToken } from "./base";
+import { checkToken } from "./token";
 
-@checkToken
-export async function radial_areachart(
-  token: string = "",
+export const radial_areachart = checkToken(
+  radial_areachart_impl
+);
+
+async function radial_areachart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
