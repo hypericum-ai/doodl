@@ -24,7 +24,9 @@ SOURCE_FILES = \
 	multi_linechart.ts \
 	piechart.ts \
 	piegrid.ts \
+	placeholder.ts \
 	scatterplot.ts \
+	radial_areachart.ts \
 	skey.ts \
 	stacked_areachart.ts \
 	stacked_barchart.ts \
