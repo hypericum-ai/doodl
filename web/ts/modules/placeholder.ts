@@ -1,3 +1,9 @@
+import d3 from "d3";
+import {
+  defaultArgumentObject,
+  Size,
+} from "./base";
+
 export async function placeholder(
   div: string = defaultArgumentObject.div,
   size: Size = defaultArgumentObject.size,

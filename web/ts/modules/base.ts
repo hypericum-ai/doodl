@@ -29,12 +29,12 @@ interface DataLabeled {
   value: number;
 }
 
-interface Size {
+export interface Size {
   width: number;
   height: number;
 }
 
-interface DataFile {
+export  interface DataFile {
   path: string;
   format: string;
 }
@@ -70,7 +70,7 @@ interface Leaf {
 const defaultMargin: Margin = { top: 20, bottom: 20, left: 20, right: 20 };
 const defaultSize: Size = { width: 300, height: 300 };
 
-const defaultArgumentObject: ArgumentObject = {
+export const defaultArgumentObject: ArgumentObject = {
   data: [],
   div: "chart_",
   size: defaultSize,
@@ -85,7 +85,7 @@ const formatters: { [key: string]: Function } = {
   hsv: (path: string) => d3.dsv("#", path),
 };
 
-async function loadData(path: string, format: string = ""): Promise<any> {
+export async function loadData(path: string, format: string = ""): Promise<any> {
   if (format == "") {
     format = path.split(".").slice(-1)[0];
   }
@@ -212,7 +212,7 @@ function downloadSvgAsImage(
   img.src = url;
 }
 
-function downloadAsJson(data: object | any[], filename: string = "data.json") {
+export function downloadAsJson(data: object | any[], filename: string = "data.json") {
   const jsonStr = JSON.stringify(data, null, 2); // pretty print with 2-space indent
   const blob = new Blob([jsonStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -227,7 +227,7 @@ function downloadAsJson(data: object | any[], filename: string = "data.json") {
   URL.revokeObjectURL(url);
 }
 
-function hamburgerMenu(div: string = "", data: object | any[] = []) {
+export function hamburgerMenu(div: string = "", data: object | any[] = []) {
   if (div.length <= 0) {
     console.error("Error,No div element specified.");
     return;
@@ -288,4 +288,36 @@ export function trackChart(chartId: string): void { //chartId is a unique identi
   } else {
     console.warn("Google Analytics not initialized or gtag not found.");
   }
+}
+
+
+
+export interface Token {
+  value: string;
+  expiresAt: number;
+}
+
+let cachedToken: Token | null = null;
+
+export async function retrieveToken(propertyKey: string): Promise<Token> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        value: `dummy-token-${propertyKey || "default"}`,
+        // expires in 1 hour
+        expiresAt: Date.now() + 60 * 60 * 1000
+      });
+    }, 800); // simulate network delay (800ms)
+  });
+}
+
+export function isTokenExpired(token: Token | null): boolean {
+  if (!token) {
+    return true;
+  }
+  return Date.now() >= token.expiresAt;
+}
+
+export function isTokenValid(token: Token | null): boolean {
+  return token !== null && token.value !== "" && token.value.length > 0 && !isTokenExpired(token);
 }

@@ -57,10 +57,10 @@ DEV_STYLESHEETS = [
     "{dir}/css/doodl.css",
 ]
 
-DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
+DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.js"]
 
 PROD_SCRIPTS = [
-    "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
+    "https://doodl.ai/assets/doodl/js/doodlchart.js"
 ]
 
 # The HTML template
@@ -266,6 +266,17 @@ STANDARD_CHARTS = {
             "columns": ["label", "value"]
         }
     },
+    "radial_areachart": {
+        "options": {
+            "horizontal": False,
+            "x_label_angle": 0,
+            "show_legend": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "group", "value"]
+        }
+    },
     "scatterplot": {
         "options": {
             "dotsize": 5
@@ -363,7 +374,7 @@ else:
 # for production mode.
 
 mode = "prod"
-module_name = "Doodl"
+module_name = "doodl"
 src_dir = "."
 
 # Map of custom chart definitions
@@ -556,7 +567,7 @@ def process_html_charts(soup):
     # Process the charts.
 
     code_parts = []
-    code_string = ""
+    code_string = "var doodl = new Doodl.Doodl('test key');\n"
 
     for s, args in STANDARD_CHARTS.items():
         options = None
@@ -578,7 +589,7 @@ def process_html_charts(soup):
 
     # We use the same indentation as the template for the script
 
-    code_string = """
+    code_string += """
             """.join(code_parts)
 
     # Account for Apple's tendency to be a nanny

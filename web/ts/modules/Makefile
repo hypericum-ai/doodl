@@ -2,7 +2,7 @@ GENERATED_FILE_NAMES = \
 	index.ts \
 
 GENERATED_FILES = $(patsubst %, ../%, $(GENERATED_FILE_NAMES))
-TARGET_FILE = ../dist/doodlchart.min.js
+TARGET_FILE = ../dist/doodlchart.js
 
 SOURCE_FILES = \
 	base.ts \
@@ -33,7 +33,7 @@ SOURCE_FILES = \
 	tree.ts \
 	treemap.ts \
 	vennchart.ts \
-	voronoi.ts
+	voronoi.ts \
 
 all: $(TARGET_FILE)
 

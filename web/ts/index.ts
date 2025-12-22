@@ -1,5 +1,5 @@
 // Warning! THIS FILE WAS GENERATED! DO NOT EDIT!
-// Generated Thu Dec 11 19:01:32 CAT 2025
+// Generated Mon Dec 22 10:14:45 CAT 2025
 
 
 /// base.ts
@@ -35,12 +35,12 @@ interface DataLabeled {
   value: number;
 }
 
-interface Size {
+export interface Size {
   width: number;
   height: number;
 }
 
-interface DataFile {
+export  interface DataFile {
   path: string;
   format: string;
 }
@@ -76,7 +76,7 @@ interface Leaf {
 const defaultMargin: Margin = { top: 20, bottom: 20, left: 20, right: 20 };
 const defaultSize: Size = { width: 300, height: 300 };
 
-const defaultArgumentObject: ArgumentObject = {
+export const defaultArgumentObject: ArgumentObject = {
   data: [],
   div: "chart_",
   size: defaultSize,
@@ -91,7 +91,7 @@ const formatters: { [key: string]: Function } = {
   hsv: (path: string) => d3.dsv("#", path),
 };
 
-async function loadData(path: string, format: string = ""): Promise<any> {
+export async function loadData(path: string, format: string = ""): Promise<any> {
   if (format == "") {
     format = path.split(".").slice(-1)[0];
   }
@@ -218,7 +218,7 @@ function downloadSvgAsImage(
   img.src = url;
 }
 
-function downloadAsJson(data: object | any[], filename: string = "data.json") {
+export function downloadAsJson(data: object | any[], filename: string = "data.json") {
   const jsonStr = JSON.stringify(data, null, 2); // pretty print with 2-space indent
   const blob = new Blob([jsonStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -233,7 +233,7 @@ function downloadAsJson(data: object | any[], filename: string = "data.json") {
   URL.revokeObjectURL(url);
 }
 
-function hamburgerMenu(div: string = "", data: object | any[] = []) {
+export function hamburgerMenu(div: string = "", data: object | any[] = []) {
   if (div.length <= 0) {
     console.error("Error,No div element specified.");
     return;
@@ -294,6 +294,37 @@ export function trackChart(chartId: string): void { //chartId is a unique identi
   } else {
     console.warn("Google Analytics not initialized or gtag not found.");
   }
+}
+
+
+
+export interface Token {
+  value: string;
+  expiresAt: number;
+}
+
+let cachedToken: Token | null = null;
+
+export async function retrieveToken(propertyKey: string): Promise<Token> {
+  // Replace with your actual token retrieval logic
+  const response = await fetch("/api/token");
+  const data = await response.json();
+  
+  return {
+    value: data.token,
+    expiresAt: Date.now() + data.expiresIn * 1000
+  };
+}
+
+export function isTokenExpired(token: Token | null): boolean {
+  if (!token) {
+    return true;
+  }
+  return Date.now() >= token.expiresAt;
+}
+
+export function isTokenValid(token: Token | null): boolean {
+  return token !== null && token.value !== "" && token.value.length > 0 && !isTokenExpired(token);
 }
 /// areachart.ts
 
@@ -2496,6 +2527,86 @@ export async function piegrid(
   });
 }
 
+/// placeholder.ts
+
+import d3 from "d3";
+import {
+  defaultArgumentObject,
+  Size,
+} from "./base";
+
+export async function placeholder(
+  div: string = defaultArgumentObject.div,
+  size: Size = defaultArgumentObject.size,
+  colors: string[],
+  chartName: string = ""
+) {
+    const { width, height } = size;
+
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  // Draw simple cat
+  const centerX = width / 2;
+  const centerY = height / 2;
+
+  // Head
+  svg.append("circle")
+    .attr("cx", centerX)
+    .attr("cy", centerY)
+    .attr("r", 60)
+    .attr("fill", colors?.[0] ?? "#999");
+
+  // Left ear
+  svg.append("polygon")
+    .attr("points", `${centerX - 40},${centerY - 40} ${centerX - 10},${centerY - 120} ${centerX - 80},${centerY - 80}`)
+    .attr("fill", colors?.[1] ?? "#888");
+
+  // Right ear
+  svg.append("polygon")
+    .attr("points", `${centerX + 40},${centerY - 40} ${centerX + 10},${centerY - 120} ${centerX + 80},${centerY - 80}`)
+    .attr("fill", colors?.[1] ?? "#888");
+
+  // Eyes
+  svg.append("circle")
+    .attr("cx", centerX - 20)
+    .attr("cy", centerY - 10)
+    .attr("r", 10)
+    .attr("fill", "#000");
+
+  svg.append("circle")
+    .attr("cx", centerX + 20)
+    .attr("cy", centerY - 10)
+    .attr("r", 10)
+    .attr("fill", "#000");
+
+  // Nose
+  svg.append("circle")
+    .attr("cx", centerX)
+    .attr("cy", centerY + 10)
+    .attr("r", 6)
+    .attr("fill", "#000");
+
+  // Body
+  svg.append("ellipse")
+    .attr("cx", centerX)
+    .attr("cy", centerY + 120)
+    .attr("rx", 80)
+    .attr("ry", 100)
+    .attr("fill", colors?.[2] ?? "#aaa");
+
+  // Premium chart text
+  svg.append("text")
+    .attr("x", centerX)
+    .attr("y", centerY + 260)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "20px")
+    .attr("fill", "#555")
+    .text(`${chartName} is a premium chart, upgrade to use it`);
+}
 /// scatterplot.ts
 
 export async function scatterplot(
@@ -2590,6 +2701,234 @@ export async function scatterplot(
       d3.select(this).transition().duration(200).attr("r", 5);
       tooltip.style("display", "none");
     });
+}
+
+/// radial_areachart.ts
+
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function radial_areachart_impl(
+  div: string = defaultArgumentObject.div,
+  data: any = defaultArgumentObject.data,
+  size: Size = defaultArgumentObject.size,
+  file?: DataFile,
+  colors: string[] = defaultArgumentObject.colors,
+  curved = false,
+  x_label_angle = 0,
+  show_legend = 0,
+  horizontal = 0 // 0 = Vertical, 1 = Horizontal
+) {
+  if (file?.path) {
+    data = await loadData(file.path, file.format);
+  }
+
+  const { width, height } = size;
+  const margin = { top: 40, right: 20, bottom: 40, left: 60 };
+  const svgWidth = width;
+  const svgHeight = height;
+  const chartWidth = svgWidth - margin.left - margin.right;
+  const chartHeight = svgHeight - margin.top - margin.bottom;
+
+  d3.select(div).selectAll("*").remove();
+
+  const svg = d3
+    .select(div)
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+  const chartArea = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  hamburgerMenu(div, data);
+  trackChart("radial_areachart");
+
+  // ---- Data preparation ----
+  interface PivotedRow {
+    label: string | number;
+    [category: string]: number | string;
+  }
+
+  // Group data by label
+  const grouped = d3.group(data, (d: any) => d.label);
+
+  // Create pivoted data array
+  const pivotedData: PivotedRow[] = Array.from(grouped, ([label, values]) => {
+    const obj: PivotedRow = { label };
+    values.forEach((d: any) => {
+      obj[d.category] = +d.value;
+    });
+    return obj;
+  });
+
+  const keys: string[] = Array.from(new Set(data.map((d: any) => d.category)));
+
+  const isNumeric = pivotedData.every((d: any) => !isNaN(Number(d.label)));
+
+  const x = horizontal
+    ? d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(pivotedData, (d: any) =>
+            d3.sum(keys, (k: any) => +(d[k] ?? 0))
+          )!,
+        ])
+        .nice()
+        .range([0, chartWidth])
+    : isNumeric
+    ? d3
+        .scaleLinear()
+        .domain(
+          d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
+        )
+        .range([0, chartWidth])
+    : d3
+        .scalePoint<string>()
+        .domain(pivotedData.map((d: any) => String(d.label)))
+        .range([0, chartWidth])
+        .padding(0.5);
+
+  const y = horizontal
+    ? isNumeric
+      ? d3
+          .scaleLinear()
+          .domain(
+            d3.extent(pivotedData, (d: any) => +d.label) as [number, number]
+          )
+          .range([chartHeight, 0])
+      : d3
+          .scalePoint<string>()
+          .domain(pivotedData.map((d: any) => String(d.label)))
+          .range([chartHeight, 0])
+          .padding(0.5)
+    : d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(pivotedData, (d: any) =>
+            d3.sum(keys, (k: any) => +(d[k] ?? 0))
+          )!,
+        ])
+        .nice()
+        .range([chartHeight, 0]);
+
+  const color = d3.scaleOrdinal<string>().domain(keys).range(colors);
+
+  const stackGen = d3.stack<PivotedRow>().keys(keys);
+  const stackedData = stackGen(pivotedData);
+
+  const xAccessor = (d: d3.SeriesPoint<PivotedRow>): number =>
+    horizontal
+      ? (x as d3.ScaleLinear<number, number>)(d[1] as number)
+      : isNumeric
+      ? (x as d3.ScaleLinear<number, number>)(+d.data.label)
+      : (x as d3.ScalePoint<string>)(String(d.data.label))!;
+
+  const area = horizontal
+    ? d3
+        .area<d3.SeriesPoint<PivotedRow>>()
+        .y((d: any) =>
+          isNumeric
+            ? (y as d3.ScaleLinear<number, number>)(+d.data.label)
+            : (y as d3.ScalePoint<string>)(String(d.data.label))!
+        )
+        .x0((d: any) => (x as d3.ScaleLinear<number, number>)(d[0] as number))
+        .x1((d: any) => (x as d3.ScaleLinear<number, number>)(d[1] as number))
+        .curve(curved ? d3.curveMonotoneY : d3.curveLinear)
+    : d3
+        .area<d3.SeriesPoint<PivotedRow>>()
+        .x(xAccessor)
+        .y0((d: any) => (y as d3.ScaleLinear<number, number>)(d[0] as number))
+        .y1((d: any) => (y as d3.ScaleLinear<number, number>)(d[1] as number))
+        .curve(curved ? d3.curveMonotoneX : d3.curveLinear);
+
+  chartArea
+    .selectAll(".layer")
+    .data(stackedData)
+    .enter()
+    .append("path")
+    .attr("class", "layer")
+    .attr("fill", (d) => color(d.key)!)
+    .attr("d", area)
+    .attr("stroke", "none")
+    .attr("opacity", 0.9);
+
+  const xAxisG = chartArea
+    .append("g")
+    .attr("transform", `translate(0,${chartHeight})`)
+    .call(
+      horizontal
+        ? d3.axisBottom(x as any)
+        : isNumeric
+        ? d3
+            .axisBottom(x as d3.ScaleLinear<number, number>)
+            .ticks(10)
+            .tickFormat(d3.format("d"))
+        : d3.axisBottom(x as d3.ScalePoint<string>)
+    );
+
+  if (x_label_angle !== 0) {
+    const texts = xAxisG.selectAll("text");
+    texts
+      .attr("transform", `rotate(${x_label_angle})`)
+      .style(
+        "text-anchor",
+        x_label_angle === 90 ? "start" : x_label_angle > 0 ? "start" : "end"
+      )
+      .attr("dx", x_label_angle === 90 ? "0.8em" : "-0.5em")
+      .attr("dy", x_label_angle === 90 ? "-0.1em" : "0.5em");
+  }
+
+  chartArea
+    .append("g")
+    .call(
+      isNumeric
+        ? d3.axisLeft(y as d3.ScaleLinear<number, number>)
+        : d3.axisLeft(y as d3.ScalePoint<string>)
+    );
+
+  // ---- Legend ----
+  if (show_legend) {
+    const legend = svg
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top / 2})`)
+      .attr("font-size", 9)
+      .attr("text-anchor", "start");
+
+    const legendItems = legend.selectAll("g").data(keys).enter().append("g");
+
+    const legendSpacing = 200;
+    const legendItemHeight = 16;
+    const itemsPerRow = Math.floor(chartWidth / legendSpacing);
+
+    legendItems.attr("transform", (_, i) => {
+      const xPos = (i % itemsPerRow) * legendSpacing;
+      const yPos = Math.floor(i / itemsPerRow) * legendItemHeight;
+      return `translate(${xPos}, ${yPos})`;
+    });
+
+    legendItems
+      .append("rect")
+      .attr("width", 12)
+      .attr("height", 12)
+      .attr("fill", (d) => color(d)!);
+
+    legendItems
+      .append("text")
+      .attr("x", 16)
+      .attr("y", 10)
+      .text((d: any) => d);
+  }
 }
 
 /// skey.ts
