@@ -8,6 +8,7 @@ import {
   Token,
 } from "./base";
 import { radial_areachart_impl } from "./radial_areachart";
+import { areachart_impl } from "./areachart";
 import * as d3 from "d3";
 
 export class Doodl {
@@ -18,11 +19,11 @@ export class Doodl {
     Doodl.cachedToken = null;
     this.tokenKey = tokenKey;
     if (this.tokenKey && Doodl.cachedToken == null) {
-      this.checkToken(this.tokenKey);
+      void this.checkToken(this.tokenKey);
     }
   }
 
-  async checkToken(tokenKey: string) {
+  async checkToken(tokenKey: string): Promise<Token | null> {
     if (!Doodl.cachedToken || isTokenExpired(Doodl.cachedToken)) {
       try {
         Doodl.cachedToken = await retrieveToken(tokenKey);
@@ -146,10 +147,7 @@ export class Doodl {
     show_legend = 0,
     horizontal = 0
   ) {
-    const ct =
-      Doodl.cachedToken != null ||
-      !isTokenExpired(Doodl.cachedToken) ||
-      isTokenValid(Doodl.cachedToken);
+    const ct = await this.checkToken(this.tokenKey);
     return ct
       ? this.placeholder(div, size, colors, "Radial Area Chart")
       : radial_areachart_impl(
@@ -162,6 +160,27 @@ export class Doodl {
           x_label_angle,
           show_legend,
           horizontal
+        );
+  }
+
+   async areachart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    curved = false
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Area Chart")
+      : areachart_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          curved
         );
   }
 }

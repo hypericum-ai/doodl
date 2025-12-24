@@ -1,10 +1,20 @@
-export async function areachart(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function areachart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
   file?: DataFile,
   colors: string[] = defaultArgumentObject.colors,
-  curved = 0
+  curved = false
 ) {
   if (file?.path) {
     data = await loadData(file?.path, file?.format);
