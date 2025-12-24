@@ -12,19 +12,19 @@ import { SimulationNodeDatum } from "d3";
 import { Contours } from "d3-contour";
 import { HierarchyCircularNode } from "d3";
 
-interface Margin {
+export  interface Margin {
   top: number;
   bottom: number;
   left: number;
   right: number;
 }
 
-interface DataPoint {
+export  interface DataPoint {
   x: number;
   y: number;
 }
 
-interface DataLabeled {
+export  interface DataLabeled {
   label: string;
   value: number;
 }
@@ -41,13 +41,13 @@ export  interface DataFile {
 
 // DataNode is used for Venn diagrams
 
-interface DataNode {
+export  interface DataNode {
   name?: string;
   size?: number;
   children?: DataNode[];
 }
 
-interface ArgumentObject {
+export  interface ArgumentObject {
   data: any;
   div: string;
   size: Size;
@@ -55,20 +55,20 @@ interface ArgumentObject {
   file?: DataFile;
 }
 
-interface Join extends Leaf {
+export  interface Join extends Leaf {
   height?: number;
   children?: Join[];
 }
 
-interface Leaf {
+export  interface Leaf {
   name?: string;
   id?: number;
   size?: number;
   score?: number;
 }
 
-const defaultMargin: Margin = { top: 20, bottom: 20, left: 20, right: 20 };
-const defaultSize: Size = { width: 300, height: 300 };
+export  const defaultMargin: Margin = { top: 20, bottom: 20, left: 20, right: 20 };
+export  const defaultSize: Size = { width: 300, height: 300 };
 
 export const defaultArgumentObject: ArgumentObject = {
   data: [],

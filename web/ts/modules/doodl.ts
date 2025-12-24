@@ -9,6 +9,8 @@ import {
 } from "./base";
 import { radial_areachart_impl } from "./radial_areachart";
 import { areachart_impl } from "./areachart";
+import { barchart_impl } from "./barchart";
+import { bollinger_impl } from "./bollinger";
 import * as d3 from "d3";
 
 export class Doodl {
@@ -163,7 +165,7 @@ export class Doodl {
         );
   }
 
-   async areachart(
+  async areachart(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
@@ -174,13 +176,54 @@ export class Doodl {
     const ct = await this.checkToken(this.tokenKey);
     return ct
       ? this.placeholder(div, size, colors, "Area Chart")
-      : areachart_impl(
+      : areachart_impl(div, data, size, file, colors, curved);
+  }
+
+  async barchart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    horizontal = 0,
+    moving_average = 0,
+    x_label_angle = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Bar Chart")
+      : barchart_impl(
           div,
           data,
           size,
           file,
           colors,
-          curved
+          horizontal,
+          moving_average,
+          x_label_angle
         );
   }
+
+
+   async bollinger(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Bollinger Chart")
+      : bollinger_impl(
+          div,
+          data,
+          size,
+          file,
+          colors
+        );
+  }
+
+
+
 }

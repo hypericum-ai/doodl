@@ -1,3 +1,13 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
 interface BollingerRow {
   date: Date;
   close: number;
@@ -6,7 +16,7 @@ interface BollingerRow {
   movingAvg: number;
 }
 
-export async function bollinger(
+export async function bollinger_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

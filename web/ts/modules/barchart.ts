@@ -1,4 +1,18 @@
-export async function barchart(
+import * as d3 from "d3";
+import {
+  DataFile,
+  DataLabeled,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
+
+export async function barchart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
