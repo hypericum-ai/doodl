@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import {
   DataFile,
   defaultArgumentObject,
+  defaultMargin,
   hamburgerMenu,
   loadData,
   Size,
@@ -30,7 +31,7 @@ export async function bollinger_impl(
   const container = d3.select(div);
   container.selectAll("*").remove(); // clean previous chart
 
-  const margin = { top: 30, right: 40, bottom: 30, left: 50 };
+  const margin = defaultMargin;
   const width = size.width - margin.left - margin.right;
   const height = size.height - margin.top - margin.bottom;
 

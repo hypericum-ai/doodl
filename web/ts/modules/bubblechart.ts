@@ -1,10 +1,21 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+import { HierarchyCircularNode } from "d3";
+
 interface BubbleNode {
   name?: string;
   value?: number;
   children?: BubbleNode[];
 }
 
-export async function bubblechart(
+export async function bubblechart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import {
   DataFile,
   defaultArgumentObject,
@@ -11,7 +12,15 @@ import { radial_areachart_impl } from "./radial_areachart";
 import { areachart_impl } from "./areachart";
 import { barchart_impl } from "./barchart";
 import { bollinger_impl } from "./bollinger";
-import * as d3 from "d3";
+import { boxplot_impl } from "./boxplot";
+import { bubblechart_impl } from "./bubblechart";
+import { chord_impl } from "./chord";
+import { contour_impl } from "./contour";
+import { dendrogram_impl } from "./dendrogram";
+import { disjoint_impl } from "./disjoint";
+import { dotplot_impl } from "./dotplot";
+import { force_impl } from "./force";
+import { gantt_impl } from "./gantt";
 
 export class Doodl {
   private static cachedToken: Token | null = null;
@@ -204,8 +213,7 @@ export class Doodl {
         );
   }
 
-
-   async bollinger(
+  async bollinger(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
@@ -215,15 +223,143 @@ export class Doodl {
     const ct = await this.checkToken(this.tokenKey);
     return ct
       ? this.placeholder(div, size, colors, "Bollinger Chart")
-      : bollinger_impl(
+      : bollinger_impl(div, data, size, file, colors);
+  }
+
+  async boxplot(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Boxplot Chart")
+      : boxplot_impl(div, data, size, file, colors);
+  }
+
+  async bubblechart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    ease_in = 0,
+    drag_animations = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Bubble Chart")
+      : bubblechart_impl(
           div,
           data,
           size,
           file,
-          colors
+          colors,
+          ease_in,
+          drag_animations
         );
+  }
+
+  async chord(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    labels: string[] = []
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Chord Chart")
+      : chord_impl(div, data, size, file, colors, labels);
+  }
+
+
+  async contour(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    labels: string[] = []
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Contour Chart")
+      : contour_impl(div, data, size, file, colors);
+  }
+
+
+  async dendrogram(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    view_scale_factor = 1
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Dendrogram Chart")
+      : dendrogram_impl(div, data, size, file, colors, view_scale_factor);
+  }
+
+
+  async disjoint(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Disjoint Chart")
+      : disjoint_impl(div, data, size, file, colors);
   }
 
 
 
+  async dotplot(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Dotplot Chart")
+      : dotplot_impl(div, data, size, file, colors);
+  }
+
+
+  async force(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Force Chart")
+      : force_impl(div, data, size, file, colors);
+  }
+
+
+  async gantt(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Gantt Chart")
+      : gantt_impl(div, data, size, file, colors);
+  }
 }

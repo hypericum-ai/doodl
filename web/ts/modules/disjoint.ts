@@ -1,6 +1,16 @@
 // Adapted from https://observablehq.com/@d3/disjoint-force-directed-graph/2
 
-export async function disjoint(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function disjoint_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

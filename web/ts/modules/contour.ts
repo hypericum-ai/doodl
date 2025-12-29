@@ -1,4 +1,14 @@
-export async function contour(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function contour_impl(
   div: string = defaultArgumentObject.div,
   data: number[][] = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

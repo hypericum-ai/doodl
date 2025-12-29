@@ -1,4 +1,15 @@
-export async function dendrogram(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function dendrogram_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
