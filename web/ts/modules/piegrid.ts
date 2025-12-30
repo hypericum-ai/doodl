@@ -1,3 +1,13 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
 const defaultColors =  {
     bg_arc : '#2b2b2f',
     text : '#aaa',
@@ -5,7 +15,7 @@ const defaultColors =  {
     total : '#777'
 }
 
-export async function piegrid(
+export async function piegrid_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

@@ -1,4 +1,17 @@
-export async function linechart(
+import * as d3 from "d3";
+import {
+  DataFile,
+  DataPoint,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function linechart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

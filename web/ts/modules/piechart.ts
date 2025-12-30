@@ -1,4 +1,15 @@
-export async function piechart(
+import * as d3 from "d3";
+import {
+  DataFile,
+  DataLabeled,
+  defaultArgumentObject,
+  hamburgerMenu,
+  loadData,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function piechart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

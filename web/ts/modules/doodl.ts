@@ -21,6 +21,14 @@ import { disjoint_impl } from "./disjoint";
 import { dotplot_impl } from "./dotplot";
 import { force_impl } from "./force";
 import { gantt_impl } from "./gantt";
+import { grouped_barchart_impl } from "./grouped_barchart";
+import { heatmap_impl } from "./heatmap";
+import { linechart_impl } from "./linechart";
+import { minard_impl } from "./minard";
+import { multi_linechart_impl } from "./multi_linechart";
+import { piechart_impl } from "./piechart";
+import { piegrid_impl } from "./piegrid";
+import { scatterplot_impl } from "./scatterplot";
 
 export class Doodl {
   private static cachedToken: Token | null = null;
@@ -276,7 +284,6 @@ export class Doodl {
       : chord_impl(div, data, size, file, colors, labels);
   }
 
-
   async contour(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
@@ -290,7 +297,6 @@ export class Doodl {
       ? this.placeholder(div, size, colors, "Contour Chart")
       : contour_impl(div, data, size, file, colors);
   }
-
 
   async dendrogram(
     div: string = defaultArgumentObject.div,
@@ -306,7 +312,6 @@ export class Doodl {
       : dendrogram_impl(div, data, size, file, colors, view_scale_factor);
   }
 
-
   async disjoint(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
@@ -319,8 +324,6 @@ export class Doodl {
       ? this.placeholder(div, size, colors, "Disjoint Chart")
       : disjoint_impl(div, data, size, file, colors);
   }
-
-
 
   async dotplot(
     div: string = defaultArgumentObject.div,
@@ -335,7 +338,6 @@ export class Doodl {
       : dotplot_impl(div, data, size, file, colors);
   }
 
-
   async force(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
@@ -349,7 +351,6 @@ export class Doodl {
       : force_impl(div, data, size, file, colors);
   }
 
-
   async gantt(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
@@ -361,5 +362,187 @@ export class Doodl {
     return ct
       ? this.placeholder(div, size, colors, "Gantt Chart")
       : gantt_impl(div, data, size, file, colors);
+  }
+
+  async grouped_barchart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    horizontal = 0,
+    x_label_angle = 0,
+    show_legend = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Grouped Bar Chart")
+      : grouped_barchart_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          horizontal,
+          x_label_angle,
+          show_legend
+        );
+  }
+
+  async heatmap(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    show_legend = 0,
+    interp = "rgb",
+    gamma = 0,
+    x_label_angle = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Heatmap Chart")
+      : heatmap_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          show_legend,
+          interp,
+          gamma,
+          x_label_angle
+        );
+  }
+
+  async linechart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    curved = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Line Chart")
+      : linechart_impl(div, data, size, file, colors, curved);
+  }
+
+  async minard(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Minard Chart")
+      : minard_impl(div, data, size, file, colors);
+  }
+
+  async multi_linechart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    curved = 0,
+    show_legend = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Multi Line Chart")
+      : multi_linechart_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          curved,
+          show_legend
+        );
+  }
+
+   async piechart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+     donut?: 0,
+  continuous_rotation?: 0,
+  show_percentages?: 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, "Pie Chart")
+      : piechart_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          donut,
+          continuous_rotation,
+          show_percentages
+        );
+  }
+
+
+   async piegrid(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+  show_percentages?: 0,
+  columns?: 3,
+  bg_arc_color = '#2b2b2f',
+  text_color = '#aaa',
+  percent_color = '#eb0707ff',
+  total_color = '#777'
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Piegrid Chart")
+      : piegrid_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          show_percentages,
+          columns,
+          bg_arc_color,
+          text_color,
+          percent_color,
+          total_color
+        );
+  }
+
+
+
+   async scatterplot(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+  dotsize: number = 5
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Scatterplot")
+      : scatterplot_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          dotsize
+        );
   }
 }

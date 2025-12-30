@@ -1,10 +1,21 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
 interface LinePoint {
   label: string;
   x: number;
   y: number;
 }
 
-export async function multi_linechart(
+export async function multi_linechart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

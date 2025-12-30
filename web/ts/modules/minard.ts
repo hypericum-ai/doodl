@@ -1,4 +1,16 @@
-export async function minard(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function minard_impl(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
@@ -8,7 +20,7 @@ export async function minard(
     if (file?.path) {
       data = await loadData(file?.path, file?.format);
     }
-    const margin = defaultMargin;
+    const margin: Margin = defaultMargin;
     const width = size.width - margin.left - margin.right;
     const height = size.height - margin.top - margin.bottom;
   
