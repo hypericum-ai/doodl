@@ -1,7 +1,19 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
 import "venn.js";
 declare const venn: any;
 
-export async function vennchart(
+export async function vennchart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

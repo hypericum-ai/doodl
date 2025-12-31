@@ -29,6 +29,13 @@ import { multi_linechart_impl } from "./multi_linechart";
 import { piechart_impl } from "./piechart";
 import { piegrid_impl } from "./piegrid";
 import { scatterplot_impl } from "./scatterplot";
+import { skey_impl } from "./skey";
+import { stacked_areachart_impl } from "./stacked_areachart";
+import { stacked_barchart_impl } from "./stacked_barchart";
+import { tree_impl } from "./tree";
+import { treemap_impl } from "./treemap";
+import { vennchart_impl } from "./vennchart";
+import { voronoi_impl } from "./voronoi";
 
 export class Doodl {
   private static cachedToken: Token | null = null;
@@ -466,15 +473,15 @@ export class Doodl {
         );
   }
 
-   async piechart(
+  async piechart(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
     file?: DataFile,
     colors: string[] = defaultArgumentObject.colors,
-     donut?: 0,
-  continuous_rotation?: 0,
-  show_percentages?: 0
+    donut?: 0,
+    continuous_rotation?: 0,
+    show_percentages?: 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
     return ct
@@ -491,19 +498,18 @@ export class Doodl {
         );
   }
 
-
-   async piegrid(
+  async piegrid(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
     file?: DataFile,
     colors: string[] = defaultArgumentObject.colors,
-  show_percentages?: 0,
-  columns?: 3,
-  bg_arc_color = '#2b2b2f',
-  text_color = '#aaa',
-  percent_color = '#eb0707ff',
-  total_color = '#777'
+    show_percentages?: 0,
+    columns?: 3,
+    bg_arc_color = "#2b2b2f",
+    text_color = "#aaa",
+    percent_color = "#eb0707ff",
+    total_color = "#777"
   ) {
     const ct = await this.checkToken(this.tokenKey);
     return ct
@@ -523,26 +529,139 @@ export class Doodl {
         );
   }
 
-
-
-   async scatterplot(
+  async scatterplot(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
     file?: DataFile,
     colors: string[] = defaultArgumentObject.colors,
-  dotsize: number = 5
+    dotsize: number = 5
   ) {
     const ct = await this.checkToken(this.tokenKey);
     return ct
-      ? this.placeholder(div, size, colors, " Scatterplot")
-      : scatterplot_impl(
+      ? this.placeholder(div, size, colors, " Scatterplot Chart")
+      : scatterplot_impl(div, data, size, file, colors, dotsize);
+  }
+
+  async skey(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    link_color = "source",
+    node_align = "right"
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Sankey Chart")
+      : skey_impl(div, data, size, file, colors, link_color, node_align);
+  }
+
+  async stacked_areachart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    curved = false,
+    x_label_angle = 0,
+    show_legend = 0,
+    horizontal = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Stacked Area Chart")
+      : stacked_areachart_impl(
           div,
           data,
           size,
           file,
           colors,
-          dotsize
+          curved,
+          x_label_angle,
+          show_legend,
+          horizontal
         );
+  }
+
+  async stacked_barchart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    horizontal = 0,
+    moving_average = 0,
+    x_label_angle = 0,
+    show_legend = 0
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Stacked Bar Chart")
+      : stacked_barchart_impl(
+          div,
+          data,
+          size,
+          file,
+          colors,
+          horizontal,
+          moving_average,
+          x_label_angle,
+          show_legend
+        );
+  }
+
+  async tree(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors,
+    vertical = false
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Tree Chart")
+      : tree_impl(div, data, size, file, colors, vertical);
+  }
+
+  async treemap(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Treemap Chart")
+      : treemap_impl(div, data, size, file, colors);
+  }
+
+  async vennchart(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Venn Chart")
+      : vennchart_impl(div, data, size, file, colors);
+  }
+
+  async voronoi_impl(
+    div: string = defaultArgumentObject.div,
+    data: any = defaultArgumentObject.data,
+    size: Size = defaultArgumentObject.size,
+    file?: DataFile,
+    colors: string[] = defaultArgumentObject.colors
+  ) {
+    const ct = await this.checkToken(this.tokenKey);
+    return ct
+      ? this.placeholder(div, size, colors, " Voronoi Chart")
+      : voronoi_impl(div, data, size, file, colors);
   }
 }

@@ -1,4 +1,16 @@
-export async function tree(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function tree_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
@@ -12,7 +24,7 @@ export async function tree(
   }
 
   const { width, height } = size;
-  const margin = defaultMargin;
+  const margin:Margin = defaultMargin;
   const svgWidth = width + (margin?.left || 0) + (margin?.right || 0);
   const svgHeight = height + (margin?.top || 0) + (margin?.bottom || 0);
 

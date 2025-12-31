@@ -1,4 +1,16 @@
-export async function stacked_areachart(
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
+export async function stacked_areachart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
@@ -14,7 +26,7 @@ export async function stacked_areachart(
   }
 
   const { width, height } = size;
-  const margin = { top: 40, right: 20, bottom: 40, left: 60 };
+  const margin: Margin = defaultMargin;
   const svgWidth = width;
   const svgHeight = height;
   const chartWidth = svgWidth - margin.left - margin.right;

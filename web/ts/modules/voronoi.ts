@@ -1,10 +1,22 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
 interface PointData {
   x: number;
   y: number;
   name?: string;
 }
 
-export async function voronoi(
+export async function voronoi_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,

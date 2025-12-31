@@ -1,9 +1,21 @@
+import * as d3 from "d3";
+import {
+  DataFile,
+  defaultArgumentObject,
+  defaultMargin,
+  hamburgerMenu,
+  loadData,
+  Margin,
+  Size,
+  trackChart,
+} from "./base";
+
 interface PivotedDatum {
   label: string | Date;
   [category: string]: number | string | Date;
 }
 
-export async function stacked_barchart(
+export async function stacked_barchart_impl(
   div: string = defaultArgumentObject.div,
   data: any = defaultArgumentObject.data,
   size: Size = defaultArgumentObject.size,
