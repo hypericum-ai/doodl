@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import {
   DataFile,
   defaultArgumentObject,
+  isPremiumChart,
   isTokenExpired,
   isTokenValid,
   retrieveToken,
@@ -83,7 +84,7 @@ export class Doodl {
       .select(div)
       .append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height + 60);
 
     // Draw simple cat
     const centerX = width / 2;
@@ -174,7 +175,8 @@ export class Doodl {
     horizontal = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "radial_areachart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Radial Area Chart")
       : radial_areachart_impl(
           div,
@@ -198,7 +200,8 @@ export class Doodl {
     curved = false
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "areachart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Area Chart")
       : areachart_impl(div, data, size, file, colors, curved);
   }
@@ -214,7 +217,8 @@ export class Doodl {
     x_label_angle = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "barchart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Bar Chart")
       : barchart_impl(
           div,
@@ -236,7 +240,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "bollinger";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Bollinger Chart")
       : bollinger_impl(div, data, size, file, colors);
   }
@@ -249,7 +254,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "boxplot";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Boxplot Chart")
       : boxplot_impl(div, data, size, file, colors);
   }
@@ -264,7 +270,8 @@ export class Doodl {
     drag_animations = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "bubblechart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Bubble Chart")
       : bubblechart_impl(
           div,
@@ -286,7 +293,8 @@ export class Doodl {
     labels: string[] = []
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "chord";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Chord Chart")
       : chord_impl(div, data, size, file, colors, labels);
   }
@@ -300,7 +308,8 @@ export class Doodl {
     labels: string[] = []
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "contour";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Contour Chart")
       : contour_impl(div, data, size, file, colors);
   }
@@ -314,7 +323,8 @@ export class Doodl {
     view_scale_factor = 1
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "dendrogram";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Dendrogram Chart")
       : dendrogram_impl(div, data, size, file, colors, view_scale_factor);
   }
@@ -327,7 +337,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "disjoint";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Disjoint Chart")
       : disjoint_impl(div, data, size, file, colors);
   }
@@ -340,7 +351,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "dotplot";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Dotplot Chart")
       : dotplot_impl(div, data, size, file, colors);
   }
@@ -353,7 +365,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "force";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Force Chart")
       : force_impl(div, data, size, file, colors);
   }
@@ -366,7 +379,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "gantt";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Gantt Chart")
       : gantt_impl(div, data, size, file, colors);
   }
@@ -382,7 +396,8 @@ export class Doodl {
     show_legend = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "grouped_barchart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Grouped Bar Chart")
       : grouped_barchart_impl(
           div,
@@ -408,7 +423,8 @@ export class Doodl {
     x_label_angle = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "heatmap";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Heatmap Chart")
       : heatmap_impl(
           div,
@@ -432,7 +448,8 @@ export class Doodl {
     curved = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "linechart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Line Chart")
       : linechart_impl(div, data, size, file, colors, curved);
   }
@@ -445,7 +462,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "minard";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Minard Chart")
       : minard_impl(div, data, size, file, colors);
   }
@@ -460,7 +478,8 @@ export class Doodl {
     show_legend = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "multi_linechart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Multi Line Chart")
       : multi_linechart_impl(
           div,
@@ -484,7 +503,8 @@ export class Doodl {
     show_percentages?: 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "piechart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, "Pie Chart")
       : piechart_impl(
           div,
@@ -512,7 +532,8 @@ export class Doodl {
     total_color = "#777"
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "piegrid";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Piegrid Chart")
       : piegrid_impl(
           div,
@@ -538,7 +559,8 @@ export class Doodl {
     dotsize: number = 5
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "scatterplot";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Scatterplot Chart")
       : scatterplot_impl(div, data, size, file, colors, dotsize);
   }
@@ -553,7 +575,8 @@ export class Doodl {
     node_align = "right"
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "skey";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Sankey Chart")
       : skey_impl(div, data, size, file, colors, link_color, node_align);
   }
@@ -570,7 +593,8 @@ export class Doodl {
     horizontal = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "stacked_areachart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Stacked Area Chart")
       : stacked_areachart_impl(
           div,
@@ -597,7 +621,8 @@ export class Doodl {
     show_legend = 0
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "stacked_barchart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Stacked Bar Chart")
       : stacked_barchart_impl(
           div,
@@ -621,7 +646,8 @@ export class Doodl {
     vertical = false
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "tree";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Tree Chart")
       : tree_impl(div, data, size, file, colors, vertical);
   }
@@ -634,7 +660,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "treemap";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Treemap Chart")
       : treemap_impl(div, data, size, file, colors);
   }
@@ -647,12 +674,13 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "vennchart";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Venn Chart")
       : vennchart_impl(div, data, size, file, colors);
   }
 
-  async voronoi_impl(
+  async voronoi(
     div: string = defaultArgumentObject.div,
     data: any = defaultArgumentObject.data,
     size: Size = defaultArgumentObject.size,
@@ -660,7 +688,8 @@ export class Doodl {
     colors: string[] = defaultArgumentObject.colors
   ) {
     const ct = await this.checkToken(this.tokenKey);
-    return ct
+    const chartName = "voronoi";
+    return !ct && isPremiumChart(chartName)
       ? this.placeholder(div, size, colors, " Voronoi Chart")
       : voronoi_impl(div, data, size, file, colors);
   }

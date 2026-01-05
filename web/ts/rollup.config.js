@@ -5,7 +5,7 @@ import terser from '@rollup/plugin-terser';
 export default {
   input: './modules/doodl.ts',
   output: {
-    file: './dist/doodlchart.js',
+    file: './dist/doodlchart.min.js',
     format: 'iife',
     name: 'Doodl'
   },
@@ -19,7 +19,7 @@ export default {
         }
       }
     }),
-    // terser({ format: { comments: false } })
+    terser({ format: { comments: false } })
   ],
   context: "window"
 };

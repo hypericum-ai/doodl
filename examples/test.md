@@ -21,8 +21,8 @@
   { "group": "West", "label": "Q3", "value": 32 },
   { "group": "West", "label": "Q4", "value": 27 }
 ]'
-  width=1200
-  height=1000
+  width=500
+  height=400
   colors='deep'
   x_label_angle=90
   show_legend='true'
@@ -97,7 +97,7 @@ data='[
 >
 </multi_linechart>
 
-<!-- 
+
 ### A HORIZONTAL grouped_barchart 
 
 
@@ -162,8 +162,6 @@ data='[
 >
 </grouped_barchart>
 
-
- -->
 
 
 

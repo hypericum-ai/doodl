@@ -12,19 +12,19 @@ import { SimulationNodeDatum } from "d3";
 import { Contours } from "d3-contour";
 import { HierarchyCircularNode } from "d3";
 
-export  interface Margin {
+export interface Margin {
   top: number;
   bottom: number;
   left: number;
   right: number;
 }
 
-export  interface DataPoint {
+export interface DataPoint {
   x: number;
   y: number;
 }
 
-export  interface DataLabeled {
+export interface DataLabeled {
   label: string;
   value: number;
 }
@@ -34,20 +34,20 @@ export interface Size {
   height: number;
 }
 
-export  interface DataFile {
+export interface DataFile {
   path: string;
   format: string;
 }
 
 // DataNode is used for Venn diagrams
 
-export  interface DataNode {
+export interface DataNode {
   name?: string;
   size?: number;
   children?: DataNode[];
 }
 
-export  interface ArgumentObject {
+export interface ArgumentObject {
   data: any;
   div: string;
   size: Size;
@@ -55,20 +55,25 @@ export  interface ArgumentObject {
   file?: DataFile;
 }
 
-export  interface Join extends Leaf {
+export interface Join extends Leaf {
   height?: number;
   children?: Join[];
 }
 
-export  interface Leaf {
+export interface Leaf {
   name?: string;
   id?: number;
   size?: number;
   score?: number;
 }
 
-export  const defaultMargin: Margin = { top: 20, bottom: 20, left: 20, right: 20 };
-export  const defaultSize: Size = { width: 300, height: 300 };
+export const defaultMargin: Margin = {
+  top: 20,
+  bottom: 20,
+  left: 20,
+  right: 20,
+};
+export const defaultSize: Size = { width: 300, height: 300 };
 
 export const defaultArgumentObject: ArgumentObject = {
   data: [],
@@ -85,7 +90,10 @@ const formatters: { [key: string]: Function } = {
   hsv: (path: string) => d3.dsv("#", path),
 };
 
-export async function loadData(path: string, format: string = ""): Promise<any> {
+export async function loadData(
+  path: string,
+  format: string = ""
+): Promise<any> {
   if (format == "") {
     format = path.split(".").slice(-1)[0];
   }
@@ -212,7 +220,10 @@ function downloadSvgAsImage(
   img.src = url;
 }
 
-export function downloadAsJson(data: object | any[], filename: string = "data.json") {
+export function downloadAsJson(
+  data: object | any[],
+  filename: string = "data.json"
+) {
   const jsonStr = JSON.stringify(data, null, 2); // pretty print with 2-space indent
   const blob = new Blob([jsonStr], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -277,8 +288,12 @@ export function hamburgerMenu(div: string = "", data: object | any[] = []) {
 // Declare gtag globally for TS
 declare function gtag(...args: any[]): void;
 
-export function trackChart(chartId: string): void { //chartId is a unique identifier for the chart in snake_case
-  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+export function trackChart(chartId: string): void {
+  //chartId is a unique identifier for the chart in snake_case
+  if (
+    typeof window !== "undefined" &&
+    typeof (window as any).gtag === "function"
+  ) {
     gtag("event", "view_chart", {
       chart_id: chartId,
       event_category: "charts",
@@ -290,14 +305,10 @@ export function trackChart(chartId: string): void { //chartId is a unique identi
   }
 }
 
-
-
 export interface Token {
   value: string;
   expiresAt: number;
 }
-
-let cachedToken: Token | null = null;
 
 export async function retrieveToken(propertyKey: string): Promise<Token> {
   return new Promise((resolve) => {
@@ -305,7 +316,7 @@ export async function retrieveToken(propertyKey: string): Promise<Token> {
       resolve({
         value: `dummy-token-${propertyKey || "default"}`,
         // expires in 1 hour
-        expiresAt: Date.now() + 60 * 60 * 1000
+        expiresAt: Date.now() - 60 * 60 * 1000,
       });
     }, 800); // simulate network delay (800ms)
   });
@@ -319,5 +330,132 @@ export function isTokenExpired(token: Token | null): boolean {
 }
 
 export function isTokenValid(token: Token | null): boolean {
-  return token !== null && token.value !== "" && token.value.length > 0 && !isTokenExpired(token);
+  return (
+    token !== null &&
+    token.value !== "" &&
+    token.value.length > 0 &&
+    !isTokenExpired(token)
+  );
+}
+
+export const STANDARD_CHARTS: Array<{
+  name: string;
+  isPremium?: boolean;
+}> = [
+  {
+    name: "areachart",
+    isPremium: false,
+  },
+  {
+    name: "barchart",
+    isPremium: false,
+  },
+  {
+    name: "bollinger",
+    isPremium: false,
+  },
+  {
+    name: "boxplot",
+    isPremium: false,
+  },
+  {
+    name: "bubblechart",
+    isPremium: false,
+  },
+  {
+    name: "chord",
+    isPremium: false,
+  },
+  {
+    name: "contour",
+    isPremium: false,
+  },
+  {
+    name: "dendrogram",
+    isPremium: false,
+  },
+  {
+    name: "disjoint",
+    isPremium: false,
+  },
+  {
+    name: "dotplot",
+    isPremium: false,
+  },
+  {
+    name: "force",
+    isPremium: false,
+  },
+  {
+    name: "gantt",
+    isPremium: false,
+  },
+  {
+    name: "grouped_barchart",
+    isPremium: false,
+  },
+  {
+    name: "heatmap",
+    isPremium: false,
+  },
+  {
+    name: "linechart",
+    isPremium: false,
+  },
+  {
+    name: "multi_linechart",
+    isPremium: false,
+  },
+  {
+    name: "piechart",
+    isPremium: false,
+  },
+  {
+    name: "piegrid",
+    isPremium: false,
+  },
+  {
+    name: "radial_areachart",
+    isPremium: true,
+  },
+  {
+    name: "scatterplot",
+    isPremium: false,
+  },
+  {
+    name: "skey",
+    isPremium: false,
+  },
+  {
+    name: "stacked_areachart",
+    isPremium: false,
+  },
+  {
+    name: "stacked_barchart",
+    isPremium: false,
+  },
+  {
+    name: "tree",
+    isPremium: false,
+  },
+  {
+    name: "treemap",
+    isPremium: false,
+  },
+  {
+    name: "vennchart",
+    isPremium: false,
+  },
+  {
+    name: "voronoi",
+    isPremium: false,
+  },
+];
+
+export function isPremiumChart(chartName: string = ""): boolean {
+  const chart = STANDARD_CHARTS.find((c) => c.name === chartName);
+  if (!chart) {
+    return false;
+  }
+  return chart.isPremium === true;
 }

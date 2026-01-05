@@ -57,10 +57,10 @@ DEV_STYLESHEETS = [
     "{dir}/css/doodl.css",
 ]
 
-DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.js"]
+DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
 
 PROD_SCRIPTS = [
-    "https://doodl.ai/assets/doodl/js/doodlchart.js"
+    "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
 ]
 
 # The HTML template
