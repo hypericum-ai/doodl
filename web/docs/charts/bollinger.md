@@ -63,7 +63,8 @@ doodl.bollinger(
 <span class="doodl-chart" id='bollinger_0'></span>
 
 <script>
-  Doodl.bollinger(
+  var doodl = new Doodl("");
+  doodl.bollinger(
     '#bollinger_0',
     [
       { "date": "2024-03-01", "close": 100, "upper": 105, "lower": 95, "movingAvg": 100 },
@@ -94,7 +95,8 @@ which looks like this:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  Doodl.bollinger(
+  var doodl = new Doodl("");
+  doodl.bollinger(
     '#bollinger_0',
 [
   { "date": "2024-03-01", "close": 100, "upper": 105, "lower": 95, "movingAvg": 100 },

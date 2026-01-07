@@ -74,7 +74,8 @@ doodl.chord(
 ```javascript
 <span class='doodl-chart' id='chord_0'></span>
 <script>
-  Doodl.chord(
+  var doodl = new Doodl("");
+  doodl.chord(
     '#chord_0',
     [
       [11975,  5871, 8916, 2868],
@@ -126,7 +127,8 @@ doodl.chord(
 ```javascript
 <span class='doodl-chart' id='chord_0'></span>
 <script>
-  Doodl.chord(
+  var doodl = new Doodl("");
+  doodl.chord(
     '#chord_0', [], {
       'width': 350,
       'height': 350
@@ -182,7 +184,8 @@ doodl.chord(
 ```javascript
 <span class='doodl-chart' id='chord_0'></span>
 <script>
-  Doodl.chord(
+  var doodl = new Doodl("");
+  doodl.chord(
     '#chord_0',
 {
     "chords": [
@@ -243,7 +246,8 @@ doodl.chord(
 ```javascript
 <span class='doodl-chart' id='chord_0'></span>
 <script>
-  Doodl.chord(
+  var doodl = new Doodl("");
+  doodl.chord(
     '#chord_0',
 {
     "chords": [
@@ -290,7 +294,8 @@ doodl.chord(
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  Doodl.chord(
+  var doodl = new Doodl("");
+  doodl.chord(
     '#chord_0',
     [
       [11975,  5871, 8916, 2868],

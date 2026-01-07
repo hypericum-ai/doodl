@@ -203,7 +203,8 @@ color palette to the interpolator:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-  Doodl.skey(
+  var doodl = new Doodl("");
+doodl.skey(
     '#skey_0',
     {
         "nodes": [
@@ -257,7 +258,8 @@ color palette to the interpolator:
     },{},
     ['#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF', '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0', '#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF', '#DEBB9B'],
     "target","right");
-  Doodl.skey(
+  var doodl = new Doodl("");
+doodl.skey(
     '#skey_1',
     {
         "nodes": [

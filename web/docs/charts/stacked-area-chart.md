@@ -163,7 +163,8 @@ remaining columns.
 <span class="doodl-chart" id="stacked_areachart_0"></span>
 
 <script>
-  Doodl.stacked_areachart(
+  var doodl = new Doodl("");
+  doodl.stacked_areachart(
     '#stacked_areachart_0',
     [
 [
@@ -200,7 +201,8 @@ remaining columns.
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    Doodl.stacked_areachart('#chart_0', [
+    var doodl = new Doodl("");
+  doodl.stacked_areachart('#chart_0', [
         { "label": "January",  "category": "Apples", "value": 30 },
         { "label": "January",  "category": "Bananas", "value": 20 },
         { "label": "January",  "category": "Cherries", "value": 10 },

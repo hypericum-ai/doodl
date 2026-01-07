@@ -1,16 +1,121 @@
 import * as d3 from "d3";
-import {
-  sankey,
-  sankeyLinkHorizontal,
-  SankeyGraph,
-  sankeyLeft,
-  sankeyRight,
-  sankeyCenter,
-  sankeyJustify,
-} from "d3-sankey";
 import { SimulationNodeDatum } from "d3";
-import { Contours } from "d3-contour";
-import { HierarchyCircularNode } from "d3";
+
+
+
+export const STANDARD_CHARTS: Array<{
+  name: string;
+  isPremium?: boolean;
+}> = [
+  {
+    name: "areachart",
+    isPremium: false,
+  },
+  {
+    name: "barchart",
+    isPremium: false,
+  },
+  {
+    name: "bollinger",
+    isPremium: false,
+  },
+  {
+    name: "boxplot",
+    isPremium: false,
+  },
+  {
+    name: "bubblechart",
+    isPremium: false,
+  },
+  {
+    name: "chord",
+    isPremium: false,
+  },
+  {
+    name: "contour",
+    isPremium: false,
+  },
+  {
+    name: "dendrogram",
+    isPremium: false,
+  },
+  {
+    name: "disjoint",
+    isPremium: false,
+  },
+  {
+    name: "dotplot",
+    isPremium: false,
+  },
+  {
+    name: "force",
+    isPremium: false,
+  },
+  {
+    name: "gantt",
+    isPremium: false,
+  },
+  {
+    name: "grouped_barchart",
+    isPremium: false,
+  },
+  {
+    name: "heatmap",
+    isPremium: false,
+  },
+  {
+    name: "linechart",
+    isPremium: false,
+  },
+  {
+    name: "multi_linechart",
+    isPremium: false,
+  },
+  {
+    name: "piechart",
+    isPremium: false,
+  },
+  {
+    name: "piegrid",
+    isPremium: false,
+  },
+  {
+    name: "radial_areachart",
+    isPremium: true,
+  },
+  {
+    name: "scatterplot",
+    isPremium: false,
+  },
+  {
+    name: "skey",
+    isPremium: false,
+  },
+  {
+    name: "stacked_areachart",
+    isPremium: false,
+  },
+  {
+    name: "stacked_barchart",
+    isPremium: false,
+  },
+  {
+    name: "tree",
+    isPremium: false,
+  },
+  {
+    name: "treemap",
+    isPremium: false,
+  },
+  {
+    name: "vennchart",
+    isPremium: false,
+  },
+  {
+    name: "voronoi",
+    isPremium: false,
+  },
+];
 
 export interface Margin {
   top: number;
@@ -338,119 +443,6 @@ export function isTokenValid(token: Token | null): boolean {
   );
 }
 
-export const STANDARD_CHARTS: Array<{
-  name: string;
-  isPremium?: boolean;
-}> = [
-  {
-    name: "areachart",
-    isPremium: false,
-  },
-  {
-    name: "barchart",
-    isPremium: false,
-  },
-  {
-    name: "bollinger",
-    isPremium: false,
-  },
-  {
-    name: "boxplot",
-    isPremium: false,
-  },
-  {
-    name: "bubblechart",
-    isPremium: false,
-  },
-  {
-    name: "chord",
-    isPremium: false,
-  },
-  {
-    name: "contour",
-    isPremium: false,
-  },
-  {
-    name: "dendrogram",
-    isPremium: false,
-  },
-  {
-    name: "disjoint",
-    isPremium: false,
-  },
-  {
-    name: "dotplot",
-    isPremium: false,
-  },
-  {
-    name: "force",
-    isPremium: false,
-  },
-  {
-    name: "gantt",
-    isPremium: false,
-  },
-  {
-    name: "grouped_barchart",
-    isPremium: false,
-  },
-  {
-    name: "heatmap",
-    isPremium: false,
-  },
-  {
-    name: "linechart",
-    isPremium: false,
-  },
-  {
-    name: "multi_linechart",
-    isPremium: false,
-  },
-  {
-    name: "piechart",
-    isPremium: false,
-  },
-  {
-    name: "piegrid",
-    isPremium: false,
-  },
-  {
-    name: "radial_areachart",
-    isPremium: true,
-  },
-  {
-    name: "scatterplot",
-    isPremium: false,
-  },
-  {
-    name: "skey",
-    isPremium: false,
-  },
-  {
-    name: "stacked_areachart",
-    isPremium: false,
-  },
-  {
-    name: "stacked_barchart",
-    isPremium: false,
-  },
-  {
-    name: "tree",
-    isPremium: false,
-  },
-  {
-    name: "treemap",
-    isPremium: false,
-  },
-  {
-    name: "vennchart",
-    isPremium: false,
-  },
-  {
-    name: "voronoi",
-    isPremium: false,
-  },
-];
 
 export function isPremiumChart(chartName: string = ""): boolean {
   const chart = STANDARD_CHARTS.find((c) => c.name === chartName);

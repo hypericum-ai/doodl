@@ -9,7 +9,6 @@ import {
   Size,
   Token,
 } from "./base";
-import { radial_areachart_impl } from "./radial_areachart";
 import { areachart_impl } from "./areachart";
 import { barchart_impl } from "./barchart";
 import { bollinger_impl } from "./bollinger";
@@ -29,6 +28,7 @@ import { minard_impl } from "./minard";
 import { multi_linechart_impl } from "./multi_linechart";
 import { piechart_impl } from "./piechart";
 import { piegrid_impl } from "./piegrid";
+import { radial_areachart_impl } from "./radial_areachart";
 import { scatterplot_impl } from "./scatterplot";
 import { skey_impl } from "./skey";
 import { stacked_areachart_impl } from "./stacked_areachart";
@@ -80,83 +80,35 @@ export class Doodl {
   ) {
     const { width, height } = size;
 
+    const imageUrl = "https://doodl.ai/cat.png";
+
     const svg = d3
       .select(div)
       .append("svg")
       .attr("width", width)
       .attr("height", height + 60);
 
-    // Draw simple cat
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // Head
-    svg
-      .append("circle")
-      .attr("cx", centerX)
-      .attr("cy", centerY)
-      .attr("r", 60)
-      .attr("fill", colors?.[0] ?? "#999");
-
-    // Left ear
-    svg
-      .append("polygon")
-      .attr(
-        "points",
-        `${centerX - 40},${centerY - 40} ${centerX - 10},${centerY - 120} ${
-          centerX - 80
-        },${centerY - 80}`
-      )
-      .attr("fill", colors?.[1] ?? "#888");
-
-    // Right ear
-    svg
-      .append("polygon")
-      .attr(
-        "points",
-        `${centerX + 40},${centerY - 40} ${centerX + 10},${centerY - 120} ${
-          centerX + 80
-        },${centerY - 80}`
-      )
-      .attr("fill", colors?.[1] ?? "#888");
-
-    // Eyes
-    svg
-      .append("circle")
-      .attr("cx", centerX - 20)
-      .attr("cy", centerY - 10)
-      .attr("r", 10)
-      .attr("fill", "#000");
-
-    svg
-      .append("circle")
-      .attr("cx", centerX + 20)
-      .attr("cy", centerY - 10)
-      .attr("r", 10)
-      .attr("fill", "#000");
-
-    // Nose
-    svg
-      .append("circle")
-      .attr("cx", centerX)
-      .attr("cy", centerY + 10)
-      .attr("r", 6)
-      .attr("fill", "#000");
-
-    // Body
-    svg
-      .append("ellipse")
-      .attr("cx", centerX)
-      .attr("cy", centerY + 120)
-      .attr("rx", 80)
-      .attr("ry", 100)
-      .attr("fill", colors?.[2] ?? "#aaa");
+    // Optional image placeholder (centered)
+    if (imageUrl) {
+      svg
+        .append("image")
+        .attr("href", imageUrl)
+        .attr("x", centerX - width * 0.25)
+        .attr("y", centerY - height * 0.25)
+        .attr("width", width * 0.5)
+        .attr("height", height * 0.5)
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("opacity", 0.9);
+    }
 
     // Premium chart text
     svg
       .append("text")
       .attr("x", centerX)
-      .attr("y", centerY + 260)
+      .attr("y", height + 40)
       .attr("text-anchor", "middle")
       .attr("font-size", "20px")
       .attr("fill", "#555")

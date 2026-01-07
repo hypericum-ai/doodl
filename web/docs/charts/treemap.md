@@ -49,7 +49,8 @@ doodl.treemap(
 <span class="doodl-chart" id="treemap_0"></span>
 
 <script>
-    Doodl.treemap('#treemap_0',
+    var doodl = new Doodl("");
+  doodl.treemap('#treemap_0',
         {
             "name": "root",
             "children": [
@@ -86,7 +87,8 @@ level.
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    Doodl.treemap('#treemap_0',
+    var doodl = new Doodl("");
+  doodl.treemap('#treemap_0',
     {
         "name": "root",
         "children": [

@@ -66,7 +66,8 @@ doodl.contour(
 <span class="doodl-chart" id='contour_0'></span>
 
 <script>
-  Doodl.contour(
+  var doodl = new Doodl("");
+  doodl.contour(
     '#contour_0',
     [], {
       'width': 696,
@@ -241,27 +242,31 @@ plot. The followiing three plots have 10, 20 and 100 for `n_colors`, respectivel
  [100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 110, 111, 113, 115, 118, 120, 121, 122, 124, 125, 125, 126, 127, 128, 127, 124, 121, 120, 118, 116, 114, 113, 112, 112, 110, 109, 109, 108, 108, 108, 109, 110, 111, 112, 112, 113, 114, 114, 115, 116, 116, 115, 114, 113, 112, 112, 113, 113, 114, 114, 115, 115, 116, 116, 117, 117, 118, 118, 117, 115, 113, 111, 107, 105, 103, 102, 101, 101, 100, 100, 100, 99, 99, 98, 98, 97],
  [100, 101, 102, 103, 104, 105, 105, 106, 107, 108, 109, 110, 110, 111, 114, 116, 118, 120, 120, 121, 122, 122, 123, 124, 123, 123, 120, 118, 117, 115, 114, 115, 113, 111, 110, 109, 108, 108, 107, 107, 107, 108, 109, 110, 111, 111, 112, 113, 113, 114, 115, 115, 114, 113, 112, 111, 111, 112, 112, 112, 113, 114, 114, 115, 115, 116, 116, 117, 117, 116, 114, 112, 109, 106, 104, 102, 101, 100, 100, 99, 99, 99, 99, 98, 98, 97, 97]
 ];
-    Doodl.contour(
+    var doodl = new Doodl("");
+  doodl.contour(
         '#contour_0', data, {
             'width': 696,
             'height': 488
         },{},Spectral_r_20
     );
 
-    Doodl.contour(
+    var doodl = new Doodl("");
+  doodl.contour(
         '#contour_1', data, {
             'width': 358,
             'height': 244
         },{},Spectral_r_10
     );
 
-    Doodl.contour(
+    var doodl = new Doodl("");
+  doodl.contour(
         '#contour_2', data, {
             'width': 358,
             'height': 244
         },{}, Spectral_r_20
     );
-    Doodl.contour(
+    var doodl = new Doodl("");
+  doodl.contour(
             '#contour_3', data, {
             'width': 358,
             'height': 244

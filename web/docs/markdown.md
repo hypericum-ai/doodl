@@ -80,7 +80,8 @@ type) are described in the writeups for each chart.
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  Doodl.piechart(
+  var doodl = new Doodl("");
+  doodl.piechart(
     '#piechart_0',
     [
       {'label': 'Apples', 'value': 10},

@@ -114,7 +114,8 @@ would produce the following chart:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  Doodl.boxplot(
+  var doodl = new Doodl("");
+  doodl.boxplot(
     '#boxplot_0',
     [
       { "category": "A", "value": 10 },

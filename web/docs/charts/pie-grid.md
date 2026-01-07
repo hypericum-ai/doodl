@@ -124,7 +124,8 @@ optional parameters. The meanings of each parameter are as follows:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    Doodl.piegrid(
+    var doodl = new Doodl("");
+  doodl.piegrid(
       '#piegrid_0',
       [
         { "label": "Apples", "value": 10 },
@@ -138,7 +139,8 @@ optional parameters. The meanings of each parameter are as follows:
           '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'
       ], true, 4
     );
-    Doodl.piegrid(
+    var doodl = new Doodl("");
+  doodl.piegrid(
       '#piegrid_1',
       [
         { "label": "Apples", "value": 10 },
