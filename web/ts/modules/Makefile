@@ -1,11 +1,12 @@
-GENERATED_FILE_NAMES = \
-	index.ts \
-
-GENERATED_FILES = $(patsubst %, ../%, $(GENERATED_FILE_NAMES))
 TARGET_FILE = ../dist/doodlchart.min.js
 
-SOURCE_FILES = \
+ROLLUP_CONFIG = ../rollup.config.js
+
+GENERAL_SOURCE_FILES = \
 	base.ts \
+	doodl.ts 
+
+CHART_SOURCE_FILES = \
 	areachart.ts \
 	barchart.ts \
 	bollinger.ts \
@@ -33,43 +34,16 @@ SOURCE_FILES = \
 	tree.ts \
 	treemap.ts \
 	vennchart.ts \
-	voronoi.ts \
+	voronoi.ts 
+
+SOURCE_FILES = $(GENERAL_SOURCE_FILES) $(CHART_SOURCE_FILES)
 
 all: $(TARGET_FILE)
 
 clean:
-	rm -f $(GENERATED_FILES) $(TARGET_FILE) ../index.ts~
+	rm -f $(TARGET_FILE)
 
-$(TARGET_FILE): $(GENERATED_FILES)
+$(TARGET_FILE): $(SOURCE_FILES) $(ROLLUP_CONFIG)
 	cd .. && npx rollup -c
 
-
-../index.ts: $(SOURCE_FILES)
-	@ echo Building bundle
-
-	@if [ -f $@ ]; then mv $@ $@~;  fi;
-	@echo "// Warning! THIS FILE WAS GENERATED! DO NOT EDIT!\n// Generated `date`\n" > $@
-
-	@for f in $^; do \
-	    echo "\n/// $$f\n"; \
-	    cat $$f; \
-	done >> $@
-
-../index-try.ts: $(SOURCE_FILES)
-	@ echo Building bundle
-
-	@if [ -f $@ ]; then mv $@ $@~;  fi;
-	@echo "// Warning! THIS FILE WAS GENERATED! DO NOT EDIT!\n// Generated `date`\n" > $@
-
-	# Make a list of the unique imports in all files
-
-	@for f in $^; do \
-		grep '^import' $$f \
-	done | sort | uniq >>  $@
-
-	# Now concatenate everything but the imports
-
-	@for f in $^; do \
-	    echo "\n/// $$f\n"; \
-	    grep -v '^import' $$f \
-	done >> $@
+force: clean all
