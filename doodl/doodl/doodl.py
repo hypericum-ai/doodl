@@ -57,7 +57,7 @@ DEV_STYLESHEETS = [
     "{dir}/css/doodl.css",
 ]
 
-DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
+DEV_SCRIPTS = ["{dir}/js/doodlchart.min.js"]
 
 PROD_SCRIPTS = [
     "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
@@ -638,7 +638,7 @@ def make_supporting():
     stylesheets = BASE_STYLESHEETS
 
     if mode == "dev":
-        scripts = [f"ts/dist/{os.path.basename(path)}" for path in DEV_SCRIPTS]
+        scripts = [f"js/{os.path.basename(path)}" for path in DEV_SCRIPTS]
         stylesheets = BASE_STYLESHEETS + [
             f"css/{os.path.basename(path)}" for path in DEV_STYLESHEETS
         ]
@@ -1258,7 +1258,7 @@ def copy_data(output_dir, server_dir_path):
                 filename = os.path.basename(sas)
                 file_extension = os.path.splitext(filename)[-1]
                 dest_dict = os.path.join(
-                    server_dir_path, "css" if file_extension == ".css" else "ts/dist"
+                    server_dir_path, "css" if file_extension == ".css" else "js"
                 )
                 if not os.path.isdir(dest_dict):
                     os.makedirs(dest_dict, exist_ok=True)
