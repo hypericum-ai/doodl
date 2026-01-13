@@ -58,6 +58,7 @@ DEV_STYLESHEETS = [
 ]
 
 DEV_SCRIPTS = ["{dir}/js/doodlchart.min.js"]
+DEV_SCRIPT_URL = "http://localhost:9191/js/doodlchart.min.js"
 
 PROD_SCRIPTS = [
     "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
@@ -1413,6 +1414,10 @@ def handle_chart_field_arguments(
     return [ json.dumps(a) for a in args ]
 
 
+def setdevmode(yesno: bool = True):
+    global mode
+    mode = "dev" if yesno else "prod"
+    
 def chart(chart_name, fields=None, data=None):
     def wrapper(
          **kwargs
@@ -1442,8 +1447,8 @@ def chart(chart_name, fields=None, data=None):
             module_name = defn.module_name
             func_name = defn.function
         else:
-            module_source = PROD_SCRIPTS[0]
-            module_name = "Doodl"
+            module_source = PROD_SCRIPTS[0] if mode == "prod" else DEV_SCRIPT_URL
+            module_name = "doodl"
             func_name = chart_name
 
         script = f'''
@@ -1451,6 +1456,7 @@ def chart(chart_name, fields=None, data=None):
 <script src="{module_source}"></script>
 {stylesheets}
 <script type="text/javascript">
+            var doodl = new Doodl.Doodl('');
             {module_name}.{func_name}({
             """,
                 """.join(args)

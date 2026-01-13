@@ -109,7 +109,7 @@ above. Here are the first few lines:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.bubblechart('#bubbles_0',{
       "name": "root",
       "children": [

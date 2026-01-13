@@ -163,7 +163,7 @@ remaining columns.
 <span class="doodl-chart" id="stacked_barchart_0"></span>
 
 <script>
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.stacked_barchart(
     '#stacked_barchart_0',
     [
@@ -304,7 +304,7 @@ doodl.stacked_barchart(
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.stacked_barchart(
     '#stacked_barchart_0',
     [

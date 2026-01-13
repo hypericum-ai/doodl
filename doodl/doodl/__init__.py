@@ -3,6 +3,6 @@ from doodl.doodl import \
     contour, dendrogram, disjoint, dotplot, force, gantt, heatmap, \
     linechart, piechart, scatterplot, skey, stacked_areachart, \
     stacked_barchart, tree, treemap, vennchart, voronoi, \
-    register_chart
+    register_chart, setdevmode
 
 from doodl.data import interpret_data

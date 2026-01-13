@@ -96,7 +96,7 @@ doodl.heatmap(
 <span class="doodl-chart" id='heatmap_0'></span>
 
 <script>
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.heatmap('#heatmap_0',[
         { "x": "A", "y": "1", "value": 5 },
         { "x": "A", "y": "2", "value": 10 },
@@ -115,7 +115,7 @@ which is rendered like this:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.heatmap('#heatmap_0',[
         { "x": "A", "y": "1", "value": 5 },
         { "x": "A", "y": "2", "value": 10 },

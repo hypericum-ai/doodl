@@ -39,7 +39,7 @@ which is rendered as follows:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.voronoi('#voronoi_0',[
   { "x": 100, "y": 200, "name": "A" },
   { "x": 150, "y": 80, "name": "B" },

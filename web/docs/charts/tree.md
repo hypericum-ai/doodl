@@ -48,7 +48,7 @@ doodl.tree(
 <span class="doodl-chart" id="tree_0"></span>
 
 <script>
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.tree('#tree_0',
         {
             "name": "root",
@@ -89,7 +89,7 @@ a vertical tree diagram:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.tree('#tree_0',
     {
         "name": "root",
@@ -112,7 +112,7 @@ a vertical tree diagram:
     ],
     false
   );
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.tree('#tree_1',
     {
         "name": "root",

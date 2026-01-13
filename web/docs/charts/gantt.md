@@ -46,7 +46,7 @@ doodl.gantt(
 <span class="doodl-chart" id="gantt_0"></span>
 
 <script>
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.gantt('#gantt_0',[
       { "task": "Planning", "start": "2024-03-01", "end": "2024-03-05" },
       { "task": "Design", "start": "2024-03-06", "end": "2024-03-12" },
@@ -69,7 +69,7 @@ which produces the following chart:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.gantt('#gantt_0',[
       { "task": "Planning", "start": "2024-03-01", "end": "2024-03-05" },
       { "task": "Design", "start": "2024-03-06", "end": "2024-03-12" },

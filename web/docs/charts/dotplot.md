@@ -90,7 +90,7 @@ doodl.dotplot(
 <span class="doodl-chart" id="dotplot_0"></span>
 
 <script>
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.dotplot('#dotplot_0',[
       { "category": "A", "value": 10 },
       { "category": "A", "value": 12 },
@@ -117,7 +117,7 @@ which produces this:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-   var doodl = new Doodl("");
+   var doodl = new Doodl.Doodl('');
   doodl.dotplot('#dotplot_0',[
     { "category": "A", "value": 10 },
     { "category": "A", "value": 12 },

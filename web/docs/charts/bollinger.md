@@ -63,7 +63,7 @@ doodl.bollinger(
 <span class="doodl-chart" id='bollinger_0'></span>
 
 <script>
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.bollinger(
     '#bollinger_0',
     [
@@ -95,7 +95,7 @@ which looks like this:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.bollinger(
     '#bollinger_0',
 [

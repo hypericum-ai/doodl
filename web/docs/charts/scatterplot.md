@@ -60,7 +60,7 @@ doodl.scatterplot(
 <span class="doodl-chart" id="scatterplot_0"></span>
 
 <script>
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.scatterplot('#scatterplot_0',
     [
       { "x": 1, "y": 10 }, 
@@ -101,7 +101,7 @@ size of the dots, as this example with a dotsize of 3 shows.
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    var doodl = new Doodl("");
+    var doodl = new Doodl.Doodl('');
   doodl.scatterplot('#scatterplot_0',
     [
       { "x": 1, "y": 10 }, 
@@ -116,7 +116,7 @@ size of the dots, as this example with a dotsize of 3 shows.
       ['#4C72B0'],
       5
     );
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.scatterplot('#scatterplot_1',
      [
       { "x": 1, "y": 10 }, 

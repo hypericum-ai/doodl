@@ -88,7 +88,7 @@ doodl.barchart(
 <span class="doodl-chart" id='barchart_0'></span>
 
 <script>
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.barchart(
     '#barchart_0',
     [
@@ -118,7 +118,7 @@ the bar.
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => 
-  var doodl = new Doodl("");
+  var doodl = new Doodl.Doodl('');
   doodl.barchart(
     '#barchart_0',
     [

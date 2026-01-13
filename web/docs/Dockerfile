@@ -11,6 +11,7 @@ ARG BRANCH="main"
 
 RUN git clone https://github.com/hypericum-ai/doodl /srv/www/doodl
 
+
 RUN cd /srv/www/doodl && git checkout $BRANCH
 
 WORKDIR /srv/www/doodl/web/docs
@@ -37,6 +38,9 @@ RUN mkdir -p /usr/share/nginx/html/assets/doodl/js
 RUN mkdir -p /usr/share/nginx/html/images
 
 COPY --from=build /srv/www/doodl/web/css /usr/share/nginx/html/assets/doodl/css
+
+RUN git clone https://github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
+
 COPY --from=build /srv/www/doodl/web/js /usr/share/nginx/html/assets/doodl/js
 
 COPY --from=build /srv/www/doodl/web/docs/images /usr/share/nginx/html/images
