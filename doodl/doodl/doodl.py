@@ -1414,9 +1414,24 @@ def handle_chart_field_arguments(
     return [ json.dumps(a) for a in args ]
 
 
-def setdevmode(yesno: bool = True):
+
+def setdevmode(enable: bool = True, *, timeout: float = 2.0):
     global mode
-    mode = "dev" if yesno else "prod"
+    if not enable:
+        mode = "prod"
+
+    try:
+        response = requests.get(DEV_SCRIPT_URL, timeout=timeout)
+        response.raise_for_status()
+    except requests.exceptions.RequestException:
+        logger.fatal(
+            f"Dev mode requested but dev script is unreachable at {DEV_SCRIPT_URL}.\n"
+            f"Start the dev server in web/js folder with:\n"
+            f"  python3 -m http.server 9191"
+        )
+
+    mode = "dev"
+    
     
 def chart(chart_name, fields=None, data=None):
     def wrapper(
