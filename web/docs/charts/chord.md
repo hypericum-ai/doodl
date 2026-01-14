@@ -293,7 +293,7 @@ doodl.chord(
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
+  Promise.resolve().then(() => {
   var doodl = new Doodl.Doodl('');
   doodl.chord(
     '#chord_0',
@@ -307,6 +307,7 @@ doodl.chord(
       'height': 350
     },{},["black", "#ffdd89", "#957244", "#f26223"],
     ["black", "blond", "brunette", "redhead"]
-  ));
+  );
+   });
 }, 1000);
 </script>

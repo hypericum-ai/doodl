@@ -2,6 +2,8 @@ import { DefaultTheme, defineConfig } from 'vitepress'
 import pkg from '../package.json' with { type: 'json' }
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     outDir: './.vitepress/dist',
@@ -13,7 +15,9 @@ export default defineConfig({
             'script',
             {
                 'type': 'text/javascript',
-                'src': 'https://doodl.ai/assets/doodl/js/doodlchart.min.js'
+                'src': isProd
+                  ? 'https://doodl.ai/assets/doodl/js/doodlchart.min.js'
+                  : 'http://localhost:9191/js/doodlchart.min.js'
             }
         ],
         [

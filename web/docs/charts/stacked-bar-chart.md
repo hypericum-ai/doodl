@@ -303,7 +303,7 @@ doodl.stacked_barchart(
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
+  Promise.resolve().then(() => {
   var doodl = new Doodl.Doodl('');
   doodl.stacked_barchart(
     '#stacked_barchart_0',
@@ -332,6 +332,7 @@ doodl.stacked_barchart(
     },{},[
         '#4C72B0', '#DD8452', '#55A868'
     ], false, false
-  ));
+  );
+   });
 }, 1000);
 </script>

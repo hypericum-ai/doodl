@@ -117,7 +117,7 @@ the bar.
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
+  Promise.resolve().then(() => {
   var doodl = new Doodl.Doodl('');
   doodl.barchart(
     '#barchart_0',
@@ -130,6 +130,7 @@ the bar.
       'width': 500,
       'height': 350
     },{},["DarkOrange"]
-  ));
+  );
+  });
 }, 1000);
 </script>

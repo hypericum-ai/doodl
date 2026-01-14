@@ -113,7 +113,7 @@ would produce the following chart:
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
+  Promise.resolve().then(() => {
   var doodl = new Doodl.Doodl('');
   doodl.boxplot(
     '#boxplot_0',
@@ -128,6 +128,7 @@ would produce the following chart:
       'width': 500,
       'height': 350
     },{},["DarkOrange"]
-  ));
+  );
+   });
 }, 1000);
 </script>
