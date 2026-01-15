@@ -1,4 +1,24 @@
 
+
+
+### A Custom Chart called Happy chart
+
+
+<happy
+data='[
+  { "label": "Apples", "value": 10 },
+  { "label": "Bananas", "value": 20 },
+  { "label": "Cherries", "value": 15 },
+  { "label": "Grapes", "value": 25 }
+]'
+  width=500
+  height=500
+  colors='pastel'
+>
+</happy>
+
+
+
 ### A HORIZONTAL radial_areachart 
 
 
