@@ -3,15 +3,9 @@
         "vertical": 0
     },
     "data": {
-        "type": "table",
-        "columns": [
-            "date",
-            "close",
-            "upper",
-            "lower",
-            "movingAvg"
-        ]
-    },
+            "type": "table",
+            "columns": ["label", "value"]
+        },
     "tag": "happy",
     "function": "happy",
     "module_name": "HappyModule",

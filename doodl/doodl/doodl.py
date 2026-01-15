@@ -584,7 +584,7 @@ def process_html_charts(soup):
 
     for defn in custom_charts.values():
         add_chart_to_html(
-            defn.tag, defn.optional, soup, code_parts, defn.module_name, defn.function
+            defn.tag, defn.options, defn.data, soup, code_parts, defn.module_name, defn.function
         )
         logger.info(f"Added custom chart {defn.tag}")
 
