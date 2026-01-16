@@ -9,5 +9,5 @@
     "tag": "happy",
     "function": "happy",
     "module_name": "HappyModule",
-    "module_source": "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/examples/defns/happy.js"
+    "module_source": "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/web/js/happy.js"
 }

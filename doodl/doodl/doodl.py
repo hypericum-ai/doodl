@@ -44,6 +44,10 @@ BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
 ]
 
+BASE_SCRIPTS = [
+    "https://d3js.org/d3.v7.min.js",
+]
+
 PROD_PYTHON_STYLESHEETS = [
     "https://doodl.ai/assets/doodl/css/doodl.css",
 ]
@@ -635,12 +639,12 @@ def make_supporting():
     global custom_charts
 
     # Construct the mode-specificities
-    scripts = []
+    scripts = BASE_SCRIPTS
     stylesheets = BASE_STYLESHEETS
 
     if mode == "dev":
-        scripts = [f"js/{os.path.basename(path)}" for path in DEV_SCRIPTS]
-        stylesheets = BASE_STYLESHEETS + [
+        scripts =  scripts + [f"js/{os.path.basename(path)}" for path in DEV_SCRIPTS]
+        stylesheets = stylesheets + [
             f"css/{os.path.basename(path)}" for path in DEV_STYLESHEETS
         ]
     else:
