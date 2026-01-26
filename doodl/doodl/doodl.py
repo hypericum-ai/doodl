@@ -727,7 +727,15 @@ def convert_images(httpd, page_url, output_path=""):
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
             page.goto(page_url, wait_until="load")
-            soup = BeautifulSoup(page.content(), "html.parser")
+
+            while True:
+                state = page.evaluate("document.readyState")
+                if state == "complete":
+                    break
+                sleep(0.1)
+
+            content = page.content()
+            soup = BeautifulSoup(content, "html.parser")
             browser.close()
     except Exception as e:
         logger.error(f"Error opening document to convert SVGs: {e}")
@@ -1194,9 +1202,7 @@ In dev mode, the script must be run in the same folder as the script.
         filters,
         extras,
     )
-    
-    
-    
+
     logger.info("### Starting Image Replacement ###")
 
     svg_dir = os.path.join(server_dir_name, "svg")

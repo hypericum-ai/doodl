@@ -205,7 +205,9 @@ data='[
 
 
 
-### A HORIZONTAL stacked barchart 
+<!--
+#
+## A HORIZONTAL stacked barchart 
 
 
 <stacked_barchart
@@ -271,7 +273,7 @@ data='[
 >
 </stacked_areachart>
 
-
+-->
 
 
 ### A bollinger band diagram 
