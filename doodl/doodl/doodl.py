@@ -986,6 +986,8 @@ def main():
     # Input and output files
     input_file = None
     output_file = None
+    json_file = None
+    jstop = False
 
     # If true, run in server mode
     server_mode = False
@@ -1021,11 +1023,13 @@ In dev mode, the script must be run in the same folder as the script.
 
     opts, args = getopt(
         sys.argv[1:],
-        "c:D:f:o:pst:vz:P:",
+        "c:D:f:j:J:o:pst:vz:P:",
         (
             "chart",
             "dir",
             "filter=",
+            "json=",
+            "jstop=",
             "output",
             "plot",
             "server",
@@ -1045,6 +1049,13 @@ In dev mode, the script must be run in the same folder as the script.
             src_dir = os.path.abspath(v)
         elif k in ["-f", "--filter"]:
             filters.append(v)
+        elif k in ["-f", "--filter"]:
+            filters.append(v)
+        elif k in ["-j", "--json"]:
+            json_file = v
+        elif k in ["-J", "--jstop"]:
+            json_file = v
+            jstop = True
         elif k in ["-o", "--output"]:
             output_file = v
         elif k in ["-p", "--plot"]:
@@ -1183,10 +1194,22 @@ In dev mode, the script must be run in the same folder as the script.
         filters,
         extras,
     )
+    
+    
+    
+    logger.info("### Starting Image Replacement ###")
 
     svg_dir = os.path.join(server_dir_name, "svg")
     convert_images(httpd, url, svg_dir)
     json_doc = replace_tags_with_images(json_doc, svg_dir)
+    
+    
+    if json_file is not None:
+        with open(json_file, "w") as jfp:
+            json.dump(json_doc, jfp, indent=2)
+        if jstop:
+            return
+        
     convert_to_format(
         json_doc,
         output_format=output_format,
