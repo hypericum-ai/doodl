@@ -568,6 +568,9 @@ def transform_html(soup):
 # Replace chart tags with a call to the appropriate chart function.
 def process_html_charts(soup):
     global custom_charts
+    
+    other_svg_count = len(soup.find_all('svg'))
+    our_svg_count = 0
 
     # Process the charts.
 
@@ -582,12 +585,12 @@ def process_html_charts(soup):
             options = args.get('options', None)
             data_spec = args.get('data', None)
 
-        add_chart_to_html(s, options, data_spec, soup, code_parts)
+        our_svg_count += add_chart_to_html(s, options, data_spec, soup, code_parts)
 
     # Add any custom chart defs
 
     for defn in custom_charts.values():
-        add_chart_to_html(
+        our_svg_count += add_chart_to_html(
             defn.tag, defn.options, defn.data, soup, code_parts, defn.module_name, defn.function
         )
         logger.info(f"Added custom chart {defn.tag}")
@@ -602,13 +605,14 @@ def process_html_charts(soup):
     code_string = re.sub("[“”]", '"', code_string)
     code_string = re.sub("[“’‘”]", "'", code_string)
 
-    return code_string
+    return code_string, our_svg_count, other_svg_count
 
 
 # Function to add a chart to the HTML, using the appropriate chart implementations
 def add_chart_to_html(
     chart_type, fields, data_spec, soup, code_parts, module=module_name, function_name=None
 ):
+    count = 0
     if not function_name:
         function_name = chart_type
 
@@ -631,7 +635,8 @@ def add_chart_to_html(
         elem["class"] = "doodl-chart"
         tag = soup.new_tag("br")
         elem.insert_after(tag)
-    return code_parts
+        count += 1
+    return count
 
 
 # Add ancillary scripts and stylesheets to the HTML
@@ -719,7 +724,7 @@ def generate_json(input_file, output_dir, filters=[], extras=[]):
 
 # Convert SVG images in the HTML document to PNG files for use in
 # other formats (e.g. PDF).
-def convert_images(httpd, page_url, output_path=""):
+def convert_images(httpd, page_url, output_path="", our_svg_count=0, other_svg_count=0):
     soup = None
 
     try:
@@ -729,8 +734,11 @@ def convert_images(httpd, page_url, output_path=""):
             page.goto(page_url, wait_until="load")
 
             while True:
-                state = page.evaluate("document.readyState")
-                if state == "complete":
+                content = page.content()
+                soup = BeautifulSoup(content, "html.parser")
+                n = len(soup.find_all('svg'))
+                if n >= our_svg_count + other_svg_count:
+                    logger.info(f"{n} SVGs found, proceeding with conversion")
                     break
                 sleep(0.1)
 
@@ -1153,7 +1161,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     soup = parse_html(input_file, output_dir, filters, extras)
     soup = transform_html(soup)
-    code_string = process_html_charts(soup)
+    code_string, our_svg_count, other_svg_count = process_html_charts(soup)
     scripts, stylesheets = make_supporting()
     
     # Copy the generated HTML file and dependencies to a temporary directory,
@@ -1203,10 +1211,8 @@ In dev mode, the script must be run in the same folder as the script.
         extras,
     )
 
-    logger.info("### Starting Image Replacement ###")
-
     svg_dir = os.path.join(server_dir_name, "svg")
-    convert_images(httpd, url, svg_dir)
+    convert_images(httpd, url, svg_dir, our_svg_count, other_svg_count)
     json_doc = replace_tags_with_images(json_doc, svg_dir)
     
     
