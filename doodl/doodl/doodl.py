@@ -100,7 +100,11 @@ HTML_TPL = """<!DOCTYPE html>
 
 # Supported PDF engines
 
-PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
+PDF_ENGINES = [
+    "xelatex", 
+    "lualatex", 
+    "pdflatex"
+    ]
 
 # Standard charts
 
@@ -364,6 +368,8 @@ INLINE_CONTAINERS = (
     pf.Quoted, pf.SmallCaps, pf.Superscript, pf.Subscript,
     pf.Cite, pf.Link  # (Images inside links are allowed in Pandoc)
 )
+
+PDF_VIA_HTML = True
 
 # Handle pypandoc convert function name change
 
@@ -931,7 +937,7 @@ def replace_tags_with_images(json_doc, image_path_directory):
 
 
 # Convert the JSON document to the specified format using Pandoc
-def convert_to_format(doc, output_format, output_file_path):
+def convert_to_format(doc, output_format, output_file_path, pdf_engine=None):
     with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
         f.close()
@@ -940,16 +946,31 @@ def convert_to_format(doc, output_format, output_file_path):
     extras = []
 
     if output_format.upper() == "PDF":
-        pdf_engine = get_pdf_engine()
+        # if pdf there will be an intermediate step to convert to html first
+        intermediate_html_file_path = temp_file("html")
+        if PDF_VIA_HTML:
+            convert(
+                source_file=json_file_path,
+                to='html',
+                outputfile=intermediate_html_file_path,
+                extra_args=extras,
+            )
+        pdf_engine = get_pdf_engine(pdf_engine)
         if pdf_engine is not None:
             extras.append(f"--pdf-engine={pdf_engine}")
 
+    if PDF_VIA_HTML and output_format.upper() == "HTML":
+        # No need to convert again just copy the intermediate html file
+        shutil.copyfile(intermediate_html_file_path, output_file_path)
+        logger.info(f"Generated File: {output_file_path}")
+        return
+    
     try:
         logger.info(
             f"Convert args: source_file={json_file_path}, to={output_format}, outputfile={output_file_path}, extra_args={extras}"
         )
         convert(
-            source_file=json_file_path,
+            source_file=intermediate_html_file_path if output_format.upper() == "PDF" else json_file_path,
             to=output_format,
             outputfile=output_file_path,
             extra_args=extras,
@@ -962,12 +983,20 @@ def convert_to_format(doc, output_format, output_file_path):
 
 
 # Determine the PDF engine to use
-def get_pdf_engine():
+def get_pdf_engine(pdf_engine=None):
+    def is_available(engine_name: str) -> bool:
+        return hasattr(shutil, "which") and shutil.which(engine_name) is not None
+
+    if pdf_engine is not None and is_available(pdf_engine):
+        return pdf_engine
+
     for engine in PDF_ENGINES:
-        if hasattr(shutil, "which") and shutil.which(engine) is not None:
+        if is_available(engine):
             return engine
+
     logger.error(
-        "No valid PDF engine found. Please install xelatex, lualatex, or pdflatex. You can install TeX Live or MiKTeX to get these engines."
+        "No valid PDF engine found. Please install xelatex, lualatex, or pdflatex. "
+        "You can install TeX Live or MiKTeX to get these engines."
     )
     return None
 
@@ -1011,6 +1040,7 @@ def main():
     # If true, output a zip file
     zip_mode = False
 
+    pdf_engine = None
     output_format = "html"  # Default output format
     output_file_path = ""
     port = default_port
@@ -1031,6 +1061,7 @@ where options may include:
 -z|--zip  file     # zip the output directory to file
 -P|--port          # the port to use in the url. defaults to 7300
 --format           # generate a file in this format 
+--pdf_engine       # specify your own preferred pdf engine 
 
 In dev mode, the script must be run in the same folder as the script.
 """
@@ -1054,6 +1085,7 @@ In dev mode, the script must be run in the same folder as the script.
             "zip=",
             "port=",
             "format=",
+            "pdf_engine=",
         ),
     )
 
@@ -1089,6 +1121,8 @@ In dev mode, the script must be run in the same folder as the script.
             port = int(v)
         elif k in ["--format"]:
             output_format = v
+        elif k in ["--pdf_engine"]:
+            pdf_engine = v
         elif k in ["-?", "-h", "--help"]:
             errors += 1
         else:
@@ -1226,6 +1260,7 @@ In dev mode, the script must be run in the same folder as the script.
         json_doc,
         output_format=output_format,
         output_file_path=output_file_path,
+        pdf_engine=pdf_engine,
     )
 
 
