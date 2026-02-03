@@ -79,7 +79,7 @@ argument, including:
 
 | Type | Example | Meaning |
 | - | - | - |
-| `table` | [area chart](/charts/areachart) | Columns in a CSV file, dictionary or Dataframe |
+| `table` | [area chart](/charts/area-chart) | Columns in a CSV file, dictionary or Dataframe |
 | `hierarchy` | [tree chart](/charts/tree) | Tree-like structure |
 | `chords` | [chord chart](/charts/chord) | Nodes and links |
 | `matrix` | [contour map](/charts/contour) | Array of numbers |
