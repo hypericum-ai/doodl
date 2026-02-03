@@ -1,5 +1,5 @@
 
-
+![Cat Image](images/cat.png)
 
 ### A Custom Chart called Happy chart
 

@@ -1203,7 +1203,8 @@ In dev mode, the script must be run in the same folder as the script.
 
     with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
         server_dir_name = dir_name
-        copy_data(output_dir, dir_name)
+        shutil.copy2(input_file, dir_name)
+        copy_dev_data(server_dir_name)
 
         if os.path.isfile(html_file):
             shutil.copy2(html_file, dir_name)
@@ -1325,6 +1326,7 @@ def copy_data(output_dir, server_dir_path):
         ignore=shutil.ignore_patterns(".?*"),
     )
 
+def copy_dev_data(server_dir_path):
     if mode == "dev":
         styles_and_scripts = DEV_SCRIPTS + DEV_STYLESHEETS
         styles_and_scripts = [path.format(dir=src_dir) for path in styles_and_scripts]
@@ -1339,8 +1341,8 @@ def copy_data(output_dir, server_dir_path):
                     os.makedirs(dest_dict, exist_ok=True)
                 shutil.copy2(sas, dest_dict)
                 logger.info(f"Copied : {sas} to {dest_dict}")
-
-
+                
+                
 chart_count = 0
 
 def json_loads_if_string(value, force=False):
