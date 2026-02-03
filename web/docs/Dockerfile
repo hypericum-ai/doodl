@@ -21,7 +21,6 @@ RUN npm install
 
 WORKDIR /srv/www/doodl/web/ts/modules
 
-
 RUN make all
 
 WORKDIR /srv/www/doodl/web/docs
