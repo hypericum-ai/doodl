@@ -1,5 +1,48 @@
 
-![Cat Image](images/cat.png)
+
+
+### A Line chart from data file format
+
+
+<linechart
+  path="data/xy2.csv"
+  width=900
+  height=900
+  colors='deep'
+  x='Age'
+  y='Count'
+>
+</linechart>
+
+
+### A Polar chart from data file format
+
+
+<polar
+  path="data/xy.csv"
+  width=900
+  height=900
+  colors='deep'
+>
+</polar>
+
+
+
+
+
+### A Line chart from data file format
+
+
+<linechart
+  path="data/xy.csv"
+  width=900
+  height=900
+  colors='deep'
+>
+</linechart>
+
+
+
 
 ### A Custom Chart called Happy chart
 

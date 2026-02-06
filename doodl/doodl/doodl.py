@@ -275,6 +275,15 @@ STANDARD_CHARTS = {
             "columns": ["label", "value"]
         }
     },
+    "polar": {
+        "options": {
+            "curved": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["x", "y"]
+        }
+    },
     "radial_areachart": {
         "options": {
             "horizontal": False,
