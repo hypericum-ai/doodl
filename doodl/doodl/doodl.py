@@ -285,14 +285,9 @@ STANDARD_CHARTS = {
         }
     },
     "radial_areachart": {
-        "options": {
-            "horizontal": False,
-            "x_label_angle": 0,
-            "show_legend": 0
-        },
         "data": {
             "type": "table",
-            "columns": ["label", "group", "value"]
+             "columns": ["x", "y"]
         }
     },
     "scatterplot": {
@@ -1465,7 +1460,7 @@ def handle_chart_field_arguments(
         return []
 
     if all_fields["data"] is not None:
-        column_mapping = {}
+        column_mapping = {}   
 
         if data_spec.get("type", "") in ["table", "venn"]:
             columns = data_spec.get("columns", [])

@@ -67,22 +67,18 @@ data='[
 
 <radial_areachart
   data='[
-  { "group": "North", "label": "Q1", "value": 22 },
-  { "group": "North", "label": "Q2", "value": 35 },
-  { "group": "North", "label": "Q3", "value": 40 },
-  { "group": "North", "label": "Q4", "value": 28 },
-  { "group": "South", "label": "Q1", "value": 18 },
-  { "group": "South", "label": "Q2", "value": 30 },
-  { "group": "South", "label": "Q3", "value": 26 },
-  { "group": "South", "label": "Q4", "value": 32 },
-  { "group": "East", "label": "Q1", "value": 25 },
-  { "group": "East", "label": "Q2", "value": 28 },
-  { "group": "East", "label": "Q3", "value": 33 },
-  { "group": "East", "label": "Q4", "value": 29 },
-  { "group": "West", "label": "Q1", "value": 20 },
-  { "group": "West", "label": "Q2", "value": 24 },
-  { "group": "West", "label": "Q3", "value": 32 },
-  { "group": "West", "label": "Q4", "value": 27 }
+  { "x": 0, "y": 101 },
+  { "x": 1, "y": 201 },
+  { "x": 2, "y": 151 },
+  { "x": 3, "y": 251 },
+  { "x": 4, "y": 301 },
+  { "x": 5, "y": 351 },
+  { "x": 6, "y": 275 },
+  { "x": 7, "y": 180 },
+  { "x": 8, "y": 220 },
+  { "x": 9, "y": 260 },
+  { "x": 10, "y": 300 },
+  { "x": 11, "y": 210 }
 ]'
   width=500
   height=400

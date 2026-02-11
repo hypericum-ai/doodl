@@ -69,6 +69,9 @@ def _interpret_table_data(data, spec, column_mapping):
         df = _convert_pandas(data, spec, column_mapping)
     # elif imports["duckdb"] and isinstance(data, imports["duckdb"].DuckDBPy):
     #     df = _convert_pandas(data.to_df(), spec, column_mapping)
+    elif column_mapping and (isinstance(data, list) or isinstance(data, dict)):
+        data_pd = imports["pd"].DataFrame.from_records(data)
+        df = _convert_pandas(data_pd, spec, column_mapping)
     elif isinstance(data, list) or isinstance(data, dict):
         return data
 
