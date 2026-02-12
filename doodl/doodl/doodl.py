@@ -285,6 +285,9 @@ STANDARD_CHARTS = {
         }
     },
     "radial_areachart": {
+        "options": {
+            "curved": False
+        },
         "data": {
             "type": "table",
              "columns": ["x", "y"]
