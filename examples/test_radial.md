@@ -40,6 +40,7 @@
   height=400
   colors='deep'
   curved='true'
+  donut='true'
 >
 </radial_areachart>
 

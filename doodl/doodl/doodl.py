@@ -286,7 +286,8 @@ STANDARD_CHARTS = {
     },
     "radial_areachart": {
         "options": {
-            "curved": False
+            "curved": False,
+            "donut": False
         },
         "data": {
             "type": "table",
