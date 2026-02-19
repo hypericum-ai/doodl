@@ -281,7 +281,7 @@ STANDARD_CHARTS = {
         },
         "data": {
             "type": "table",
-            "columns": ["x", "y"]
+            "columns": ["label", "category", "value"]
         }
     },
     "radial_areachart": {
