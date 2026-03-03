@@ -1,9 +1,19 @@
 
-### A Polar chart from data file format
+### A Polar chart 
 
 
 <polar
-  path="xy.csv"
+  data='[
+  { "label": "Q1", "category": "A", "value": 10 },
+  { "label": "Q2", "category": "A", "value": 12 },
+  { "label": "Q3", "category": "A", "value": 16 },
+  { "label": "Q1", "category": "B", "value": 20 },
+  { "label": "Q2", "category": "B", "value": 24 },
+  { "label": "Q3", "category": "B", "value": 28 },
+  { "label": "Q1", "category": "C", "value": 12 },
+  { "label": "Q2", "category": "C", "value": 15 },
+  { "label": "Q3", "category": "C", "value": 21 }
+]'
   width=900
   height=900
   colors='deep'
@@ -302,8 +312,6 @@ data='[
 
 
 
-<!--
-#
 ## A HORIZONTAL stacked barchart 
 
 
@@ -369,8 +377,6 @@ data='[
 </stacked_areachart>
 
 
-
--->
 
 
 ### A bollinger band diagram 
