@@ -79,8 +79,9 @@ type) are described in the writeups for each chart.
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
-  Doodl.piechart(
+  Promise.resolve().then(() => {
+  var doodl = new Doodl.Doodl('');
+  doodl.piechart(
     '#piechart_0',
     [
       {'label': 'Apples', 'value': 10},
@@ -94,6 +95,7 @@ type) are described in the writeups for each chart.
       '#A1C9F4', '#FFB482', '#8DE5A1', '#FF9F9B', '#D0BBFF',
       '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'
     ], 1
-  ));
+  );
+   });
 }, 1000);
 </script>

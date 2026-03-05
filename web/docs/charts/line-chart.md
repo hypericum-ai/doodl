@@ -74,7 +74,8 @@ doodl.linechart(
 <span class="doodl-chart" id="linechart_0"></span>
 
 <script>
-  Doodl.linechart('#linechart_0',
+  var doodl = new Doodl.Doodl('');
+  doodl.linechart('#linechart_0',
     [
       { "x": 1, "y": 10 }, 
       { "x": 2, "y": 20 },
@@ -147,7 +148,8 @@ doodl.linechart(
 <span class="doodl-chart" id="linechart_1"></span>
 
 <script>
-  Doodl.linechart('#linechart_1',
+  var doodl = new Doodl.Doodl('');
+  doodl.linechart('#linechart_1',
     [
       { "x": 1, "y": 10 }, 
       { "x": 2, "y": 20 },
@@ -174,7 +176,8 @@ produces this:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    Doodl.linechart('#linechart_0',
+    var doodl = new Doodl.Doodl('');
+  doodl.linechart('#linechart_0',
 [
   { "x": 1, "y": 10 }, 
   { "x": 2, "y": 20 },
@@ -188,7 +191,8 @@ produces this:
     ['#4C72B0', '#DD8452', '#55A868', '#C44E52', '#8172B3', '#937860', '#DA8BC3', '#8C8C8C', '#CCB974', '#64B5CD'],
     false
   );
-    Doodl.linechart('#linechart_1',
+    var doodl = new Doodl.Doodl('');
+  doodl.linechart('#linechart_1',
 [
   { "x": 1, "y": 10 }, 
   { "x": 2, "y": 20 },

@@ -1,7 +1,11 @@
 {
-    "optional": {
+    "options": {
         "vertical": 0
     },
+     "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        },
     "tag": "bollinger",
     "function": "bollinger",
     "module_name": "BollingerModule",

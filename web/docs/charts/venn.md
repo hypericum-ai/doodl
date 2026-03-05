@@ -159,7 +159,8 @@ doodl.vennchart(
 <span class="doodl-chart" id="vennchart_0"></span>
 
 <script>
-Doodl.vennchart(
+var doodl = new Doodl.Doodl('');
+  doodl.vennchart(
     '#vennchart_0',
     [
         { 'sets': ['A'], 'size': 12 }, 
@@ -186,8 +187,9 @@ all produce the following diagram:
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
-  Doodl.vennchart(
+  Promise.resolve().then(() => {
+  var doodl = new Doodl.Doodl('');
+  doodl.vennchart(
     '#vennchart_0',
     [
         { 'sets': ['A'], 'size': 12 }, 
@@ -203,6 +205,7 @@ all produce the following diagram:
     },{},[
         '#4C72B0', '#DD8452', '#55A868'
     ]
-  ));
+  );
+   });
 }, 1000);
 </script>

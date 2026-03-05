@@ -163,7 +163,8 @@ remaining columns.
 <span class="doodl-chart" id="stacked_barchart_0"></span>
 
 <script>
-  Doodl.stacked_barchart(
+  var doodl = new Doodl.Doodl('');
+  doodl.stacked_barchart(
     '#stacked_barchart_0',
     [
 [
@@ -302,8 +303,9 @@ doodl.stacked_barchart(
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
-  Doodl.stacked_barchart(
+  Promise.resolve().then(() => {
+  var doodl = new Doodl.Doodl('');
+  doodl.stacked_barchart(
     '#stacked_barchart_0',
     [
         { "label": "January",  "category": "Apples", "value": 30 },
@@ -330,6 +332,7 @@ doodl.stacked_barchart(
     },{},[
         '#4C72B0', '#DD8452', '#55A868'
     ], false, false
-  ));
+  );
+   });
 }, 1000);
 </script>

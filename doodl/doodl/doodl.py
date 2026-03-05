@@ -44,6 +44,10 @@ BASE_STYLESHEETS = [
     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css",
 ]
 
+BASE_SCRIPTS = [
+    "https://d3js.org/d3.v7.min.js",
+]
+
 PROD_PYTHON_STYLESHEETS = [
     "https://doodl.ai/assets/doodl/css/doodl.css",
 ]
@@ -57,7 +61,8 @@ DEV_STYLESHEETS = [
     "{dir}/css/doodl.css",
 ]
 
-DEV_SCRIPTS = ["{dir}/ts/dist/doodlchart.min.js"]
+DEV_SCRIPTS = ["{dir}/js/doodlchart.min.js"]
+DEV_SCRIPT_URL = "http://localhost:9191/js/doodlchart.min.js"
 
 PROD_SCRIPTS = [
     "https://doodl.ai/assets/doodl/js/doodlchart.min.js"
@@ -95,7 +100,11 @@ HTML_TPL = """<!DOCTYPE html>
 
 # Supported PDF engines
 
-PDF_ENGINES = ["xelatex", "lualatex", "pdflatex"]
+PDF_ENGINES = [
+    "xelatex", 
+    "lualatex", 
+    "pdflatex"
+    ]
 
 # Standard charts
 
@@ -200,6 +209,17 @@ STANDARD_CHARTS = {
             "columns": ["start", "end", "task"]
         }
     },
+    "grouped_barchart": {
+        "options": {
+            "horizontal": False,
+            "x_label_angle": 0,
+            "show_legend": 0
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "group", "value"]
+        }
+    },
     "heatmap": {
         "options": {
             "show_legend": False,
@@ -218,6 +238,16 @@ STANDARD_CHARTS = {
         "data": {
             "type": "table",
             "columns": ["x", "y"]
+        }
+    },
+    "multi_linechart": {
+        "options": {
+            "curved": False,
+            "show_legend": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label","x", "y"]
         }
     },
     "piechart": {
@@ -243,6 +273,25 @@ STANDARD_CHARTS = {
         "data": {
             "type": "table",
             "columns": ["label", "value"]
+        }
+    },
+    "polar": {
+        "options": {
+            "curved": False
+        },
+        "data": {
+            "type": "table",
+            "columns": ["label", "category", "value"]
+        }
+    },
+    "radial_areachart": {
+        "options": {
+            "curved": False,
+            "donut": False
+        },
+        "data": {
+            "type": "table",
+             "columns": ["x", "y"]
         }
     },
     "scatterplot": {
@@ -328,6 +377,8 @@ INLINE_CONTAINERS = (
     pf.Cite, pf.Link  # (Images inside links are allowed in Pandoc)
 )
 
+PDF_VIA_HTML = True
+
 # Handle pypandoc convert function name change
 
 if hasattr(py, "convert"):
@@ -342,7 +393,7 @@ else:
 # for production mode.
 
 mode = "prod"
-module_name = "Doodl"
+module_name = "doodl"
 src_dir = "."
 
 # Map of custom chart definitions
@@ -531,11 +582,14 @@ def transform_html(soup):
 # Replace chart tags with a call to the appropriate chart function.
 def process_html_charts(soup):
     global custom_charts
+    
+    other_svg_count = len(soup.find_all('svg'))
+    our_svg_count = 0
 
     # Process the charts.
 
     code_parts = []
-    code_string = ""
+    code_string = "var doodl = new Doodl.Doodl('test key');\n"
 
     for s, args in STANDARD_CHARTS.items():
         options = None
@@ -545,19 +599,19 @@ def process_html_charts(soup):
             options = args.get('options', None)
             data_spec = args.get('data', None)
 
-        add_chart_to_html(s, options, data_spec, soup, code_parts)
+        our_svg_count += add_chart_to_html(s, options, data_spec, soup, code_parts)
 
     # Add any custom chart defs
 
     for defn in custom_charts.values():
-        add_chart_to_html(
-            defn.tag, defn.optional, soup, code_parts, defn.module_name, defn.function
+        our_svg_count += add_chart_to_html(
+            defn.tag, defn.options, defn.data, soup, code_parts, defn.module_name, defn.function
         )
         logger.info(f"Added custom chart {defn.tag}")
 
     # We use the same indentation as the template for the script
 
-    code_string = """
+    code_string += """
             """.join(code_parts)
 
     # Account for Apple's tendency to be a nanny
@@ -565,13 +619,14 @@ def process_html_charts(soup):
     code_string = re.sub("[“”]", '"', code_string)
     code_string = re.sub("[“’‘”]", "'", code_string)
 
-    return code_string
+    return code_string, our_svg_count, other_svg_count
 
 
 # Function to add a chart to the HTML, using the appropriate chart implementations
 def add_chart_to_html(
     chart_type, fields, data_spec, soup, code_parts, module=module_name, function_name=None
 ):
+    count = 0
     if not function_name:
         function_name = chart_type
 
@@ -594,7 +649,8 @@ def add_chart_to_html(
         elem["class"] = "doodl-chart"
         tag = soup.new_tag("br")
         elem.insert_after(tag)
-    return code_parts
+        count += 1
+    return count
 
 
 # Add ancillary scripts and stylesheets to the HTML
@@ -602,12 +658,12 @@ def make_supporting():
     global custom_charts
 
     # Construct the mode-specificities
-    scripts = []
+    scripts = BASE_SCRIPTS
     stylesheets = BASE_STYLESHEETS
 
     if mode == "dev":
-        scripts = [f"ts/dist/{os.path.basename(path)}" for path in DEV_SCRIPTS]
-        stylesheets = BASE_STYLESHEETS + [
+        scripts =  scripts + [f"js/{os.path.basename(path)}" for path in DEV_SCRIPTS]
+        stylesheets = stylesheets + [
             f"css/{os.path.basename(path)}" for path in DEV_STYLESHEETS
         ]
     else:
@@ -682,7 +738,7 @@ def generate_json(input_file, output_dir, filters=[], extras=[]):
 
 # Convert SVG images in the HTML document to PNG files for use in
 # other formats (e.g. PDF).
-def convert_images(httpd, page_url, output_path=""):
+def convert_images(httpd, page_url, output_path="", our_svg_count=0, other_svg_count=0):
     soup = None
 
     try:
@@ -690,7 +746,18 @@ def convert_images(httpd, page_url, output_path=""):
             browser = p.chromium.launch(headless=True)
             page = browser.new_page()
             page.goto(page_url, wait_until="load")
-            soup = BeautifulSoup(page.content(), "html.parser")
+
+            while True:
+                content = page.content()
+                soup = BeautifulSoup(content, "html.parser")
+                n = len(soup.find_all('svg'))
+                if n >= our_svg_count + other_svg_count:
+                    logger.info(f"{n} SVGs found, proceeding with conversion")
+                    break
+                sleep(0.1)
+
+            content = page.content()
+            soup = BeautifulSoup(content, "html.parser")
             browser.close()
     except Exception as e:
         logger.error(f"Error opening document to convert SVGs: {e}")
@@ -878,7 +945,7 @@ def replace_tags_with_images(json_doc, image_path_directory):
 
 
 # Convert the JSON document to the specified format using Pandoc
-def convert_to_format(doc, output_format, output_file_path):
+def convert_to_format(doc, output_format, output_file_path, pdf_engine=None):
     with NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as f:
         json.dump(doc, f, indent=2)
         f.close()
@@ -887,16 +954,31 @@ def convert_to_format(doc, output_format, output_file_path):
     extras = []
 
     if output_format.upper() == "PDF":
-        pdf_engine = get_pdf_engine()
+        # if pdf there will be an intermediate step to convert to html first
+        intermediate_html_file_path = temp_file("html")
+        if PDF_VIA_HTML:
+            convert(
+                source_file=json_file_path,
+                to='html',
+                outputfile=intermediate_html_file_path,
+                extra_args=extras,
+            )
+        pdf_engine = get_pdf_engine(pdf_engine)
         if pdf_engine is not None:
             extras.append(f"--pdf-engine={pdf_engine}")
 
+    if PDF_VIA_HTML and output_format.upper() == "HTML":
+        # No need to convert again just copy the intermediate html file
+        shutil.copyfile(intermediate_html_file_path, output_file_path)
+        logger.info(f"Generated File: {output_file_path}")
+        return
+    
     try:
         logger.info(
             f"Convert args: source_file={json_file_path}, to={output_format}, outputfile={output_file_path}, extra_args={extras}"
         )
         convert(
-            source_file=json_file_path,
+            source_file=intermediate_html_file_path if output_format.upper() == "PDF" else json_file_path,
             to=output_format,
             outputfile=output_file_path,
             extra_args=extras,
@@ -909,12 +991,20 @@ def convert_to_format(doc, output_format, output_file_path):
 
 
 # Determine the PDF engine to use
-def get_pdf_engine():
+def get_pdf_engine(pdf_engine=None):
+    def is_available(engine_name: str) -> bool:
+        return hasattr(shutil, "which") and shutil.which(engine_name) is not None
+
+    if pdf_engine is not None and is_available(pdf_engine):
+        return pdf_engine
+
     for engine in PDF_ENGINES:
-        if hasattr(shutil, "which") and shutil.which(engine) is not None:
+        if is_available(engine):
             return engine
+
     logger.error(
-        "No valid PDF engine found. Please install xelatex, lualatex, or pdflatex. You can install TeX Live or MiKTeX to get these engines."
+        "No valid PDF engine found. Please install xelatex, lualatex, or pdflatex. "
+        "You can install TeX Live or MiKTeX to get these engines."
     )
     return None
 
@@ -949,6 +1039,8 @@ def main():
     # Input and output files
     input_file = None
     output_file = None
+    json_file = None
+    jstop = False
 
     # If true, run in server mode
     server_mode = False
@@ -956,6 +1048,7 @@ def main():
     # If true, output a zip file
     zip_mode = False
 
+    pdf_engine = None
     output_format = "html"  # Default output format
     output_file_path = ""
     port = default_port
@@ -976,6 +1069,7 @@ where options may include:
 -z|--zip  file     # zip the output directory to file
 -P|--port          # the port to use in the url. defaults to 7300
 --format           # generate a file in this format 
+--pdf_engine       # specify your own preferred pdf engine 
 
 In dev mode, the script must be run in the same folder as the script.
 """
@@ -984,11 +1078,13 @@ In dev mode, the script must be run in the same folder as the script.
 
     opts, args = getopt(
         sys.argv[1:],
-        "c:D:f:o:pst:vz:P:",
+        "c:D:f:j:J:o:pst:vz:P:",
         (
             "chart",
             "dir",
             "filter=",
+            "json=",
+            "jstop=",
             "output",
             "plot",
             "server",
@@ -997,6 +1093,7 @@ In dev mode, the script must be run in the same folder as the script.
             "zip=",
             "port=",
             "format=",
+            "pdf_engine=",
         ),
     )
 
@@ -1008,6 +1105,13 @@ In dev mode, the script must be run in the same folder as the script.
             src_dir = os.path.abspath(v)
         elif k in ["-f", "--filter"]:
             filters.append(v)
+        elif k in ["-f", "--filter"]:
+            filters.append(v)
+        elif k in ["-j", "--json"]:
+            json_file = v
+        elif k in ["-J", "--jstop"]:
+            json_file = v
+            jstop = True
         elif k in ["-o", "--output"]:
             output_file = v
         elif k in ["-p", "--plot"]:
@@ -1025,6 +1129,8 @@ In dev mode, the script must be run in the same folder as the script.
             port = int(v)
         elif k in ["--format"]:
             output_format = v
+        elif k in ["--pdf_engine"]:
+            pdf_engine = v
         elif k in ["-?", "-h", "--help"]:
             errors += 1
         else:
@@ -1097,7 +1203,7 @@ In dev mode, the script must be run in the same folder as the script.
 
     soup = parse_html(input_file, output_dir, filters, extras)
     soup = transform_html(soup)
-    code_string = process_html_charts(soup)
+    code_string, our_svg_count, other_svg_count = process_html_charts(soup)
     scripts, stylesheets = make_supporting()
     
     # Copy the generated HTML file and dependencies to a temporary directory,
@@ -1105,7 +1211,8 @@ In dev mode, the script must be run in the same folder as the script.
 
     with TemporaryDirectory(prefix="doodl", delete=zip_mode) as dir_name:
         server_dir_name = dir_name
-        copy_data(output_dir, dir_name)
+        shutil.copy2(input_file, dir_name)
+        copy_dev_data(server_dir_name)
 
         if os.path.isfile(html_file):
             shutil.copy2(html_file, dir_name)
@@ -1148,12 +1255,21 @@ In dev mode, the script must be run in the same folder as the script.
     )
 
     svg_dir = os.path.join(server_dir_name, "svg")
-    convert_images(httpd, url, svg_dir)
+    convert_images(httpd, url, svg_dir, our_svg_count, other_svg_count)
     json_doc = replace_tags_with_images(json_doc, svg_dir)
+    
+    
+    if json_file is not None:
+        with open(json_file, "w") as jfp:
+            json.dump(json_doc, jfp, indent=2)
+        if jstop:
+            return
+        
     convert_to_format(
         json_doc,
         output_format=output_format,
         output_file_path=output_file_path,
+        pdf_engine=pdf_engine,
     )
 
 
@@ -1218,6 +1334,7 @@ def copy_data(output_dir, server_dir_path):
         ignore=shutil.ignore_patterns(".?*"),
     )
 
+def copy_dev_data(server_dir_path):
     if mode == "dev":
         styles_and_scripts = DEV_SCRIPTS + DEV_STYLESHEETS
         styles_and_scripts = [path.format(dir=src_dir) for path in styles_and_scripts]
@@ -1226,14 +1343,14 @@ def copy_data(output_dir, server_dir_path):
                 filename = os.path.basename(sas)
                 file_extension = os.path.splitext(filename)[-1]
                 dest_dict = os.path.join(
-                    server_dir_path, "css" if file_extension == ".css" else "ts/dist"
+                    server_dir_path, "css" if file_extension == ".css" else "js"
                 )
                 if not os.path.isdir(dest_dict):
                     os.makedirs(dest_dict, exist_ok=True)
                 shutil.copy2(sas, dest_dict)
                 logger.info(f"Copied : {sas} to {dest_dict}")
-
-
+                
+                
 chart_count = 0
 
 def json_loads_if_string(value, force=False):
@@ -1347,7 +1464,7 @@ def handle_chart_field_arguments(
         return []
 
     if all_fields["data"] is not None:
-        column_mapping = {}
+        column_mapping = {}   
 
         if data_spec.get("type", "") in ["table", "venn"]:
             columns = data_spec.get("columns", [])
@@ -1381,6 +1498,25 @@ def handle_chart_field_arguments(
     return [ json.dumps(a) for a in args ]
 
 
+
+def setdevmode(enable: bool = True, *, timeout: float = 2.0):
+    global mode
+    if not enable:
+        mode = "prod"
+
+    try:
+        response = requests.get(DEV_SCRIPT_URL, timeout=timeout)
+        response.raise_for_status()
+    except requests.exceptions.RequestException:
+        logger.fatal(
+            f"Dev mode requested but dev script is unreachable at {DEV_SCRIPT_URL}.\n"
+            f"Start the dev server in web/js folder with:\n"
+            f"  python3 -m http.server 9191"
+        )
+
+    mode = "dev"
+    
+    
 def chart(chart_name, fields=None, data=None):
     def wrapper(
          **kwargs
@@ -1410,8 +1546,8 @@ def chart(chart_name, fields=None, data=None):
             module_name = defn.module_name
             func_name = defn.function
         else:
-            module_source = PROD_SCRIPTS[0]
-            module_name = "Doodl"
+            module_source = PROD_SCRIPTS[0] if mode == "prod" else DEV_SCRIPT_URL
+            module_name = "doodl"
             func_name = chart_name
 
         script = f'''
@@ -1419,6 +1555,7 @@ def chart(chart_name, fields=None, data=None):
 <script src="{module_source}"></script>
 {stylesheets}
 <script type="text/javascript">
+            var doodl = new Doodl.Doodl('');
             {module_name}.{func_name}({
             """,
                 """.join(args)

@@ -91,7 +91,8 @@ doodl.piechart(
 <span class="doodl-chart" id="piechart_0"></span>
 
 <script>
-  Doodl.piechart(
+  var doodl = new Doodl.Doodl('');
+  doodl.piechart(
     '#piechart_0',
     [
       { "label": "Apples", "value": 10 },
@@ -121,7 +122,8 @@ set to `true`:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    Doodl.piechart(
+    var doodl = new Doodl.Doodl('');
+  doodl.piechart(
       '#piechart_0',
       [
         { "label": "Apples", "value": 10 },
@@ -135,7 +137,8 @@ set to `true`:
           '#DEBB9B', '#FAB0E4', '#CFCFCF', '#FFFEA3', '#B9F2F0'
       ]
     );
-    Doodl.piechart(
+    var doodl = new Doodl.Doodl('');
+  doodl.piechart(
       '#piechart_1',
       [
         { "label": "Apples", "value": 10 },

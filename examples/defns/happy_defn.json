@@ -1,0 +1,13 @@
+{
+    "options": {
+        "vertical": 0
+    },
+    "data": {
+            "type": "table",
+            "columns": ["label", "value"]
+        },
+    "tag": "happy",
+    "function": "happy",
+    "module_name": "HappyModule",
+    "module_source": "https://cdn.jsdelivr.net/gh/hypericum-ai/doodl@development/web/js/happy.js"
+}

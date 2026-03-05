@@ -1,4 +1,298 @@
 
+### A Polar chart 
+
+
+<polar
+  data='[
+  { "label": "Q1", "category": "A", "value": 10 },
+  { "label": "Q2", "category": "A", "value": 12 },
+  { "label": "Q3", "category": "A", "value": 16 },
+  { "label": "Q1", "category": "B", "value": 20 },
+  { "label": "Q2", "category": "B", "value": 24 },
+  { "label": "Q3", "category": "B", "value": 28 },
+  { "label": "Q1", "category": "C", "value": 12 },
+  { "label": "Q2", "category": "C", "value": 15 },
+  { "label": "Q3", "category": "C", "value": 21 }
+]'
+  width=900
+  height=900
+  colors='deep'
+>
+</polar>
+
+
+
+### A curved area radial_areachart 
+
+
+<radial_areachart
+  data='[
+  { "x": 0, "y": 101 },
+  { "x": 1.5, "y": 201 },
+  { "x": 2.4, "y": 151 },
+  { "x": 3.6, "y": 251 },
+  { "x": 4, "y": 301 },
+  { "x": 5, "y": 351 },
+  { "x": 6, "y": 275 },
+  { "x": 7.2, "y": 180 },
+  { "x": 8, "y": 220 },
+  { "x": 9, "y": 260 },
+  { "x": 10, "y": 300 },
+  { "x": 11, "y": 210 },
+  { "x": 12, "y": 223 },
+  { "x": 13, "y": 110 },
+  { "x": 14, "y": 195 },
+  { "x": 15, "y": 20 },
+  { "x": 16, "y": 0 },
+  { "x": 17, "y": -30 }
+]'
+  width=500
+  height=400
+  colors='deep'
+  curved='true'
+>
+</radial_areachart>
+
+
+
+
+### A NON-curved area radial_areachart 
+
+
+<radial_areachart
+  data='[
+  { "x": 0, "y": 101 },
+  { "x": 1, "y": 201 },
+  { "x": 2, "y": 151 },
+  { "x": 3, "y": 251 },
+  { "x": 4, "y": 301 },
+  { "x": 5, "y": 351 },
+  { "x": 6, "y": 275 },
+  { "x": 7, "y": 180 },
+  { "x": 8, "y": 220 },
+  { "x": 9, "y": 260 },
+  { "x": 10, "y": 300 },
+  { "x": 11, "y": 210 }
+]'
+  width=500
+  height=400
+  colors='deep'
+>
+</radial_areachart>
+
+
+
+### A Line chart from data file format
+
+
+<linechart
+  path="data/xy2.csv"
+  width=900
+  height=900
+  colors='deep'
+  x='Age'
+  y='Count'
+>
+</linechart>
+
+
+
+
+
+
+
+### A Line chart from data file format
+
+
+<linechart
+  path="data/xy.csv"
+  width=900
+  height=900
+  colors='deep'
+>
+</linechart>
+
+
+
+
+### A Custom Chart called Happy chart
+
+
+<happy
+data='[
+  { "label": "Apples", "value": 10 },
+  { "label": "Bananas", "value": 20 },
+  { "label": "Cherries", "value": 15 },
+  { "label": "Grapes", "value": 25 }
+]'
+  width=500
+  height=500
+  colors='pastel'
+>
+</happy>
+
+
+
+### A HORIZONTAL radial_areachart 
+
+
+<radial_areachart
+  data='[
+  { "x": 0, "y": 101 },
+  { "x": 1, "y": 201 },
+  { "x": 2, "y": 151 },
+  { "x": 3, "y": 251 },
+  { "x": 4, "y": 301 },
+  { "x": 5, "y": 351 },
+  { "x": 6, "y": 275 },
+  { "x": 7, "y": 180 },
+  { "x": 8, "y": 220 },
+  { "x": 9, "y": 260 },
+  { "x": 10, "y": 300 },
+  { "x": 11, "y": 210 }
+]'
+  width=500
+  height=400
+  colors='deep'
+>
+</radial_areachart>
+
+
+
+### A multi_linechart 
+
+
+<multi_linechart
+data='[
+  { "label": "A", "x": 1, "y": 10 },
+  { "label": "A", "x": 2, "y": 14 },
+  { "label": "A", "x": 3, "y": 18 },
+  { "label": "A", "x": 4, "y": 22 },
+  { "label": "A", "x": 5, "y": 28 },
+  { "label": "A", "x": 6, "y": 32 },
+  { "label": "A", "x": 7, "y": 35 },
+  { "label": "A", "x": 8, "y": 38 },
+  { "label": "A", "x": 9, "y": 40 },
+  { "label": "A", "x": 10, "y": 43 },
+  { "label": "A", "x": 11, "y": 45 },
+  { "label": "A", "x": 12, "y": 48 },
+
+  { "label": "B", "x": 1, "y": 8 },
+  { "label": "B", "x": 2, "y": 12 },
+  { "label": "B", "x": 3, "y": 16 },
+  { "label": "B", "x": 4, "y": 20 },
+  { "label": "B", "x": 5, "y": 25 },
+  { "label": "B", "x": 6, "y": 30 },
+  { "label": "B", "x": 7, "y": 34 },
+  { "label": "B", "x": 8, "y": 37 },
+  { "label": "B", "x": 9, "y": 39 },
+  { "label": "B", "x": 10, "y": 42 },
+  { "label": "B", "x": 11, "y": 44 },
+  { "label": "B", "x": 12, "y": 47 },
+
+  { "label": "C", "x": 1, "y": 5 },
+  { "label": "C", "x": 2, "y": 9 },
+  { "label": "C", "x": 3, "y": 12 },
+  { "label": "C", "x": 4, "y": 16 },
+  { "label": "C", "x": 5, "y": 20 },
+  { "label": "C", "x": 6, "y": 23 },
+  { "label": "C", "x": 7, "y": 26 },
+  { "label": "C", "x": 8, "y": 28 },
+  { "label": "C", "x": 9, "y": 30 },
+  { "label": "C", "x": 10, "y": 33 },
+  { "label": "C", "x": 11, "y": 35 },
+  { "label": "C", "x": 12, "y": 37 },
+
+  { "label": "D", "x": 1, "y": 15 },
+  { "label": "D", "x": 2, "y": 18 },
+  { "label": "D", "x": 3, "y": 20 },
+  { "label": "D", "x": 4, "y": 24 },
+  { "label": "D", "x": 5, "y": 27 },
+  { "label": "D", "x": 6, "y": 29 },
+  { "label": "D", "x": 7, "y": 33 },
+  { "label": "D", "x": 8, "y": 36 },
+  { "label": "D", "x": 9, "y": 38 },
+  { "label": "D", "x": 10, "y": 41 },
+  { "label": "D", "x": 11, "y": 43 },
+  { "label": "D", "x": 12, "y": 46 }
+]'
+  width=500
+  height=500
+  colors='deep'
+  curved='true'
+  show_legend='true'
+>
+</multi_linechart>
+
+
+### A HORIZONTAL grouped_barchart 
+
+
+<grouped_barchart
+  data='[
+  { "group": "North", "label": "Q1", "value": 22 },
+  { "group": "North", "label": "Q2", "value": 35 },
+  { "group": "North", "label": "Q3", "value": 40 },
+  { "group": "North", "label": "Q4", "value": 28 },
+  { "group": "South", "label": "Q1", "value": 18 },
+  { "group": "South", "label": "Q2", "value": 30 },
+  { "group": "South", "label": "Q3", "value": 26 },
+  { "group": "South", "label": "Q4", "value": 32 },
+  { "group": "East", "label": "Q1", "value": 25 },
+  { "group": "East", "label": "Q2", "value": 28 },
+  { "group": "East", "label": "Q3", "value": 33 },
+  { "group": "East", "label": "Q4", "value": 29 },
+  { "group": "West", "label": "Q1", "value": 20 },
+  { "group": "West", "label": "Q2", "value": 24 },
+  { "group": "West", "label": "Q3", "value": 32 },
+  { "group": "West", "label": "Q4", "value": 27 }
+]'
+  width=1200
+  height=1000
+  colors='deep'
+  x_label_angle=90
+  show_legend='true'
+  horizontal='true'
+>
+</grouped_barchart>
+
+
+
+
+### A VERTICAL grouped_barchart
+
+
+<grouped_barchart
+  data='[
+  { "group": "North", "label": "Q1", "value": 22 },
+  { "group": "North", "label": "Q2", "value": 35 },
+  { "group": "North", "label": "Q3", "value": 40 },
+  { "group": "North", "label": "Q4", "value": 28 },
+  { "group": "South", "label": "Q1", "value": 18 },
+  { "group": "South", "label": "Q2", "value": 30 },
+  { "group": "South", "label": "Q3", "value": 26 },
+  { "group": "South", "label": "Q4", "value": 32 },
+  { "group": "East", "label": "Q1", "value": 25 },
+  { "group": "East", "label": "Q2", "value": 28 },
+  { "group": "East", "label": "Q3", "value": 33 },
+  { "group": "East", "label": "Q4", "value": 29 },
+  { "group": "West", "label": "Q1", "value": 20 },
+  { "group": "West", "label": "Q2", "value": 24 },
+  { "group": "West", "label": "Q3", "value": 32 },
+  { "group": "West", "label": "Q4", "value": 27 }
+]'
+  width=1200
+  height=1000
+  colors='deep'
+  x_label_angle=90
+  show_legend='true'
+>
+</grouped_barchart>
+
+
+
+
+
 
 
 ### A Pie Grid from data file format
@@ -18,7 +312,7 @@
 
 
 
-### A HORIZONTAL stacked barchart 
+## A HORIZONTAL stacked barchart 
 
 
 <stacked_barchart
@@ -65,8 +359,6 @@
   horizontal='true'
 >
 </stacked_areachart>
-
-
 
 
 
@@ -149,9 +441,9 @@ data='
   {"sets": ["A"], "size": 10}, 
     {"sets": ["B"], "size": 15},
     {"sets": ["C"], "size": 20},
-    {"sets": ["A","B"], "size": 5}
-    {"sets": ["A","C"], "size": 3}
-    {"sets": ["B","C"], "size": 4}
+    {"sets": ["A","B"], "size": 5},
+    {"sets": ["A","C"], "size": 3},
+    {"sets": ["B","C"], "size": 4},
     {"sets": ["A","B","C"], "size": 2}
   ]
 '

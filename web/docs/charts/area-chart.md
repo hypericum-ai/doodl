@@ -94,7 +94,8 @@ doodl.areachart(
 <span class="doodl-chart" id="areachart_0"></span>
 
 <script>
-  Doodl.areachart('#areachart_0',
+  var doodl = new Doodl.Doodl('');
+  doodl.areachart('#areachart_0',
     [
       { "x": 1, "y": 10 }, 
       { "x": 2, "y": 20 },
@@ -163,7 +164,8 @@ doodl.areachart(
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-    Doodl.areachart('#areachart_0',
+    var doodl = new Doodl.Doodl('');
+  doodl.areachart('#areachart_0',
       [
         { "x": 1, "y": 10 }, 
         { "x": 2, "y": 20 },
@@ -180,7 +182,8 @@ doodl.areachart(
       ]
     );
 
-    Doodl.areachart('#areachart_1',
+    var doodl = new Doodl.Doodl('');
+  doodl.areachart('#areachart_1',
       [
         {'x': 1, 'y': 36},
         {'x': 2, 'y': 25},

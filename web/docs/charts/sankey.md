@@ -98,7 +98,8 @@ doodl.skey(
 ```html
 <span  class="doodl-chart" id="skey_0"></span>
 <script>
-  Doodl.skey(
+  var doodl = new Doodl.Doodl('');
+  doodl.skey(
     '#skey_0',
     {},
     {
@@ -136,7 +137,8 @@ the links:
 <script>
  setTimeout(() => {
   Promise.resolve().then(() => {
-  Doodl.skey(
+  var doodl = new Doodl.Doodl('');
+  doodl.skey(
     '#skey_0',
     {
         "nodes": [
@@ -190,7 +192,8 @@ the links:
     },{},
     ['#F67088', '#F77732', '#CE8F31', '#B29B31', '#96A331', '#6BAC31', '#32B165', '#34AE8D', '#35ACA4', '#37AAB7', '#38A7D0', '#5A9EF4', '#A38CF4', '#D673F4', '#F461DD', '#F56AB4'],
     "target","right");
-  Doodl.skey(
+  var doodl = new Doodl.Doodl('');
+  doodl.skey(
     '#skey_1',
     {
         "nodes": [

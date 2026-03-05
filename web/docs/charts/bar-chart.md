@@ -88,7 +88,8 @@ doodl.barchart(
 <span class="doodl-chart" id='barchart_0'></span>
 
 <script>
-  Doodl.barchart(
+  var doodl = new Doodl.Doodl('');
+  doodl.barchart(
     '#barchart_0',
     [
       {'label': 'Apples', 'value': 10},
@@ -116,8 +117,9 @@ the bar.
 
 <script>
  setTimeout(() => {
-  Promise.resolve().then(() => 
-  Doodl.barchart(
+  Promise.resolve().then(() => {
+  var doodl = new Doodl.Doodl('');
+  doodl.barchart(
     '#barchart_0',
     [
       {'label': 'Apples', 'value': 10},
@@ -128,6 +130,7 @@ the bar.
       'width': 500,
       'height': 350
     },{},["DarkOrange"]
-  ));
+  );
+  });
 }, 1000);
 </script>
