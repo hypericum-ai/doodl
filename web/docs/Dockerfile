@@ -39,11 +39,16 @@ RUN mkdir -p /usr/share/nginx/html/images
 
 COPY --from=build /srv/www/doodl/web/css /usr/share/nginx/html/assets/doodl/css
 
-RUN git clone https://github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
-
-COPY --from=build /srv/www/doodl/web/js /usr/share/nginx/html/assets/doodl/js
-
 COPY --from=build /srv/www/doodl/web/docs/images /usr/share/nginx/html/images
 
+RUN git clone https://github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
+
+RUN cd /srv/www/doodl-charts && git checkout $BRANCH
+
+WORKDIR /srv/www/doodl-charts/lib
+
+RUN make force
+
+COPY --from=build /srv/www/doodl-charts/dist /usr/share/nginx/html/assets/doodl/js
 
 EXPOSE 80
