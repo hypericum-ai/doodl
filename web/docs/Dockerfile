@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
 
 
 ARG BRANCH="main"
+ARG TOKEN
 
 RUN git clone https://github.com/hypericum-ai/doodl /srv/www/doodl
 
@@ -41,7 +42,7 @@ COPY --from=build /srv/www/doodl/web/css /usr/share/nginx/html/assets/doodl/css
 
 COPY --from=build /srv/www/doodl/web/docs/images /usr/share/nginx/html/images
 
-RUN git clone https://github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
+RUN git clone https://${TOKEN}@github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
 
 RUN cd /srv/www/doodl-charts && git checkout $BRANCH
 
