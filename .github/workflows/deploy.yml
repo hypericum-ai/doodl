@@ -32,7 +32,7 @@ jobs:
         run: echo "sha=$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build and push
-        run: cd web/docs && docker buildx build --build-arg TOKEN=${{ secrets.CI_USER_GH_TOKEN }} --build-arg BRANCH=${{ github.ref_name }} -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} --push .
+        run: docker buildx build --build-arg TOKEN=${{ secrets.CI_USER_GH_TOKEN }} --build-arg BRANCH=${{ github.ref_name }} -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} --push ./web/docs
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
