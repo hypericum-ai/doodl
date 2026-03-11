@@ -34,9 +34,13 @@ jobs:
       - name: Build and push
         run: |
           cd web/docs
-          docker build --build-arg TOKEN=${{ secrets.CI_USER_GH_TOKEN }} --build-arg BRANCH=${{ github.ref_name }} -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} .
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
+          docker buildx build \
+            --build-arg TOKEN=${{ secrets.CI_USER_GH_TOKEN }} \
+            --build-arg BRANCH=${{ github.ref_name }} \
+            -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+            -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }} \
+            --push \
+            .
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
