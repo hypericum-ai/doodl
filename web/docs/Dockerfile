@@ -46,11 +46,7 @@ RUN git clone https://${TOKEN}@github.com/hypericum-ai/doodl-charts /srv/www/doo
 
 RUN cd /srv/www/doodl-charts && git checkout $BRANCH
 
-WORKDIR /srv/www/doodl-charts/lib
-
-RUN make force
-
-RUN ls -l /srv/www/doodl-charts
+RUN cd /srv/www/doodl-charts/lib && make force
 
 COPY --from=build /srv/www/doodl-charts/dist /usr/share/nginx/html/assets/doodl/js
 
