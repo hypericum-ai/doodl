@@ -26,6 +26,11 @@ RUN npm install
 
 RUN npm run docs:build || true
 
+# Clone and build doodl-charts in the build stage (node is required to run rollup)
+RUN git clone https://${TOKEN}@github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
+RUN cd /srv/www/doodl-charts && git checkout $BRANCH && npm install
+RUN cd /srv/www/doodl-charts/lib && make
+
 FROM nginx:stable-perl
 
 
@@ -41,12 +46,6 @@ RUN mkdir -p /usr/share/nginx/html/images
 COPY --from=build /srv/www/doodl/web/css /usr/share/nginx/html/assets/doodl/css
 
 COPY --from=build /srv/www/doodl/web/docs/images /usr/share/nginx/html/images
-
-RUN git clone https://${TOKEN}@github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
-
-RUN cd /srv/www/doodl-charts && git checkout $BRANCH
-
-RUN cd /srv/www/doodl-charts/lib && make force
 
 COPY --from=build /srv/www/doodl-charts/dist /usr/share/nginx/html/assets/doodl/js
 
