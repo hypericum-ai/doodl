@@ -50,6 +50,8 @@ WORKDIR /srv/www/doodl-charts/lib
 
 RUN make force
 
+RUN ls -l /srv/www/doodl-charts
+
 COPY --from=build /srv/www/doodl-charts/dist /usr/share/nginx/html/assets/doodl/js
 
 EXPOSE 80
