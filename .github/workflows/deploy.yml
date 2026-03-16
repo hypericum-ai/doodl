@@ -33,9 +33,12 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v5
+        env:
+          BUILDX_NO_DEFAULT_ATTESTATIONS: 1
         with:
           context: ./web/docs
           push: true
+      
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.sha.outputs.sha }}
