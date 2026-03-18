@@ -20,16 +20,28 @@ hero:
     alt: Doodl
 
 features:
-  - icon: 📝
+  - icon: 
+      src: /icons/interactive.svg
+      width: 48
+      height: 48
     title: Interactive visualizations
     details: Make interactive analytics-based HTML documents straight from Markdown with D3-based charts
-  - icon: ℹ️
+  - icon:
+      src: /icons/pdf.svg
+      width: 48
+      height: 48
     title: Attractive PDFs
     details: Generate attractive PDFs and other documents with embedded visualizations
-  - icon: 🔥
+  - icon:
+      src: /icons/jupyter.svg
+      width: 48
+      height: 48
     title: Jupyter notebooks
     details: Include graphics with interaction and drill-down in Jupyter (and other) notebooks
-  - icon: 🚀
+  - icon:
+      src: /icons/javascript.svg
+      width: 48
+      height: 48
     title: Custom graphics
     details: Use sophisticated charts written in Typescript or Javascript seamlessly
 ---

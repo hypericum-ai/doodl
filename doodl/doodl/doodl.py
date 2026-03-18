@@ -237,7 +237,8 @@ STANDARD_CHARTS = {
         },
         "data": {
             "type": "table",
-            "columns": ["x", "y"]
+            "columns": ["x", "y"],
+            "validators": {"x": isNumber, "y": isNumber}
         }
     },
     "multi_linechart": {
