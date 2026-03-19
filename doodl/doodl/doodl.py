@@ -125,7 +125,7 @@ STANDARD_CHARTS = {
         "data": {
             "type": "table",
             "columns": ["x", "y"],
-            "include_all": True
+            # "include_all": True
         }
     },
     "barchart": {

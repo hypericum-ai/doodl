@@ -1,3 +1,4 @@
+
 import logging
 from pprint import pformat
 
@@ -46,6 +47,19 @@ def _convert_pandas(
         data = data.rename(
             columns={v: k for k, v in column_mapping.items()}
         )
+
+    # The idea here is that for multiple series in a data dict,
+    # we can either indicate it like:
+    #
+    # x, category, value
+    #
+    # or
+    #
+    # x cat1 cat2 cat2
+    #
+    # where the value for (x, cat1) is located in the cell for
+    # the respective row and column. We're not currently using
+    # this feature, but we'll leave the code in place.
 
     if not spec.get("include_all", False):
         data = data[target_columns]
