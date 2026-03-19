@@ -201,7 +201,7 @@ STANDARD_CHARTS = {
         "data": {
             "type": "table",
             "columns": ["x", "y"],
-            "include_all": True #come back when we are smarter
+            # "include_all": True
         }
     },
     "barchart": {
