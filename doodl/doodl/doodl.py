@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from datetime import datetime
 import io
 
 import colorcet as cc
@@ -28,7 +29,82 @@ from playwright.sync_api import sync_playwright
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 from time import sleep
 from IPython.display import display, HTML
+
 from urllib.parse import urlparse
+
+
+
+def isNumber(values):
+    try:
+        for v in values:
+            if v is None:
+                return False
+            if isinstance(v, str):
+                v = float(v)
+            elif not isinstance(v, (int, float)):
+                return False
+        return True
+    except (ValueError, TypeError):
+        return False
+
+
+def isNumberOrDate(values):
+
+    try:
+        for v in values:
+            if v is None:
+                return False
+            if isinstance(v, (int, float)):
+                continue
+
+            if isinstance(v, str):
+                
+                try:
+                    float(v)
+                    continue
+                except ValueError:
+                    pass
+
+                
+                if is_date(v):
+                    continue
+
+            return False
+
+        return True
+
+    except (ValueError, TypeError):
+        return False
+
+
+def is_date(v):
+    if not isinstance(v, str):
+        return False
+    for fmt in ("%Y-%m-%d", "%d-%m-%Y", "%m/%d/%Y", "%Y/%m/%d"):
+        try:
+            datetime.strptime(v, fmt)
+            return True
+        except ValueError:
+            continue
+    return False
+
+def isDate(values):
+    try:
+        for v in values:
+            if v is None:
+                return False
+
+            if isinstance(v, str) and is_date(v):
+                continue
+
+            return False
+
+        return True
+
+    except (ValueError, TypeError):
+        return False
+
+
 
 # Global constants
 
@@ -125,7 +201,7 @@ STANDARD_CHARTS = {
         "data": {
             "type": "table",
             "columns": ["x", "y"],
-            "include_all": True
+            "include_all": True #come back when we are smarter
         }
     },
     "barchart": {
