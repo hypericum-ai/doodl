@@ -28,7 +28,8 @@ RUN npm run docs:build || true
 
 # Clone and build doodl-charts in the build stage (node is required to run rollup)
 RUN git clone -b fix_rollup_config https://${TOKEN}@github.com/hypericum-ai/doodl-charts /srv/www/doodl-charts
-RUN cd /srv/www/doodl-charts && git checkout $BRANCH && npm install
+#RUN cd /srv/www/doodl-charts && git checkout $BRANCH && npm install
+RUN cd /srv/www/doodl-charts && npm install
 RUN cd /srv/www/doodl-charts/lib && make
 
 FROM nginx:stable-perl
