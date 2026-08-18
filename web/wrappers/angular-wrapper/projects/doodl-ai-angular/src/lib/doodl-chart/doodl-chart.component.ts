@@ -1,59 +1,88 @@
-import { AfterViewInit, Component, PLATFORM_ID, Inject, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  input,
+  PLATFORM_ID,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ColorService } from './color.service';
+import { renderDoodlChart } from './doodl-runtime';
+import { DEFAULT_CHART_SIZE, DEFAULT_PALETTE } from './types';
+import type { ChartOptions, ChartSize, PaletteConfig } from './types';
 
-declare var Doodl: any;
+let nextChartId = 0;
 
 @Component({
   selector: 'doodl-chart',
   standalone: true,
   templateUrl: './doodl-chart.component.html',
   styleUrl: './doodl-chart.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { ngSkipHydration: '' },
 })
 export class DoodlChartComponent implements AfterViewInit {
-  @Input() chartType: string = '';
-  @Input() size: { width: number; height: number } = { width: 500, height: 500 };
-  @Input() data: any = [];
-  @Input() options: any = {};
-  @Input() colors: string[] = [];
-  @Input() palette = {
-    colors: '',
-    n_colors: 10,
-    desat: 1,
-  };
+  readonly chartType = input('');
+  readonly size = input<ChartSize>(DEFAULT_CHART_SIZE);
+  readonly data = input<unknown>([]);
+  readonly options = input<ChartOptions>({});
+  readonly colors = input<string[]>([]);
+  readonly palette = input<PaletteConfig>(DEFAULT_PALETTE);
 
-  spanId: string = 'doodl-chart-span';
-  readonly fileObj = {};
+  protected readonly spanId = `doodl-chart-${++nextChartId}`;
+  private readonly fileObj: Record<string, unknown> = {};
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private colorService: ColorService
-  ) {}
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly colorService = inject(ColorService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  ngAfterViewInit() {
-    // Only run in browser, not during SSR
-    if (isPlatformBrowser(this.platformId)) {
-      if (this.colors.length === 0 && this.palette.colors !== '') {
-        this.colorService
-          .getColors(this.palette.colors, this.palette.n_colors, this.palette.desat)
-          .subscribe({
-            next: (res: any) => {
-              console.log('Palette response:', res);
-              this.colors = res.colors;
-            },
-            error: (err) => console.error('Error fetching palette:', err),
-          });
+  async ngAfterViewInit(): Promise<void> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const abortController = new AbortController();
+    this.destroyRef.onDestroy(() => abortController.abort());
+
+    try {
+      const colors = await this.resolveColors();
+      if (abortController.signal.aborted) {
+        return;
       }
-
-      Doodl[this.chartType](
-        `#${this.spanId}`,
-        this.data,
-        this.size,
+      renderDoodlChart(
+        this.spanId,
+        this.chartType(),
+        this.data(),
+        this.size(),
+        colors,
+        this.options(),
         this.fileObj,
-        this.colors,
-        ...Object.values(this.options)
       );
+    } catch (error) {
+      if (abortController.signal.aborted) {
+        return;
+      }
+      console.error('Failed to render doodl chart:', error);
+    }
+  }
+
+  private async resolveColors(): Promise<string[]> {
+    const colors = this.colors();
+    const palette = this.palette();
+
+    if (colors.length > 0 || !palette.colors) {
+      return colors;
+    }
+
+    try {
+      return await this.colorService.getColors(palette.colors, palette.n_colors, palette.desat);
+    } catch (error) {
+      console.error('Error fetching palette:', error);
+      return colors;
     }
   }
 }
+
+export { DoodlChartComponent as DoodlChart };

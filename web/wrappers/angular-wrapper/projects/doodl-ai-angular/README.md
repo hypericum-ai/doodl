@@ -1,27 +1,32 @@
-# Doodl Ai Angular Wrapper
+# Doodl AI Angular Wrapper
 
-This project is an angular wrapper to use doodl-ai charts inside an angular project.
-For detailed information and documentation check the official website [doodl.ai](https://doodl.ai/)
+Use [doodl.ai](https://doodl.ai/) charts inside an Angular application.
 
+## Setup
 
+Load the doodl runtime in `index.html` (or another global entry point):
 
-Example angular typescript component
+```html
+<link rel="stylesheet" href="https://doodl.ai/assets/doodl/css/doodl.css" />
+<script src="https://doodl.ai/assets/doodl/js/doodlchart.min.js"></script>
+```
+
+Then import the standalone component:
 
 ```ts
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DoodlChart } from 'doodl-ai-angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, DoodlChart],
+  imports: [DoodlChart],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  size: { width: number; height: number } = { width: 500, height: 500 };
-  colors: string[] = [
+  size = { width: 500, height: 500 };
+  colors = [
     '#A1C9F4',
     '#FFB482',
     '#8DE5A1',
@@ -34,7 +39,7 @@ export class App {
     '#B9F2F0',
   ];
 
-  demo_charts = [
+  demoCharts = [
     {
       chartType: 'piechart',
       data: [
@@ -49,37 +54,6 @@ export class App {
         show_percentages: true,
       },
     },
-
-
-    {
-      chartType: 'piechart',
-      data: [
-        { label: 'Apples', value: 10 },
-        { label: 'Bananas', value: 20 },
-        { label: 'Cherries', value: 15 },
-        { label: 'Grapes', value: 25 },
-      ],
-      options: {
-        donut: true,
-        continuous_rotation: false,
-        show_percentages: false,
-      },
-    },
-    {
-      chartType: 'piechart',
-      data: [
-        { label: 'Apples', value: 10 },
-        { label: 'Bananas', value: 20 },
-        { label: 'Cherries', value: 15 },
-        { label: 'Grapes', value: 25 },
-      ],
-      options: {
-        donut: false,
-        continuous_rotation: true,
-        show_percentages: false,
-      },
-    },
-
     {
       chartType: 'barchart',
       data: [
@@ -94,34 +68,13 @@ export class App {
         x_label_angle: 90,
       },
     },
-
-
-    {
-      chartType: 'barchart',
-      data: [
-        { label: 'Apples', value: 10 },
-        { label: 'Bananas', value: 20 },
-        { label: 'Cherries', value: 15 },
-        { label: 'Grapes', value: 25 },
-      ],
-      options: {
-        horizontal: true,
-        moving_average: false,
-        x_label_angle: 90,
-      },
-    }
   ];
 }
 ```
 
-
-and the example template would look something like this 
-
-
-```ts
-
+```html
 <div class="app-container">
-  @for (chart of demo_charts; track $index) {
+  @for (chart of demoCharts; track $index) {
     <doodl-chart
       [chartType]="chart.chartType"
       [size]="size"
@@ -131,5 +84,8 @@ and the example template would look something like this
     ></doodl-chart>
   }
 </div>
-
 ```
+
+`options` values are passed to the doodl chart function in object-key order, matching the extra arguments documented for each chart type.
+
+If you omit `colors` and set `palette.colors` to a seaborn palette name (for example `'pastel'`), the wrapper will fetch that palette before rendering.

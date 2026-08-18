@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:lib": "ng build doodl-ai-angular --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:doodl-angular": "node dist/doodl-angular/server/server.mjs"
@@ -21,7 +22,7 @@
       }
     ]
   },
-  "private": false,
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/hypericum-ai/doodl"

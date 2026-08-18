@@ -67,7 +67,15 @@ def _convert_pandas(
     return data
 
 def _interpret_table_data(data, spec, column_mapping):
+    
+    def _error(msg):
+        logger.error(msg)
+        raise ValueError(msg)
+    
+    if data is None:
+        _error("Data cannot be None for table data type")
     df = None
+    validators = spec.get("validators", {})
 
     if imports["pd"] and isinstance(data, imports["pd"].DataFrame):
         df = _convert_pandas(data, spec, column_mapping)
@@ -86,16 +94,37 @@ def _interpret_table_data(data, spec, column_mapping):
     elif column_mapping and (isinstance(data, list) or isinstance(data, dict)):
         data_pd = imports["pd"].DataFrame.from_records(data)
         df = _convert_pandas(data_pd, spec, column_mapping)
-    elif isinstance(data, list) or isinstance(data, dict):
-        return data
 
     logger.info(f'Constructed data frame: {df}')
 
     if df is not None:
+        if df.empty:
+            _error("Data cannot be empty.")
+        if validators:
+            for column, validator in validators.items():
+                if column not in df.columns:
+                    _error(f"Validator specified for column '{column}' which is not in the data.")
+                if not df[column].apply(validator).all():
+                    _error(f"Validation failed for column '{column}'.")
         logger.info('Making dict')
         return df.to_dict(orient="records")
+    elif isinstance(data, list) or isinstance(data, dict):
+        if validators:
+            for column, validator in validators.items():
+                if isinstance(data, list):
+                    for row in data:
+                        if column not in row:
+                            _error(f"Validator specified for column '{column}' which is not in the data.")
+                        if not validator(row[column]):
+                            _error(f"Validation failed for column '{column}'.")
+                elif isinstance(data, dict):
+                    if column not in data:
+                        _error (f"Validator specified for column '{column}' which is not in the data.")
+                    if not validator(data[column]):
+                        _error(f"Validation failed for column '{column}'.")
+        return data
 
-    raise ValueError(f"Unsupported data format for table data type : {type(data)}")
+    _error(f"Unsupported data format for table data type : {type(data)}")
 
 def _interpret_hierarchy_data(data, spec):
     return data
